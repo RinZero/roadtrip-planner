@@ -1,8 +1,8 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { DisplayMapClass } from "./DisplayMapClass";
-import { DisplayMapFC } from "./DisplayMapFC";
+import { DisplayMapClass } from "./utils/DisplayMapClass";
+import { DisplayMapFC } from "./utils/DisplayMapFC";
 
 function App() {
   return (

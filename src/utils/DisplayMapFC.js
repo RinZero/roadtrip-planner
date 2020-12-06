@@ -18,8 +18,8 @@ export const DisplayMapFC = () => {
     });
     const defaultLayers = platform.createDefaultLayers();
     const hMap = new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
-      center: { lat: 50, lng: 5 },
-      zoom: 4,
+      center: { lat: 47.79941, lng: 13.04399 },
+      zoom: 12,
       pixelRatio: window.devicePixelRatio || 1,
     });
 

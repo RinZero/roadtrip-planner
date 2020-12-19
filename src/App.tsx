@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { DisplayMapClass } from "./utils/DisplayMapClass";
 import { DisplayMapFC } from "./utils/DisplayMapFC";
+import MainPage from "./containers/MainPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <MainPage />
       <DisplayMapFC />
     </div>
   );

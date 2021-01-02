@@ -5,38 +5,37 @@ import EditIcon from "@material-ui/icons/Edit";
 // Styles hinzufügen Art 1
 const useStyles = makeStyles((theme: Theme) => ({
   profileBox: {
-    margin: "50px auto",
+    marginTop: theme.spacing(7),
+    marginBottom: theme.spacing(7),
   },
   profileH3: {
     fontSize: "30px",
-    margin: "20px 0 5px",
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(0.5),
   },
   profilePicture: {
-    width: 291,
-    height: 291,
+    width: theme.spacing(36),
+    height: theme.spacing(36),
     display: "block",
     margin: "0 auto",
   },
   infoButton: {
     background: "white",
-    border: 0,
-    borderRadius: 15,
     textTransform: "none",
     boxShadow: "0px 3px 6px 0px #B1B1B1",
     color: "#B1B1B1",
     fontSize: "20px",
-    height: 40,
-    width: 87,
-    margin: "0 3px",
+    height: theme.spacing(5),
+    width: theme.spacing(10),
+    marginRight: theme.spacing(0.5),
   },
   editButton: {
-    borderRadius: "15px",
     background: "#71B255",
     boxShadow: "0px 3px 6px 0px #B1B1B1",
     color: "white",
-    height: 40,
-    minWidth: 40,
-    margin: "0 3px",
+    height: theme.spacing(5),
+    minWidth: theme.spacing(5),
+    marginLeft: theme.spacing(0.5),
   },
 }));
 

@@ -5,18 +5,17 @@ import {
   CardActionArea,
   CardMedia,
   CardContent,
+  Box,
   IconButton,
   Typography,
-  Grid,
 } from "@material-ui/core";
 import styled from "styled-components";
 
 const RouteButton = styled(Button)`
   color: #b1b1b1;
-  padding: 10px 15px;
   border-radius: 15px;
   background-color: white;
-  border: solid #b1b1b1 2px;
+  border: solid #b1b1b1 2px !important;
   box-shadow: 1px 1px 1px 0.5px rgba(0, 0, 0, 0.2);
 `;
 
@@ -24,7 +23,7 @@ const MyRoadtripCard = styled(Card)`
   max-width: 548px;
   padding: 25px;
   margin: 0 50px 50px 0;
-  border-radius: 15px;
+  border-radius: 15px !important;
 `;
 
 const MyRoadtripCardMedia = styled(CardMedia)`
@@ -32,10 +31,6 @@ const MyRoadtripCardMedia = styled(CardMedia)`
   background-color: lightblue;
   border-radius: 15px;
 `;
-
-const MyRoadtripLinks = styled(Grid)``;
-
-const MyRoadtripIcons = styled(Grid)``;
 
 const start = "Salzburg";
 const destination = "Graz";
@@ -58,18 +53,17 @@ const Roadtripcard = () => {
             <Typography color="textSecondary">{stopsnumber} Stops</Typography>
           </CardContent>
         </CardActionArea>
-        <MyRoadtripLinks
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-        >
-          <MyRoadtripIcons>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <div>
             <IconButton>⛷️</IconButton>
             <IconButton>🍺</IconButton>
-          </MyRoadtripIcons>
-          <RouteButton>Route</RouteButton>
-        </MyRoadtripLinks>
+          </div>
+          <RouteButton variant="contained">
+            <Box py={1} px={2}>
+              Route
+            </Box>
+          </RouteButton>
+        </Box>
       </MyRoadtripCard>
     </>
   );

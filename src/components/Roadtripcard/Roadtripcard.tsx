@@ -10,20 +10,23 @@ import {
   Typography,
 } from "@material-ui/core";
 import styled from "styled-components";
+import { withTheme } from "@material-ui/core/styles";
 
-const MyRoadtripCard = styled(Card)`
-  max-width: 548px;
-  padding: 25px;
-  margin: 0 50px 50px 0;
+const MyRoadtripCard = withTheme(styled(Card)`
+  max-width: ${(props) => props.theme.spacing(68.5)}px;
+  padding: ${(props) => props.theme.spacing(3.125)}px;
+  margin: 0 ${(props) => props.theme.spacing(6.25)}px
+    ${(props) => props.theme.spacing(6.25)}px 0;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-`;
+`);
 
-const MyRoadtripCardMedia = styled(CardMedia)`
-  height: 249px;
+// später kommt hier ein Bild von der Karte oderso hin
+const MyRoadtripCardMedia = withTheme(styled(CardMedia)`
+  height: ${(props) => props.theme.spacing(31.125)}px;
   background-color: lightblue;
   border-radius: 15px;
-`;
+`);
 
 const start = "Salzburg";
 const destination = "Graz";

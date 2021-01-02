@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 const FancyButton = styled(Button)`
   color: pink;
   background-color: lightpink;
-  padding-left: ${(props) => props.theme.spacing(2)}px;
 `;
 
 const MainPage = () => {

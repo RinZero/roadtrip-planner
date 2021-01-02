@@ -4,8 +4,11 @@ import "./App.css";
 import { DisplayMapClass } from "./utils/DisplayMapClass";
 import { DisplayMapFC } from "./utils/DisplayMapFC";
 import MainPage from "./containers/MainPage";
+import { ThemeProvider } from "@material-ui/core";
+import { createTheme } from "./theme";
 
 function App() {
+  const theme = createTheme();
   return (
     <div className="App">
       <header className="App-header">
@@ -22,8 +25,10 @@ function App() {
           Learn React
         </a>
       </header>
-      <MainPage />
-      <DisplayMapFC />
+      <ThemeProvider theme={theme}>
+        <MainPage />
+        <DisplayMapFC />
+      </ThemeProvider>
     </div>
   );
 }

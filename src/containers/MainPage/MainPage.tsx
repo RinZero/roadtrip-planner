@@ -1,6 +1,8 @@
 import React, { memo } from "react";
 import { Button, makeStyles, Theme } from "@material-ui/core";
 import styled from "styled-components";
+import TitleSection from "../../components/TitleSection";
+import StepsMenu from "../../components/StepsMenu";
 
 //import TestComponent from "././components/TestComponent";
 
@@ -25,6 +27,8 @@ const MainPage = () => {
       <h1>Hello World</h1>
       <Button className={classes.test}>hello</Button>
       <FancyButton>Heyyyy</FancyButton>
+      <TitleSection />
+      <StepsMenu />
     </>
   );
 };

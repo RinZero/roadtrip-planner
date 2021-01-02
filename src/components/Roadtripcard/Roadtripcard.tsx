@@ -11,19 +11,12 @@ import {
 } from "@material-ui/core";
 import styled from "styled-components";
 
-const RouteButton = styled(Button)`
-  color: #b1b1b1;
-  border-radius: 15px;
-  background-color: white;
-  border: solid #b1b1b1 2px !important;
-  box-shadow: 1px 1px 1px 0.5px rgba(0, 0, 0, 0.2);
-`;
-
 const MyRoadtripCard = styled(Card)`
   max-width: 548px;
   padding: 25px;
   margin: 0 50px 50px 0;
-  border-radius: 15px !important;
+  border-radius: 15px;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 `;
 
 const MyRoadtripCardMedia = styled(CardMedia)`
@@ -39,7 +32,7 @@ const stopsnumber = 15;
 const Roadtripcard = () => {
   return (
     <>
-      <MyRoadtripCard>
+      <MyRoadtripCard variant="outlined" square>
         <CardActionArea>
           <MyRoadtripCardMedia
             image="windows.jpg"
@@ -47,10 +40,12 @@ const Roadtripcard = () => {
             title="Your Roadtrip from Salzuburg to Graz"
           />
           <CardContent>
-            <Typography variant="h5" component="h2">
+            <Typography align="left" variant="h5" component="h2">
               {start} - {destination}
             </Typography>
-            <Typography color="textSecondary">{stopsnumber} Stops</Typography>
+            <Typography align="left" color="textSecondary">
+              {stopsnumber} Stops
+            </Typography>
           </CardContent>
         </CardActionArea>
         <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -58,11 +53,9 @@ const Roadtripcard = () => {
             <IconButton>⛷️</IconButton>
             <IconButton>🍺</IconButton>
           </div>
-          <RouteButton variant="contained">
-            <Box py={1} px={2}>
-              Route
-            </Box>
-          </RouteButton>
+          <Button className="large">
+            <Typography variant="button">Route</Typography>
+          </Button>
         </Box>
       </MyRoadtripCard>
     </>

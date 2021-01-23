@@ -1,0 +1,22 @@
+{
+    "folders": [
+      {
+        "name": "roadtripp-planner",
+        "path": "."
+      },
+    ],
+    "settings": {
+      "editor.rulers": [80],
+      "editor.formatOnSave": true,
+      "[javascript]": {
+        "editor.formatOnSave": false
+      },
+      "eslint.workingDirectories": [
+        { "pattern": "**/*" }
+      ],
+      "eslint.alwaysShowStatus": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+      },
+      "typescript.tsdk": "node_modules/typescript/lib"
+    },

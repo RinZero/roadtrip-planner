@@ -6,6 +6,12 @@ import { DisplayMapFC } from "./utils/DisplayMapFC";
 import MainPage from "./containers/MainPage";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "./theme";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 function App() {
   const theme = createTheme();
@@ -26,8 +32,12 @@ function App() {
         </a>
       </header>
       <ThemeProvider theme={theme}>
-        <MainPage />
-        <DisplayMapFC />
+        <Router>
+          <Switch>
+            <Route exact path="/" component={MainPage} />
+            <Redirect to="/" />
+          </Switch>
+        </Router>
       </ThemeProvider>
     </div>
   );

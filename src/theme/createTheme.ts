@@ -1,10 +1,9 @@
-import { responsiveFontSizes } from "@material-ui/core/styles";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import Button from "@material-ui/core";
+import { responsiveFontSizes } from '@material-ui/core/styles'
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 
-declare module "@material-ui/core/Button/Button" {
+declare module '@material-ui/core/Button/Button' {
   interface ButtonPropsVariantOverrides {
-    smallButton: true;
+    smallButton: true
   }
 }
 
@@ -14,29 +13,29 @@ export default () => {
     // buttons, border radius, etc.
     typography: {
       h1: {
-        fontSize: "40px",
-        color: "#707070",
-        width: "100%",
+        fontSize: '40px',
+        color: '#707070',
+        width: '100%',
       },
-      h5: { fontWeight: "bold" },
+      h5: { fontWeight: 'bold' },
       button: {
-        color: "#b1b1b1",
-        textTransform: "none",
+        color: '#b1b1b1',
+        textTransform: 'none',
       },
     },
     overrides: {
       MuiButton: {
         root: {
-          borderRadius: "15px",
-          ".large": {
-            backgroundColor: "#71B255",
+          borderRadius: '15px',
+          '.large': {
+            backgroundColor: '#71B255',
           },
-          backgroundColor: "#FFFFFF",
-          boxShadow: "0px 3px 6px 1px rgba(0, 0, 0, 0.16)",
-          padding: "10px 15px",
+          backgroundColor: '#FFFFFF',
+          boxShadow: '0px 3px 6px 1px rgba(0, 0, 0, 0.16)',
+          padding: '10px 15px',
         },
       },
     },
-  });
-  return responsiveFontSizes(theme);
-};
+  })
+  return responsiveFontSizes(theme)
+}

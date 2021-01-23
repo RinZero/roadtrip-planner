@@ -1,29 +1,30 @@
-import { createSelector } from "reselect";
-import { UiState } from "./types";
+import { createSelector } from 'reselect'
 
-export const selectUi = (state: { ui: UiState }) => state.ui;
+import { UiState } from './types'
+
+export const selectUi = (state: { ui: UiState }) => state.ui
 
 export const selectProgessStep = () =>
   createSelector(selectUi, (ui: UiState) => {
-    return ui.progressStep;
-  });
+    return ui.progressStep
+  })
 
 export const selectRoadtripStops = () =>
   createSelector(selectUi, (ui: UiState) => {
-    return ui.roadtripStops;
-  });
+    return ui.roadtripStops
+  })
 
 export const selectIsEditOpen = () =>
   createSelector(selectUi, (ui: UiState) => {
-    return ui.isEditOpen;
-  });
+    return ui.isEditOpen
+  })
 
 export const selectIsAddPlace = () =>
   createSelector(selectUi, (ui: UiState) => {
-    return ui.isAddPlace;
-  });
+    return ui.isAddPlace
+  })
 
 export const selectIsLoginActive = () =>
   createSelector(selectUi, (ui: UiState) => {
-    return ui.isLoginActive;
-  });
+    return ui.isLoginActive
+  })

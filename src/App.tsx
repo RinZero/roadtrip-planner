@@ -1,11 +1,13 @@
 import React from "react";
+
 import logo from "./logo.svg";
 import "./App.css";
+import { createTheme } from "./theme";
 import { DisplayMapClass } from "./utils/DisplayMapClass";
 import { DisplayMapFC } from "./utils/DisplayMapFC";
 import MainPage from "./containers/MainPage";
+
 import { ThemeProvider } from "@material-ui/core";
-import { createTheme } from "./theme";
 
 function App() {
   const theme = createTheme();
@@ -25,10 +27,9 @@ function App() {
           Learn React
         </a>
       </header>
-      <ThemeProvider theme={theme}>
+      
         <MainPage />
         <DisplayMapFC />
-      </ThemeProvider>
     </div>
   );
 }

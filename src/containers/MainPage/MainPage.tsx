@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 
-import { Button, makeStyles, Theme } from '@material-ui/core'
+import { Box, Button, makeStyles, Theme } from '@material-ui/core'
 import styled from 'styled-components'
 
 import StartGoalForm from '../../components/StartGoalForm'
@@ -28,11 +28,16 @@ const MainPage = () => {
   return (
     <>
       <h1>Hello World</h1>
-      <StartGoalForm />
+      <Box display="flex" justifyContent="center">
+        <Box width="70%">
+          <StepsMenu />
+          <StartGoalForm />
+        </Box>
+      </Box>
+
       <Button className={classes.test}>hello</Button>
       <FancyButton>Heyyyy</FancyButton>
       <TitleSection />
-      <StepsMenu />
     </>
   )
 }

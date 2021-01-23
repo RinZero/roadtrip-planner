@@ -4,15 +4,19 @@ import ReactDOM from "react-dom";
 
 import "./index.css";
 import { Provider } from "react-redux";
+import { ThemeProvider } from "styled-components";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";
+import { createTheme } from "./theme";
+
+const theme= createTheme()
 ReactDOM.render(
   <Provider store={store}>
-  <React.StrictMode>
+    <ThemeProvider theme={theme}>
     <App />
-  </React.StrictMode>
+    </ThemeProvider>
   </Provider>,
   document.getElementById("root")
 );

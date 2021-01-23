@@ -12,6 +12,6 @@ export type AppState = ReturnType<typeof reducers>
 const middleWareEnhancer = applyMiddleware(routerMiddleware(history))
 const composeEnhancer = composeWithDevTools({})
 
-const store = createStore(reducers, composeEnhancer(middleWareEnhancer))
+const store = createStore(reducers(), composeEnhancer(middleWareEnhancer))
 
 export default store

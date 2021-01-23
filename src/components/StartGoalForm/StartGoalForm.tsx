@@ -67,11 +67,7 @@ export const StartGoalForm = () => {
   const dispatch = useDispatch()
   const { register, handleSubmit } = useForm()
   const onFormSubmit = (data: IFormInput) => {
-    // eslint-disable-next-line no-console
-    console.log(data)
     const roadtripStops = data.stops.filter((s) => s !== '')
-    // eslint-disable-next-line no-console
-    console.log(roadtripStops)
     dispatch(setRoadtripStops({ roadtripStops }))
   }
   return (

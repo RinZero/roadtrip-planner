@@ -1,8 +1,12 @@
-import { userReducer } from "./user/reducers";
-import { uiReducer } from "./ui/reducers";
-import { History } from "history";
+import { History } from 'history'
+import { combineReducers } from 'redux'
 
-export default () => ({
-  user: userReducer,
-  ui: uiReducer,
-});
+import { ReduxState } from './types'
+import { uiReducer } from './ui/reducers'
+import { userReducer } from './user/reducers'
+
+export default () =>
+  combineReducers<ReduxState>({
+    user: userReducer,
+    ui: uiReducer,
+  })

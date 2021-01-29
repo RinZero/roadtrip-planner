@@ -1,1 +1,1 @@
-export { default } from "./Roadtripcard";
+export { default } from './Roadtripcard'

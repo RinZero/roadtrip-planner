@@ -1,5 +1,6 @@
-import React, { memo } from "react";
-import { Box, Typography } from "@material-ui/core";
+import React, { memo } from 'react'
+
+import { Box, Typography } from '@material-ui/core'
 
 const TitleSection = () => {
   return (
@@ -9,6 +10,6 @@ const TitleSection = () => {
       </Typography>
       {/* <Typography variant="body1">Explanation here</Typography> */}
     </Box>
-  );
-};
-export default memo(TitleSection);
+  )
+}
+export default memo(TitleSection)

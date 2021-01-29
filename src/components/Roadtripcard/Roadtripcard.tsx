@@ -1,4 +1,5 @@
-import React, { memo } from "react";
+import React, { memo } from 'react'
+
 import {
   Button,
   Card,
@@ -8,9 +9,9 @@ import {
   Box,
   IconButton,
   Typography,
-} from "@material-ui/core";
-import styled from "styled-components";
-import { withTheme } from "@material-ui/core/styles";
+} from '@material-ui/core'
+import { withTheme } from '@material-ui/core/styles'
+import styled from 'styled-components'
 
 const MyRoadtripCard = withTheme(styled(Card)`
   max-width: ${(props) => props.theme.spacing(68.5)}px;
@@ -19,18 +20,18 @@ const MyRoadtripCard = withTheme(styled(Card)`
     ${(props) => props.theme.spacing(6.25)}px 0;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-`);
+`)
 
 // später kommt hier ein Bild von der Karte oderso hin
 const MyRoadtripCardMedia = withTheme(styled(CardMedia)`
   height: ${(props) => props.theme.spacing(31.125)}px;
   background-color: lightblue;
   border-radius: 15px;
-`);
+`)
 
-const start = "Salzburg";
-const destination = "Graz";
-const stopsnumber = 15;
+const start = 'Salzburg'
+const destination = 'Graz'
+const stopsnumber = 15
 
 const Roadtripcard = () => {
   return (
@@ -62,6 +63,6 @@ const Roadtripcard = () => {
         </Box>
       </MyRoadtripCard>
     </>
-  );
-};
-export default memo(Roadtripcard);
+  )
+}
+export default memo(Roadtripcard)

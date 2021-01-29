@@ -1,18 +1,18 @@
-import * as React from "react";
+import * as React from 'react'
 
 export class DisplayMapClass extends React.Component {
-  mapRef = React.createRef();
+  mapRef = React.createRef()
   state = {
     map: null,
-  };
+  }
 
   componentDidMount() {
-    const H = window.H;
+    const H = window.H
     const platform = new H.service.Platform({
-      apikey: "{HERE-API-KEY}",
-    });
+      apikey: '{HERE-API-KEY}',
+    })
 
-    const defaultLayers = platform.createDefaultLayers();
+    const defaultLayers = platform.createDefaultLayers()
 
     const map = new H.Map(
       this.mapRef.current,
@@ -22,25 +22,25 @@ export class DisplayMapClass extends React.Component {
         zoom: 4,
         pixelRatio: window.devicePixelRatio || 1,
       }
-    );
+    )
 
     // MapEvents enables the event system
     // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
     // This variable is unused and is present for explanatory purposes
-    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
 
     // Create the default UI components to allow the user to interact with them
     // This variable is unused
-    const ui = H.ui.UI.createDefault(map, defaultLayers);
+    const ui = H.ui.UI.createDefault(map, defaultLayers)
 
-    this.setState({ map });
+    this.setState({ map })
   }
 
   componentWillUnmount() {
-    this.state.map.dispose();
+    this.state.map.dispose()
   }
 
   render() {
-    return <div ref={this.mapRef} style={{ height: "500px" }} />;
+    return <div ref={this.mapRef} style={{ height: '500px' }} />
   }
 }

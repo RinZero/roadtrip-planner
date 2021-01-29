@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react'
 
-import logo from "./logo.svg";
-import "./App.css";
-import { createTheme } from "./theme";
-import { DisplayMapClass } from "./utils/DisplayMapClass";
-import { DisplayMapFC } from "./utils/DisplayMapFC";
-import MainPage from "./containers/MainPage";
+import logo from './logo.svg'
+import './App.css'
+import { createTheme } from './theme'
+import { DisplayMapClass } from './utils/DisplayMapClass'
+import { DisplayMapFC } from './utils/DisplayMapFC'
+import MainPage from './containers/MainPage'
 
-import { ThemeProvider } from "@material-ui/core";
+import { ThemeProvider } from '@material-ui/core'
 
 function App() {
-  const theme = createTheme();
+  const theme = createTheme()
   return (
     <div className="App">
       <header className="App-header">
@@ -27,11 +27,11 @@ function App() {
           Learn React
         </a>
       </header>
-      
-        <MainPage />
-        <DisplayMapFC />
+
+      <MainPage />
+      <DisplayMapFC />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

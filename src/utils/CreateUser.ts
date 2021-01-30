@@ -14,8 +14,6 @@ export const CreateUser = async () => {
     },
   }
 
-  console.log(user)
-
   const response = await fetch(
     'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/users',
     // "http://localhost:3000/api/v1/users",
@@ -29,11 +27,9 @@ export const CreateUser = async () => {
     }
   )
   const t = await { type: 'createUser/success', result: { response } }
-  console.log(response)
-  console.log(t)
   if (response.ok) {
-    console.log('Acount created.')
+    // console.log('Acount created.')
   } else {
-    console.log('Wrong input.')
+    // console.log('Wrong input.')
   }
 }

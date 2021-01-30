@@ -14,7 +14,7 @@ export const FetchUser = async () => {
   if (loading) {
     setLoading(false)
     setPerson(data.data[0])
-    console.log(data)
-    console.log(data.data[0])
+    // console.log(data)
+    // console.log(data.data[0])
   }
 }

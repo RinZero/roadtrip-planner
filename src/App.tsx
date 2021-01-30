@@ -12,7 +12,7 @@ import MainPage from './containers/MainPage'
 import { ThemeProvider } from '@material-ui/core'
 
 function App() {
-  FetchUser()
+  // FetchUser()
   // CreateUser();
   const theme = createTheme()
   return (

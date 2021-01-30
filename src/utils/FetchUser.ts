@@ -7,7 +7,7 @@ export const FetchUser = async () => {
 
   const url =
     'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/users'
-  // const url = "http://localhost:3000/api/v1/users";
+  // 'http://localhost:3000/api/v1/users';
   const response = await fetch(url)
   const data = await response.json()
 

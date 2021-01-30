@@ -4,12 +4,16 @@ import logo from './logo.svg'
 import './App.css'
 import { createTheme } from './theme'
 import { DisplayMapClass } from './utils/DisplayMapClass'
+import { FetchUser } from './utils/FetchUser'
+import { CreateUser } from './utils/CreateUser'
 import { DisplayMapFC } from './utils/DisplayMapFC'
 import MainPage from './containers/MainPage'
 
 import { ThemeProvider } from '@material-ui/core'
 
 function App() {
+  FetchUser()
+  // CreateUser();
   const theme = createTheme()
   return (
     <div className="App">

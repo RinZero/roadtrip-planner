@@ -4,14 +4,11 @@ import "./App.css";
 import { DisplayMapClass } from "./utils/DisplayMapClass";
 import { DisplayMapFC } from "./utils/DisplayMapFC";
 import MainPage from "./containers/MainPage";
+import Router from "./containers/Router";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "./theme";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import store, { history } from "./store";
 
 function App() {
   const theme = createTheme();
@@ -32,12 +29,7 @@ function App() {
         </a>
       </header>
       <ThemeProvider theme={theme}>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Redirect to="/" />
-          </Switch>
-        </Router>
+        <ConnectedRouter history={history}></ConnectedRouter>
       </ThemeProvider>
     </div>
   );

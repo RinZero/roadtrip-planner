@@ -5,18 +5,21 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
+import { ConnectedRouter } from 'connected-react-router'
 
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import store from './store'
+import store, { history } from './store'
 import { createTheme } from './theme'
 
 const theme = createTheme()
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <ConnectedRouter history={history}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 )

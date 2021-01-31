@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 
 import { Box, Button, makeStyles, Theme } from '@material-ui/core'
 import styled from 'styled-components'
@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import StartGoalForm from '../../components/StartGoalForm'
 import StepsMenu from '../../components/StepsMenu'
 import TitleSection from '../../components/TitleSection'
+import { fetchHereData } from '../../utils/fetchHereData'
 
 //import TestComponent from "././components/TestComponent";
 
@@ -25,6 +26,16 @@ const FancyButton = styled(Button)`
 
 const MainPage = () => {
   const classes = useStyles()
+
+  //https://discover.search.hereapi.com/v1/discover?at=52.8173086,12.2368342&limit=5&lang=en&q=Obi+Hamburg&apiKey=E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
+  useEffect(() => {
+    fetchHereData({
+      object: { endpoint: 'discover', query: 'Obi+Hamburg' },
+      at: { longitude: 52.8173086, latitude: 12.2368342 },
+      limit: 5,
+      language: 'en',
+    })
+  }, [])
   return (
     <>
       <h1>Hello World</h1>

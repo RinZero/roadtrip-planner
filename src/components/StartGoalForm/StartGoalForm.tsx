@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-import { setRoadtripStops } from '../../store/actions'
+import { setProgressStep, setRoadtripStops } from '../../store/actions'
 
 const StyledForm = withTheme(styled.form`
   width: 100%;
@@ -69,6 +69,7 @@ export const StartGoalForm = () => {
   const onFormSubmit = (data: IFormInput) => {
     const roadtripStops = data.stops.filter((s) => s !== '')
     dispatch(setRoadtripStops({ roadtripStops }))
+    dispatch(setProgressStep({ progressStep: '2' }))
   }
   return (
     <StyledForm onSubmit={handleSubmit(onFormSubmit)}>

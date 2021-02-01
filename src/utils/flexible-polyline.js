@@ -107,7 +107,7 @@ const CUSTOM2 = 7
 // eslint-disable-next-line no-undef
 const Num = typeof BigInt !== 'undefined' ? BigInt : Number
 
-function decode(encoded) {
+export function decode(encoded) {
   const decoder = decodeUnsignedValues(encoded)
   const header = decodeHeader(decoder[0], decoder[1])
 
@@ -198,7 +198,7 @@ function toSigned(val) {
   return +res.toString()
 }
 
-function encode({
+export function encode({
   precision = DEFAULT_PRECISION,
   thirdDim = ABSENT,
   thirdDimPrecision = 0,

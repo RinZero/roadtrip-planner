@@ -1,39 +1,18 @@
 import React from 'react'
 
-import logo from './logo.svg'
 import './App.css'
-import { createTheme } from './theme'
-import { CreateUser } from './utils/CreateUser'
-import { DisplayMapClass } from './utils/DisplayMapClass'
-import { DisplayMapFC } from './utils/DisplayMapFC'
-import { FetchUser } from './utils/FetchUser'
-import MainPage from './containers/MainPage'
 
-import { ThemeProvider } from '@material-ui/core'
+import { CssBaseline } from '@material-ui/core'
+
+import Router from './containers/Router'
+import { createTheme } from './theme'
 
 function App() {
-  // FetchUser()
-  // CreateUser();
   const theme = createTheme()
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-
-      <MainPage />
-      <DisplayMapFC />
+      <CssBaseline />
+      <Router />
     </div>
   )
 }

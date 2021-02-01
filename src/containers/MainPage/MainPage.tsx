@@ -4,6 +4,7 @@ import { Box, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
 
 import TitleSection from '../../components/TitleSection'
+import Header from '../Header'
 import RoadtripForm from '../RoadtripForm'
 
 const MainPageStyles = withTheme(styled.div`
@@ -11,7 +12,7 @@ const MainPageStyles = withTheme(styled.div`
   padding: ${(props) => props.theme.spacing(10)}px 0;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 93vh;
   justify-content: space-around;
 `)
 

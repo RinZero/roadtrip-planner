@@ -24,7 +24,7 @@ const FancyButton = styled(Button)`
   background-color: lightpink;
 `
 
-const MainPage = () => {
+const TestPage = () => {
   const classes = useStyles()
 
   //https://discover.search.hereapi.com/v1/discover?at=52.8173086,12.2368342&limit=5&lang=en&q=Obi+Hamburg&apiKey=E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
@@ -53,4 +53,4 @@ const MainPage = () => {
   )
 }
 
-export default memo(MainPage)
+export default memo(TestPage)

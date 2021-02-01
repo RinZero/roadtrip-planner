@@ -8,15 +8,17 @@ export const CreateUser = async () => {
       attributes: {
         username: 'frontendPerson',
         email: 'frontend@per.son',
-        password: 'css',
+        password: 'css123',
+        password_confirmation: 'css123',
         is_admin: false,
+        picture: '',
       },
     },
   }
 
   const response = await fetch(
     'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/users',
-    // "http://localhost:3000/api/v1/users",
+    // 'http://localhost:3000/api/v1/users',
     {
       method: 'POST',
       headers: {
@@ -26,7 +28,10 @@ export const CreateUser = async () => {
       body: JSON.stringify(user),
     }
   )
+
   const t = await { type: 'createUser/success', result: { response } }
+  // console.log(t)
+
   if (response.ok) {
     // console.log('Acount created.')
   } else {

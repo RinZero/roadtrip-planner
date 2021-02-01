@@ -11,3 +11,8 @@ export const makeSelectRoadtrips = (userName: string) =>
     }
     return null
   })
+
+export const selectUserName = () =>
+  createSelector(selectUser, (user: UserState) => {
+    return user.userName
+  })

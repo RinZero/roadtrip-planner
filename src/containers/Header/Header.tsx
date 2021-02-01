@@ -27,24 +27,26 @@ const AccountButton = withTheme(styled(IconButton)`
   font-size: 30px;
   padding: 0px;
 `)
+const HeaderLink = withTheme(styled(Link)`
+  color: #707070;
+  font-size: 20px;
+`)
 
 const Header = () => {
   return (
     <>
       <AppBar position="static">
         <Toolbar>
-          <Link
-            variant="h6"
+          <HeaderLink
             onClick={() => console.log('placeholder to create roadtrip')}
           >
             Neuer Roadtrip
-          </Link>
-          <Link
-            variant="h6"
+          </HeaderLink>
+          <HeaderLink
             onClick={() => console.log('placeholder to create location')}
           >
             Ort hinzufügen
-          </Link>
+          </HeaderLink>
           <AccountButton aria-label="profile">
             <AccountCircleIcon
               onClick={() => console.log('placeholder to profile')}

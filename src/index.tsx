@@ -1,11 +1,10 @@
 import React from 'react'
 
+import { MuiThemeProvider } from '@material-ui/core'
+import { ConnectedRouter } from 'connected-react-router'
 import ReactDOM from 'react-dom'
-
 import './index.css'
 import { Provider } from 'react-redux'
-import { ThemeProvider } from 'styled-components'
-import { ConnectedRouter } from 'connected-react-router'
 
 import App from './App'
 import reportWebVitals from './reportWebVitals'
@@ -16,9 +15,9 @@ const theme = createTheme()
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <ThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme}>
         <App />
-      </ThemeProvider>
+      </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')

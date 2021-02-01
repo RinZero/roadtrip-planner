@@ -7,8 +7,9 @@ import StartGoalForm from '../../components/StartGoalForm'
 import StepsMenu from '../../components/StepsMenu'
 import TitleSection from '../../components/TitleSection'
 import { fetchHereData } from '../../utils/fetchHereData'
+import { DisplayMapClass } from '../../utils/DisplayMapClass'
 
-//import TestComponent from "././components/TestComponent";
+//import TestComponent from "././components/TestComponent"
 
 // Styles hinzufügen Art 1
 const useStyles = makeStyles((theme: Theme) => ({
@@ -49,6 +50,7 @@ const TestPage = () => {
       <Button className={classes.test}>hello</Button>
       <FancyButton>Heyyyy</FancyButton>
       <TitleSection />
+      <DisplayMapClass />
     </>
   )
 }

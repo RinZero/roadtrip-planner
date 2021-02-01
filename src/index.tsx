@@ -12,13 +12,15 @@ import reportWebVitals from './reportWebVitals'
 import store, { history } from './store'
 import { createTheme } from './theme'
 
+import { MuiThemeProvider } from '@material-ui/core'
+
 const theme = createTheme()
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <ThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme}>
         <App />
-      </ThemeProvider>
+      </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')

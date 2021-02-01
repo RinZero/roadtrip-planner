@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { memo } from 'react'
+import React, { memo, useState, MouseEvent } from 'react'
 
 import {
   Button,
@@ -8,9 +8,16 @@ import {
   IconButton,
   Link,
   withTheme,
+  Typography,
+  Popover,
+  Box,
 } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+
+import LogInForm from '../../components/LogInForm'
+import { selectUserName } from '../../store/selectors'
 
 // Art 2
 const LogoutButton = withTheme(styled(Button)`
@@ -28,7 +35,15 @@ const AccountButton = withTheme(styled(IconButton)`
   padding: 0px;
 `)
 
+const StyledPopover = withTheme(styled(Popover)`
+  padding: ${(props) => props.theme.spacing(3)}px;
+`)
+
 const Header = () => {
+  const userName = useSelector(selectUserName())
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const open = Boolean(anchorEl)
+  const id = open ? 'signUp-popover' : undefined
   return (
     <>
       <AppBar position="static">
@@ -50,9 +65,56 @@ const Header = () => {
               onClick={() => console.log('placeholder to profile')}
             />
           </AccountButton>
-          <LogoutButton onClick={() => console.log('placeholder for logout')}>
-            Log out
-          </LogoutButton>
+          {userName === 'Guest' && (
+            <>
+              <Typography
+                variant="body1"
+                color="primary"
+                aria-describedby={id}
+                onClick={(event: MouseEvent<HTMLButtonElement>) => {
+                  setAnchorEl(event.currentTarget)
+                }}
+              >
+                LogIn
+              </Typography>
+              <StyledPopover
+                open={open}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <Box m={3}>
+                  <LogInForm />
+                </Box>
+              </StyledPopover>
+              <Typography variant="body1">or</Typography>
+              <Link
+                variant="h6"
+                onClick={() => console.log('placeholder to create location')}
+              >
+                SignUp
+              </Link>
+            </>
+          )}
+          {userName !== 'Guest' && (
+            <>
+              <Typography variant="body1">
+                Hallo {userName}, tuastn????
+              </Typography>
+
+              <LogoutButton
+                onClick={() => console.log('placeholder for logout')}
+              >
+                Log out
+              </LogoutButton>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </>

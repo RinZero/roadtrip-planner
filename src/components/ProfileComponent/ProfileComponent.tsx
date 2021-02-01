@@ -1,12 +1,12 @@
 import React, { memo } from 'react'
 
-import { Button, Avatar, makeStyles, Theme } from '@material-ui/core'
+import { Button, Avatar, makeStyles, Theme, Popper } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 
 // Styles hinzufügen Art 1
 const useStyles = makeStyles((theme: Theme) => ({
   profileBox: {
-    marginTop: theme.spacing(7),
+    marginTop: theme.spacing(40),
     marginBottom: theme.spacing(7),
   },
   profileH3: {
@@ -38,10 +38,24 @@ const useStyles = makeStyles((theme: Theme) => ({
     minWidth: theme.spacing(5),
     marginLeft: theme.spacing(0.5),
   },
+  paper: {
+    boxShadow: '0px 3px 6px 0px #B1B1B1',
+    padding: theme.spacing(2),
+    backgroundColor: 'white',
+    borderRadius: '15px',
+  },
 }))
 
 const ProfileComponent = () => {
   const classes = useStyles()
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const handleClick = (event: any) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget)
+  }
+
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popper' : undefined
+
   return (
     <>
       <div className={classes.profileBox}>
@@ -51,10 +65,23 @@ const ProfileComponent = () => {
           className={classes.profilePicture}
         />
         <h3 className={classes.profileH3}>Name</h3>
-        <Button className={classes.infoButton}>Info</Button>
+        <Button
+          className={classes.infoButton}
+          aria-describedby={id}
+          type="button"
+          onClick={handleClick}
+        >
+          Info
+        </Button>
         <Button className={classes.editButton}>
           <EditIcon />
         </Button>
+        <Popper id={id} open={open} anchorEl={anchorEl}>
+          <div className={classes.paper}>
+            <h3 className={classes.profileH3}>Name: </h3>
+            <h3 className={classes.profileH3}>Email: </h3>
+          </div>
+        </Popper>
       </div>
     </>
   )

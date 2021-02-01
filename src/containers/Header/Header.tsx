@@ -25,7 +25,7 @@ const LogoutButton = withTheme(styled(Button)`
 const AccountButton = withTheme(styled(IconButton)`
   color: #000000;
   font-size: 30px;
-  padding: ${(props) => props.theme.spacing(0)}px;
+  padding: 0px;
 `)
 
 const Header = () => {
@@ -33,10 +33,16 @@ const Header = () => {
     <>
       <AppBar position="static">
         <Toolbar>
-          <Link onClick={() => console.log('placeholder to create roadtrip')}>
+          <Link
+            variant="h6"
+            onClick={() => console.log('placeholder to create roadtrip')}
+          >
             Neuer Roadtrip
           </Link>
-          <Link onClick={() => console.log('placeholder to create location')}>
+          <Link
+            variant="h6"
+            onClick={() => console.log('placeholder to create location')}
+          >
             Ort hinzufügen
           </Link>
           <AccountButton aria-label="profile">

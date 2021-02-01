@@ -22,6 +22,10 @@ export default () => {
         color: '#b1b1b1',
         textTransform: 'none',
       },
+      h6: {
+        color: '#707070',
+        fontSize: '20px',
+      },
     },
     overrides: {
       MuiButton: {
@@ -33,6 +37,17 @@ export default () => {
           backgroundColor: '#FFFFFF',
           boxShadow: '0px 3px 6px 1px rgba(0, 0, 0, 0.16)',
           padding: '10px 15px',
+        },
+      },
+      MuiAppBar: {
+        colorPrimary: {
+          backgroundColor: '#FFFFFF',
+        },
+      },
+      MuiToolbar: {
+        root: {
+          justifyContent: 'flex-end',
+          gap: '24px',
         },
       },
     },

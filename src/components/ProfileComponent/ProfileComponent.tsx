@@ -24,7 +24,7 @@ const ProfileBox = withTheme(styled(Box)`
   margin-bottom: ${(props) => props.theme.spacing(7)}px;
 `)
 
-const PopperBox = withTheme(styled(Box)`
+const PopperBox = withTheme(styled.form`
   box-shadow: 0px 3px 6px 0px #b1b1b1;
   padding: ${(props) => props.theme.spacing(2)}px;
   background-color: white;
@@ -144,7 +144,7 @@ const ProfileComponent = () => {
             </FormControl>
             <IconBox>
               <InfoButton>Profilbild</InfoButton>
-              <ConfirmButton>Speichern</ConfirmButton>
+              <ConfirmButton type="submit">Speichern</ConfirmButton>
             </IconBox>
           </PopperBox>
         </Popper>

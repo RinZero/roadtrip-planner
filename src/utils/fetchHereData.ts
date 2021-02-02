@@ -1,4 +1,4 @@
-import { encode, decode } from './flexible-polyline'
+import FlexiblePolyline from './flexible-polyline'
 export type HereApiDiscover = {
   endpoint: 'discover'
   query?: string
@@ -23,7 +23,7 @@ export type HereApiParams = {
 
 export const fetchHereData = async (props: HereApiParams) => {
   const { object, at, limit, language, show, route } = props
-  const polyline = encode({ polyline: route?.stopps })
+  const polyline = FlexiblePolyline.encode({ polyline: route?.stopps })
   const url =
     'https://' +
     object.endpoint +
@@ -48,5 +48,7 @@ export const fetchHereData = async (props: HereApiParams) => {
   // https://browse.search.hereapi.com/v1/browse
   const response = await fetch(url)
   const data = await response.json()
+  // eslint-disable-next-line no-console
+  console.log(data)
   return data
 }

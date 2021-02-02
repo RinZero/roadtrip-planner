@@ -279,12 +279,14 @@ function encodeScaledValue(value) {
   return encodeUnsignedNumber(numVal)
 }
 
-module.exports = {
-  encode,
-  decode,
+// module.exports = {
+//   encode,
+//   decode,
 
-  ABSENT,
-  LEVEL,
-  ALTITUDE,
-  ELEVATION,
-}
+//   ABSENT,
+//   LEVEL,
+//   ALTITUDE,
+//   ELEVATION,
+// }
+
+export { encode as encode1 }

@@ -1,4 +1,5 @@
-import * as FlexiblePolyline from './flexible-polyline'
+// import * as FlexiblePolyline from './flexible-polyline'
+import { encode1 } from './flexible-polyline'
 export type HereApiDiscover = {
   endpoint: 'discover'
   query?: string
@@ -23,7 +24,8 @@ export type HereApiParams = {
 
 export const fetchHereData = async (props: HereApiParams) => {
   const { object, at, limit, language, show, route } = props
-  const polyline = FlexiblePolyline.encode({ polyline: route?.stopps })
+  // const polyline = FlexiblePolyline.encode({ polyline: route?.stopps })
+  const polyline = encode1({ polyline: route?.stopps })
   const url =
     'https://' +
     object.endpoint +

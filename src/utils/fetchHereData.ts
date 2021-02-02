@@ -48,7 +48,5 @@ export const fetchHereData = async (props: HereApiParams) => {
   // https://browse.search.hereapi.com/v1/browse
   const response = await fetch(url)
   const data = await response.json()
-  // eslint-disable-next-line no-console
-  console.log(data)
   return data
 }

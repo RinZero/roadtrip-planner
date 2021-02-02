@@ -17,6 +17,11 @@ export default () => {
         color: '#707070',
         width: '100%',
       },
+      h3: {
+        fontSize: '30px',
+        marginTop: '24px',
+        marginBottom: '12px',
+      },
       h5: { fontWeight: 'bold' },
       button: {
         color: '#b1b1b1',

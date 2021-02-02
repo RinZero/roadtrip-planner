@@ -1,53 +1,76 @@
 import React, { memo } from 'react'
 
-import { Button, Avatar, makeStyles, Theme, Popper } from '@material-ui/core'
+import {
+  Button,
+  Avatar,
+  Box,
+  Popper,
+  withTheme,
+  Typography,
+  FormControl,
+  InputLabel,
+  Input,
+  IconButton,
+  InputAdornment,
+  Divider,
+} from '@material-ui/core'
+import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
+import styled from 'styled-components'
 
-// Styles hinzufügen Art 1
-const useStyles = makeStyles((theme: Theme) => ({
-  profileBox: {
-    marginTop: theme.spacing(40),
-    marginBottom: theme.spacing(7),
-  },
-  profileH3: {
-    fontSize: '30px',
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(0.5),
-  },
-  profilePicture: {
-    width: theme.spacing(36),
-    height: theme.spacing(36),
-    display: 'block',
-    margin: '0 auto',
-  },
-  infoButton: {
-    background: 'white',
-    textTransform: 'none',
-    boxShadow: '0px 3px 6px 0px #B1B1B1',
-    color: '#B1B1B1',
-    fontSize: '20px',
-    height: theme.spacing(5),
-    width: theme.spacing(10),
-    marginRight: theme.spacing(0.5),
-  },
-  editButton: {
-    background: '#71B255',
-    boxShadow: '0px 3px 6px 0px #B1B1B1',
-    color: 'white',
-    height: theme.spacing(5),
-    minWidth: theme.spacing(5),
-    marginLeft: theme.spacing(0.5),
-  },
-  paper: {
-    boxShadow: '0px 3px 6px 0px #B1B1B1',
-    padding: theme.spacing(2),
-    backgroundColor: 'white',
-    borderRadius: '15px',
-  },
-}))
+//Art 2
+const ProfileBox = withTheme(styled(Box)`
+  margin-top: ${(props) => props.theme.spacing(40)}px;
+  margin-bottom: ${(props) => props.theme.spacing(7)}px;
+`)
+
+const PopperBox = withTheme(styled(Box)`
+  box-shadow: 0px 3px 6px 0px #b1b1b1;
+  padding: ${(props) => props.theme.spacing(2)}px;
+  background-color: white;
+  border-radius: 15px;
+`)
+
+const IconBox = withTheme(styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  margin: ${(props) => props.theme.spacing(2.5)}px
+    ${(props) => props.theme.spacing(1)}px
+    ${(props) => props.theme.spacing(1)}px;
+`)
+
+const ProfileAvatar = withTheme(styled(Avatar)`
+  width: ${(props) => props.theme.spacing(36)}px;
+  height: ${(props) => props.theme.spacing(36)}px;
+  display: block;
+  margin: 0 auto;
+`)
+
+const InfoButton = withTheme(styled(Button)`
+  background-color: white;
+  box-shadow: 0px 3px 6px 0px #b1b1b1;
+  height: ${(props) => props.theme.spacing(5)}px;
+  width: ${(props) => props.theme.spacing(10)}px;
+  margin-right: ${(props) => props.theme.spacing(0.5)}px;
+`)
+
+const EditButton = withTheme(styled(Button)`
+  background-color: #71b255;
+  box-shadow: 0px 3px 6px 0px #b1b1b1;
+  color: white;
+  height: ${(props) => props.theme.spacing(5)}px;
+  min-width: ${(props) => props.theme.spacing(5)}px;
+`)
+
+const ConfirmButton = withTheme(styled(Button)`
+  background-color: #71b255;
+  box-shadow: 0px 3px 6px 0px #b1b1b1;
+  color: white;
+  height: ${(props) => props.theme.spacing(5)}px;
+  min-width: ${(props) => props.theme.spacing(5)}px;
+`)
 
 const ProfileComponent = () => {
-  const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const handleClick = (event: any) => {
     setAnchorEl(anchorEl ? null : event.currentTarget)
@@ -55,34 +78,77 @@ const ProfileComponent = () => {
 
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popper' : undefined
+  const [values, setValues] = React.useState({
+    name: '',
+    email: '',
+    password: '',
+    showPassword: false,
+  })
+
+  const handleChange = (prop: any) => (event: any) => {
+    setValues({ ...values, [prop]: event.target.value })
+  }
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword })
+  }
+
+  const handleMouseDownPassword = (event: any) => {
+    event.preventDefault()
+  }
 
   return (
     <>
-      <div className={classes.profileBox}>
-        <Avatar
+      <ProfileBox>
+        <ProfileAvatar
           alt="profile picture"
           src="https://image.freepik.com/free-photo/mand-holding-cup_1258-340.jpg"
-          className={classes.profilePicture}
         />
-        <h3 className={classes.profileH3}>Name</h3>
-        <Button
-          className={classes.infoButton}
-          aria-describedby={id}
-          type="button"
-          onClick={handleClick}
-        >
-          Info
-        </Button>
-        <Button className={classes.editButton}>
+        <Typography variant="h3">Name</Typography>
+        <Typography variant="h3">Email</Typography>
+        <EditButton aria-describedby={id} type="button" onClick={handleClick}>
           <EditIcon />
-        </Button>
-        <Popper id={id} open={open} anchorEl={anchorEl}>
-          <div className={classes.paper}>
-            <h3 className={classes.profileH3}>Name: </h3>
-            <h3 className={classes.profileH3}>Email: </h3>
-          </div>
+        </EditButton>
+        <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom">
+          <PopperBox>
+            <Typography variant="h3">Bearbeiten:</Typography>
+            <FormControl>
+              <InputLabel>Name</InputLabel>
+              <Input id="standard-name" onChange={handleChange('name')} />
+            </FormControl>
+            <Divider />
+            <FormControl>
+              <InputLabel>Email</InputLabel>
+              <Input id="standard-email" onChange={handleChange('email')} />
+            </FormControl>
+            <Divider />
+            <FormControl>
+              <InputLabel>Password</InputLabel>
+              <Input
+                id="standard-password"
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+            <IconBox>
+              <InfoButton>Profilbild</InfoButton>
+              <ConfirmButton>Speichern</ConfirmButton>
+            </IconBox>
+          </PopperBox>
         </Popper>
-      </div>
+      </ProfileBox>
     </>
   )
 }

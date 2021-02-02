@@ -1,4 +1,4 @@
-import FlexiblePolyline from './flexible-polyline'
+import * as FlexiblePolyline from './flexible-polyline'
 export type HereApiDiscover = {
   endpoint: 'discover'
   query?: string

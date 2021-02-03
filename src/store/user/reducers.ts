@@ -1,13 +1,15 @@
 import produce, { Draft } from 'immer'
 import { getType } from 'typesafe-actions'
 
-import { logIn, UserActionsType } from './actions'
+import { logIn, updateUser, UserActionsType } from './actions'
 import { UserState } from './types'
 
 export const initialState: UserState = {
   userName: 'Guest',
   email: '',
   isAdmin: false,
+  password: '',
+  image: '',
   roadtrips: [],
 }
 
@@ -17,6 +19,14 @@ export const userReducer = produce(
       case getType(logIn): {
         const { userName } = action.payload
         draft.userName = userName
+        return draft
+      }
+      case getType(updateUser): {
+        const { userName, email, password, image } = action.payload
+        draft.userName = userName
+        draft.email = email
+        draft.password = password
+        draft.image = image
         return draft
       }
       default:

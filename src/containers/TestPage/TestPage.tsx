@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, createRef } from 'react'
 
 import { Box, Button, makeStyles, Theme } from '@material-ui/core'
 import styled from 'styled-components'
@@ -6,9 +6,10 @@ import styled from 'styled-components'
 import StartGoalForm from '../../components/StartGoalForm'
 import StepsMenu from '../../components/StepsMenu'
 import TitleSection from '../../components/TitleSection'
+import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { fetchHereData } from '../../utils/fetchHereData'
 
-//import TestComponent from "././components/TestComponent";
+//import TestComponent from "././components/TestComponent"
 
 // Styles hinzufügen Art 1
 const useStyles = makeStyles((theme: Theme) => ({
@@ -26,6 +27,11 @@ const FancyButton = styled(Button)`
 
 const TestPage = () => {
   const classes = useStyles()
+  const allLocations = [
+    { lat: 47.79941, lng: 13.04399 },
+    { lat: 47.7, lng: 13.04399 },
+    { lat: 47.8, lng: 13.04399 },
+  ]
 
   //https://discover.search.hereapi.com/v1/discover?at=52.8173086,12.2368342&limit=5&lang=en&q=Obi+Hamburg&apiKey=E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
   useEffect(() => {
@@ -64,6 +70,7 @@ const TestPage = () => {
       <Button className={classes.test}>hello</Button>
       <FancyButton>Heyyyy</FancyButton>
       <TitleSection />
+      <DisplayMapClass allLocations={allLocations} />
     </>
   )
 }

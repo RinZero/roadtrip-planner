@@ -1,6 +1,14 @@
 import * as React from 'react'
 
-export const DisplayMapFC = () => {
+import markerSVG from '../assets/markerSVG.svg'
+
+let mapProps = {
+  allLocations: [],
+}
+
+// eslint-disable-next-line no-undef
+export const DisplayMapFC = (mapProps) => {
+  const { allLocations } = mapProps
   // Create a reference to the HTML element we want to put the map on
   const mapRef = React.useRef(null)
 
@@ -26,6 +34,16 @@ export const DisplayMapFC = () => {
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(hMap))
 
     const ui = H.ui.UI.createDefault(hMap, defaultLayers)
+
+    // Add all Markers to Map
+    // Create an icon, an object holding the latitude and longitude, and a marker:
+    // Location Object should look like this: { lat: 47.79941, lng: 13.04399 }
+    allLocations.forEach(function (location) {
+      var icon = new H.map.Icon(markerSVG),
+        coords = location,
+        marker = new H.map.Marker(coords, { icon: icon })
+      hMap.addObject(marker)
+    })
 
     // This will act as a cleanup to run once this hook runs again.
     // This includes when the component un-mounts

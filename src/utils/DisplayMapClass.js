@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import markerSVG from '../assets/markerSVG.svg'
 export class DisplayMapClass extends React.Component {
   mapRef = React.createRef()
   state = {
@@ -9,7 +10,7 @@ export class DisplayMapClass extends React.Component {
   componentDidMount() {
     const H = window.H
     const platform = new H.service.Platform({
-      apikey: '{HERE-API-KEY}',
+      apikey: 'E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE',
     })
 
     const defaultLayers = platform.createDefaultLayers()
@@ -18,11 +19,21 @@ export class DisplayMapClass extends React.Component {
       this.mapRef.current,
       defaultLayers.vector.normal.map,
       {
-        center: { lat: 50, lng: 5 },
-        zoom: 4,
+        center: { lat: 47.79941, lng: 13.04399 },
+        zoom: 8,
         pixelRatio: window.devicePixelRatio || 1,
       }
     )
+
+    // Add all Markers to Map
+    // Create an icon, an object holding the latitude and longitude, and a marker:
+    // Location Object should look like this: { lat: 47.79941, lng: 13.04399 }
+    this.props.allLocations.forEach(function (location) {
+      var icon = new H.map.Icon(markerSVG),
+        coords = location,
+        marker = new H.map.Marker(coords, { icon: icon })
+      map.addObject(marker)
+    })
 
     // MapEvents enables the event system
     // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
@@ -41,6 +52,6 @@ export class DisplayMapClass extends React.Component {
   }
 
   render() {
-    return <div ref={this.mapRef} style={{ height: '500px' }} />
+    return <div ref={this.mapRef} style={{ height: '500px', width: '70%' }} />
   }
 }

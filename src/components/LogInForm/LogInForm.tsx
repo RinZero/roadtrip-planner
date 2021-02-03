@@ -4,6 +4,10 @@ import { Button, Input, Typography, withTheme } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 
+import { logIn } from '../../utils/AuthService'
+import { CreateUser } from '../../utils/CreateUser'
+import { FetchUser } from '../../utils/FetchUser'
+
 type IFormInput = {
   username: string
   password: string
@@ -22,7 +26,14 @@ const StyledInput = withTheme(styled(Input)`
 
 const LogInForm = () => {
   const { register, handleSubmit } = useForm()
-  const onFormSubmit = (data: IFormInput) => {}
+  const onFormSubmit = (data: IFormInput) => {
+    logIn({
+      email: data.username,
+      password: data.password,
+      password_confirmation: data.password,
+    })
+    // CreateUser()
+  }
   return (
     <StyledForm onSubmit={handleSubmit(onFormSubmit)}>
       <Typography variant="h5">LogIn</Typography>

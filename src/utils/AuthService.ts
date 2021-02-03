@@ -51,6 +51,7 @@ export const signUp = (signUpData: signUpType) => {
   })
 }
 
+//unused for now
 export const logOut = (id: string) => {
   return fetch.delete('sessions/' + id).then((response) => {
     if (response.data.errors) {

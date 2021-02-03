@@ -14,6 +14,7 @@ import {
   Avatar,
 } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
@@ -55,9 +56,6 @@ const Header = () => {
   const userName = useSelector(selectUserName())
   const profilePic = useSelector(selectUserPicture())
   const dispatch = useDispatch()
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-  const open = Boolean(anchorEl)
-  const id = open ? 'signUp-popover' : undefined
   return (
     <>
       <AppBar position="static">
@@ -84,32 +82,32 @@ const Header = () => {
           </AccountButton>
           {userName === 'Guest' && (
             <>
-              <Typography
-                variant="body1"
-                color="primary"
-                aria-describedby={id}
-                onClick={(event: MouseEvent<HTMLButtonElement>) => {
-                  setAnchorEl(event.currentTarget)
-                }}
-              >
-                LogIn
-              </Typography>
-              <StyledPopover
-                open={open}
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-              >
-                <Box m={3}>
-                  <LogInForm />
-                </Box>
-              </StyledPopover>
+              <PopupState variant="popover" popupId="login-popup-popover">
+                {(popupState) => (
+                  <>
+                    <div {...bindTrigger(popupState)}>
+                      <Typography variant="body1" color="primary">
+                        LogIn
+                      </Typography>
+                    </div>
+                    <StyledPopover
+                      {...bindPopover(popupState)}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                    >
+                      <Box m={3}>
+                        <LogInForm />
+                      </Box>
+                    </StyledPopover>
+                  </>
+                )}
+              </PopupState>
               <Typography variant="body1">or</Typography>
               <Link
                 variant="h6"

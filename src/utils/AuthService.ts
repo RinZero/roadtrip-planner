@@ -13,12 +13,17 @@ export type logInType = {
 }
 
 export type signUpType = {
-  username: string
-  email: string
-  password: string
-  password_confirmation: string
-  is_admin: boolean
-  picture?: string
+  data: {
+    type: string
+    attributes: {
+      username: string
+      email: string
+      password: string
+      password_confirmation: string
+      is_admin?: boolean
+      picture?: string
+    }
+  }
 }
 const fetch = axios.create({
   baseURL: 'http://localhost:3000/api/v1/',

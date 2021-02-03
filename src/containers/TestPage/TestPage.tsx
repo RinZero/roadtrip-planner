@@ -28,9 +28,12 @@ const FancyButton = styled(Button)`
 const TestPage = () => {
   const classes = useStyles()
   const allLocations = [
-    { lat: 47.79941, lng: 13.04399 },
-    { lat: 47.7, lng: 13.04399 },
-    { lat: 47.8, lng: 13.04399 },
+    '47.79941,13.04399',
+    '47.7,13.04399',
+    '47.8,13.04399',
+    '48.210552,16.376495',
+    '46.635700,14.311817',
+    '47.416,15.2617',
   ]
 
   //https://discover.search.hereapi.com/v1/discover?at=52.8173086,12.2368342&limit=5&lang=en&q=Obi+Hamburg&apiKey=E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
@@ -70,11 +73,7 @@ const TestPage = () => {
       <Button className={classes.test}>hello</Button>
       <FancyButton>Heyyyy</FancyButton>
       <TitleSection />
-      <DisplayMapClass
-        allLocations={allLocations}
-        start={'47.79941,13.04399'}
-        end={'48.79941,13.04399'}
-      />
+      <DisplayMapClass allLocations={allLocations} />
     </>
   )
 }

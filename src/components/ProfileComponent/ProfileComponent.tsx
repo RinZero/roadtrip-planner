@@ -1,4 +1,4 @@
-import React, { MouseEvent, memo } from 'react'
+import React, { MouseEvent, useState, memo } from 'react'
 
 import {
   Button,
@@ -75,8 +75,10 @@ const ConfirmButton = withTheme(styled(Button)`
 `)
 
 const ProfileComponent = () => {
-  const [anchorEl, setAnchorEl] = React.useState()
-  const handleClick = (event: any) => {
+  const [anchorEl, setAnchorEl] = useState<
+    (EventTarget & HTMLButtonElement) | null
+  >(null)
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget)
   }
 

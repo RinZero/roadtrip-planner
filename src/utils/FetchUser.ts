@@ -2,20 +2,29 @@ import React, { useState } from 'react'
 
 import ReactDOM from 'react-dom'
 
-export const FetchUser = async () => {
-  const [loading, setLoading] = useState<boolean>(true)
-  const [person, setPerson] = useState(null)
-
+export type FetchUserType = {
+  email: string
+  password: string
+  passwordConfimation: string
+}
+export const FetchUser = async (logInUser: FetchUserType) => {
   const url =
-    'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/users'
+    'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/sessions'
   // 'http://localhost:3000/api/v1/users';
-  const response = await fetch(url)
-  const data = await response.json()
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(logInUser),
+  })
 
-  if (loading) {
-    setLoading(false)
-    setPerson(data.data[0])
-    // console.log(data)
-    // console.log(data.data[0])
-  }
+  // eslint-disable-next-line no-console
+  console.log(response)
+  const data = await response.json()
+  const token = data.jwt
+  localStorage.setItem('token', token)
+
+  localStorage.setItem('userID', data.id)
 }

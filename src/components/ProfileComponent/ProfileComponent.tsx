@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { MouseEvent, memo } from 'react'
 
 import {
   Button,
@@ -16,7 +16,11 @@ import {
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+
+import { updateUser } from '../../store/actions'
 
 //Art 2
 const ProfileBox = withTheme(styled(Box)`
@@ -71,7 +75,7 @@ const ConfirmButton = withTheme(styled(Button)`
 `)
 
 const ProfileComponent = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null)
+  const [anchorEl, setAnchorEl] = React.useState()
   const handleClick = (event: any) => {
     setAnchorEl(anchorEl ? null : event.currentTarget)
   }
@@ -79,24 +83,43 @@ const ProfileComponent = () => {
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popper' : undefined
   const [values, setValues] = React.useState({
-    name: '',
-    email: '',
-    password: '',
     showPassword: false,
   })
-
-  const handleChange = (prop: any) => (event: any) => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
 
-  const handleMouseDownPassword = (event: any) => {
+  const handleMouseDownPassword = (event: MouseEvent) => {
     event.preventDefault()
   }
 
+  type IFormInput = {
+    userName: string
+    email: string
+    password: string
+    image: string
+  }
+
+  const dispatch = useDispatch()
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      userName: '',
+      email: '',
+      password: '',
+      image: '',
+    },
+  })
+  const onFormSubmit = (data: IFormInput) => {
+    dispatch(
+      updateUser({
+        userName: data.userName,
+        email: data.email,
+        password: data.password,
+        image: data.image,
+      })
+    )
+  }
   return (
     <>
       <ProfileBox>
@@ -114,21 +137,20 @@ const ProfileComponent = () => {
             <Typography variant="h3">Bearbeiten:</Typography>
             <FormControl>
               <InputLabel>Name</InputLabel>
-              <Input id="standard-name" onChange={handleChange('name')} />
+              <Input name="userName" ref={register} />
             </FormControl>
             <Divider />
             <FormControl>
               <InputLabel>Email</InputLabel>
-              <Input id="standard-email" onChange={handleChange('email')} />
+              <Input name="email" ref={register} />
             </FormControl>
             <Divider />
             <FormControl>
               <InputLabel>Password</InputLabel>
               <Input
-                id="standard-password"
+                name="password"
+                ref={register}
                 type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                onChange={handleChange('password')}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -144,7 +166,12 @@ const ProfileComponent = () => {
             </FormControl>
             <IconBox>
               <InfoButton>Profilbild</InfoButton>
-              <ConfirmButton type="submit">Speichern</ConfirmButton>
+              <ConfirmButton
+                type="submit"
+                onSubmit={handleSubmit(onFormSubmit)}
+              >
+                Speichern
+              </ConfirmButton>
             </IconBox>
           </PopperBox>
         </Popper>

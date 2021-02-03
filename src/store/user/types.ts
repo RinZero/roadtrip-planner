@@ -1,6 +1,8 @@
 export type UserState = {
   userName: string
   email: string
+  password: string
+  image: string
   isAdmin: boolean
   roadtrips?: {
     [key: string]: RoadtripState

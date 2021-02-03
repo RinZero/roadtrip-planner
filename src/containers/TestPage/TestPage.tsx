@@ -70,7 +70,11 @@ const TestPage = () => {
       <Button className={classes.test}>hello</Button>
       <FancyButton>Heyyyy</FancyButton>
       <TitleSection />
-      <DisplayMapClass allLocations={allLocations} />
+      <DisplayMapClass
+        allLocations={allLocations}
+        start={'47.79941,13.04399'}
+        end={'48.79941,13.04399'}
+      />
     </>
   )
 }

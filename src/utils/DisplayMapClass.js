@@ -32,7 +32,7 @@ export class DisplayMapClass extends React.Component {
     const icon = new H.map.Icon(markerSVG)
     for (let i = 0; i < location.length - 1; i++) {
       // Create the parameters for the routing request:
-      var routingParameters = {
+      const routingParameters = {
         routingMode: 'fast',
         transportMode: 'car',
         // The start point of the route:
@@ -45,22 +45,22 @@ export class DisplayMapClass extends React.Component {
       }
 
       // Define a callback function to process the routing response:
-      var onResult = function (result) {
+      const onResult = function (result) {
         // ensure that at least one route was found
         if (result.routes.length) {
           result.routes[0].sections.forEach((section) => {
             // Create a linestring to use as a point source for the route line
-            let linestring = H.geo.LineString.fromFlexiblePolyline(
+            const linestring = H.geo.LineString.fromFlexiblePolyline(
               section.polyline
             )
 
             // Create a polyline to display the route:
-            let routeLine = new H.map.Polyline(linestring, {
+            const routeLine = new H.map.Polyline(linestring, {
               style: { strokeColor: 'red', lineWidth: 3 },
             })
 
             // Create a marker for the start point:
-            let startMarker = new H.map.Marker(
+            const startMarker = new H.map.Marker(
               section.departure.place.location,
               {
                 icon: icon,
@@ -68,7 +68,7 @@ export class DisplayMapClass extends React.Component {
             )
 
             // Create a marker for the end point:
-            let endMarker = new H.map.Marker(section.arrival.place.location, {
+            const endMarker = new H.map.Marker(section.arrival.place.location, {
               icon: icon,
             })
 
@@ -79,7 +79,7 @@ export class DisplayMapClass extends React.Component {
       }
 
       // Get an instance of the routing service version 8:
-      var router = platform.getRoutingService(null, 8)
+      const router = platform.getRoutingService(null, 8)
 
       // Call calculateRoute() with the routing parameters,
       // the callback and an error callback function (called if a

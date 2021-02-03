@@ -16,6 +16,7 @@ import {
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 import LogInForm from '../../components/LogInForm'
@@ -110,6 +111,8 @@ const Header = () => {
               </PopupState>
               <Typography variant="body1">or</Typography>
               <Link
+                component={RouterLink}
+                to={`/sign_up`}
                 variant="h6"
                 onClick={() => console.log('placeholder to create location')}
               >

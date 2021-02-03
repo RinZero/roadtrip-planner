@@ -16,3 +16,12 @@ export const selectUserName = () =>
   createSelector(selectUser, (user: UserState) => {
     return user.userName
   })
+
+export const selectUserPicture = () =>
+  createSelector(selectUser, (user: UserState) => {
+    return user.picture
+  })
+export const selectUserId = () =>
+  createSelector(selectUser, (user: UserState) => {
+    return user.id
+  })

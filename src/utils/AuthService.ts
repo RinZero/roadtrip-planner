@@ -1,6 +1,10 @@
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 
-const API_URL = 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/'
+import { logInSuccess } from '../store/actions'
+
+// const API_URL = 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/'
+const API_URL = 'http://localhost:3000/api/v1/'
 
 export type logInType = {
   email: string
@@ -16,17 +20,42 @@ export type signUpType = {
   is_admin: boolean
   picture?: string
 }
+const fetch = axios.create({
+  baseURL: 'http://localhost:3000/api/v1/',
+})
 
 export const logIn = (logInData: logInType) => {
-  return axios.post(API_URL + 'sessions', logInData).then((response) => {
+  return fetch.post('sessions', logInData).then((response) => {
+    if (response.data.status === 'unprocessable_entity') {
+      // eslint-disable-next-line no-console
+      console.log(response.data.errors)
+    } else {
+      // eslint-disable-next-line no-console
+      console.log(response)
+      const { id, email, username, is_admin, picture } = response.data.user
+      return {
+        userName: username,
+        id: id,
+        email: email,
+        isAdmin: is_admin,
+        picture: picture,
+      }
+    }
+  })
+}
+
+export const signUp = (signUpData: signUpType) => {
+  return fetch.post('users', signUpData).then((response) => {
     // eslint-disable-next-line no-console
     console.log(response.data)
   })
 }
 
-export const signUp = (signUpData: signUpType) => {
-  return axios.post(API_URL + 'users', signUpData).then((response) => {
-    // eslint-disable-next-line no-console
-    console.log(response.data)
+export const logOut = (id: string) => {
+  return fetch.delete('sessions/' + id).then((response) => {
+    if (response.data.errors) {
+      // eslint-disable-next-line no-console
+      console.log(response.data.errors)
+    }
   })
 }

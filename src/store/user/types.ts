@@ -1,9 +1,11 @@
 export type UserState = {
+  id: string
   userName: string
   email: string
   password: string
   image: string
   isAdmin: boolean
+  picture?: string
   roadtrips?: {
     [key: string]: RoadtripState
   }[]

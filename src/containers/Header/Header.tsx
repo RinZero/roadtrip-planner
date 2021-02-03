@@ -11,13 +11,20 @@ import {
   Typography,
   Popover,
   Box,
+  Avatar,
 } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import LogInForm from '../../components/LogInForm'
-import { selectUserName } from '../../store/selectors'
+import { logOutSuccess } from '../../store/actions'
+import {
+  selectUserId,
+  selectUserName,
+  selectUserPicture,
+} from '../../store/selectors'
+import { logOut } from '../../utils/AuthService'
 
 // Art 2
 const LogoutButton = withTheme(styled(Button)`
@@ -44,7 +51,10 @@ const StyledPopover = withTheme(styled(Popover)`
 `)
 
 const Header = () => {
+  const userId = useSelector(selectUserId())
   const userName = useSelector(selectUserName())
+  const profilePic = useSelector(selectUserPicture())
+  const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const open = Boolean(anchorEl)
   const id = open ? 'signUp-popover' : undefined
@@ -62,10 +72,15 @@ const Header = () => {
           >
             Ort hinzufügen
           </HeaderLink>
-          <AccountButton aria-label="profile">
-            <AccountCircleIcon
-              onClick={() => console.log('placeholder to profile')}
-            />
+          <AccountButton
+            aria-label="profile"
+            onClick={() => console.log('placeholder to profile')}
+          >
+            {profilePic ? (
+              <Avatar alt={userName + 's Profilbild'} src={profilePic} />
+            ) : (
+              <AccountCircleIcon />
+            )}
           </AccountButton>
           {userName === 'Guest' && (
             <>
@@ -106,12 +121,15 @@ const Header = () => {
           )}
           {userName !== 'Guest' && (
             <>
-              <Typography variant="body1">
+              <Typography variant="body1" color="textPrimary">
                 Hallo {userName}, tuastn????
               </Typography>
 
               <LogoutButton
-                onClick={() => console.log('placeholder for logout')}
+                onClick={() => {
+                  logOut(userId)
+                  dispatch(logOutSuccess())
+                }}
               >
                 Log out
               </LogoutButton>

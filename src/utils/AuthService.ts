@@ -51,8 +51,7 @@ export const logIn = (logInData: logInType) => {
 
 export const signUp = (signUpData: signUpType) => {
   return fetch.post('users', signUpData).then((response) => {
-    // eslint-disable-next-line no-console
-    console.log(response.data)
+    return response.data.data
   })
 }
 

@@ -31,10 +31,7 @@ export default () => {
       MuiButton: {
         root: {
           borderRadius: '15px',
-          '.large': {
-            backgroundColor: '#71B255',
-          },
-          backgroundColor: '#FFFFFF',
+          backgroundColor: '#71B255',
           boxShadow: '0px 3px 6px 1px rgba(0, 0, 0, 0.16)',
           padding: '10px 15px',
         },

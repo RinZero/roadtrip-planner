@@ -3,6 +3,7 @@ import React, { memo } from 'react'
 import { Button, Input, Typography, withTheme } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { logInSuccess } from '../../store/actions'
@@ -15,6 +16,9 @@ type IFormInput = {
   password: string
 }
 
+const StyledButton = styled(Button)`
+  color: #ffffff;
+`
 const StyledForm = styled.form`
   display: flex;
   justify-content: center;
@@ -28,6 +32,7 @@ const StyledInput = withTheme(styled(Input)`
 
 const LogInForm = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const { register, handleSubmit } = useForm()
   const onFormSubmit = async (data: IFormInput) => {
     const user = await logIn({
@@ -35,7 +40,10 @@ const LogInForm = () => {
       password: data.password,
       password_confirmation: data.password,
     })
-    if (user) dispatch(logInSuccess(user))
+    if (user) {
+      dispatch(logInSuccess(user))
+      history.push('/')
+    }
 
     // CreateUser()
   }
@@ -56,9 +64,7 @@ const LogInForm = () => {
         placeholder="Password"
         variant="outlined"
       />
-      <Button type="submit" color="primary">
-        LogIn
-      </Button>
+      <StyledButton type="submit">LogIn</StyledButton>
     </StyledForm>
   )
 }

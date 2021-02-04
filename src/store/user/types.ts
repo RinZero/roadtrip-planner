@@ -23,6 +23,7 @@ export type LocationState = {
   name: string
   longitude: number
   latitude: number
+  categories?: string[]
   description?: string
   date?: string
   isReturning?: 'daily' | 'weekly' | 'monthly' | 'yearly' | undefined

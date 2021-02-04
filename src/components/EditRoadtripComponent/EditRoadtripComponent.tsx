@@ -11,8 +11,10 @@ import {
 } from '@material-ui/core'
 // Import BoardItem component
 import DeleteIcon from '@material-ui/icons/Delete'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
+import { useRoadtripGenerate } from '../../hooks/useGenerateRoadtrip'
 import { fetchHereData } from '../../utils/fetchHereData'
 
 const StyledBox = withTheme(styled(Box)`
@@ -68,7 +70,15 @@ const EditRoadtripComponent = () => {
     })
     setList(data.items)
   }
-
+  //TESTS
+  const dispatch = useDispatch()
+  dispatch(
+    setRoadtripStops([
+      [47.79941, 13.04399],
+      [47.416, 15.2617],
+    ])
+  )
+  useRoadtripGenerate()
   useEffect(() => {
     getItems()
   }, [])

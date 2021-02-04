@@ -1,15 +1,23 @@
 import produce, { Draft } from 'immer'
 import { getType } from 'typesafe-actions'
 
-import { setProgressStep, setRoadtripStops, UiActionsType } from './actions'
+import {
+  setMaxRoadtripStops,
+  setProgressStep,
+  setRoadtripStops,
+  setUiSelectedCategories,
+  UiActionsType,
+} from './actions'
 import { UiState } from './types'
 
 export const initialState: UiState = {
   progressStep: '1',
   roadtripStops: [],
+  maxRoadtripStops: 5,
   isEditOpen: false,
   isAddPlace: false,
   isLoginActive: false,
+  selectedCategories: [],
 }
 
 export const uiReducer = produce(
@@ -23,6 +31,16 @@ export const uiReducer = produce(
       case getType(setRoadtripStops): {
         const { roadtripStops } = action.payload
         draft.roadtripStops = roadtripStops
+        return draft
+      }
+      case getType(setMaxRoadtripStops): {
+        const { maxRoadtripStops } = action.payload
+        draft.maxRoadtripStops = maxRoadtripStops
+        return draft
+      }
+      case getType(setUiSelectedCategories): {
+        const { selectedCategories } = action.payload
+        draft.selectedCategories = selectedCategories
         return draft
       }
       default:

@@ -3,6 +3,7 @@ import React, { memo, useEffect, createRef } from 'react'
 import { Box, Button, makeStyles, Theme } from '@material-ui/core'
 import styled from 'styled-components'
 
+import EditRoadtripComponent from '../../components/EditRoadtripComponent'
 import StartGoalForm from '../../components/StartGoalForm'
 import StepsMenu from '../../components/StepsMenu'
 import TitleSection from '../../components/TitleSection'
@@ -75,7 +76,8 @@ const TestPage = () => {
       <Button className={classes.test}>hello</Button>
       <FancyButton>Heyyyy</FancyButton>
       <TitleSection />
-      <DisplayMapClass allLocations={allLocations} />
+      {/* <DisplayMapClass allLocations={allLocations} /> */}
+      <EditRoadtripComponent />
     </>
   )
 }

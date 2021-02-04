@@ -1,7 +1,12 @@
 import produce, { Draft } from 'immer'
 import { getType } from 'typesafe-actions'
 
-import { logInSuccess, logOutSuccess, updateUser, UserActionsType } from './actions'
+import {
+  logInSuccess,
+  logOutSuccess,
+  updateUser,
+  UserActionsType,
+} from './actions'
 import { UserState } from './types'
 
 export const initialState: UserState = {
@@ -44,6 +49,8 @@ export const userReducer = produce(
         draft.email = email
         draft.password = password
         draft.image = image
+        return draft
+      }
       case getType(logOutSuccess): {
         draft = initialState
         return draft

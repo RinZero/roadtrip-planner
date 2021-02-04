@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react'
+import React, { memo, useState, useEffect, DragEvent } from 'react'
 
 import {
   Box,
@@ -75,7 +75,7 @@ const EditRoadtripComponent = () => {
 
   // onDragStart fires when an element
   // starts being dragged
-  const onDragStart = (event: any) => {
+  const onDragStart = (event: DragEvent<HTMLDivElement>) => {
     const initialPosition = Number(event.currentTarget.dataset.position)
 
     setDragAndDrop({
@@ -94,7 +94,7 @@ const EditRoadtripComponent = () => {
   // onDragOver fires when an element being dragged
   // enters a droppable area.
   // In this case, any of the items on the list
-  const onDragOver = (event: any) => {
+  const onDragOver = (event: DragEvent<HTMLDivElement>) => {
     // in order for the onDrop
     // event to fire, we have
     // to cancel out this one
@@ -128,7 +128,7 @@ const EditRoadtripComponent = () => {
     }
   }
 
-  const onDrop = (event: any) => {
+  const onDrop = (event: DragEvent<HTMLDivElement>) => {
     setList(dragAndDrop.updatedOrder)
 
     setDragAndDrop({

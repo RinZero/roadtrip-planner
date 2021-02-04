@@ -2,10 +2,12 @@ import React, { memo } from 'react'
 
 import { Button, Input, Typography, withTheme } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { signUp } from '../../utils/AuthService'
+import { logInSuccess } from '../../store/actions'
+import { logIn, signUp } from '../../utils/AuthService'
 
 type IFormInput = {
   email: string
@@ -21,8 +23,19 @@ const StyledInput = withTheme(styled(Input)`
 const SignUpPage = () => {
   const { register, handleSubmit } = useForm()
   const history = useHistory()
+  const dispatch = useDispatch()
   const onFormSubmit = async (data: IFormInput) => {
     const user = await signUp({ data: { type: 'user', attributes: data } })
+    // eslint-disable-next-line no-console
+    console.log(user)
+    if (user) {
+      const loggedInUser = await logIn({
+        email: user.email,
+        password: data.password,
+        password_confirmation: data.password,
+      })
+      if (loggedInUser) dispatch(logInSuccess(loggedInUser))
+    }
     history.push('/')
     // if (user) dispatch(logInSuccess(user))
 

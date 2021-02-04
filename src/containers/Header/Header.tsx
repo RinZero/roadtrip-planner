@@ -75,7 +75,7 @@ const Header = () => {
             aria-label="profile"
             onClick={() => console.log('placeholder to profile')}
           >
-            {profilePic ? (
+            {userName ? (
               <Avatar alt={userName + 's Profilbild'} src={profilePic} />
             ) : (
               <AccountCircleIcon />
@@ -110,12 +110,7 @@ const Header = () => {
                 )}
               </PopupState>
               <Typography variant="body1">or</Typography>
-              <Link
-                component={RouterLink}
-                to={`/sign_up`}
-                variant="h6"
-                onClick={() => console.log('placeholder to create location')}
-              >
+              <Link component={RouterLink} to={`/sign_up`} variant="h6">
                 SignUp
               </Link>
             </>
@@ -128,7 +123,6 @@ const Header = () => {
 
               <LogoutButton
                 onClick={() => {
-                  logOut(userId)
                   dispatch(logOutSuccess())
                 }}
               >

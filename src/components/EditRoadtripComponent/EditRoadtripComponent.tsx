@@ -5,16 +5,17 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
   IconButton,
   ListItemSecondaryAction,
+  withTheme,
 } from '@material-ui/core'
 // Import BoardItem component
-import RootRef from '@material-ui/core/RootRef'
-import EditIcon from '@material-ui/icons/Edit'
-import InboxIcon from '@material-ui/icons/Inbox'
-import { Droppable, DragDropContext, Draggable } from 'react-beautiful-dnd'
+import DeleteIcon from '@material-ui/icons/Delete'
 import styled from 'styled-components'
+
+const StyledBox = withTheme(styled(Box)`
+  width: 20%;
+`)
 
 // https://dev.to/florantara/creating-a-drag-and-drop-list-with-react-hooks-4c0i
 const items = [
@@ -120,25 +121,13 @@ const EditRoadtripComponent = () => {
     })
   }
 
-  // Not needed, just for logging purposes:
-  React.useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log('Dragged From: ', dragAndDrop && dragAndDrop.draggedFrom)
-    // eslint-disable-next-line no-console
-    console.log('Dropping Into: ', dragAndDrop && dragAndDrop.draggedTo)
-  }, [dragAndDrop])
-
-  React.useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log('List updated!')
-  }, [list])
-
   return (
-    <section>
-      <ul>
+    <StyledBox>
+      <List component="nav" aria-label="contacts">
         {list.map((item, index) => {
           return (
-            <li
+            <ListItem
+              button
               key={index}
               data-position={index}
               draggable
@@ -152,14 +141,17 @@ const EditRoadtripComponent = () => {
                   : ''
               }
             >
-              <span>{item.number}</span>
-              <p>{item.title}</p>
-              <i className="fas fa-arrows-alt-v"></i>
-            </li>
+              <ListItemText primary={item.number} secondary={item.title} />
+              <ListItemSecondaryAction>
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
           )
         })}
-      </ul>
-    </section>
+      </List>
+    </StyledBox>
   )
 }
 

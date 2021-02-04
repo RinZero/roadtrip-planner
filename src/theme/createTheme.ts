@@ -1,5 +1,7 @@
 import { responsiveFontSizes } from '@material-ui/core/styles'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
+import { NoEncryption } from '@material-ui/icons'
+import { nodeModuleNameResolver } from 'typescript'
 
 declare module '@material-ui/core/Button/Button' {
   interface ButtonPropsVariantOverrides {
@@ -48,6 +50,13 @@ export default () => {
         root: {
           justifyContent: 'flex-end',
           gap: '24px',
+        },
+      },
+      MuiInput: {
+        underline: {
+          '&::before': {
+            borderBottom: 0,
+          },
         },
       },
     },

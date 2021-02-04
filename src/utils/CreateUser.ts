@@ -29,10 +29,6 @@ export const CreateUser = async () => {
     }
   )
 
-  const t = await { type: 'createUser/success', result: { response } }
-  // eslint-disable-next-line no-console
-  console.log(t)
-
   if (response.ok) {
     // console.log('Acount created.')
   } else {

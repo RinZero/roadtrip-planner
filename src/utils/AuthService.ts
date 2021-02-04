@@ -3,9 +3,6 @@ import { useDispatch } from 'react-redux'
 
 import { logInSuccess } from '../store/actions'
 
-// const API_URL = 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/'
-const API_URL = 'http://localhost:3000/api/v1/'
-
 export type logInType = {
   email: string
   password: string
@@ -26,7 +23,7 @@ export type signUpType = {
   }
 }
 const fetch = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/',
+  baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
 })
 
 export const logIn = (logInData: logInType) => {

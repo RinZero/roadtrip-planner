@@ -26,8 +26,6 @@ const SignUpPage = () => {
   const dispatch = useDispatch()
   const onFormSubmit = async (data: IFormInput) => {
     const user = await signUp({ data: { type: 'user', attributes: data } })
-    // eslint-disable-next-line no-console
-    console.log(user)
     if (user) {
       const loggedInUser = await logIn({
         email: user.email,

@@ -16,7 +16,9 @@ import styled from 'styled-components'
 import { fetchHereData } from '../../utils/fetchHereData'
 
 const StyledBox = withTheme(styled(Box)`
-  width: 20%;
+  width: 25%;
+  overflow: auto;
+  max-height: 400px;
 `)
 
 const initialDnDState = {
@@ -145,7 +147,7 @@ const EditRoadtripComponent = () => {
   }
 
   return (
-    <StyledBox style={{ maxHeight: 400, overflow: 'auto' }}>
+    <StyledBox>
       <List component="nav" aria-label="contacts">
         {list.map((item, index) => {
           return (

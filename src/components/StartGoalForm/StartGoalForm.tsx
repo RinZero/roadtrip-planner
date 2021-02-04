@@ -68,7 +68,7 @@ export const StartGoalForm = () => {
   const { register, handleSubmit } = useForm()
   const onFormSubmit = (data: IFormInput) => {
     const roadtripStops = data.stops.filter((s) => s !== '')
-    dispatch(setRoadtripStops({ roadtripStops }))
+    // dispatch(setRoadtripStops({ roadtripStops }))
     dispatch(setProgressStep({ progressStep: '2' }))
   }
   return (

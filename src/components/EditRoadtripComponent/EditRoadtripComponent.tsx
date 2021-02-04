@@ -15,6 +15,11 @@ import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import { useRoadtripGenerate } from '../../hooks/useGenerateRoadtrip'
+import {
+  setMaxRoadtripStops,
+  setRoadtripStops,
+  setUiSelectedCategories,
+} from '../../store/actions'
 import { fetchHereData } from '../../utils/fetchHereData'
 
 const StyledBox = withTheme(styled(Box)`
@@ -52,7 +57,7 @@ const EditRoadtripComponent = () => {
 
   const getItems = async () => {
     const data = await fetchHereData({
-      object: { endpoint: 'discover', query: 'zoo' },
+      object: { endpoint: 'browse', query: 'zoo' },
       at: { longitude: 47.7, latitude: 13.04399 },
       limit: 12,
       language: 'de',
@@ -71,17 +76,29 @@ const EditRoadtripComponent = () => {
     setList(data.items)
   }
   //TESTS
+  // Setup
   const dispatch = useDispatch()
   dispatch(
-    setRoadtripStops([
-      [47.79941, 13.04399],
-      [47.416, 15.2617],
-    ])
+    setRoadtripStops({
+      roadtripStops: [
+        [47.79941, 13.04399, 1.0],
+        [47.416, 15.2617, 2.0],
+      ],
+    })
   )
+  dispatch(setMaxRoadtripStops({ maxRoadtripStops: 5 }))
+  dispatch(
+    setUiSelectedCategories({
+      // eslint-disable-next-line no-octal
+      selectedCategories: ['550-5520-0208'],
+    })
+  )
+  // eslint-disable-next-line no-console
+  console.log('tests finshed')
   useRoadtripGenerate()
-  useEffect(() => {
-    getItems()
-  }, [])
+  // useEffect(() => {
+  //   getItems()
+  // }, [])
 
   // onDragStart fires when an element
   // starts being dragged

@@ -42,7 +42,7 @@ const TestPage = () => {
   useEffect(() => {
     CreateUser()
     fetchHereData({
-      object: { endpoint: 'discover', query: 'zoo' },
+      object: { endpoint: 'browse', query: 'zoo' },
       at: { longitude: 41.70035, latitude: -93.20866 },
       limit: 10,
       language: 'en',

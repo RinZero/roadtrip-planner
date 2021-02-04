@@ -31,29 +31,76 @@ export const useRoadtripGenerate = async () => {
   const maxStops = useSelector(selectMaxRoadtripStops())
   const categories = useSelector(selectUiSelectedCategories())
 
-  const center = createCenter(stops[0], stops[stops.length - 1])
+  // const center = createCenter(stops[0], stops[stops.length - 1])
 
-  let i = 0
-  for (const stop of stops) {
-    stop.push(i)
-    i++
-  }
+  const query = '' + categories.map((category) => category)
+  const limit = maxStops
 
-  const query = '' + categories.map((category) => category + ', ')
-
-  const places = await fetchHereData({
-    object: { endpoint: 'discover', query: query },
-    at: { longitude: center[0], latitude: center[1] },
-    limit: maxStops - stops.length + 2,
-    language: 'de',
-    route: {
-      stopps: stops,
-      width: 20000,
-    },
-  })
+  const route: number[][] = new Array(maxStops)
 
   // eslint-disable-next-line no-console
-  console.log(places)
+  console.log(route)
+  for (let i = 0; i < route.length; i++) {
+    if (i < stops.length) {
+      route[i] = stops[i]
+    } else {
+      const center = stops[i % stops.length]
+      const possibleStops = await fetchHereData({
+        object: { endpoint: 'browse', query: query },
+        at: { longitude: center[0], latitude: center[1] },
+        language: 'de',
+        limit: 100,
+        route: {
+          stopps: stops,
+          width: 40000,
+        },
+      })
+      if (possibleStops.items.length > 0) {
+        const random = Math.floor(
+          Math.random() * Math.floor(possibleStops.items.length)
+        )
+        // eslint-disable-next-line no-console
+        console.log('random', random)
+        route[i] = [
+          possibleStops.items[random].access[0].lat,
+          possibleStops.items[random].access[0].lng,
+          i,
+        ]
+      }
+      // eslint-disable-next-line no-console
+      console.log(route)
+    }
+
+    route.sort((a, b) => calcDistance(a, b))
+
+    // eslint-disable-next-line no-console
+    console.log(route)
+  }
+}
+
+const calcDistance = (p1: number[], p2: number[]) => {
+  const lat1 = p1[0]
+  const lon1 = p1[1]
+  const lat2 = p2[0]
+  const lon2 = p2[1]
+  if (lat1 === lat2 && lon1 === lon2) {
+    return 0
+  } else {
+    const radlat1 = (Math.PI * lat1) / 180
+    const radlat2 = (Math.PI * lat2) / 180
+    const theta = lon1 - lon2
+    const radtheta = (Math.PI * theta) / 180
+    let dist =
+      Math.sin(radlat1) * Math.sin(radlat2) +
+      Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+    if (dist > 1) {
+      dist = 1
+    }
+    dist = Math.acos(dist)
+    dist = (dist * 180) / Math.PI
+    dist = dist * 60 * 1.1515
+    return dist
+  }
 }
 
 const createRoute = () => {

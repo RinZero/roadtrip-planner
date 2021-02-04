@@ -7,7 +7,7 @@ export const CreateUser = async () => {
       type: 'user',
       attributes: {
         username: 'frontendPerson',
-        email: 'frontend@per.son',
+        email: 'frontend50@per.son',
         password: 'css123',
         password_confirmation: 'css123',
         is_admin: false,
@@ -28,9 +28,6 @@ export const CreateUser = async () => {
       body: JSON.stringify(user),
     }
   )
-
-  const t = await { type: 'createUser/success', result: { response } }
-  // console.log(t)
 
   if (response.ok) {
     // console.log('Acount created.')

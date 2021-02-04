@@ -11,8 +11,6 @@ import reportWebVitals from './reportWebVitals'
 import store, { history } from './store'
 import { createTheme } from './theme'
 
-import { MuiThemeProvider } from '@material-ui/core'
-
 const theme = createTheme()
 ReactDOM.render(
   <Provider store={store}>

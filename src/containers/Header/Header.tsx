@@ -52,12 +52,7 @@ const StyledPopover = withTheme(styled(Popover)`
   padding: ${(props) => props.theme.spacing(3)}px;
 `)
 
-const StyledPopover = withTheme(styled(Popover)`
-  padding: ${(props) => props.theme.spacing(3)}px;
-`)
-
 const Header = () => {
-  const userId = useSelector(selectUserId())
   const userName = useSelector(selectUserName())
   const profilePic = useSelector(selectUserPicture())
   const dispatch = useDispatch()

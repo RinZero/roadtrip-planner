@@ -20,7 +20,6 @@ export const updateUser = createAction('user/UPDATE_USER')<{
   password: string
   image: string
 }>()
-export const logOutSuccess = createAction('user/LOG_OUT_SUCCESS')()
 
 export const logOutSuccess = createAction('user/LOG_OUT_SUCCESS')()
 

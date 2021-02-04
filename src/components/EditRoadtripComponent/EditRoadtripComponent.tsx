@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 
 import {
   Box,
@@ -13,18 +13,11 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete'
 import styled from 'styled-components'
 
+import { fetchHereData } from '../../utils/fetchHereData'
+
 const StyledBox = withTheme(styled(Box)`
   width: 20%;
 `)
-
-// https://dev.to/florantara/creating-a-drag-and-drop-list-with-react-hooks-4c0i
-const items = [
-  { number: '1', title: '🇦🇷 Argentina' },
-  { number: '2', title: '🤩 YASS' },
-  { number: '3', title: '👩🏼‍💻 Tech Girl' },
-  { number: '4', title: '💋 Lipstick & Code' },
-  { number: '5', title: '💃🏼 Latina' },
-]
 
 const initialDnDState = {
   draggedFrom: 0,
@@ -32,21 +25,51 @@ const initialDnDState = {
   isDragging: false,
   originalOrder: [
     {
-      number: '',
       title: '',
+      address: { label: '' },
     },
   ],
   updatedOrder: [
     {
-      number: '',
       title: '',
+      address: { label: '' },
     },
   ],
 }
 
 const EditRoadtripComponent = () => {
-  const [list, setList] = React.useState(items)
-  const [dragAndDrop, setDragAndDrop] = React.useState(initialDnDState)
+  const [list, setList] = useState([
+    {
+      title: '',
+      address: { label: '' },
+    },
+  ])
+  const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
+
+  const getItems = async () => {
+    const data = await fetchHereData({
+      object: { endpoint: 'discover', query: 'zoo' },
+      at: { longitude: 47.7, latitude: 13.04399 },
+      limit: 12,
+      language: 'de',
+      route: {
+        stopps: [
+          [47.79941, 13.04399, 1.0],
+          [47.7, 13.04399, 2.0],
+          [47.8, 13.04399, 3.0],
+          [48.210552, 16.376495, 4.0],
+          [46.6357, 14.311817, 5.0],
+          [47.416, 15.2617, 6.0],
+        ],
+        width: 20000,
+      },
+    })
+    setList(data.items)
+  }
+
+  useEffect(() => {
+    getItems()
+  }, [])
 
   // onDragStart fires when an element
   // starts being dragged
@@ -122,7 +145,7 @@ const EditRoadtripComponent = () => {
   }
 
   return (
-    <StyledBox>
+    <StyledBox style={{ maxHeight: 400, overflow: 'auto' }}>
       <List component="nav" aria-label="contacts">
         {list.map((item, index) => {
           return (
@@ -141,7 +164,7 @@ const EditRoadtripComponent = () => {
                   : ''
               }
             >
-              <ListItemText primary={item.number} secondary={item.title} />
+              <ListItemText primary={item.address.label} />
               <ListItemSecondaryAction>
                 <IconButton>
                   <DeleteIcon />

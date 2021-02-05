@@ -1,13 +1,4 @@
-import React, {
-  memo,
-  useState,
-  useEffect,
-  DragEvent,
-  useCallback,
-  useRef,
-  useLayoutEffect,
-  useMemo,
-} from 'react'
+import React, { memo, useState, useEffect, DragEvent } from 'react'
 
 import {
   Box,
@@ -20,24 +11,10 @@ import {
 } from '@material-ui/core'
 // Import BoardItem component
 import DeleteIcon from '@material-ui/icons/Delete'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { useRoadtripGenerate } from '../../hooks/useGenerateRoadtrip'
-import {
-  setIsLocked,
-  setMapRoute,
-  setMaxRoadtripStops,
-  setRoadtripStops,
-  setUiSelectedCategories,
-} from '../../store/actions'
-import {
-  selectIsLocked,
-  selectMapRoute,
-  selectMaxRoadtripStops,
-  selectRoadtripStops,
-  selectUiSelectedCategories,
-} from '../../store/selectors'
+import { selectMapRoute } from '../../store/selectors'
 import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { fetchHereData } from '../../utils/fetchHereData'
 
@@ -169,8 +146,13 @@ const EditRoadtripComponent = () => {
   }
 
   const mapRoute = useSelector(selectMapRoute())
+
+  useEffect(() => {
+    getItems()
+  }, [])
   return (
-    <>
+    <Box display="flex" flex-direction="row" justify-content="space-between">
+      <DisplayMapClass allLocations={mapRoute} />
       <StyledBox>
         <List component="nav" aria-label="contacts">
           {list.map((item, index) => {
@@ -201,8 +183,7 @@ const EditRoadtripComponent = () => {
           })}
         </List>
       </StyledBox>
-      <DisplayMapClass allLocations={mapRoute} />
-    </>
+    </Box>
   )
 }
 

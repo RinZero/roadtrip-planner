@@ -7,9 +7,7 @@ import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { logInSuccess } from '../../store/actions'
-import { logIn, signUp } from '../../utils/AuthService'
-import { CreateUser } from '../../utils/CreateUser'
-import { FetchUser } from '../../utils/FetchUser'
+import { logIn } from '../../utils/AuthService'
 
 type IFormInput = {
   username: string

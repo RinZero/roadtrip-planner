@@ -1,17 +1,13 @@
-import React, { memo, useEffect, createRef } from 'react'
+import React, { memo, useEffect } from 'react'
 
 import { Box, Button, makeStyles, Theme } from '@material-ui/core'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import EditRoadtripComponent from '../../components/EditRoadtripComponent'
 import StartGoalForm from '../../components/StartGoalForm'
 import StepsMenu from '../../components/StepsMenu'
 import TitleSection from '../../components/TitleSection'
-import { selectMapRoute } from '../../store/selectors'
 import { CreateUser } from '../../utils/CreateUser'
-import { DisplayMapClass } from '../../utils/DisplayMapClass'
-import { fetchHereData } from '../../utils/fetchHereData'
 
 //import TestComponent from "././components/TestComponent"
 
@@ -65,7 +61,6 @@ const TestPage = () => {
     //   },
     // })
   }, [])
-  const allLocations = useSelector(selectMapRoute())
   return (
     <>
       <h1>Hello World</h1>
@@ -79,7 +74,6 @@ const TestPage = () => {
       <Button className={classes.test}>hello</Button>
       <FancyButton>Heyyyy</FancyButton>
       <TitleSection />
-      <DisplayMapClass allLocations={allLocations} />
       <EditRoadtripComponent />
     </>
   )

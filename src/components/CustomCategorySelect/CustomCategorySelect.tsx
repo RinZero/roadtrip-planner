@@ -89,9 +89,16 @@ const CustomCategorySelect = () => {
   const [categoriesData, setCategoriesData] = useState(['', '', ''])
   const [index, setIndex] = useState(1)
 
-  // const [chipData, setChipData] = React.useState([])
+  // const [chipData, setChipData] = React.useState(
+  //   {
+  //     0: 'Tag 1',
+  //     1: 'Tag 2',
+  //     2: 'Tag 3',
+  //     3: 'Tag 4'
+  //   },
+  // )
 
-  const [chipData, setChipData] = useState([])
+  const [chipData, setChipData] = useState(new Set())
   const [showCategories, setShowCategories] = useState(false)
   const onClick = () => {
     // eslint-disable-next-line no-console
@@ -108,22 +115,35 @@ const CustomCategorySelect = () => {
     console.log('Wast ist der index: ' + index)
     for (let i = index; i >= 0; i--) {
       if (categoriesData[i] !== '') {
-        setChipData(chipData.concat(categoriesData[i]))
+        // setChipData(chipData.concat(categoriesData[i]))
+        chipData.add(categoriesData[i])
+        // setChipData([...new Set(chipData)])
+        // setChipData({
+        //   ...chipData,
+        //   [categoriesData[i]]: categoriesData[i],
+        // })
         break
       }
     }
   }
 
+  for (const item of Array.from(chipData.values())) {
+    // eslint-disable-next-line no-console
+    console.log(item)
+  }
+
   // eslint-disable-next-line no-console
   console.log(chipData)
-
-  // const handleDelete = (chipToDelete: any) => () => {
-  //   setChipData((chips) =>
-  //     chips.filter((chip) => chip.key !== chipToDelete.key)
-  //   )
-  // }
-  // eslint-disable-next-line no-console
-  console.log(state)
+  const handleDelete = (chipToDelete: any) => () => {
+    // eslint-disable-next-line no-console
+    console.log('DELETE')
+    // eslint-disable-next-line no-console
+    console.log(chipToDelete)
+    chipData.delete(chipToDelete)
+    setChipData(chipData)
+    // eslint-disable-next-line no-console
+    console.log(chipData)
+  }
 
   const [valueCategory, setValueCategory] = useState(0)
   // eslint-disable-next-line no-console
@@ -239,17 +259,17 @@ const CustomCategorySelect = () => {
           <StartButton onClick={onClick}>Hinzufügen</StartButton>
         )}
         <TagBox component="ul">
-          {chipData.map((data) => {
+          {Array.from(chipData).map((data) => {
             let icon
 
             return (
-              // <li key={data.key}>
-              <TagChip
-                icon={icon}
-                label={data}
-                // onDelete={handleDelete(data)}
-              />
-              // </li>
+              <li>
+                <TagChip
+                  icon={icon}
+                  label={data}
+                  onDelete={handleDelete(data)}
+                />
+              </li>
             )
           })}
         </TagBox>

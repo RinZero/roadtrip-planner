@@ -1,0 +1,187 @@
+import React, { memo } from 'react'
+
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  withTheme,
+} from '@material-ui/core'
+import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
+
+import {
+  setMapRoute,
+  setMaxRoadtripStops,
+  setProgressStep,
+  setRoadtripStops,
+  setUiSelectedCategories,
+} from '../../store/actions'
+import {
+  selectRoadtripStops,
+  selectMaxRoadtripStops,
+  selectUiSelectedCategories,
+} from '../../store/selectors'
+import { data as cityCoordinates } from './cityCoordinates.json'
+import { roadtripGenerate } from './raoadtripGenerate'
+
+const StyledForm = withTheme(styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${(props) => props.theme.spacing(1)}px;
+`)
+
+const StyledButton = withTheme(styled(Button)`
+  width: 100%;
+  color: #ffffff;
+  background-color: #71b255;
+  padding: ${(props) => props.theme.spacing(2.5)}px;
+  border-radius: 15px;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+`)
+
+const StyledTextField = withTheme(styled(TextField)`
+  margin: 0 ${(props) => props.theme.spacing(2)}px;
+  border-radius: 15px;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+
+  .MuiInput-underline {
+    :after {
+      content: none;
+    }
+    :before {
+      content: none;
+    }
+  }
+`)
+
+const StartGoalTextField = withTheme(styled(StyledTextField)`
+  height: ${(props) => props.theme.spacing(13.5)}px;
+
+  * {
+    margin-left: ${(props) => props.theme.spacing(3.7)}px;
+    font-size: 40px;
+  }
+`)
+
+const StopIndicatorTextField = withTheme(styled(StyledTextField)`
+  width: ${(props) => props.theme.spacing(8)}px;
+  height: ${(props) => props.theme.spacing(8)}px;
+`)
+type IFormInput = {
+  stops: string[]
+}
+
+export const StartGoalForm = () => {
+  const dispatch = useDispatch()
+  const { register, getValues } = useForm()
+  const onFormSubmit = (data: IFormInput) => {
+    const nameStops = data.stops.filter((s) => s !== '')
+    const roadtripStops: number[][] = []
+    nameStops.map((stop) => {
+      const stopCord = cityCoordinates.find((c) => c.name === stop)?.coordinates
+      if (stopCord) roadtripStops.push(stopCord)
+      return null
+    })
+    return roadtripStops
+  }
+
+  //TESTS
+  // Setup
+  // dispatch(
+  //   setRoadtripStops({
+  //     roadtripStops: [
+  //       [47.79941, 13.04399, 1.0],
+  //       [46.6357, 14.311817, 2.0],
+  //       [47.416, 15.2617, 3.0],
+  //     ],
+  //   })
+  // )
+  // dispatch(setMaxRoadtripStops({ maxRoadtripStops: 10 }))
+  // const maxStops = useSelector(selectMaxRoadtripStops())
+  // dispatch(
+  //   setUiSelectedCategories({
+  //     // eslint-disable-next-line no-octal
+  //     selectedCategories: ['550-5520-0208'],
+  //   })
+  // )
+
+  // const stops = useSelector(selectRoadtripStops())
+
+  // const categories = useSelector(selectUiSelectedCategories())
+  return (
+    <>
+      <StyledForm>
+        <Typography variant="h3">
+          TEST_UMGEBUNG!!!!: Bitte verwnde nur diese Orte:{' '}
+          {cityCoordinates.map((c) => c.name + ', ')}
+        </Typography>
+        <Box display="flex" width="100%" justifyContent="center">
+          <StartGoalTextField
+            label="Start"
+            name="stops[0]"
+            inputRef={register}
+            fullWidth
+            placeholder="Salzburg"
+          />
+          <StartGoalTextField
+            label="Goal"
+            name="stops[4]"
+            inputRef={register}
+            fullWidth
+            placeholder="Graz"
+          />
+        </Box>
+
+        <Grid container spacing={1} alignItems="center">
+          <Grid item xs={12} lg={8} justify="space-evenly" alignItems="center">
+            {/* <Box
+              display="flex"
+              justifyContent="space-evenly"
+              alignItems="center"
+            > */}
+            <Typography variant="h6">Stops (optional)</Typography>
+            <StartGoalTextField
+              label="Zwischenstopp 1"
+              name="stops[1]"
+              inputRef={register}
+            />
+            <StartGoalTextField
+              label="Zwischenstopp 2"
+              name="stops[2]"
+              inputRef={register}
+            />
+            <StartGoalTextField
+              label="Zwischenstopp 2"
+              name="stops[3]"
+              inputRef={register}
+            />
+            {/* </Box> */}
+          </Grid>
+          <Grid item xs={12} lg={4}>
+            <Box p={5}>
+              <StyledButton
+                onClick={async () => {
+                  const values = getValues()
+
+                  const stops = onFormSubmit({ stops: values.stops })
+                  dispatch(setRoadtripStops({ roadtripStops: stops }))
+
+                  dispatch(setProgressStep({ progressStep: '2' }))
+                }}
+              >
+                Start
+              </StyledButton>
+            </Box>
+          </Grid>
+        </Grid>
+      </StyledForm>
+    </>
+  )
+}
+
+export default memo(StartGoalForm)

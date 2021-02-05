@@ -1,13 +1,30 @@
-import React, { memo } from "react";
+import React, { memo } from 'react'
 
-//import TestComponent from "././components/TestComponent";
+import { Box, withTheme } from '@material-ui/core'
+import styled from 'styled-components'
+
+import TitleSection from '../../components/TitleSection'
+import Header from '../Header'
+import RoadtripForm from '../RoadtripForm'
+
+const MainPageStyles = withTheme(styled.div`
+  max-width: 70%;
+  padding: ${(props) => props.theme.spacing(10)}px 0;
+  display: flex;
+  flex-direction: column;
+  height: 93vh;
+  justify-content: space-around;
+`)
 
 const MainPage = () => {
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
-  );
-};
+    <Box display="flex" justifyContent="center" alignItems="center">
+      <MainPageStyles>
+        <TitleSection />
+        <RoadtripForm />
+      </MainPageStyles>
+    </Box>
+  )
+}
 
-export default memo(MainPage);
+export default memo(MainPage)

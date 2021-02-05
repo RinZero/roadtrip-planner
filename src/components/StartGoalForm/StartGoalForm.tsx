@@ -24,6 +24,7 @@ import {
   selectMaxRoadtripStops,
   selectUiSelectedCategories,
 } from '../../store/selectors'
+import { data as cityCoordinates } from './cityCoordinates.json'
 import { roadtripGenerate } from './raoadtripGenerate'
 
 const StyledForm = withTheme(styled.form`
@@ -77,24 +78,29 @@ type IFormInput = {
 
 export const StartGoalForm = () => {
   const dispatch = useDispatch()
-  const { register, handleSubmit } = useForm()
+  const { register, getValues } = useForm()
   const onFormSubmit = (data: IFormInput) => {
-    const roadtripStops = data.stops.filter((s) => s !== '')
-    // dispatch(setRoadtripStops({ roadtripStops }))
-    dispatch(setProgressStep({ progressStep: '2' }))
+    const nameStops = data.stops.filter((s) => s !== '')
+    const roadtripStops: number[][] = []
+    nameStops.map((stop) => {
+      const stopCord = cityCoordinates.find((c) => c.name === stop)?.coordinates
+      if (stopCord) roadtripStops.push(stopCord)
+      return null
+    })
+    return roadtripStops
   }
 
   //TESTS
   // Setup
-  dispatch(
-    setRoadtripStops({
-      roadtripStops: [
-        [47.79941, 13.04399, 1.0],
-        [46.6357, 14.311817, 2.0],
-        [47.416, 15.2617, 3.0],
-      ],
-    })
-  )
+  // dispatch(
+  //   setRoadtripStops({
+  //     roadtripStops: [
+  //       [47.79941, 13.04399, 1.0],
+  //       [46.6357, 14.311817, 2.0],
+  //       [47.416, 15.2617, 3.0],
+  //     ],
+  //   })
+  // )
   dispatch(setMaxRoadtripStops({ maxRoadtripStops: 10 }))
   dispatch(
     setUiSelectedCategories({
@@ -108,7 +114,11 @@ export const StartGoalForm = () => {
   const categories = useSelector(selectUiSelectedCategories())
   return (
     <>
-      <StyledForm onSubmit={handleSubmit(onFormSubmit)}>
+      <StyledForm>
+        <Typography variant="h3">
+          TEST_UMGEBUNG!!!!: Bitte verwnde nur diese Orte:{' '}
+          {cityCoordinates.map((c) => c.name + ', ')}
+        </Typography>
         <Box display="flex" width="100%" justifyContent="center">
           <StartGoalTextField
             label="Start"
@@ -128,46 +138,54 @@ export const StartGoalForm = () => {
 
         <Grid container spacing={1} alignItems="center">
           <Grid item xs={12} lg={8} justify="space-evenly" alignItems="center">
-            <Box
+            {/* <Box
               display="flex"
               justifyContent="space-evenly"
               alignItems="center"
-            >
-              <Typography variant="h6">Stops</Typography>
-              <StopIndicatorTextField
-                label="1"
-                name="stops[1]"
-                inputRef={register}
-              />
-              <StopIndicatorTextField
-                label="2"
-                name="stops[2]"
-                inputRef={register}
-              />
-              <StopIndicatorTextField
-                label="3"
-                name="stops[3]"
-                inputRef={register}
-              />
-            </Box>
+            > */}
+            <Typography variant="h6">Stops (optional)</Typography>
+            <StartGoalTextField
+              label="Zwischenstopp 1"
+              name="stops[1]"
+              inputRef={register}
+            />
+            <StartGoalTextField
+              label="Zwischenstopp 2"
+              name="stops[2]"
+              inputRef={register}
+            />
+            <StartGoalTextField
+              label="Zwischenstopp 2"
+              name="stops[3]"
+              inputRef={register}
+            />
+            {/* </Box> */}
           </Grid>
           <Grid item xs={12} lg={4}>
             <Box p={5}>
-              <StyledButton type="submit">Start</StyledButton>
+              <StyledButton
+                onClick={async () => {
+                  const values = getValues()
+
+                  const stops = onFormSubmit({ stops: values.stops })
+
+                  // eslint-disable-next-line no-console
+                  console.log(stops)
+                  const response = await roadtripGenerate(
+                    stops,
+                    maxStops,
+                    categories
+                  )
+                  dispatch(setMapRoute({ mapRoute: response }))
+                  dispatch(setProgressStep({ progressStep: '2' }))
+                }}
+              >
+                Start
+              </StyledButton>
             </Box>
           </Grid>
         </Grid>
       </StyledForm>
-      <Button
-        size="large"
-        onClick={async () => {
-          const response = await roadtripGenerate(stops, maxStops, categories)
-          dispatch(setMapRoute({ mapRoute: response }))
-          dispatch(setProgressStep({ progressStep: '3' }))
-        }}
-      >
-        Lets go
-      </Button>
     </>
   )
 }

@@ -1,13 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { ChangeEvent, memo, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import {
-  getFirstCategories,
-  getNameByID,
-  getSecondCategories,
-  getThirdCategories,
-} from '../../utils/getArrayCategories'
-import { setUiSelectedCategories } from '../../store/actions'
+
 import {
   Box,
   Chip,
@@ -17,7 +10,26 @@ import {
   Select,
   withTheme,
 } from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+
+import {
+  setMapRoute,
+  setMaxRoadtripStops,
+  setProgressStep,
+  setUiSelectedCategories,
+} from '../../store/actions'
+import {
+  selectMaxRoadtripStops,
+  selectRoadtripStops,
+} from '../../store/selectors'
+import {
+  getFirstCategories,
+  getNameByID,
+  getSecondCategories,
+  getThirdCategories,
+} from '../../utils/getArrayCategories'
+import { roadtripGenerate } from '../StartGoalForm/raoadtripGenerate'
 
 const CategorieSelect = withTheme(styled(Select)`
   border-radius: 15px;
@@ -91,6 +103,11 @@ const CustomCategorySelect = () => {
   }
 
   const dispatch = useDispatch()
+
+  dispatch(setMaxRoadtripStops({ maxRoadtripStops: 10 }))
+  const maxStops = useSelector(selectMaxRoadtripStops())
+  const stops = useSelector(selectRoadtripStops())
+
   const firstArray = getFirstCategories()
 
   const [categoriesData, setCategoriesData] = useState(['', '', ''])
@@ -242,11 +259,15 @@ const CustomCategorySelect = () => {
         </TagBox>
         {showCategories ? undefined : (
           <StartButton
-            onClick={() => {
+            onClick={async () => {
               const dataArray: string[] = Array.from(chipData)
-              dispatch(
-                setUiSelectedCategories({ selectedCategories: dataArray })
+              const response = await roadtripGenerate(
+                stops,
+                maxStops,
+                dataArray
               )
+              dispatch(setMapRoute({ mapRoute: response }))
+              dispatch(setProgressStep({ progressStep: '3' }))
             }}
           >
             Weiter

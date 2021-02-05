@@ -101,17 +101,18 @@ export const StartGoalForm = () => {
   //     ],
   //   })
   // )
-  dispatch(setMaxRoadtripStops({ maxRoadtripStops: 10 }))
-  dispatch(
-    setUiSelectedCategories({
-      // eslint-disable-next-line no-octal
-      selectedCategories: ['550-5520-0208'],
-    })
-  )
+  // dispatch(setMaxRoadtripStops({ maxRoadtripStops: 10 }))
+  // const maxStops = useSelector(selectMaxRoadtripStops())
+  // dispatch(
+  //   setUiSelectedCategories({
+  //     // eslint-disable-next-line no-octal
+  //     selectedCategories: ['550-5520-0208'],
+  //   })
+  // )
 
-  const stops = useSelector(selectRoadtripStops())
-  const maxStops = useSelector(selectMaxRoadtripStops())
-  const categories = useSelector(selectUiSelectedCategories())
+  // const stops = useSelector(selectRoadtripStops())
+
+  // const categories = useSelector(selectUiSelectedCategories())
   return (
     <>
       <StyledForm>
@@ -168,15 +169,8 @@ export const StartGoalForm = () => {
                   const values = getValues()
 
                   const stops = onFormSubmit({ stops: values.stops })
+                  dispatch(setRoadtripStops({ roadtripStops: stops }))
 
-                  // eslint-disable-next-line no-console
-                  console.log(stops)
-                  const response = await roadtripGenerate(
-                    stops,
-                    maxStops,
-                    categories
-                  )
-                  dispatch(setMapRoute({ mapRoute: response }))
                   dispatch(setProgressStep({ progressStep: '2' }))
                 }}
               >

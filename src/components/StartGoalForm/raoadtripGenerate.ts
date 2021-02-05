@@ -1,51 +1,23 @@
-import { useSelector } from 'react-redux'
+import { fetchHereData } from '../../utils/fetchHereData'
 
-import {
-  selectMaxRoadtripStops,
-  selectRoadtripStops,
-  selectUiSelectedCategories,
-} from '../store/selectors'
-import { fetchHereData } from '../utils/fetchHereData'
-
-const createCenter = (p0: number[], p1: number[]) => {
-  const d = Math.pow(
-    Math.pow(p0[0] - p1[0], 2) + Math.pow(p0[1] - p1[1], 2),
-    0.5
-  )
-  const m = [(p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2]
-
-  const u = (p0[0] + p1[0]) / d
-  const v = (p0[1] + p1[1]) / d
-
-  const r = d * 1
-  const h = Math.pow(Math.pow(r, 2) - Math.pow(d, 2) / 4, 0.5)
-
-  const center1 = [m[0] - h * v, m[1] + h * u]
-  const center2 = [m[0] + h * v, m[1] - h * u]
-
-  return center1
-}
-
-export const useRoadtripGenerate = async () => {
-  const stops = useSelector(selectRoadtripStops())
-  const maxStops = useSelector(selectMaxRoadtripStops())
-  const categories = useSelector(selectUiSelectedCategories())
-
+export const roadtripGenerate = async (
+  stops: number[][],
+  maxStops: number,
+  categories: string[]
+) => {
   // const center = createCenter(stops[0], stops[stops.length - 1])
 
   const query = '' + categories.map((category) => category)
-  const limit = maxStops
 
   const route: number[][] = new Array(maxStops)
-
-  // eslint-disable-next-line no-console
-  console.log(route)
   for (let i = 0; i < route.length; i++) {
     if (i < stops.length) {
       route[i] = stops[i]
     } else {
       const random1 = Math.floor(Math.random() * Math.floor(stops.length))
       const center = stops[random1]
+      // eslint-disable-next-line no-console
+      console.log(stops, center, random1)
       const possibleStops = await fetchHereData({
         object: { endpoint: 'browse', query: query },
         at: { longitude: center[0], latitude: center[1] },
@@ -68,8 +40,6 @@ export const useRoadtripGenerate = async () => {
           i + 1,
         ]
       }
-      // eslint-disable-next-line no-console
-      console.log(route)
     }
 
     route.sort((a, b) => calcDistance(stops[0], a) - calcDistance(stops[0], b))
@@ -82,14 +52,11 @@ export const useRoadtripGenerate = async () => {
       }
       return -1
     })
-
-    // eslint-disable-next-line no-console
-    console.log(route)
   }
-  return route
+  return route.map((data) => data[0].toString() + ',' + data[1].toString())
 }
 
-const calcDistance = (p1: number[], p2: number[]) => {
+export const calcDistance = (p1: number[], p2: number[]) => {
   const lat1 = p1[0]
   const lon1 = p1[1]
   const lat2 = p2[0]
@@ -112,8 +79,4 @@ const calcDistance = (p1: number[], p2: number[]) => {
     dist = dist * 60 * 1.1515
     return dist
   }
-}
-
-const createRoute = () => {
-  return []
 }

@@ -98,21 +98,18 @@ const CustomCategorySelect = () => {
     showCategories ? setShowCategories(false) : setShowCategories(true)
     for (let i = 2; i >= 0; i--) {
       if (categoriesData[i] !== '') {
-        chipData.add(categoriesData[i])
+        const newSet = new Set(chipData)
+        newSet.add(categoriesData[i])
+        setChipData(newSet)
         break
       }
     }
   }
 
   const handleDelete = (chipToDelete: any) => () => {
-    // eslint-disable-next-line no-console
-    console.log('DELETE')
-    // eslint-disable-next-line no-console
-    console.log(chipToDelete)
-    chipData.delete(chipToDelete)
-    setChipData(chipData)
-    // eslint-disable-next-line no-console
-    console.log(chipData)
+    const newSet = new Set(chipData)
+    newSet.delete(chipToDelete)
+    setChipData(newSet)
   }
 
   const [valueCategory, setValueCategory] = useState(0)
@@ -216,5 +213,7 @@ const CustomCategorySelect = () => {
 export default memo(CustomCategorySelect)
 
 // TODOS
-// 1. Delete funktioniert noch nicht ganz - es steht zwar nicht mehr im set, aber dafür noch im Html
+// 1. Delete funktioniert noch nicht ganz - es steht zwar nicht mehr im set, aber dafür noch im Html -> Fix: immer neues Set erstellen und dann setChipData https://dev.to/ganes1410/using-javascript-sets-with-react-usestate-39eo
 // 2. Chip fügt immer das letzte veränderte dazu. Nicht das letzte in der Liste (apfel statt bannane3) -> Fix: Hardcoded 2 weil dass maximal ist
+// 3. Linten !!! erste Zeile oben löschen
+// 4. Refactor !!! setCategoriesData wird z.B. nie verwendet, da kann was nicht stimmen - vlt ähnliche lösung wie 1. nur mit Array

@@ -44,7 +44,8 @@ export const useRoadtripGenerate = async () => {
     if (i < stops.length) {
       route[i] = stops[i]
     } else {
-      const center = stops[i % stops.length]
+      const random1 = Math.floor(Math.random() * Math.floor(stops.length))
+      const center = stops[random1]
       const possibleStops = await fetchHereData({
         object: { endpoint: 'browse', query: query },
         at: { longitude: center[0], latitude: center[1] },
@@ -56,26 +57,36 @@ export const useRoadtripGenerate = async () => {
         },
       })
       if (possibleStops.items.length > 0) {
-        const random = Math.floor(
+        const random2 = Math.floor(
           Math.random() * Math.floor(possibleStops.items.length)
         )
         // eslint-disable-next-line no-console
-        console.log('random', random)
+        console.log('random', random2)
         route[i] = [
-          possibleStops.items[random].access[0].lat,
-          possibleStops.items[random].access[0].lng,
-          i,
+          possibleStops.items[random2].access[0].lat,
+          possibleStops.items[random2].access[0].lng,
+          i + 1,
         ]
       }
       // eslint-disable-next-line no-console
       console.log(route)
     }
 
-    route.sort((a, b) => calcDistance(a, b))
+    route.sort((a, b) => calcDistance(stops[0], a) - calcDistance(stops[0], b))
+    route.sort((a, b) => {
+      if (calcDistance(stops[stops.length - 1], a) <= 0) {
+        return (
+          calcDistance(stops[stops.length - 1], b) -
+          calcDistance(stops[stops.length - 1], a)
+        )
+      }
+      return -1
+    })
 
     // eslint-disable-next-line no-console
     console.log(route)
   }
+  return route
 }
 
 const calcDistance = (p1: number[], p2: number[]) => {

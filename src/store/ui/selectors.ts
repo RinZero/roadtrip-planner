@@ -38,3 +38,13 @@ export const selectUiSelectedCategories = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.selectedCategories
   })
+
+export const selectMapRoute = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.mapRoute
+  })
+
+export const selectIsLocked = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.isLocked
+  })

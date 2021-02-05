@@ -1,12 +1,24 @@
 import React, { memo } from 'react'
 
-import { Typography } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { Button, Typography } from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux'
 
 import EditRoadtripComponent from '../../components/EditRoadtripComponent'
 import StartGoalForm from '../../components/StartGoalForm'
 import StepsMenu from '../../components/StepsMenu'
-import { selectProgessStep } from '../../store/selectors'
+import {
+  setMapRoute,
+  setMaxRoadtripStops,
+  setRoadtripStops,
+  setUiSelectedCategories,
+} from '../../store/actions'
+import {
+  selectMaxRoadtripStops,
+  selectProgessStep,
+  selectRoadtripStops,
+  selectUiSelectedCategories,
+} from '../../store/selectors'
+import { fetchHereData } from '../../utils/fetchHereData'
 
 const RoadtripForm = () => {
   const progressStep = useSelector(selectProgessStep())
@@ -17,7 +29,11 @@ const RoadtripForm = () => {
       {progressStep.toString() === '2' && (
         <Typography variant="h3">Placeholder for Categories</Typography>
       )}
-      {progressStep.toString() === '3' && <EditRoadtripComponent />}
+      {progressStep.toString() === '3' && (
+        <div>
+          <EditRoadtripComponent />
+        </div>
+      )}
       {progressStep.toString() === '4' && (
         <Typography variant="h3">Placeholder for Save Roadtrip</Typography>
       )}

@@ -17,11 +17,20 @@ export const setUiSelectedCategories = createAction(
   selectedCategories: string[]
 }>()
 
+export const setMapRoute = createAction('ui/SET_MAP_ROUTE')<{
+  mapRoute: string[]
+}>()
+
+export const setIsLocked = createAction('ui/SET_IS_LOCKED')<{
+  isLocked: boolean
+}>()
 export const UiActions = {
   setProgressStep,
   setRoadtripStops,
   setMaxRoadtripStops,
   setUiSelectedCategories,
+  setMapRoute,
+  setIsLocked,
 }
 
 export type UiActionsType = ActionType<typeof UiActions>

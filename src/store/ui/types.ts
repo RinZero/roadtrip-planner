@@ -6,4 +6,6 @@ export type UiState = {
   isAddPlace: boolean
   isLoginActive: boolean
   selectedCategories: string[]
+  mapRoute: string[]
+  isLocked: boolean
 }

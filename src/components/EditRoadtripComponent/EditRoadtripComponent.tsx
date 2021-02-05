@@ -1,4 +1,13 @@
-import React, { memo, useState, useEffect, DragEvent } from 'react'
+import React, {
+  memo,
+  useState,
+  useEffect,
+  DragEvent,
+  useCallback,
+  useRef,
+  useLayoutEffect,
+  useMemo,
+} from 'react'
 
 import {
   Box,
@@ -11,15 +20,25 @@ import {
 } from '@material-ui/core'
 // Import BoardItem component
 import DeleteIcon from '@material-ui/icons/Delete'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { useRoadtripGenerate } from '../../hooks/useGenerateRoadtrip'
 import {
+  setIsLocked,
+  setMapRoute,
   setMaxRoadtripStops,
   setRoadtripStops,
   setUiSelectedCategories,
 } from '../../store/actions'
+import {
+  selectIsLocked,
+  selectMapRoute,
+  selectMaxRoadtripStops,
+  selectRoadtripStops,
+  selectUiSelectedCategories,
+} from '../../store/selectors'
+import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { fetchHereData } from '../../utils/fetchHereData'
 
 const StyledBox = withTheme(styled(Box)`
@@ -75,30 +94,6 @@ const EditRoadtripComponent = () => {
     })
     setList(data.items)
   }
-  //TESTS
-  // Setup
-  const dispatch = useDispatch()
-  dispatch(
-    setRoadtripStops({
-      roadtripStops: [
-        [47.79941, 13.04399, 1.0],
-        [47.416, 15.2617, 2.0],
-      ],
-    })
-  )
-  dispatch(setMaxRoadtripStops({ maxRoadtripStops: 5 }))
-  dispatch(
-    setUiSelectedCategories({
-      // eslint-disable-next-line no-octal
-      selectedCategories: ['550-5520-0208'],
-    })
-  )
-  // eslint-disable-next-line no-console
-  console.log('tests finshed')
-  useRoadtripGenerate()
-  // useEffect(() => {
-  //   getItems()
-  // }, [])
 
   // onDragStart fires when an element
   // starts being dragged
@@ -173,37 +168,41 @@ const EditRoadtripComponent = () => {
     })
   }
 
+  const mapRoute = useSelector(selectMapRoute())
   return (
-    <StyledBox>
-      <List component="nav" aria-label="contacts">
-        {list.map((item, index) => {
-          return (
-            <ListItem
-              button
-              key={index}
-              data-position={index}
-              draggable
-              onDragStart={onDragStart}
-              onDragOver={onDragOver}
-              onDrop={onDrop}
-              onDragLeave={onDragLeave}
-              className={
-                dragAndDrop && dragAndDrop.draggedTo === Number(index)
-                  ? 'dropArea'
-                  : ''
-              }
-            >
-              <ListItemText primary={item.address.label} />
-              <ListItemSecondaryAction>
-                <IconButton>
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          )
-        })}
-      </List>
-    </StyledBox>
+    <>
+      <StyledBox>
+        <List component="nav" aria-label="contacts">
+          {list.map((item, index) => {
+            return (
+              <ListItem
+                button
+                key={index}
+                data-position={index}
+                draggable
+                onDragStart={onDragStart}
+                onDragOver={onDragOver}
+                onDrop={onDrop}
+                onDragLeave={onDragLeave}
+                className={
+                  dragAndDrop && dragAndDrop.draggedTo === Number(index)
+                    ? 'dropArea'
+                    : ''
+                }
+              >
+                <ListItemText primary={item.address.label} />
+                <ListItemSecondaryAction>
+                  <IconButton>
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            )
+          })}
+        </List>
+      </StyledBox>
+      <DisplayMapClass allLocations={mapRoute} />
+    </>
   )
 }
 

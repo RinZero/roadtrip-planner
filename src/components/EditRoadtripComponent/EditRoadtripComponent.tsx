@@ -20,8 +20,16 @@ import { fetchHereData } from '../../utils/fetchHereData'
 
 const StyledBox = withTheme(styled(Box)`
   width: 25%;
+  min-width: ${(props) => props.theme.spacing(25)}px;
   overflow: auto;
-  max-height: 400px;
+  max-height: ${(props) => props.theme.spacing(62.5)}px;
+  margin-left: ${(props) => props.theme.spacing(2)}px;
+`)
+const DragListItem = withTheme(styled(ListItem)`
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  border-radius: 15px;
+  border: 1px solid rgb(0 0 0 / 16%);
+  margin-bottom: ${(props) => props.theme.spacing(1.2)}px;
 `)
 
 const initialDnDState = {
@@ -151,13 +159,13 @@ const EditRoadtripComponent = () => {
     getItems()
   }, [])
   return (
-    <Box display="flex" flex-direction="row" justify-content="space-between">
+    <Box display="flex" flex-direction="column" justify-content="space-between">
       <DisplayMapClass allLocations={mapRoute} />
       <StyledBox>
         <List component="nav" aria-label="contacts">
           {list.map((item, index) => {
             return (
-              <ListItem
+              <DragListItem
                 button
                 key={index}
                 data-position={index}
@@ -178,7 +186,7 @@ const EditRoadtripComponent = () => {
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
-              </ListItem>
+              </DragListItem>
             )
           })}
         </List>

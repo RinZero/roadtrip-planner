@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React, { ChangeEvent, memo, useState } from 'react'
-
+import { useDispatch } from 'react-redux'
+import {
+  getFirstCategories,
+  getNameByID,
+  getSecondCategories,
+  getThirdCategories,
+} from '../../utils/getArrayCategories'
+import { setUiSelectedCategories } from '../../store/actions'
 import {
   Box,
   Chip,
@@ -76,13 +83,26 @@ const CustomCategorySelect = () => {
   type CategorieSelectProps = {
     label: string
     id: number
-    options: string[]
+    options: {
+      number: number
+      name: string
+    }[]
     name: string
   }
 
+  const dispatch = useDispatch()
+  const firstArray = getFirstCategories()
+
   const [categoriesData, setCategoriesData] = useState(['', '', ''])
 
-  const [chipData, setChipData] = useState(new Set())
+  const [first, setFirst] = useState('')
+  const [secondFuckingArray, setSecondFuckingArray] = useState([
+    { number: 0, name: '' },
+  ])
+  const [thirdArray, setThirdArray] = useState([{ number: 0, name: '' }])
+
+  const [chipData, setChipData] = useState(new Set<string>())
+  const [chipText, setChipText] = useState(new Set())
   const [showCategories, setShowCategories] = useState(false)
   const onClick = () => {
     showCategories ? setShowCategories(false) : setShowCategories(true)
@@ -91,9 +111,13 @@ const CustomCategorySelect = () => {
     showCategories ? setShowCategories(false) : setShowCategories(true)
     for (let i = 2; i >= 0; i--) {
       if (categoriesData[i] !== '') {
+        const newSetText = new Set(chipText)
         const newSet = new Set(chipData)
+        const n = getNameByID(categoriesData[i])
+        newSetText.add(n)
         newSet.add(categoriesData[i])
         setChipData(newSet)
+        setChipText(newSetText)
         break
       }
     }
@@ -125,6 +149,15 @@ const CustomCategorySelect = () => {
         }
       } else {
         setValueCategory(id)
+        if (i === 0) {
+          setFirst(event.target.value)
+          const second = getSecondCategories(event.target.value)
+          setSecondFuckingArray(second)
+        }
+        if (i === 1) {
+          const third = getThirdCategories(first, event.target.value)
+          setThirdArray(third)
+        }
       }
     }
 
@@ -144,7 +177,12 @@ const CustomCategorySelect = () => {
         >
           <option aria-label="None" value="" />
           {options.map((currentOption) => {
-            return <option value={currentOption}> {currentOption}</option>
+            return (
+              <option label={currentOption.name} value={currentOption.number}>
+                {' '}
+                {currentOption.name}
+              </option>
+            )
           })}
         </CategorieSelect>
       </>
@@ -161,14 +199,14 @@ const CustomCategorySelect = () => {
               <CustomisedSelections
                 label="Kategorie1"
                 id={1}
-                options={['Apple', 'Orange', 'Banana']}
+                options={firstArray}
                 name="category1"
               />
               {valueCategory >= 1 && (
                 <CustomisedSelections
                   label="Kategorie2"
                   id={2}
-                  options={['Apple2', 'Orange2', 'Banana2']}
+                  options={secondFuckingArray}
                   name="category2"
                 />
               )}
@@ -176,7 +214,7 @@ const CustomCategorySelect = () => {
                 <CustomisedSelections
                   label="Kategorie3"
                   id={3}
-                  options={['Apple3', 'Orange3', 'Banana3']}
+                  options={thirdArray}
                   name="category3"
                 />
               )}
@@ -188,7 +226,7 @@ const CustomCategorySelect = () => {
           <StartButton onClick={onClick}>Hinzufügen</StartButton>
         )}
         <TagBox component="ul">
-          {Array.from(chipData).map((data) => {
+          {Array.from(chipText).map((data) => {
             let icon
 
             return (
@@ -203,7 +241,16 @@ const CustomCategorySelect = () => {
           })}
         </TagBox>
         {showCategories ? undefined : (
-          <StartButton onClick={onClick}>Weiter</StartButton>
+          <StartButton
+            onClick={() => {
+              const dataArray: string[] = Array.from(chipData)
+              dispatch(
+                setUiSelectedCategories({ selectedCategories: dataArray })
+              )
+            }}
+          >
+            Weiter
+          </StartButton>
         )}
       </Box>
     </>

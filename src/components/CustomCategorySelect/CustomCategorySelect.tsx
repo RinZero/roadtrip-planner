@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { ChangeEvent, memo, useState } from 'react'
 
 import {
@@ -10,7 +9,6 @@ import {
   Select,
   withTheme,
 } from '@material-ui/core'
-import InputLabel from '@material-ui/core/InputLabel'
 import styled from 'styled-components'
 
 const CategorieSelect = withTheme(styled(Select)`
@@ -80,14 +78,8 @@ const CustomCategorySelect = () => {
     options: string[]
     name: string
   }
-  const [state, setState] = useState({
-    category1: '',
-    category2: '',
-    category3: '',
-  })
 
   const [categoriesData, setCategoriesData] = useState(['', '', ''])
-  const [index, setIndex] = useState(1)
 
   const [chipData, setChipData] = useState(new Set())
   const [showCategories, setShowCategories] = useState(false)
@@ -117,14 +109,7 @@ const CustomCategorySelect = () => {
     const { label, id, options, name } = props
 
     const handleChange = (event: ChangeEvent<HTMLButtonElement>) => {
-      const name = event.target.name
       const i: number = +event.target.id - 1
-      setIndex(i)
-      setState({
-        ...state,
-        [name]: event.target.value,
-      })
-
       categoriesData[i] = event.target.value
     }
 

@@ -14,6 +14,11 @@ export const selectRoadtripStops = () =>
     return ui.roadtripStops
   })
 
+export const selectMaxRoadtripStops = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.maxRoadtripStops
+  })
+
 export const selectIsEditOpen = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.isEditOpen
@@ -27,4 +32,19 @@ export const selectIsAddPlace = () =>
 export const selectIsLoginActive = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.isLoginActive
+  })
+
+export const selectUiSelectedCategories = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.selectedCategories
+  })
+
+export const selectMapRoute = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.mapRoute
+  })
+
+export const selectIsLocked = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.isLocked
   })

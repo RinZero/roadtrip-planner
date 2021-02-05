@@ -89,51 +89,21 @@ const CustomCategorySelect = () => {
   const [categoriesData, setCategoriesData] = useState(['', '', ''])
   const [index, setIndex] = useState(1)
 
-  // const [chipData, setChipData] = React.useState(
-  //   {
-  //     0: 'Tag 1',
-  //     1: 'Tag 2',
-  //     2: 'Tag 3',
-  //     3: 'Tag 4'
-  //   },
-  // )
-
   const [chipData, setChipData] = useState(new Set())
   const [showCategories, setShowCategories] = useState(false)
   const onClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('on click --------')
     showCategories ? setShowCategories(false) : setShowCategories(true)
   }
   const addChip = () => {
-    // eslint-disable-next-line no-console
-    console.log('add chip ------')
-    // eslint-disable-next-line no-console
-    console.log(state)
     showCategories ? setShowCategories(false) : setShowCategories(true)
-    // eslint-disable-next-line no-console
-    console.log('Wast ist der index: ' + index)
-    for (let i = index; i >= 0; i--) {
+    for (let i = 2; i >= 0; i--) {
       if (categoriesData[i] !== '') {
-        // setChipData(chipData.concat(categoriesData[i]))
         chipData.add(categoriesData[i])
-        // setChipData([...new Set(chipData)])
-        // setChipData({
-        //   ...chipData,
-        //   [categoriesData[i]]: categoriesData[i],
-        // })
         break
       }
     }
   }
 
-  for (const item of Array.from(chipData.values())) {
-    // eslint-disable-next-line no-console
-    console.log(item)
-  }
-
-  // eslint-disable-next-line no-console
-  console.log(chipData)
   const handleDelete = (chipToDelete: any) => () => {
     // eslint-disable-next-line no-console
     console.log('DELETE')
@@ -146,56 +116,19 @@ const CustomCategorySelect = () => {
   }
 
   const [valueCategory, setValueCategory] = useState(0)
-  // eslint-disable-next-line no-console
-  console.log(valueCategory)
   const CustomisedSelections = (props: CategorieSelectProps) => {
     const { label, id, options, name } = props
 
     const handleChange = (event: ChangeEvent<HTMLButtonElement>) => {
       const name = event.target.name
-      // eslint-disable-next-line no-console
-      console.log('HAndle change Name: ' + name)
-      // eslint-disable-next-line no-console
-      console.log('HAndle change Name: ' + event.target.id)
       const i: number = +event.target.id - 1
-      // eslint-disable-next-line no-console
-      console.log('neuer index ' + i)
       setIndex(i)
-      // eslint-disable-next-line no-console
-      console.log('neuer index ' + index)
       setState({
         ...state,
         [name]: event.target.value,
       })
 
       categoriesData[i] = event.target.value
-      // eslint-disable-next-line no-console
-      console.log(state)
-      // eslint-disable-next-line no-console
-      console.log(categoriesData)
-    }
-
-    const test = (id: number) => {
-      switch (id) {
-        case 1:
-          return state.category1
-        case 2:
-          // eslint-disable-next-line no-console
-          console.log('etwas ändert sich bei 2: ')
-          // eslint-disable-next-line no-console
-          console.log(state.category2)
-          // if (state.category2 = '') {
-          //   // eslint-disable-next-line no-console
-          //   console.log("empty")
-          //   setValueCategory(id - 1)
-
-          // }
-          return state.category2
-        case 3:
-          return state.category3
-        default:
-          return null
-      }
     }
 
     return (
@@ -203,7 +136,7 @@ const CustomCategorySelect = () => {
         <CategorieSelect
           native
           label={label}
-          value={test(id)}
+          value={categoriesData[id - 1]}
           onChange={(e: ChangeEvent<HTMLButtonElement>) => {
             handleChange(e)
             setValueCategory(id)
@@ -281,3 +214,7 @@ const CustomCategorySelect = () => {
   )
 }
 export default memo(CustomCategorySelect)
+
+// TODOS
+// 1. Delete funktioniert noch nicht ganz - es steht zwar nicht mehr im set, aber dafür noch im Html
+// 2. Chip fügt immer das letzte veränderte dazu. Nicht das letzte in der Liste (apfel statt bannane3) -> Fix: Hardcoded 2 weil dass maximal ist

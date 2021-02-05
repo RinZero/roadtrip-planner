@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { ChangeEvent, memo, useState } from 'react'
 
 import {
@@ -110,7 +111,21 @@ const CustomCategorySelect = () => {
 
     const handleChange = (event: ChangeEvent<HTMLButtonElement>) => {
       const i: number = +event.target.id - 1
-      categoriesData[i] = event.target.value
+      const v = event.target.value
+      categoriesData[i] = v
+
+      if (v === '') {
+        if (i === 0) {
+          setValueCategory(0)
+          setCategoriesData(['', '', ''])
+        }
+        if (i === 1) {
+          setValueCategory(1)
+          categoriesData[2] = ''
+        }
+      } else {
+        setValueCategory(id)
+      }
     }
 
     return (
@@ -121,7 +136,6 @@ const CustomCategorySelect = () => {
           value={categoriesData[id - 1]}
           onChange={(e: ChangeEvent<HTMLButtonElement>) => {
             handleChange(e)
-            setValueCategory(id)
           }}
           inputProps={{
             name: name,

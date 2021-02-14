@@ -208,8 +208,6 @@ const SelectCategories = () => {
                 </Typography>
                 <StartButton
                   onClick={async () => {
-                    // eslint-disable-next-line no-console
-                    console.log('Weiter Button wurde getriggert')
                     setLoading(true)
 
                     const dataArray: string[] = Array.from(chips.keys())

@@ -8,9 +8,8 @@ const CategorieSelect = withTheme(styled(Select)`
   border-radius: 15px;
   box-shadow: 0px 3px 6px 0px #b1b1b1;
   color: #707070;
-  margin-bottom: ${(props) => props.theme.spacing(3)}px;
   border: 1px solid #ced4da;
-  padding: 10px 26px 10px 12px;
+  padding: 10px 0 10px 10px;
 `)
 
 type CategorieSelectProps = {

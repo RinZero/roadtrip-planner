@@ -19,7 +19,7 @@ export const initialState: UiState = {
   isEditOpen: false,
   isAddPlace: false,
   isLoginActive: false,
-  selectedCategories: [],
+  selectedCategories: new Map<string, string>(),
   mapRoute: [],
   isLocked: false,
 }
@@ -43,8 +43,8 @@ export const uiReducer = produce(
         return draft
       }
       case getType(setUiSelectedCategories): {
-        const { selectedCategories } = action.payload
-        draft.selectedCategories = selectedCategories
+        const { selectedCategoriesMap } = action.payload
+        draft.selectedCategories = selectedCategoriesMap
         return draft
       }
       case getType(setMapRoute): {

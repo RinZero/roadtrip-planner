@@ -75,8 +75,6 @@ const SelectCategories = () => {
   const [categories, setCategories] = useState(['', '', ''])
   //Get Data from ChipMap: ids=Array.from(chips.keys()) text=Array.from(chips.values())
   const [chips, setChips] = useState(new Map())
-  // eslint-disable-next-line no-console
-  console.log(Array.from(chips))
 
   const [first, setFirst] = useState('')
   const firstArray = getFirstCategories()
@@ -201,6 +199,9 @@ const SelectCategories = () => {
               )
               dispatch(setMapRoute({ mapRoute: response }))
               dispatch(setProgressStep({ progressStep: '3' }))
+              dispatch(
+                setUiSelectedCategories({ selectedCategoriesMap: chips })
+              )
             }}
           >
             Generiere

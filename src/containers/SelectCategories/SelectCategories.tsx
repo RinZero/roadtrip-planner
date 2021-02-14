@@ -29,7 +29,6 @@ const StartButton = withTheme(styled(Button)`
   color: white;
   height: ${(props) => props.theme.spacing(5)}px;
   width: ${(props) => props.theme.spacing(44.25)}px;
-  margin-top: ${(props) => props.theme.spacing(3)}px;
   content: 'Start';
   &:hover,
   &:active {
@@ -191,6 +190,7 @@ const SelectCategories = () => {
                     <StartButton onClick={addChip}>Hinzufügen</StartButton>
                   </form>
                 </Box>
+                <br></br>
                 <Typography variant="h6">
                   Fertig ausgewählt? Generiere jetzt deinen Roadtrip!
                 </Typography>

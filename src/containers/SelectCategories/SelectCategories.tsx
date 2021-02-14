@@ -43,6 +43,8 @@ const TagBox = withTheme(styled(Box)`
   flex: 0 0 100%;
   gap: ${(props) => props.theme.spacing(2)}px;
   list-style: none;
+  padding: 0;
+  margin-top: 0;
 `)
 
 const TagChip = withTheme(styled(Chip)`

@@ -3,7 +3,6 @@ import React, { memo, useEffect } from 'react'
 import { Box, Button, makeStyles, Theme } from '@material-ui/core'
 import styled from 'styled-components'
 
-import CustomCategorySelect from '../../components/CustomCategorySelect'
 import EditRoadtripComponent from '../../components/EditRoadtripComponent'
 import StartGoalForm from '../../components/StartGoalForm'
 import StepsMenu from '../../components/StepsMenu'
@@ -39,7 +38,7 @@ const TestPage = () => {
 
   //https://discover.search.hereapi.com/v1/discover?at=52.8173086,12.2368342&limit=5&lang=en&q=Obi+Hamburg&apiKey=E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
   useEffect(() => {
-    CreateUser()
+    // CreateUser()
     // fetchHereData({
     //   object: { endpoint: 'browse', query: 'zoo' },
     //   at: { longitude: 41.70035, latitude: -93.20866 },
@@ -76,7 +75,6 @@ const TestPage = () => {
       <FancyButton>Heyyyy</FancyButton>
       <TitleSection />
       {/* <EditRoadtripComponent /> */}
-      <CustomCategorySelect />
     </>
   )
 }

@@ -176,7 +176,7 @@ const SelectCategories = () => {
               </TagBox>
               <Box display="block" width="100%" justifyContent="center">
                 <Typography variant="h6">
-                  Füge hier beliebig viele Über - und Unterkategorien hinzu :)
+                  Füge hier beliebig viele Über- und Unterkategorien hinzu :)
                 </Typography>
                 <AllDropdowns
                   onChange={(e: any) => {

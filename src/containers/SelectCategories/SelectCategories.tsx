@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { memo, useState } from 'react'
 
 import {
@@ -65,6 +66,9 @@ const CategoriesFormControl = withTheme(styled(FormControl)`
 `)
 
 const SelectCategories = () => {
+  //Loading Animation
+  const [loading, setLoading] = useState(false)
+
   // vars to generate Roadtrip
   const dispatch = useDispatch()
   dispatch(setMaxRoadtripStops({ maxRoadtripStops: 10 }))
@@ -128,86 +132,106 @@ const SelectCategories = () => {
 
   return (
     <>
-      <Box>
-        <TagBox component="ul">
-          {Array.from(chips).map((data) => {
-            let icon
+      <div>
+        {loading ? (
+          <div>
+            <img
+              src="https://cdn.dribbble.com/users/1215152/screenshots/6958100/media/39ff624c788547951d1b383d724a05b7.gif "
+              alt="loading animation"
+              height="300"
+            />
+          </div>
+        ) : (
+          <div>
+            <Box>
+              <TagBox component="ul">
+                {Array.from(chips).map((data) => {
+                  let icon
 
-            return (
-              <li>
-                <TagChip
-                  icon={icon}
-                  value={data[0]}
-                  label={data[1]}
-                  onDelete={handleDelete(data[0])}
-                />
-              </li>
-            )
-          })}
-        </TagBox>
-        <Box display="block" width="100%" justifyContent="center">
-          <Box>
-            <Typography variant="h6">neue Kategorie auswählen:</Typography>
-            <CategoriesFormControl
-              onChange={(e: any) => {
-                formChanged(e)
-              }}
-            >
-              <CategoryDropdown
-                label="Kategorie1"
-                id={1}
-                options={firstArray}
-                name="category1"
-                selectedValue={first}
-              />
-              {numberCategory >= 1 && first !== '' && first !== '0' && (
-                <div>
-                  <Typography variant="h6">1. Unterkategorie</Typography>
-                  <CategoryDropdown
-                    label="Kategorie2"
-                    id={2}
-                    options={secondArray}
-                    name="category2"
-                  />
-                </div>
-              )}
-              {numberCategory > 1 && thirdArray[1] && (
-                <div>
-                  <Typography variant="h6">2. Unterkategorie</Typography>
-                  <CategoryDropdown
-                    label="Kategorie3"
-                    id={3}
-                    options={thirdArray}
-                    name="category3"
-                  />
-                </div>
-              )}
-              <br></br>
-              <StartButton onClick={addChip}>Hinzufügen</StartButton>
-            </CategoriesFormControl>
-          </Box>
-          <Typography variant="h6">
-            Fertig ausgewählt? Generiere jetzt deinen Roadtrip!
-          </Typography>
-          <StartButton
-            onClick={async () => {
-              const dataArray: string[] = Array.from(chips.keys())
-              const response = await roadtripGenerate(
-                stops,
-                maxStops,
-                dataArray
-              )
-              dispatch(setMapRoute({ mapRoute: response }))
-              dispatch(setProgressStep({ progressStep: '3' }))
-              dispatch(
-                setUiSelectedCategories({ selectedCategoriesMap: chips })
-              )
-            }}
-          >
-            Generiere
-          </StartButton>
-        </Box>
-      </Box>
+                  return (
+                    <li>
+                      <TagChip
+                        icon={icon}
+                        value={data[0]}
+                        label={data[1]}
+                        onDelete={handleDelete(data[0])}
+                      />
+                    </li>
+                  )
+                })}
+              </TagBox>
+              <Box display="block" width="100%" justifyContent="center">
+                <Box>
+                  <Typography variant="h6">
+                    neue Kategorie auswählen:
+                  </Typography>
+                  <CategoriesFormControl
+                    onChange={(e: any) => {
+                      formChanged(e)
+                    }}
+                  >
+                    <CategoryDropdown
+                      label="Kategorie1"
+                      id={1}
+                      options={firstArray}
+                      name="category1"
+                      selectedValue={first}
+                    />
+                    {numberCategory >= 1 && first !== '' && first !== '0' && (
+                      <div>
+                        <Typography variant="h6">1. Unterkategorie</Typography>
+                        <CategoryDropdown
+                          label="Kategorie2"
+                          id={2}
+                          options={secondArray}
+                          name="category2"
+                        />
+                      </div>
+                    )}
+                    {numberCategory > 1 && thirdArray[1] && (
+                      <div>
+                        <Typography variant="h6">2. Unterkategorie</Typography>
+                        <CategoryDropdown
+                          label="Kategorie3"
+                          id={3}
+                          options={thirdArray}
+                          name="category3"
+                        />
+                      </div>
+                    )}
+                    <br></br>
+                    <StartButton onClick={addChip}>Hinzufügen</StartButton>
+                  </CategoriesFormControl>
+                </Box>
+                <Typography variant="h6">
+                  Fertig ausgewählt? Generiere jetzt deinen Roadtrip!
+                </Typography>
+                <StartButton
+                  onClick={async () => {
+                    // eslint-disable-next-line no-console
+                    console.log('Weiter Button wurde getriggert')
+                    setLoading(true)
+
+                    const dataArray: string[] = Array.from(chips.keys())
+                    const response = await roadtripGenerate(
+                      stops,
+                      maxStops,
+                      dataArray
+                    )
+                    dispatch(setMapRoute({ mapRoute: response }))
+                    dispatch(setProgressStep({ progressStep: '3' }))
+                    dispatch(
+                      setUiSelectedCategories({ selectedCategoriesMap: chips })
+                    )
+                  }}
+                >
+                  Generiere
+                </StartButton>
+              </Box>
+            </Box>
+          </div>
+        )}
+      </div>
     </>
   )
 }

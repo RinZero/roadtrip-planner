@@ -108,12 +108,15 @@ const SelectCategories = () => {
       setSecondArray(second)
       categories[1] = ''
       categories[2] = ''
+      if (event.target.value === '') setNumberCategory(0)
     }
     if (index === 1) {
       const third = getThirdCategories(first, event.target.value)
       setThirdArray(third)
       categories[2] = ''
     }
+    const hideLastDropdown: number = +event.target.id - 1
+    if (event.target.value === '') setNumberCategory(hideLastDropdown)
 
     categories[index] =
       event.target.value + ' ' + event.target.selectedOptions[0].label
@@ -191,7 +194,7 @@ const SelectCategories = () => {
                       selectedValue={first}
                     />
                   </CategoriesFormControl>
-                  {numberCategory >= 1 && first !== '' && first !== '0' && (
+                  {numberCategory >= 1 && (
                     <CategoriesFormControl>
                       <InputLabel id="Kategorie2">1. Unterkategorie</InputLabel>
                       <CategoryDropdown

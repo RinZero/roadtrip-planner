@@ -1,14 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { memo, useState } from 'react'
 
-import {
-  Button,
-  withTheme,
-  Box,
-  Chip,
-  FormControl,
-  Typography,
-} from '@material-ui/core'
+import { Button, withTheme, Box, Chip, Typography } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
@@ -58,11 +51,6 @@ const TagChip = withTheme(styled(Chip)`
     ${(props) => props.theme.spacing(0.5)}px;
   border-radius: 15px;
   font-size: ${(props) => props.theme.spacing(2)}px;
-`)
-
-const CategoriesFormControl = withTheme(styled(FormControl)`
-  margin: ${(props) => props.theme.spacing(3)}px;
-  min-width: ${(props) => props.theme.spacing(30)}px;
 `)
 
 const SelectCategories = () => {
@@ -165,7 +153,7 @@ const SelectCategories = () => {
                   <Typography variant="h6">
                     neue Kategorie auswählen:
                   </Typography>
-                  <CategoriesFormControl
+                  <form
                     onChange={(e: any) => {
                       formChanged(e)
                     }}
@@ -201,7 +189,7 @@ const SelectCategories = () => {
                     )}
                     <br></br>
                     <StartButton onClick={addChip}>Hinzufügen</StartButton>
-                  </CategoriesFormControl>
+                  </form>
                 </Box>
                 <Typography variant="h6">
                   Fertig ausgewählt? Generiere jetzt deinen Roadtrip!

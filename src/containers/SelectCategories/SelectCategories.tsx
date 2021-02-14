@@ -16,6 +16,7 @@ import {
 import {
   selectMaxRoadtripStops,
   selectRoadtripStops,
+  selectUiSelectedCategories,
 } from '../../store/selectors'
 import {
   getFirstCategories,
@@ -67,7 +68,8 @@ const SelectCategories = () => {
   const [numberCategory, setNumberCategory] = useState(0)
   const [categories, setCategories] = useState(['', '', ''])
   //Get Data from ChipMap: ids=Array.from(chips.keys()) text=Array.from(chips.values())
-  const [chips, setChips] = useState(new Map())
+  const currentChipMap = useSelector(selectUiSelectedCategories())
+  const [chips, setChips] = useState(currentChipMap)
 
   const [first, setFirst] = useState('')
   const firstArray = getFirstCategories()
@@ -199,6 +201,9 @@ const SelectCategories = () => {
                 <StartButton
                   onClick={async () => {
                     setLoading(true)
+                    dispatch(
+                      setUiSelectedCategories({ selectedCategoriesMap: chips })
+                    )
 
                     const dataArray: string[] = Array.from(chips.keys())
                     const response = await roadtripGenerate(
@@ -208,9 +213,6 @@ const SelectCategories = () => {
                     )
                     dispatch(setMapRoute({ mapRoute: response }))
                     dispatch(setProgressStep({ progressStep: '3' }))
-                    dispatch(
-                      setUiSelectedCategories({ selectedCategoriesMap: chips })
-                    )
                   }}
                 >
                   Generiere

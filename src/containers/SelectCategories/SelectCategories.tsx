@@ -74,7 +74,6 @@ const AllDropdowns = withTheme(styled(Box)`
 const CategoriesFormControl = withTheme(styled(FormControl)`
   margin-bottom: ${(props) => props.theme.spacing(1)}px;
 `)
-// margin-bottom: ${(props) => props.theme.spacing(3)}px;
 
 const SelectCategories = () => {
   //Loading Animation

@@ -107,7 +107,6 @@ const SelectCategories = () => {
       setSecondArray(second)
       categories[1] = ''
       categories[2] = ''
-      if (event.target.value === '') setNumberCategory(0)
     }
     if (index === 1) {
       const third = getThirdCategories(first, event.target.value)

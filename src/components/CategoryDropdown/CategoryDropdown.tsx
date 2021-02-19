@@ -54,9 +54,10 @@ const CategoryDropdown = (props: CategorieSelectProps) => {
         {options.map((currentOption) => {
           return (
             <option
+              key={currentOption.number}
               label={currentOption.name}
               value={currentOption.number}
-              selected={selectedValue === currentOption.name}
+              defaultValue={selectedValue}
             >
               {currentOption.name}
             </option>

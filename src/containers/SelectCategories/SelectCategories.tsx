@@ -128,6 +128,9 @@ const SelectCategories = () => {
   const [secondArray, setSecondArray] = useState([{ number: '', name: '' }])
   const [thirdArray, setThirdArray] = useState([{ number: '', name: '' }])
 
+  // eslint-disable-next-line no-console
+  console.log(chips)
+
   const formChanged = (event: any) => {
     setNumberCategory(event.target.id)
     setCurrentChip({

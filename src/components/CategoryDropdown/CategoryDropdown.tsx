@@ -33,7 +33,6 @@ const CategoryDropdown = (props: CategorieSelectProps) => {
   })
 
   const dropdownChanged = (event: ChangeEvent<HTMLButtonElement>) => {
-    const id: number = +event.target.id
     const value = event.target.value
     setValue(value)
   }

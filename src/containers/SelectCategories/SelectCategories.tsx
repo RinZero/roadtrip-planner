@@ -38,8 +38,18 @@ const StartButton = withTheme(styled(Button)`
   color: white;
   height: ${(props) => props.theme.spacing(5)}px;
   width: ${(props) => props.theme.spacing(44.25)}px;
-  content: 'Start';
   margin-top: ${(props) => props.theme.spacing(2)}px;
+  &:hover,
+  &:active {
+    background-color: #355727;
+  }
+`)
+
+const AddButton = withTheme(styled(Button)`
+  background-color: #71b255;
+  box-shadow: 0px 3px 6px 0px #b1b1b1;
+  color: white;
+  height: ${(props) => props.theme.spacing(5)}px;
   &:hover,
   &:active {
     background-color: #355727;
@@ -66,13 +76,33 @@ const TagChip = withTheme(styled(Chip)`
 
 const AllDropdowns = withTheme(styled(Box)`
   display: flex;
+  justify-content: left;
+  width: 100%;
+`)
+
+const Dropdownbox = withTheme(styled(Box)`
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `)
 
+const AddSection = withTheme(styled(Box)`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: ${(props) => props.theme.spacing(2)}px;
+`)
+
+const AddText = withTheme(styled(Box)`
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: ${(props) => props.theme.spacing(1)}px;
+  margin-right: ${(props) => props.theme.spacing(4)}px;
+`)
+
 const CategoriesFormControl = withTheme(styled(FormControl)`
-  margin-bottom: ${(props) => props.theme.spacing(1)}px;
+  margin: ${(props) => props.theme.spacing(1.5)}px;
 `)
 
 const SelectCategories = () => {
@@ -90,6 +120,7 @@ const SelectCategories = () => {
   //Get Data from ChipMap: ids=Array.from(chips.keys()) text=Array.from(chips.values())
   const currentChipMap = useSelector(selectUiSelectedCategories())
   const [chips, setChips] = useState(currentChipMap)
+  const [currentChip, setCurrentChip] = useState({ number: '', name: '' })
 
   const [first, setFirst] = useState('')
   const firstArray = getFirstCategories()
@@ -99,6 +130,10 @@ const SelectCategories = () => {
 
   const formChanged = (event: any) => {
     setNumberCategory(event.target.id)
+    setCurrentChip({
+      number: event.target.value,
+      name: event.target.selectedOptions[0].label,
+    })
 
     const index = event.target.id - 1
     if (index === 0) {
@@ -114,27 +149,27 @@ const SelectCategories = () => {
       categories[2] = ''
     }
     const hideLastDropdown: number = +event.target.id - 1
-    if (event.target.value === '') setNumberCategory(hideLastDropdown)
+    if (event.target.value === '') {
+      setNumberCategory(hideLastDropdown)
+      const keyValue = categories[hideLastDropdown - 1].split(/(?<=^\S+)\s/)
+      setCurrentChip({ number: keyValue[0], name: keyValue[1] })
+    }
 
     categories[index] =
       event.target.value + ' ' + event.target.selectedOptions[0].label
   }
 
   const addChip = () => {
-    for (let i = categories.length - 1; i >= 0; i--) {
-      if (categories[i].length > 2) {
-        //split the string: eg. '300 Food and more' to '300' 'Food and more'
-        const keyValue = categories[i].split(/(?<=^\S+)\s/)
-        const newMap = new Map(chips)
-        newMap.set(keyValue[0], keyValue[1])
-        setChips(newMap)
-        break
-      }
+    if (currentChip.name !== '') {
+      const newMap = new Map(chips)
+      newMap.set(currentChip.number, currentChip.name)
+      setChips(newMap)
+      setFirst('')
+      setFirst('null')
+      setCategories(['', '', ''])
+      setNumberCategory(0)
+      setCurrentChip({ number: '', name: '' })
     }
-    setFirst('')
-    setFirst('null')
-    setCategories(['', '', ''])
-    setNumberCategory(0)
   }
 
   const handleDelete = (chipToDelete: any) => () => {
@@ -173,7 +208,7 @@ const SelectCategories = () => {
                   )
                 })}
               </TagBox>
-              <Box display="block" width="100%" justifyContent="center">
+              <Dropdownbox>
                 <Typography variant="h6">
                   Füge hier beliebig viele Über- und Unterkategorien hinzu :)
                 </Typography>
@@ -215,9 +250,15 @@ const SelectCategories = () => {
                     </CategoriesFormControl>
                   )}
                   <br></br>
-                  <StartButton onClick={addChip}>Hinzufügen</StartButton>
                 </AllDropdowns>
-
+                {currentChip.name ? (
+                  <AddSection>
+                    <AddText>{currentChip.name}</AddText>
+                    <AddButton onClick={addChip}>Hinzufügen</AddButton>
+                  </AddSection>
+                ) : (
+                  ' '
+                )}
                 {Array.from(chips.keys()).length > 0 ? (
                   <div>
                     <br></br>
@@ -249,7 +290,7 @@ const SelectCategories = () => {
                 ) : (
                   ''
                 )}
-              </Box>
+              </Dropdownbox>
             </Box>
           </div>
         )}

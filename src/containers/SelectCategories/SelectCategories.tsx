@@ -151,8 +151,10 @@ const SelectCategories = () => {
     const hideLastDropdown: number = +event.target.id - 1
     if (event.target.value === '') {
       setNumberCategory(hideLastDropdown)
-      const keyValue = categories[hideLastDropdown - 1].split(/(?<=^\S+)\s/)
-      setCurrentChip({ number: keyValue[0], name: keyValue[1] })
+      if (categories[hideLastDropdown - 1]) {
+        const keyValue = categories[hideLastDropdown - 1].split(/(?<=^\S+)\s/)
+        setCurrentChip({ number: keyValue[0], name: keyValue[1] })
+      }
     }
 
     categories[index] =

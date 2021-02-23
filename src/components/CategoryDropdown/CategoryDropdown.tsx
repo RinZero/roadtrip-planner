@@ -9,7 +9,9 @@ const CategorieSelect = withTheme(styled(Select)`
   box-shadow: 0px 3px 6px 0px #b1b1b1;
   color: #707070;
   border: 1px solid #ced4da;
-  padding: 10px 0 10px 10px;
+  padding: ${(props) => props.theme.spacing(1.2)}px 0
+    ${(props) => props.theme.spacing(1.2)}px
+    ${(props) => props.theme.spacing(1.2)}px;
 `)
 
 type CategorieSelectProps = {

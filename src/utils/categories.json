@@ -361,14 +361,6 @@
       }
     },
     {
-      "id": "46",
-      "type": "category",
-      "attributes": {
-        "id": "300",
-        "name": "Sights and Museums"
-      }
-    },
-    {
       "id": "47",
       "type": "category",
       "attributes": {
@@ -1800,7 +1792,6 @@
         "name": "Market"
       }
     },
-
     {
       "id": "226",
       "type": "category",

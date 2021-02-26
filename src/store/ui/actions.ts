@@ -14,7 +14,7 @@ export const setMaxRoadtripStops = createAction('ui/SET_MAX_ROADTRIP_STOPS')<{
 export const setUiSelectedCategories = createAction(
   'ui/SET_UI_SELECTED_CATEGORIES'
 )<{
-  selectedCategories: string[]
+  selectedCategoriesMap: Map<string, string>
 }>()
 
 export const setMapRoute = createAction('ui/SET_MAP_ROUTE')<{

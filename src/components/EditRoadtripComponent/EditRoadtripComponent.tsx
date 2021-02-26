@@ -14,7 +14,10 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { selectMapRoute } from '../../store/selectors'
+import {
+  selectMapRoute,
+  selectUiSelectedCategories,
+} from '../../store/selectors'
 import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { fetchHereData } from '../../utils/fetchHereData'
 
@@ -154,6 +157,9 @@ const EditRoadtripComponent = () => {
   }
 
   const mapRoute = useSelector(selectMapRoute())
+  const selectedCategoriesMap = useSelector(selectUiSelectedCategories())
+  // für die Zusammenfassung welche Kategorien für den Roadtrip verwendet wurden
+  const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
 
   useEffect(() => {
     getItems()

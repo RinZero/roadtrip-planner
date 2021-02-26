@@ -59,18 +59,15 @@ const StartGoalTextField = withTheme(styled(StyledTextField)`
 export const StartGoalForm = () => {
   const dispatch = useDispatch()
   const { register, getValues } = useForm()
-  // text written in text input field
-  const [inputValue, setInputValue] = useState('')
   // Array with the options of autocomplete
   const [array, setArray] = useState([])
 
-  const getItems = async () => {
-    if (inputValue.length > 2) {
-      const newSet = await autocomplete(inputValue)
+  const getItems = async (inputNew: string) => {
+    if (inputNew.length > 2) {
+      const newSet = await autocomplete(inputNew)
       setArray(Array.from(newSet))
     }
   }
-
   return (
     <>
       <StyledForm>
@@ -81,8 +78,7 @@ export const StartGoalForm = () => {
             options={array}
             getOptionLabel={(option) => option}
             onInputChange={(event, newInputValue) => {
-              setInputValue(newInputValue)
-              getItems()
+              getItems(newInputValue)
             }}
             disableClearable
             forcePopupIcon={false}
@@ -103,8 +99,7 @@ export const StartGoalForm = () => {
             options={array}
             getOptionLabel={(option) => option}
             onInputChange={(event, newInputValue) => {
-              setInputValue(newInputValue)
-              getItems()
+              getItems(newInputValue)
             }}
             disableClearable
             forcePopupIcon={false}
@@ -130,10 +125,8 @@ export const StartGoalForm = () => {
               options={array}
               getOptionLabel={(option) => option}
               onInputChange={(event, newInputValue) => {
-                setInputValue(newInputValue)
-                getItems()
+                getItems(newInputValue)
               }}
-              disableClearable
               forcePopupIcon={false}
               renderInput={(params) => (
                 <StartGoalTextField
@@ -150,10 +143,8 @@ export const StartGoalForm = () => {
               options={array}
               getOptionLabel={(option) => option}
               onInputChange={(event, newInputValue) => {
-                setInputValue(newInputValue)
-                getItems()
+                getItems(newInputValue)
               }}
-              disableClearable
               forcePopupIcon={false}
               renderInput={(params) => (
                 <StartGoalTextField
@@ -171,10 +162,8 @@ export const StartGoalForm = () => {
               options={array}
               getOptionLabel={(option) => option}
               onInputChange={(event, newInputValue) => {
-                setInputValue(newInputValue)
-                getItems()
+                getItems(newInputValue)
               }}
-              disableClearable
               forcePopupIcon={false}
               renderInput={(params) => (
                 <StartGoalTextField

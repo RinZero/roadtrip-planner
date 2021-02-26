@@ -11,25 +11,29 @@ export const autocomplete = async (place: string) => {
   return result
 }
 
+// only want to get the name of the options from autocomplete places
+// and check if nothing is in there more than once
 const getOnlyImportantInfo = (suggestions: any[]) => {
   const newSet = new Set<string>()
-  // district is key so there are no places more than once
   suggestions.forEach(function (place) {
-    const str = place.label.split(', ')
-    const placeName = str.slice(1, 2).join(', ')
-    newSet.add(placeName)
+    const strArr = place.label.split(', ')
+    let n = 2
+    if (strArr.length > 2) n = 3
+    if (strArr[1] !== strArr[2]) {
+      const placeName = strArr.slice(1, n).join(', ')
+      newSet.add(placeName)
+    }
   })
   return newSet
 }
 
 const getCoordinates = async (loactaionId: string) => {
   const apiKey = 'E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
-  const t = loactaionId.replace(', ', '+')
-  const url = `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${apiKey}&searchtext=${t}`
-  // const url = `https://geocoder.ls.hereapi.com/6.2/geocode.json?locationid=${loactaionId}&jsonattributes=1&gen=9&apiKey=${apiKey}`
+  const searchName = loactaionId.replace(', ', '+')
+  const url = `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${apiKey}&searchtext=${searchName}`
   const response = await fetch(url)
   const data = await response.json()
-  return data
+  return data.Response.View[0].Result[0]
 }
 
 export const iterateStops = async (stops: any) => {
@@ -38,10 +42,8 @@ export const iterateStops = async (stops: any) => {
   for (let i = 0; i < stops.length; i++) {
     if (stops[i] && stops[i] !== '') {
       const data = await getCoordinates(stops[i])
-      const lat =
-        data.Response.View[0].Result[0].Location.DisplayPosition.Latitude
-      const lon =
-        data.Response.View[0].Result[0].Location.DisplayPosition.Longitude
+      const lat = data.Location.DisplayPosition.Latitude
+      const lon = data.Location.DisplayPosition.Longitude
       newArr[j] = [lat, lon]
       j++
     }

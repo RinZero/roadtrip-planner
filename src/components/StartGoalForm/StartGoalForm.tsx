@@ -50,9 +50,10 @@ const StyledTextField = withTheme(styled(TextField)`
 `)
 
 const StartGoalTextField = withTheme(styled(StyledTextField)`
-  * {
-    padding-left: ${(props) => props.theme.spacing(3.7)}px;
+  input,
+  label {
     font-size: 40px;
+    margin-left: ${(props) => props.theme.spacing(3.7)}px;
   }
 `)
 
@@ -80,7 +81,6 @@ export const StartGoalForm = () => {
             onInputChange={(event, newInputValue) => {
               getItems(newInputValue)
             }}
-            disableClearable
             forcePopupIcon={false}
             renderInput={(params) => (
               <StartGoalTextField
@@ -101,7 +101,6 @@ export const StartGoalForm = () => {
             onInputChange={(event, newInputValue) => {
               getItems(newInputValue)
             }}
-            disableClearable
             forcePopupIcon={false}
             renderInput={(params) => (
               <StartGoalTextField

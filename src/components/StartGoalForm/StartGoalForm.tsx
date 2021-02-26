@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 
 import {
   Box,
@@ -8,6 +8,7 @@ import {
   Typography,
   withTheme,
 } from '@material-ui/core'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -24,6 +25,7 @@ import {
   selectMaxRoadtripStops,
   selectUiSelectedCategories,
 } from '../../store/selectors'
+import { autocomplete, iterateStops } from '../../utils/autocomplete'
 import { data as cityCoordinates } from './cityCoordinates.json'
 import { roadtripGenerate } from './raoadtripGenerate'
 
@@ -45,7 +47,8 @@ const StyledButton = withTheme(styled(Button)`
 `)
 
 const StyledTextField = withTheme(styled(TextField)`
-  margin: 0 ${(props) => props.theme.spacing(2)}px;
+  padding: ${(props) => props.theme.spacing(2)}px;
+  padding-top: 0;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 
@@ -60,59 +63,27 @@ const StyledTextField = withTheme(styled(TextField)`
 `)
 
 const StartGoalTextField = withTheme(styled(StyledTextField)`
-  height: ${(props) => props.theme.spacing(13.5)}px;
-
   * {
-    margin-left: ${(props) => props.theme.spacing(3.7)}px;
+    padding-left: ${(props) => props.theme.spacing(3.7)}px;
     font-size: 40px;
   }
 `)
 
-const StopIndicatorTextField = withTheme(styled(StyledTextField)`
-  width: ${(props) => props.theme.spacing(8)}px;
-  height: ${(props) => props.theme.spacing(8)}px;
-`)
-type IFormInput = {
-  stops: string[]
-}
-
 export const StartGoalForm = () => {
   const dispatch = useDispatch()
   const { register, getValues } = useForm()
-  const onFormSubmit = (data: IFormInput) => {
-    const nameStops = data.stops.filter((s) => s !== '')
-    const roadtripStops: number[][] = []
-    nameStops.map((stop) => {
-      const stopCord = cityCoordinates.find((c) => c.name === stop)?.coordinates
-      if (stopCord) roadtripStops.push(stopCord)
-      return null
-    })
-    return roadtripStops
+  // text written in text input field
+  const [inputValue, setInputValue] = useState('')
+  // Array with the options of autocomplete
+  const [array, setArray] = useState([])
+
+  const getItems = async () => {
+    if (inputValue.length > 2) {
+      const newSet = await autocomplete(inputValue)
+      setArray(Array.from(newSet))
+    }
   }
 
-  //TESTS
-  // Setup
-  // dispatch(
-  //   setRoadtripStops({
-  //     roadtripStops: [
-  //       [47.79941, 13.04399, 1.0],
-  //       [46.6357, 14.311817, 2.0],
-  //       [47.416, 15.2617, 3.0],
-  //     ],
-  //   })
-  // )
-  // dispatch(setMaxRoadtripStops({ maxRoadtripStops: 10 }))
-  // const maxStops = useSelector(selectMaxRoadtripStops())
-  // dispatch(
-  //   setUiSelectedCategories({
-  //     // eslint-disable-next-line no-octal
-  //     selectedCategories: ['550-5520-0208'],
-  //   })
-  // )
-
-  // const stops = useSelector(selectRoadtripStops())
-
-  // const categories = useSelector(selectUiSelectedCategories())
   return (
     <>
       <StyledForm>
@@ -121,56 +92,126 @@ export const StartGoalForm = () => {
           {cityCoordinates.map((c) => c.name + ', ')}
         </Typography>
         <Box display="flex" width="100%" justifyContent="center">
-          <StartGoalTextField
-            label="Start"
-            name="stops[0]"
-            inputRef={register}
+          <Autocomplete
+            id="stops[0]"
             fullWidth
-            placeholder="Salzburg"
+            options={array}
+            getOptionLabel={(option) => option}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue)
+              getItems()
+            }}
+            disableClearable
+            forcePopupIcon={false}
+            renderInput={(params) => (
+              <StartGoalTextField
+                {...params}
+                label="Start"
+                name="stops[0]"
+                inputRef={register}
+                fullWidth
+                placeholder="Salzburg"
+              />
+            )}
           />
-          <StartGoalTextField
-            label="Goal"
-            name="stops[4]"
-            inputRef={register}
+          <Autocomplete
+            id="stops[4]"
             fullWidth
-            placeholder="Graz"
+            options={array}
+            getOptionLabel={(option) => option}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue)
+              getItems()
+            }}
+            disableClearable
+            forcePopupIcon={false}
+            renderInput={(params) => (
+              <StartGoalTextField
+                {...params}
+                label="Goal"
+                name="stops[4]"
+                inputRef={register}
+                fullWidth
+                placeholder="Graz"
+              />
+            )}
           />
         </Box>
 
         <Grid container spacing={1} alignItems="center">
           <Grid item xs={12} lg={8} justify="space-evenly" alignItems="center">
-            {/* <Box
-              display="flex"
-              justifyContent="space-evenly"
-              alignItems="center"
-            > */}
             <Typography variant="h6">Stops (optional)</Typography>
-            <StartGoalTextField
-              label="Zwischenstopp 1"
-              name="stops[1]"
-              inputRef={register}
+            <Autocomplete
+              id="stops[1]"
+              fullWidth
+              options={array}
+              getOptionLabel={(option) => option}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue)
+                getItems()
+              }}
+              disableClearable
+              forcePopupIcon={false}
+              renderInput={(params) => (
+                <StartGoalTextField
+                  {...params}
+                  label="Zwischenstopp 1"
+                  name="stops[1]"
+                  inputRef={register}
+                />
+              )}
             />
-            <StartGoalTextField
-              label="Zwischenstopp 2"
-              name="stops[2]"
-              inputRef={register}
+            <Autocomplete
+              id="stops[2]"
+              fullWidth
+              options={array}
+              getOptionLabel={(option) => option}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue)
+                getItems()
+              }}
+              disableClearable
+              forcePopupIcon={false}
+              renderInput={(params) => (
+                <StartGoalTextField
+                  {...params}
+                  label="Zwischenstopp 2"
+                  name="stops[2]"
+                  inputRef={register}
+                />
+              )}
             />
-            <StartGoalTextField
-              label="Zwischenstopp 2"
-              name="stops[3]"
-              inputRef={register}
+
+            <Autocomplete
+              id="stops[3]"
+              fullWidth
+              options={array}
+              getOptionLabel={(option) => option}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue)
+                getItems()
+              }}
+              disableClearable
+              forcePopupIcon={false}
+              renderInput={(params) => (
+                <StartGoalTextField
+                  {...params}
+                  label="Zwischenstopp 3"
+                  name="stops[3]"
+                  inputRef={register}
+                />
+              )}
             />
-            {/* </Box> */}
           </Grid>
           <Grid item xs={12} lg={4}>
             <Box p={5}>
               <StyledButton
                 onClick={async () => {
+                  // get name array with choosen stops
                   const values = getValues()
-
-                  const stops = onFormSubmit({ stops: values.stops })
-                  dispatch(setRoadtripStops({ roadtripStops: stops }))
-
+                  // get coordinates array of the stops
+                  const stopArray = await iterateStops(values.stops)
+                  dispatch(setRoadtripStops({ roadtripStops: stopArray }))
                   dispatch(setProgressStep({ progressStep: '2' }))
                 }}
               >

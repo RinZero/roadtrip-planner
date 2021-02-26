@@ -10,24 +10,11 @@ import {
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-import {
-  setMapRoute,
-  setMaxRoadtripStops,
-  setProgressStep,
-  setRoadtripStops,
-  setUiSelectedCategories,
-} from '../../store/actions'
-import {
-  selectRoadtripStops,
-  selectMaxRoadtripStops,
-  selectUiSelectedCategories,
-} from '../../store/selectors'
+import { setProgressStep, setRoadtripStops } from '../../store/actions'
 import { autocomplete, iterateStops } from '../../utils/autocomplete'
-import { data as cityCoordinates } from './cityCoordinates.json'
-import { roadtripGenerate } from './raoadtripGenerate'
 
 const StyledForm = withTheme(styled.form`
   width: 100%;
@@ -87,10 +74,6 @@ export const StartGoalForm = () => {
   return (
     <>
       <StyledForm>
-        <Typography variant="h3">
-          TEST_UMGEBUNG!!!!: Bitte verwnde nur diese Orte:{' '}
-          {cityCoordinates.map((c) => c.name + ', ')}
-        </Typography>
         <Box display="flex" width="100%" justifyContent="center">
           <Autocomplete
             id="stops[0]"

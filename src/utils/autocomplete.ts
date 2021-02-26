@@ -1,10 +1,6 @@
 /* eslint-disable prettier/prettier */
-
-import { Place } from '@material-ui/icons'
-
 export const autocomplete = async (place: string) => {
   const apiKey = 'E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
-
   const url = `https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json&country=AUT?apiKey=${apiKey}&query=${place}`
   const response = await fetch(url)
   const data = await response.json()
@@ -16,8 +12,6 @@ export const autocomplete = async (place: string) => {
 }
 
 const getOnlyImportantInfo = (suggestions: any[]) => {
-  // eslint-disable-next-line no-console
-  console.log(suggestions)
   const newSet = new Set<string>()
   // district is key so there are no places more than once
   suggestions.forEach(function (place) {
@@ -25,8 +19,6 @@ const getOnlyImportantInfo = (suggestions: any[]) => {
     const placeName = str.slice(1, 2).join(', ')
     newSet.add(placeName)
   })
-  // eslint-disable-next-line no-console
-  console.log(newSet)
   return newSet
 }
 

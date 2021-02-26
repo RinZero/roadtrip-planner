@@ -63,25 +63,36 @@ export const StartGoalForm = () => {
   // Array with the options of autocomplete
   const [array, setArray] = useState([])
 
-  const getItems = async (inputNew: string) => {
-    if (inputNew.length > 2) {
+  const getItems = async (inputNew: string, eventType: string) => {
+    if (inputNew.length > 2 && eventType !== 'click') {
       const newSet = await autocomplete(inputNew)
       setArray(Array.from(newSet))
+    } else {
+      setArray([])
     }
+  }
+
+  const defaultProps = {
+    options: array,
+    forcePopupIcon: false,
+    noOptionsText: 'keine Ergebnisse',
+    fullWidth: true,
+    autoSelect: true,
   }
   return (
     <>
       <StyledForm>
         <Box display="flex" width="100%" justifyContent="center">
           <Autocomplete
+            {...defaultProps}
             id="stops[0]"
-            fullWidth
-            options={array}
             getOptionLabel={(option) => option}
             onInputChange={(event, newInputValue) => {
-              getItems(newInputValue)
+              getItems(newInputValue, event.type)
             }}
-            forcePopupIcon={false}
+            onClose={() => {
+              setArray([])
+            }}
             renderInput={(params) => (
               <StartGoalTextField
                 {...params}
@@ -94,14 +105,12 @@ export const StartGoalForm = () => {
             )}
           />
           <Autocomplete
+            {...defaultProps}
             id="stops[4]"
-            fullWidth
-            options={array}
             getOptionLabel={(option) => option}
             onInputChange={(event, newInputValue) => {
-              getItems(newInputValue)
+              getItems(newInputValue, event.type)
             }}
-            forcePopupIcon={false}
             renderInput={(params) => (
               <StartGoalTextField
                 {...params}
@@ -119,14 +128,12 @@ export const StartGoalForm = () => {
           <Grid item xs={12} lg={8} justify="space-evenly" alignItems="center">
             <Typography variant="h6">Stops (optional)</Typography>
             <Autocomplete
+              {...defaultProps}
               id="stops[1]"
-              fullWidth
-              options={array}
               getOptionLabel={(option) => option}
               onInputChange={(event, newInputValue) => {
-                getItems(newInputValue)
+                getItems(newInputValue, event.type)
               }}
-              forcePopupIcon={false}
               renderInput={(params) => (
                 <StartGoalTextField
                   {...params}
@@ -137,14 +144,12 @@ export const StartGoalForm = () => {
               )}
             />
             <Autocomplete
+              {...defaultProps}
               id="stops[2]"
-              fullWidth
-              options={array}
               getOptionLabel={(option) => option}
               onInputChange={(event, newInputValue) => {
-                getItems(newInputValue)
+                getItems(newInputValue, event.type)
               }}
-              forcePopupIcon={false}
               renderInput={(params) => (
                 <StartGoalTextField
                   {...params}
@@ -156,14 +161,12 @@ export const StartGoalForm = () => {
             />
 
             <Autocomplete
+              {...defaultProps}
               id="stops[3]"
-              fullWidth
-              options={array}
               getOptionLabel={(option) => option}
               onInputChange={(event, newInputValue) => {
-                getItems(newInputValue)
+                getItems(newInputValue, event.type)
               }}
-              forcePopupIcon={false}
               renderInput={(params) => (
                 <StartGoalTextField
                   {...params}

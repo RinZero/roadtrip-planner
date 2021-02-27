@@ -2,6 +2,7 @@ import produce, { Draft } from 'immer'
 import { getType } from 'typesafe-actions'
 
 import {
+  setRoadtripInfos,
   setIsLocked,
   setMapRoute,
   setMaxRoadtripStops,
@@ -22,6 +23,7 @@ export const initialState: UiState = {
   selectedCategories: new Map<string, string>(),
   mapRoute: [],
   isLocked: false,
+  roadtripInfos: [],
 }
 
 export const uiReducer = produce(
@@ -55,6 +57,11 @@ export const uiReducer = produce(
       case getType(setIsLocked): {
         const { isLocked } = action.payload
         draft.isLocked = isLocked
+        return draft
+      }
+      case getType(setRoadtripInfos): {
+        const { roadtripInfos } = action.payload
+        draft.roadtripInfos = roadtripInfos
         return draft
       }
       default:

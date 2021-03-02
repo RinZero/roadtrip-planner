@@ -48,3 +48,8 @@ export const selectIsLocked = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.isLocked
   })
+
+export const selectRoadtripInfos = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.roadtripInfos
+  })

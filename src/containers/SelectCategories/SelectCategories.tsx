@@ -19,6 +19,7 @@ import {
   setMapRoute,
   setMaxRoadtripStops,
   setProgressStep,
+  setRoadtripInfos,
   setUiSelectedCategories,
 } from '../../store/actions'
 import {
@@ -282,7 +283,10 @@ const SelectCategories = () => {
                           maxStops,
                           dataArray
                         )
-                        dispatch(setMapRoute({ mapRoute: response }))
+                        dispatch(setMapRoute({ mapRoute: response.coorArr }))
+                        dispatch(
+                          setRoadtripInfos({ roadtripInfos: response.infoArr })
+                        )
                         dispatch(setProgressStep({ progressStep: '3' }))
                       }}
                     >

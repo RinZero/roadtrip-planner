@@ -7,6 +7,7 @@ export const setProgressStep = createAction('ui/SET_PROGRESS_STEP')<{
 export const setRoadtripStops = createAction('ui/SET_ROADTRIP_STOPS')<{
   roadtripStops: number[][]
 }>()
+
 export const setMaxRoadtripStops = createAction('ui/SET_MAX_ROADTRIP_STOPS')<{
   maxRoadtripStops: number
 }>()
@@ -24,6 +25,15 @@ export const setMapRoute = createAction('ui/SET_MAP_ROUTE')<{
 export const setIsLocked = createAction('ui/SET_IS_LOCKED')<{
   isLocked: boolean
 }>()
+
+export const setRoadtripInfos = createAction('ui/SET_ROADTRIP_INFOS')<{
+  roadtripInfos: {
+    address: string
+    categories: { id: string; name: string; primary?: boolean }
+    coordinates: number[]
+  }[]
+}>()
+
 export const UiActions = {
   setProgressStep,
   setRoadtripStops,
@@ -31,6 +41,7 @@ export const UiActions = {
   setUiSelectedCategories,
   setMapRoute,
   setIsLocked,
+  setRoadtripInfos,
 }
 
 export type UiActionsType = ActionType<typeof UiActions>

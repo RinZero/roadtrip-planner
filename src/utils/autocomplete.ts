@@ -13,12 +13,13 @@ export const autocomplete = async (place: string) => {
 
 // only want to get the name of the options from autocomplete places
 // and check if nothing is in there more than once
-const getOnlyImportantInfo = (suggestions: any[]) => {
+const getOnlyImportantInfo = (
+  suggestions: { [key: string]: string | any }[]
+) => {
   const newSet = new Set<string>()
   suggestions.forEach(function (place) {
     const strArr = place.label.split(', ')
-    let n = 2
-    if (strArr.length > 2) n = 3
+    const n = strArr.length > 2 ? 2 : 3
     if (strArr[1] !== strArr[2]) {
       const placeName = strArr.slice(1, n).join(', ')
       newSet.add(placeName)
@@ -36,17 +37,17 @@ const getCoordinates = async (loactaionId: string) => {
   return data.Response.View[0].Result[0]
 }
 
-export const iterateStops = async (stops: any) => {
-  const newArr = []
+export const iterateStops = async (stops: string[]) => {
+  const newArr = new Array<number[]>()
   let j = 0
-  for (let i = 0; i < stops.length; i++) {
-    if (stops[i] && stops[i] !== '') {
-      const data = await getCoordinates(stops[i])
-      const lat = data.Location.DisplayPosition.Latitude
-      const lon = data.Location.DisplayPosition.Longitude
-      newArr[j] = [lat, lon]
-      j++
-    }
-  }
+
+  stops.forEach(async function (stop: string) {
+    const data = await getCoordinates(stop)
+    const lat: number = data.Location.DisplayPosition.Latitude
+    const lon: number = data.Location.DisplayPosition.Longitude
+    newArr[j] = [lat, lon]
+    j++
+  })
+
   return newArr
 }

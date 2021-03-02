@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 export const autocomplete = async (place: string) => {
   const apiKey = 'E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
   const url = `https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json&country=AUT?apiKey=${apiKey}&query=${place}`

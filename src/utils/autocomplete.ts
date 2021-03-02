@@ -19,11 +19,11 @@ const getOnlyImportantInfo = (
   const newSet = new Set<string>()
   suggestions.forEach(function (place) {
     const strArr = place.label.split(', ')
-    const n = strArr.length > 2 ? 2 : 3
-    if (strArr[1] !== strArr[2]) {
-      const placeName = strArr.slice(1, n).join(', ')
-      newSet.add(placeName)
-    }
+    // Remove the first item of an array because it is 'Österreich'
+    strArr.shift()
+    const placeName =
+      strArr[0] === strArr[1] ? strArr[0] : strArr.slice(0, 2).join(', ')
+    newSet.add(placeName)
   })
   return newSet
 }
@@ -41,13 +41,15 @@ export const iterateStops = async (stops: string[]) => {
   const newArr = new Array<number[]>()
   let j = 0
 
-  stops.forEach(async function (stop: string) {
-    const data = await getCoordinates(stop)
-    const lat: number = data.Location.DisplayPosition.Latitude
-    const lon: number = data.Location.DisplayPosition.Longitude
-    newArr[j] = [lat, lon]
-    j++
-  })
+  for (let i = 0; i < stops.length; i++) {
+    if (stops[i] && stops[i] !== '') {
+      const data = await getCoordinates(stops[i])
+      const lat = data.Location.DisplayPosition.Latitude
+      const lon = data.Location.DisplayPosition.Longitude
+      newArr[j] = [lat, lon]
+      j++
+    }
+  }
 
   return newArr
 }

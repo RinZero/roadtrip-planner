@@ -15,14 +15,11 @@ import {
   Button,
   withTheme,
 } from '@material-ui/core'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import {
-  getAllCategories,
-  getAllSelectedCategories,
-} from '../../utils/getCategoriesArray'
+import { selectUserToken } from '../../store/selectors'
+import { createPlace, createLocation } from '../../utils/CreateNewPlace'
 
 const StyledForm = withTheme(styled.form`
   width: 100%;
@@ -38,7 +35,6 @@ const StyledRadioGroup = withTheme(styled(RadioGroup)`
 `)
 
 const StyledButton = withTheme(styled(Button)`
-  width: 100%;
   color: #ffffff;
   background-color: #71b255;
   padding: ${(props) => props.theme.spacing(2.5)}px;
@@ -47,8 +43,11 @@ const StyledButton = withTheme(styled(Button)`
 `)
 
 const NewPlaceForm = () => {
-  const { register, getValues } = useForm()
   const [currentRadio, setCurrentRadio] = useState('privat')
+  const [currentName, setCurrentName] = useState('')
+  const [currentDescription, setCurrentDescription] = useState('')
+  const [currentLat, setCurrentLat] = useState(-1)
+  const [currentLng, setCurrentLng] = useState(-1)
 
   //for frontend validation numbers
   const [lngError, setLngError] = useState(false)
@@ -56,13 +55,7 @@ const NewPlaceForm = () => {
   const [lngHelperText, setLngHelperText] = useState('')
   const [latHelperText, setLatHelperText] = useState('')
 
-  //get all categories
-  const [categories, setCategories] = useState(new Set())
-  const allCategories = getAllCategories()
-
-  const radioChanged = (event: any) => {
-    setCurrentRadio(event.target.value)
-  }
+  const token = useSelector(selectUserToken())
 
   const checkDigetInput = (event: any) => {
     const num = event.target.value
@@ -94,21 +87,6 @@ const NewPlaceForm = () => {
     }
   }
 
-  const categoriesChanged = (event: any) => {
-    const newSet = new Set(categories)
-    newSet.add(event.target.value)
-    setCategories(newSet)
-  }
-
-  const getCategoryNames = () => {
-    const allTags = document.getElementsByClassName('MuiChip-label')
-    const allTagsArr = new Array(allTags.length)
-    for (let i = 0; i < allTags.length; i++) {
-      allTagsArr[i] = allTags[i].innerHTML
-    }
-    return allTagsArr
-  }
-
   return (
     <>
       <StyledForm>
@@ -116,15 +94,20 @@ const NewPlaceForm = () => {
           id="name-place"
           label="Name"
           variant="outlined"
-          inputRef={register}
+          onChange={(e: any) => {
+            setCurrentName(e.target.value)
+          }}
         />
         <TextField
           id="description-place"
           label="Beschreibung"
           multiline
+          rows={2}
           rowsMax={4}
           variant="outlined"
-          inputRef={register}
+          onChange={(e: any) => {
+            setCurrentDescription(e.target.value)
+          }}
         />
 
         <TextField
@@ -136,11 +119,11 @@ const NewPlaceForm = () => {
           error={latError}
           onChange={(e: any) => {
             checkDigetInput(e)
+            setCurrentLat(e.target.value)
           }}
           // Österreichs Oberster und Unterster Breitengrad
           inputProps={{ min: '46.3800', max: '49.0200', step: '0.0100' }}
           helperText={latHelperText}
-          inputRef={register}
         />
         <TextField
           id="lng"
@@ -151,11 +134,11 @@ const NewPlaceForm = () => {
           error={lngError}
           onChange={(e: any) => {
             checkDigetInput(e)
+            setCurrentLng(e.target.value)
           }}
           // Österreichs Linkester und Rechtester Längengrad
           inputProps={{ min: '9.5300', max: '17.1500', step: '0.0100' }}
           helperText={lngHelperText}
-          inputRef={register}
         />
 
         <FormControl component="fieldset">
@@ -165,7 +148,7 @@ const NewPlaceForm = () => {
             name="sichtbarkeit"
             value={currentRadio}
             onChange={(e: any) => {
-              radioChanged(e)
+              setCurrentRadio(e.target.value)
             }}
           >
             <FormControlLabel
@@ -181,33 +164,23 @@ const NewPlaceForm = () => {
           </StyledRadioGroup>
         </FormControl>
 
-        <Autocomplete
-          multiple
-          id="categories"
-          options={allCategories}
-          getOptionLabel={(option) => option.name}
-          filterSelectedOptions
-          onChange={(e: any) => {
-            categoriesChanged(e)
-          }}
-          renderInput={(params) => (
-            <TextField {...params} variant="outlined" label="Kategorien" />
-          )}
-        />
         <StyledButton
-          onClick={() => {
-            const allCategoryNames = getCategoryNames()
-            // eslint-disable-next-line no-console
-            console.log(allCategoryNames)
-            const getCategoryData = getAllSelectedCategories(allCategoryNames)
-            // get name array with choosen stops
-            const values = getValues()
-            // eslint-disable-next-line no-console
-            console.log(values)
-            // eslint-disable-next-line no-console
-            console.log(getCategoryData)
-            // eslint-disable-next-line no-console
-            console.log(currentRadio)
+          onClick={async () => {
+            const place = {
+              data: {
+                type: 'user_entry',
+                attributes: {
+                  public: currentRadio === 'private' ? false : true,
+                  is_allowed: false,
+                  name: currentName,
+                  description: currentDescription,
+                  latitude: currentLat,
+                  longitude: currentLng,
+                  // location: newLocation,
+                },
+              },
+            }
+            createPlace(place, token)
           }}
         >
           Neuen Ort erstellen

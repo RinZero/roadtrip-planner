@@ -6,10 +6,21 @@ import styled from 'styled-components'
 
 import NewPlaceForm from '../../components/NewPlaceForm'
 
+const NewPlaceStyles = withTheme(styled.div`
+  max-width: 70%;
+  padding: ${(props) => props.theme.spacing(10)}px 0;
+  display: flex;
+  flex-direction: column;
+  height: 93vh;
+  justify-content: space-around;
+`)
+
 const NewPlace = () => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
-      <NewPlaceForm />
+      <NewPlaceStyles>
+        <NewPlaceForm />
+      </NewPlaceStyles>
     </Box>
   )
 }

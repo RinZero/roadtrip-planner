@@ -7,7 +7,6 @@ import {
   FormControl,
   InputLabel,
   Input,
-  Switch,
   FormLabel,
   RadioGroup,
   FormControlLabel,
@@ -166,6 +165,11 @@ const NewPlaceForm = () => {
 
         <StyledButton
           onClick={async () => {
+            const location = {
+              data: { type: 'location', attributes: { is_api_entry: false } },
+            }
+            const newLocation = await createLocation(location, token)
+
             const place = {
               data: {
                 type: 'user_entry',
@@ -176,10 +180,15 @@ const NewPlaceForm = () => {
                   description: currentDescription,
                   latitude: currentLat,
                   longitude: currentLng,
-                  // location: newLocation,
+                  location: newLocation,
                 },
               },
             }
+            // eslint-disable-next-line no-console
+            console.log(place)
+            // eslint-disable-next-line no-console
+            console.log(token)
+
             createPlace(place, token)
           }}
         >

@@ -22,33 +22,49 @@ export type placeType = {
 }
 
 const fetch = axios.create({
-  baseURL: 'localhost:3000/api/v1/',
-  // baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
+  // baseURL: 'localhost:3000/api/v1/',
+  baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
 })
 
-export const createLocation = (newLocationData: locationType) => {
-  return fetch.post('locations', newLocationData).then((response) => {
-    // eslint-disable-next-line no-console
-    console.log(response)
-    return response.data.data
-  })
+export const createLocation = (
+  newLocationData: locationType,
+  token: string
+) => {
+  return fetch
+    .post('locations', {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      newLocationData,
+    })
+    .then((response) => {
+      // eslint-disable-next-line no-console
+      console.log(response)
+      return response.data.data
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.log(error.response)
+    })
 }
 
 export const createPlace = (newPlaceData: placeType, token: string) => {
-  // return fetch.post('user_entries', newPlaceData).then((response) => {
-  //     // eslint-disable-next-line no-console
-  //     console.log(response)
-  //     return response.data.data
-  // })
   return fetch
     .post('user_entries', {
       headers: {
         Authorization: token,
+        'Content-Type': 'application/json',
       },
-      body: newPlaceData,
+      newPlaceData,
     })
-    .then((response) =>
+    .then((response) => {
       // eslint-disable-next-line no-console
       console.log(response)
-    )
+      return response.data.data
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.log(error.response)
+    })
 }

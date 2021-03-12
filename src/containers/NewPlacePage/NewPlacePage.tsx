@@ -15,7 +15,7 @@ const NewPlaceStyles = withTheme(styled.div`
   justify-content: space-around;
 `)
 
-const NewPlace = () => {
+const NewPlacePage = () => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <NewPlaceStyles>
@@ -25,4 +25,4 @@ const NewPlace = () => {
   )
 }
 
-export default memo(NewPlace)
+export default memo(NewPlacePage)

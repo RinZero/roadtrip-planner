@@ -13,6 +13,11 @@ import {
 import { withTheme } from '@material-ui/core/styles'
 import styled from 'styled-components'
 
+import { RoadtripState } from '../../store/user/types'
+
+type RoadtripcardProps = {
+  roadtrip: RoadtripState
+}
 const MyRoadtripCard = withTheme(styled(Card)`
   min-width: ${(props) => props.theme.spacing(50)}px;
   max-width: ${(props) => props.theme.spacing(68.5)}px;
@@ -30,11 +35,11 @@ const MyRoadtripCardMedia = withTheme(styled(CardMedia)`
   border-radius: 15px;
 `)
 
-const start = 'Salzburg'
-const destination = 'Graz'
-const stopsnumber = 15
-
-const Roadtripcard = () => {
+const Roadtripcard = (props: RoadtripcardProps) => {
+  const { roadtrip } = props
+  const start = roadtrip.stops[0].name
+  const destination = roadtrip.stops[roadtrip.stops.length - 1].name
+  const stopsnumber = roadtrip.stops.length
   return (
     <MyRoadtripCard variant="outlined" square>
       <CardActionArea>

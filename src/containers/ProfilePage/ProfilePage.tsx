@@ -2,16 +2,18 @@ import React, { memo } from 'react'
 
 import { Box, Grid, Typography } from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
+import { useSelector } from 'react-redux'
 
 import ProfileComponent from '../../components/ProfileComponent'
 import Roadtripcard from '../../components/Roadtripcard'
+import { selectRoadtrips } from '../../store/user/selectors'
 import { RoadtripState } from '../../store/user/types'
 
-type RoadtripSildeProps = {
-  key: number
+type RoadtripSlideProps = {
   roadtrips: RoadtripState[]
 }
-const RoadtripSlide = () => {
+const RoadtripSlide = (props: RoadtripSlideProps) => {
+  const { roadtrips } = props
   return (
     <Box
       display="flex"
@@ -20,18 +22,26 @@ const RoadtripSlide = () => {
       justifyContent="center"
     >
       <Box display="flex">
-        <Roadtripcard />
-        <Roadtripcard />
+        <Roadtripcard roadtrip={roadtrips[0]} />
+        <Roadtripcard roadtrip={roadtrips[1]} />
       </Box>
       <Box display="flex">
-        <Roadtripcard />
-        <Roadtripcard />
+        <Roadtripcard roadtrip={roadtrips[2]} />
+        <Roadtripcard roadtrip={roadtrips[3]} />
       </Box>
     </Box>
   )
 }
+
 const ProfilePage = () => {
-  const roadtrips = [1, 2, 3, 4]
+  const roadtrips = useSelector(selectRoadtrips())
+  const slideRoadtrips = []
+  if (roadtrips) {
+    for (let i = 0; i < roadtrips.length; i += 4) {
+      const chunk = roadtrips.slice(i, i + 4)
+      slideRoadtrips.push(chunk)
+    }
+  }
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} sm={5}>
@@ -40,8 +50,8 @@ const ProfilePage = () => {
       <Grid item xs={12} sm={7}>
         <Typography variant="h4">Meine Roadtrips:</Typography>
         <Carousel autoPlay={false} animation="slide" timeout={600}>
-          {roadtrips.map((roadtrip, i) => (
-            <RoadtripSlide />
+          {slideRoadtrips.map((chunk) => (
+            <RoadtripSlide roadtrips={chunk} />
           ))}
         </Carousel>
       </Grid>

@@ -71,8 +71,9 @@ export const fetchRoadtrips = (token: string) => {
         Authorization: token,
       },
     })
-    .then((response) =>
+    .then((response) => {
       // eslint-disable-next-line no-console
-      console.log(response)
-    )
+      console.log(response.data.data)
+      return response.data.data
+    })
 }

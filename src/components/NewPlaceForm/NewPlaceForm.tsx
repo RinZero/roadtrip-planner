@@ -166,7 +166,8 @@ const NewPlaceForm = () => {
         <StyledButton
           onClick={async () => {
             const location = {
-              data: { type: 'location', attributes: { is_api_entry: false } },
+              type: 'location',
+              attributes: { is_api_entry: false },
             }
             const newLocation = await createLocation(location, token)
 

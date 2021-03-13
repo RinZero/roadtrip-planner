@@ -2,7 +2,8 @@
 import axios from 'axios'
 
 export type locationType = {
-  data: { type: string; attributes: { is_api_entry: boolean } }
+  type: string
+  attributes: { is_api_entry: boolean }
 }
 
 export type placeType = {
@@ -23,20 +24,17 @@ export type placeType = {
 
 const fetch = axios.create({
   // baseURL: 'localhost:3000/api/v1/',
-  baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
+  baseURL: 'http://localhost:3000/api/v1/',
 })
 
-export const createLocation = (
-  newLocationData: locationType,
-  token: string
-) => {
+export const createLocation = (data: locationType, token: string) => {
   return fetch
     .post('locations', {
       headers: {
         Authorization: token,
         'Content-Type': 'application/json',
       },
-      newLocationData,
+      data,
     })
     .then((response) => {
       // eslint-disable-next-line no-console

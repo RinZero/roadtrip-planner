@@ -16,7 +16,7 @@ import {
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import LogInForm from '../../components/LogInForm'
@@ -53,6 +53,7 @@ const StyledPopover = withTheme(styled(Popover)`
 `)
 
 const Header = () => {
+  const history = useHistory()
   const userName = useSelector(selectUserName())
   const profilePic = useSelector(selectUserPicture())
   const dispatch = useDispatch()
@@ -72,7 +73,9 @@ const Header = () => {
           </HeaderLink>
           <AccountButton
             aria-label="profile"
-            onClick={() => console.log('placeholder to profile')}
+            onClick={() =>
+              history.push(userName === 'Guest' ? '/sign_up' : '/profile')
+            }
           >
             {userName ? (
               <Avatar alt={userName + 's Profilbild'} src={profilePic} />

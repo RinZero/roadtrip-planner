@@ -6,9 +6,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { logInSuccess, getRoadtripsByUserSuccess } from '../../store/actions'
+import {
+  logInSuccess,
+  getRoadtripsByUserSuccess,
+  getLocationsByUserSuccess,
+} from '../../store/actions'
 import { selectUserToken } from '../../store/selectors'
-import { logIn, fetchRoadtrips } from '../../utils/AuthService'
+import { LocationState } from '../../store/user/types'
+import {
+  logIn,
+  fetchRoadtrips,
+  fetchUserEntries,
+} from '../../utils/AuthService'
 
 type IFormInput = {
   email: string
@@ -44,7 +53,12 @@ const LogInForm = () => {
       dispatch(logInSuccess(user))
       const roadtrips = await fetchRoadtrips(user.token)
       dispatch(getRoadtripsByUserSuccess(roadtrips))
-
+      const userEntries = await fetchUserEntries(user.token)
+      const obj: { locations: LocationState[] } = { locations: [] }
+      userEntries.map((entry: { attributes: LocationState }) =>
+        obj.locations.push(entry.attributes)
+      )
+      dispatch(getLocationsByUserSuccess(obj))
       history.push('/')
     }
 

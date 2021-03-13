@@ -1,5 +1,11 @@
 import { fetchHereData } from '../../utils/fetchHereData'
 
+type info = {
+  address: string
+  categories: { id: string; name: string; primary?: boolean }
+  coordinates: number[]
+}
+
 export const roadtripGenerate = async (
   stops: number[][],
   maxStops: number,
@@ -9,6 +15,7 @@ export const roadtripGenerate = async (
 
   const query = '' + categories.map((category) => category)
 
+  const list = new Set<info>()
   const route: number[][] = new Array(maxStops)
   for (let i = 0; i < route.length; i++) {
     if (i < stops.length) {
@@ -16,8 +23,6 @@ export const roadtripGenerate = async (
     } else {
       const random1 = Math.floor(Math.random() * Math.floor(stops.length))
       const center = stops[random1]
-      // eslint-disable-next-line no-console
-      console.log(stops, center, random1)
       const possibleStops = await fetchHereData({
         object: { endpoint: 'browse', query: query },
         at: { longitude: center[0], latitude: center[1] },
@@ -32,13 +37,20 @@ export const roadtripGenerate = async (
         const random2 = Math.floor(
           Math.random() * Math.floor(possibleStops.items.length)
         )
-        // eslint-disable-next-line no-console
-        console.log('random', random2)
         route[i] = [
           possibleStops.items[random2].access[0].lat,
           possibleStops.items[random2].access[0].lng,
           i + 1,
         ]
+        const obj = {
+          address: possibleStops.items[random2].address.label,
+          categories: possibleStops.items[random2].categories,
+          coordinates: [
+            possibleStops.items[random2].position.lat,
+            possibleStops.items[random2].position.lng,
+          ],
+        }
+        list.add(obj)
       }
     }
 
@@ -53,7 +65,10 @@ export const roadtripGenerate = async (
       return -1
     })
   }
-  return route.map((data) => data[0].toString() + ',' + data[1].toString())
+  return {
+    coorArr: route.map((data) => data[0].toString() + ',' + data[1].toString()),
+    infoArr: Array.from(list),
+  }
 }
 
 export const calcDistance = (p1: number[], p2: number[]) => {

@@ -12,6 +12,7 @@ export const logInSuccess = createAction('user/LOG_IN_SUCCESS')<{
     [key: string]: RoadtripState
   }[]
   locations?: LocationState[]
+  token: string
 }>()
 
 export const updateUser = createAction('user/UPDATE_USER')<{

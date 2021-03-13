@@ -10,6 +10,7 @@ export type UserState = {
     [key: string]: RoadtripState
   }[]
   locations?: LocationState[]
+  token: string
 }
 
 export type RoadtripState = {

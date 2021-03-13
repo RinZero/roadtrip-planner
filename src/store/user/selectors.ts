@@ -25,3 +25,8 @@ export const selectUserId = () =>
   createSelector(selectUser, (user: UserState) => {
     return user.id
   })
+
+export const selectUserToken = () =>
+  createSelector(selectUser, (user: UserState) => {
+    return user.token
+  })

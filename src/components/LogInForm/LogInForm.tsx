@@ -2,12 +2,13 @@ import React, { memo } from 'react'
 
 import { Button, Input, Typography, withTheme } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { logInSuccess } from '../../store/actions'
-import { logIn } from '../../utils/AuthService'
+import { selectUserToken } from '../../store/selectors'
+import { logIn, fetchRoadtrips } from '../../utils/AuthService'
 
 type IFormInput = {
   username: string
@@ -31,6 +32,7 @@ const StyledInput = withTheme(styled(Input)`
 const LogInForm = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const token = useSelector(selectUserToken())
   const { register, handleSubmit } = useForm()
   const onFormSubmit = async (data: IFormInput) => {
     const user = await logIn({
@@ -40,6 +42,8 @@ const LogInForm = () => {
     })
     if (user) {
       dispatch(logInSuccess(user))
+      await fetchRoadtrips(user.token)
+
       history.push('/')
     }
 

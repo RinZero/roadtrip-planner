@@ -19,6 +19,7 @@ export const initialState: UserState = {
   locations: [],
   id: 'guest',
   picture: undefined,
+  token: '',
 }
 
 export const userReducer = produce(
@@ -33,6 +34,7 @@ export const userReducer = produce(
           id,
           roadtrips,
           locations,
+          token,
         } = action.payload
         draft.id = id
         draft.userName = userName
@@ -41,6 +43,7 @@ export const userReducer = produce(
         draft.picture = picture
         draft.roadtrips = roadtrips
         draft.locations = locations
+        draft.token = token
         return draft
       }
       case getType(updateUser): {

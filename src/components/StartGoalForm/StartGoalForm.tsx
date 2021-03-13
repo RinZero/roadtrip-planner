@@ -31,11 +31,11 @@ const StyledButton = withTheme(styled(Button)`
   padding: ${(props) => props.theme.spacing(2.5)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  margin-top: 30px;
 `)
 
 const StyledTextField = withTheme(styled(TextField)`
-  padding: ${(props) => props.theme.spacing(2)}px;
-  padding-top: 0;
+  padding-bottom: ${(props) => props.theme.spacing(2)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 
@@ -50,10 +50,21 @@ const StyledTextField = withTheme(styled(TextField)`
 `)
 
 const StartGoalTextField = withTheme(styled(StyledTextField)`
+  margin: ${(props) => props.theme.spacing(2)}px 0;
   input,
   label {
     font-size: 40px;
     margin-left: ${(props) => props.theme.spacing(3.7)}px;
+  }
+`)
+
+const FormBox = withTheme(styled(Box)`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: ${(props) => props.theme.spacing(5)}px;
+  popper {
+    color: red;
   }
 `)
 
@@ -71,6 +82,10 @@ export const StartGoalForm = () => {
       setArray([])
     }
   }
+  const [showStop1, setShowStop1] = React.useState(false)
+  const [showStop2, setShowStop2] = React.useState(false)
+  const onInput1 = () => setShowStop1(true)
+  const onInput2 = () => setShowStop2(true)
 
   const defaultProps = {
     options: array,
@@ -82,7 +97,7 @@ export const StartGoalForm = () => {
   return (
     <>
       <StyledForm>
-        <Box display="flex" width="100%" justifyContent="center">
+        <FormBox>
           <Autocomplete
             {...defaultProps}
             id="stops[0]"
@@ -114,7 +129,7 @@ export const StartGoalForm = () => {
             renderInput={(params) => (
               <StartGoalTextField
                 {...params}
-                label="Goal"
+                label="Ziel"
                 name="stops[4]"
                 inputRef={register}
                 fullWidth
@@ -122,11 +137,13 @@ export const StartGoalForm = () => {
               />
             )}
           />
-        </Box>
+        </FormBox>
 
         <Grid container spacing={1} alignItems="center">
           <Grid item xs={12} lg={8} justify="space-evenly" alignItems="center">
-            <Typography variant="h6">Stops (optional)</Typography>
+            <Typography variant="h6" align="left">
+              Stops (optional):
+            </Typography>
             <Autocomplete
               {...defaultProps}
               id="stops[1]"
@@ -140,42 +157,48 @@ export const StartGoalForm = () => {
                   label="Zwischenstopp 1"
                   name="stops[1]"
                   inputRef={register}
+                  onChange={onInput1}
                 />
               )}
             />
-            <Autocomplete
-              {...defaultProps}
-              id="stops[2]"
-              getOptionLabel={(option) => option}
-              onInputChange={(event, newInputValue) => {
-                getItems(newInputValue, event.type)
-              }}
-              renderInput={(params) => (
-                <StartGoalTextField
-                  {...params}
-                  label="Zwischenstopp 2"
-                  name="stops[2]"
-                  inputRef={register}
-                />
-              )}
-            />
+            {showStop1 ? (
+              <Autocomplete
+                {...defaultProps}
+                id="stops[2]"
+                getOptionLabel={(option) => option}
+                onInputChange={(event, newInputValue) => {
+                  getItems(newInputValue, event.type)
+                }}
+                renderInput={(params) => (
+                  <StartGoalTextField
+                    {...params}
+                    label="Zwischenstopp 2"
+                    name="stops[2]"
+                    inputRef={register}
+                    onChange={onInput2}
+                  />
+                )}
+              />
+            ) : null}
 
-            <Autocomplete
-              {...defaultProps}
-              id="stops[3]"
-              getOptionLabel={(option) => option}
-              onInputChange={(event, newInputValue) => {
-                getItems(newInputValue, event.type)
-              }}
-              renderInput={(params) => (
-                <StartGoalTextField
-                  {...params}
-                  label="Zwischenstopp 3"
-                  name="stops[3]"
-                  inputRef={register}
-                />
-              )}
-            />
+            {showStop2 ? (
+              <Autocomplete
+                {...defaultProps}
+                id="stops[3]"
+                getOptionLabel={(option) => option}
+                onInputChange={(event, newInputValue) => {
+                  getItems(newInputValue, event.type)
+                }}
+                renderInput={(params) => (
+                  <StartGoalTextField
+                    {...params}
+                    label="Zwischenstopp 3"
+                    name="stops[3]"
+                    inputRef={register}
+                  />
+                )}
+              />
+            ) : null}
           </Grid>
           <Grid item xs={12} lg={4}>
             <Box p={5}>

@@ -9,6 +9,7 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
     'src/utils/*': 'ts-jest',
     '^.+\\.svg$': '<rootDir>/svgTransform.js',
+    '^.+\\.tsx?$': '<rootDir>/node_modules/ts-jest/preprocessor.js',
     //'node_modules/variables/.+\\.(j|t)sx?$': 'ts-jest',
   },
   modulePaths: ['/node_modules'],

@@ -77,3 +77,17 @@ export const fetchRoadtrips = (token: string) => {
       return response.data.data
     })
 }
+
+export const fetchUserEntries = (token: string) => {
+  return fetch
+    .get('user_entries', {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => {
+      // eslint-disable-next-line no-console
+      console.log(response.data.data)
+      return response.data.data
+    })
+}

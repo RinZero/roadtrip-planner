@@ -19,6 +19,12 @@ export const getRoadtripsByUserSuccess = createAction(
   roadtrips?: RoadtripState[]
 }>()
 
+export const getLocationsByUserSuccess = createAction(
+  'user/GET_LOCATIONS_BY_USER_SUCCESS'
+)<{
+  locations?: LocationState[]
+}>()
+
 export const updateUser = createAction('user/UPDATE_USER')<{
   userName: string
   email: string
@@ -33,6 +39,7 @@ export const UserActions = {
   logInSuccess,
   logOutSuccess,
   getRoadtripsByUserSuccess,
+  getLocationsByUserSuccess,
 }
 
 export type UserActionsType = ActionType<typeof UserActions>

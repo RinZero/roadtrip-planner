@@ -14,6 +14,11 @@ export const selectUserName = () =>
     return user.userName
   })
 
+export const selectUserEmail = () =>
+  createSelector(selectUser, (user: UserState) => {
+    return user.email
+  })
+
 export const selectUserPicture = () =>
   createSelector(selectUser, (user: UserState) => {
     return user.picture

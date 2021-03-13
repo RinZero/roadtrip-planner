@@ -17,10 +17,15 @@ import {
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { updateUser } from '../../store/actions'
+import {
+  selectUserPicture,
+  selectUserEmail,
+  selectUserName,
+} from '../../store/selectors'
 
 //Art 2
 const ProfileBox = withTheme(styled(Box)`
@@ -122,15 +127,16 @@ const ProfileComponent = () => {
       })
     )
   }
+
+  const name = useSelector(selectUserName())
+  const email = useSelector(selectUserEmail())
+  const profilePic = useSelector(selectUserPicture())
   return (
     <>
       <ProfileBox>
-        <ProfileAvatar
-          alt="profile picture"
-          src="https://image.freepik.com/free-photo/mand-holding-cup_1258-340.jpg"
-        />
-        <Typography variant="h3">Name</Typography>
-        <Typography variant="h3">Email</Typography>
+        <ProfileAvatar alt="profile picture" src={profilePic} />
+        <Typography variant="h3">{name}</Typography>
+        <Typography variant="h3">{email}</Typography>
         <EditButton aria-describedby={id} type="button" onClick={handleClick}>
           <EditIcon />
         </EditButton>

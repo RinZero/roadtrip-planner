@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { logInSuccess } from '../../store/actions'
+import { logInSuccess, getRoadtripsByUserSuccess } from '../../store/actions'
 import { selectUserToken } from '../../store/selectors'
 import { logIn, fetchRoadtrips } from '../../utils/AuthService'
 
@@ -42,7 +42,8 @@ const LogInForm = () => {
     })
     if (user) {
       dispatch(logInSuccess(user))
-      await fetchRoadtrips(user.token)
+      const roadtrips = await fetchRoadtrips(user.token)
+      dispatch(getRoadtripsByUserSuccess(roadtrips))
 
       history.push('/')
     }

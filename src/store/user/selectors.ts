@@ -4,12 +4,9 @@ import { UserState } from './types'
 
 export const selectUser = (state: { user: UserState }) => state.user
 
-export const makeSelectRoadtrips = (userName: string) =>
+export const selectRoadtrips = () =>
   createSelector(selectUser, (user: UserState) => {
-    if (user.userName === userName) {
-      return user.roadtrips
-    }
-    return null
+    return user.roadtrips
   })
 
 export const selectUserName = () =>

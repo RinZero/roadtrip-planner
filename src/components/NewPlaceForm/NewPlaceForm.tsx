@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { selectUserToken } from '../../store/selectors'
-import { createPlace, createLocation } from '../../utils/CreateNewPlace'
+import { createPlace } from '../../utils/CreateNewPlace'
 
 const StyledForm = withTheme(styled.form`
   width: 100%;
@@ -165,31 +165,18 @@ const NewPlaceForm = () => {
 
         <StyledButton
           onClick={async () => {
-            const location = {
-              type: 'location',
-              attributes: { is_api_entry: false },
-            }
-            const newLocation = await createLocation(location, token)
-
             const place = {
-              data: {
-                type: 'user_entry',
-                attributes: {
-                  public: currentRadio === 'private' ? false : true,
-                  is_allowed: false,
-                  name: currentName,
-                  description: currentDescription,
-                  latitude: currentLat,
-                  longitude: currentLng,
-                  location: newLocation,
-                },
+              type: 'user_entry',
+              attributes: {
+                public: currentRadio === 'privat' ? false : true,
+                name: currentName,
+                description: currentDescription,
+                latitude: currentLat,
+                longitude: currentLng,
               },
             }
             // eslint-disable-next-line no-console
             console.log(place)
-            // eslint-disable-next-line no-console
-            console.log(token)
-
             createPlace(place, token)
           }}
         >

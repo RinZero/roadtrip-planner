@@ -14,11 +14,16 @@ import {
   Button,
   withTheme,
 } from '@material-ui/core'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { selectUserToken } from '../../store/selectors'
+import { selectUserToken, selectUserId } from '../../store/selectors'
 import { createPlace } from '../../utils/CreateNewPlace'
+import {
+  getAllCategories,
+  getAllSelectedCategories,
+} from '../../utils/getCategoriesArray'
 
 const StyledForm = withTheme(styled.form`
   width: 100%;
@@ -54,7 +59,12 @@ const NewPlaceForm = () => {
   const [lngHelperText, setLngHelperText] = useState('')
   const [latHelperText, setLatHelperText] = useState('')
 
+  //get all categories
+  const [categories, setCategories] = useState(new Set())
+  const allCategories = getAllCategories()
+
   const token = useSelector(selectUserToken())
+  const userID = useSelector(selectUserId())
 
   const checkDigetInput = (event: any) => {
     const num = event.target.value
@@ -84,6 +94,21 @@ const NewPlaceForm = () => {
       setLngError(error)
       setLngHelperText(errorString)
     }
+  }
+
+  const categoriesChanged = (event: any) => {
+    const newSet = new Set(categories)
+    newSet.add(event.target.value)
+    setCategories(newSet)
+  }
+
+  const getCategoryNames = () => {
+    const allTags = document.getElementsByClassName('MuiChip-label')
+    const allTagsArr = new Array(allTags.length)
+    for (let i = 0; i < allTags.length; i++) {
+      allTagsArr[i] = allTags[i].innerHTML
+    }
+    return allTagsArr
   }
 
   return (
@@ -163,8 +188,28 @@ const NewPlaceForm = () => {
           </StyledRadioGroup>
         </FormControl>
 
+        <Autocomplete
+          multiple
+          id="categories"
+          options={allCategories}
+          getOptionLabel={(option) => option.name}
+          filterSelectedOptions
+          onChange={(e: any) => {
+            categoriesChanged(e)
+          }}
+          renderInput={(params) => (
+            <TextField {...params} variant="outlined" label="Kategorien" />
+          )}
+        />
+
         <StyledButton
           onClick={async () => {
+            const allCategoryNames = getCategoryNames()
+            // eslint-disable-next-line no-console
+            console.log(allCategoryNames)
+            const categoryData = getAllSelectedCategories(allCategoryNames)
+            // eslint-disable-next-line no-console
+            console.log(categoryData)
             const place = {
               type: 'user_entry',
               attributes: {
@@ -173,6 +218,8 @@ const NewPlaceForm = () => {
                 description: currentDescription,
                 latitude: currentLat,
                 longitude: currentLng,
+                categories: categoryData,
+                userID: userID,
               },
             }
             // eslint-disable-next-line no-console

@@ -9,6 +9,8 @@ export type placeType = {
     description: string
     latitude: number
     longitude: number
+    categories: { number: string; name: string }[]
+    userID: string
   }
 }
 
@@ -22,13 +24,12 @@ export const createPlace = (data: placeType, token: string) => {
     .post('user_entries', {
       headers: {
         Authorization: token,
-        'Content-Type': 'application/json',
       },
       data,
     })
     .then((response) => {
       // eslint-disable-next-line no-console
-      console.log(response)
+      console.log(response.data.data)
       return response.data.data
     })
     .catch((error) => {

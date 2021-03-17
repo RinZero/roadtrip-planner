@@ -8,12 +8,6 @@ export const checkDigetInputLng = (event: any) => {
     errorMessage = 'zu groß'
   } else if (num < -90) {
     errorMessage = 'zu klein'
-  } else if (
-    num.match('\\D') &&
-    !num.match('\\D').includes('.') &&
-    !num.match('\\D').includes('-')
-  ) {
-    errorMessage = 'falsches Format'
   } else {
     error = false
   }
@@ -30,12 +24,6 @@ export const checkDigetInputLat = (event: any) => {
     errorMessage = 'zu groß'
   } else if (num < -180) {
     errorMessage = 'zu klein'
-  } else if (
-    num.match('\\D') &&
-    !num.match('\\D').includes('.') &&
-    !num.match('\\D').includes('-')
-  ) {
-    errorMessage = 'falsches Format'
   } else {
     error = false
   }

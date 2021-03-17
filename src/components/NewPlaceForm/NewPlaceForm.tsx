@@ -10,12 +10,13 @@ import {
   Radio,
   Button,
   withTheme,
+  Box,
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { selectUserToken, selectUserId } from '../../store/selectors'
+import { selectUserId } from '../../store/selectors'
 import { createPlace } from '../../utils/CreateNewPlace'
 import {
   getAllCategories,
@@ -32,6 +33,7 @@ const StyledForm = withTheme(styled.form`
 
 const StyledRadioGroup = withTheme(styled(RadioGroup)`
   display: flex;
+  justify-content: space-between;
   flex-direction: row !important;
 `)
 
@@ -50,6 +52,8 @@ const StyledFormControl = withTheme(styled(FormControl)`
 `)
 
 const NewPlaceForm = () => {
+  const [responseMessage, setResponseMessage] = useState('')
+
   const [currentRadio, setCurrentRadio] = useState('privat')
   const [currentName, setCurrentName] = useState('')
   const [currentDescription, setCurrentDescription] = useState('')
@@ -115,6 +119,13 @@ const NewPlaceForm = () => {
 
   return (
     <>
+      {responseMessage !== '' ? (
+        <Box>
+          <h4>{responseMessage}</h4>
+        </Box>
+      ) : (
+        ''
+      )}
       <StyledForm>
         <StyledTextField
           id="name-place"
@@ -221,7 +232,18 @@ const NewPlaceForm = () => {
                 category: JSON.stringify(categoryData),
               },
             }
-            createPlace(place)
+            const response = await createPlace(place)
+            // Get response messages
+            if (response.includes('erstellt')) {
+              setResponseMessage(response)
+            } else {
+              const arr: any[] = []
+              response.forEach(function (item: any) {
+                arr.push(item[1][0])
+              })
+              const str = arr.join(' ')
+              setResponseMessage(str)
+            }
           }}
         >
           Neuen Ort erstellen

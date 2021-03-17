@@ -25,6 +25,9 @@ export const createPlace = (data: placeType) => {
       data,
     })
     .then((response) => {
-      return response.data.data
+      return response.data.status
+    })
+    .catch((error) => {
+      return Object.entries(error.response.data)
     })
 }

@@ -3,14 +3,14 @@ import axios from 'axios'
 
 export type placeType = {
   type: string
+  userId: string
   attributes: {
     public: boolean
     name: string
     description: string
     latitude: number
     longitude: number
-    categories: { number: string; name: string }[]
-    userID: string
+    // categories: { number: string; name: string }[]
   }
 }
 
@@ -22,9 +22,6 @@ const fetch = axios.create({
 export const createPlace = (data: placeType, token: string) => {
   return fetch
     .post('user_entries', {
-      headers: {
-        Authorization: token,
-      },
       data,
     })
     .then((response) => {

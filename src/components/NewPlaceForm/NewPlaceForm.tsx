@@ -212,14 +212,14 @@ const NewPlaceForm = () => {
             console.log(categoryData)
             const place = {
               type: 'user_entry',
+              userId: userID,
               attributes: {
                 public: currentRadio === 'privat' ? false : true,
                 name: currentName,
                 description: currentDescription,
                 latitude: currentLat,
                 longitude: currentLng,
-                categories: categoryData,
-                userID: userID,
+                // categories: categoryData,
               },
             }
             // eslint-disable-next-line no-console

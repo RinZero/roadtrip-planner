@@ -25,12 +25,6 @@ export const createPlace = (data: placeType) => {
       data,
     })
     .then((response) => {
-      // eslint-disable-next-line no-console
-      console.log(response.data.data)
       return response.data.data
-    })
-    .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.log(error.response)
     })
 }

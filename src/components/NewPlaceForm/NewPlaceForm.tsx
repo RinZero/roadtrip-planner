@@ -208,12 +208,7 @@ const NewPlaceForm = () => {
         <StyledButton
           onClick={async () => {
             const allCategoryNames = getCategoryNames()
-            // eslint-disable-next-line no-console
-            console.log(allCategoryNames)
             const categoryData = getAllSelectedCategories(allCategoryNames)
-            // eslint-disable-next-line no-console
-            console.log(categoryData)
-            // var myJsonString = JSON.stringify(yourArray);
             const place = {
               type: 'user_entry',
               userId: userID,
@@ -226,8 +221,6 @@ const NewPlaceForm = () => {
                 category: JSON.stringify(categoryData),
               },
             }
-            // eslint-disable-next-line no-console
-            console.log(place)
             createPlace(place)
           }}
         >

@@ -19,7 +19,7 @@ const fetch = axios.create({
   // baseURL: 'http://localhost:3000/api/v1/',
 })
 
-export const createPlace = (data: placeType, token: string) => {
+export const createPlace = (data: placeType) => {
   return fetch
     .post('user_entries', {
       data,

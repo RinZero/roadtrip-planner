@@ -2,11 +2,8 @@
 import React, { memo, useState } from 'react'
 
 import {
-  Box,
   TextField,
   FormControl,
-  InputLabel,
-  Input,
   FormLabel,
   RadioGroup,
   FormControlLabel,
@@ -45,6 +42,12 @@ const StyledButton = withTheme(styled(Button)`
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 `)
+const StyledTextField = withTheme(styled(TextField)`
+  width: 100%;
+`)
+const StyledFormControl = withTheme(styled(FormControl)`
+  width: 100%;
+`)
 
 const NewPlaceForm = () => {
   const [currentRadio, setCurrentRadio] = useState('privat')
@@ -63,7 +66,6 @@ const NewPlaceForm = () => {
   const [categories, setCategories] = useState(new Set())
   const allCategories = getAllCategories()
 
-  const token = useSelector(selectUserToken())
   const userID = useSelector(selectUserId())
 
   const checkDigetInput = (event: any) => {
@@ -114,7 +116,7 @@ const NewPlaceForm = () => {
   return (
     <>
       <StyledForm>
-        <TextField
+        <StyledTextField
           id="name-place"
           label="Name"
           variant="outlined"
@@ -122,7 +124,7 @@ const NewPlaceForm = () => {
             setCurrentName(e.target.value)
           }}
         />
-        <TextField
+        <StyledTextField
           id="description-place"
           label="Beschreibung"
           multiline
@@ -134,7 +136,7 @@ const NewPlaceForm = () => {
           }}
         />
 
-        <TextField
+        <StyledTextField
           id="lat"
           label="Breitengrad"
           type="number"
@@ -149,7 +151,7 @@ const NewPlaceForm = () => {
           inputProps={{ min: '46.3800', max: '49.0200', step: '0.0100' }}
           helperText={latHelperText}
         />
-        <TextField
+        <StyledTextField
           id="lng"
           label="Längengrad"
           type="number"
@@ -165,7 +167,7 @@ const NewPlaceForm = () => {
           helperText={lngHelperText}
         />
 
-        <FormControl component="fieldset">
+        <StyledFormControl component="fieldset">
           <FormLabel component="legend">Sichtbarkeit</FormLabel>
           <StyledRadioGroup
             aria-label="Sichtbarkeit"
@@ -186,10 +188,11 @@ const NewPlaceForm = () => {
               label="Öffentlich"
             />
           </StyledRadioGroup>
-        </FormControl>
+        </StyledFormControl>
 
         <Autocomplete
           multiple
+          fullWidth={true}
           id="categories"
           options={allCategories}
           getOptionLabel={(option) => option.name}
@@ -225,7 +228,7 @@ const NewPlaceForm = () => {
             }
             // eslint-disable-next-line no-console
             console.log(place)
-            createPlace(place, token)
+            createPlace(place)
           }}
         >
           Neuen Ort erstellen

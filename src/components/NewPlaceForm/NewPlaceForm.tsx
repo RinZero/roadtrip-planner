@@ -52,14 +52,18 @@ const StyledFormControl = withTheme(styled(FormControl)`
   width: 100%;
 `)
 
+const StyledBox = withTheme(styled(Box)`
+  width: 100%;
+`)
+
 const NewPlaceForm = () => {
   const [responseMessage, setResponseMessage] = useState('')
 
   const [currentRadio, setCurrentRadio] = useState('privat')
   const [currentName, setCurrentName] = useState('')
   const [currentDescription, setCurrentDescription] = useState('')
-  const [currentLat, setCurrentLat] = useState(-1)
-  const [currentLng, setCurrentLng] = useState(-1)
+  const [currentLat, setCurrentLat] = useState<number | null>(null)
+  const [currentLng, setCurrentLng] = useState<number | null>(null)
 
   //for frontend validation numbers
   const [lngError, setLngError] = useState(false)
@@ -116,9 +120,9 @@ const NewPlaceForm = () => {
   return (
     <>
       {responseMessage !== '' ? (
-        <Box>
+        <StyledBox>
           <h4>{responseMessage}</h4>
-        </Box>
+        </StyledBox>
       ) : (
         ''
       )}
@@ -126,6 +130,7 @@ const NewPlaceForm = () => {
         <StyledTextField
           id="name-place"
           label="Name"
+          value={currentName}
           variant="outlined"
           onChange={(e: any) => {
             setCurrentName(e.target.value)
@@ -138,6 +143,7 @@ const NewPlaceForm = () => {
           rows={2}
           rowsMax={4}
           variant="outlined"
+          value={currentDescription}
           onChange={(e: any) => {
             setCurrentDescription(e.target.value)
           }}
@@ -150,12 +156,13 @@ const NewPlaceForm = () => {
           placeholder="47.1234"
           variant="outlined"
           error={latError}
+          value={currentLat}
           onChange={(e: any) => {
             checkDigetInput(e)
             setCurrentLat(e.target.value)
           }}
           // Österreichs Oberster und Unterster Breitengrad
-          inputProps={{ min: '46.3800', max: '49.0200', step: '0.0100' }}
+          inputProps={{ step: '0.0100' }}
           helperText={latHelperText}
         />
         <StyledTextField
@@ -165,12 +172,13 @@ const NewPlaceForm = () => {
           placeholder="13.1234"
           variant="outlined"
           error={lngError}
+          value={currentLng}
           onChange={(e: any) => {
             checkDigetInput(e)
             setCurrentLng(e.target.value)
           }}
           // Österreichs Linkester und Rechtester Längengrad
-          inputProps={{ min: '9.5300', max: '17.1500', step: '0.0100' }}
+          inputProps={{ step: '0.0100' }}
           helperText={lngHelperText}
         />
 
@@ -225,7 +233,8 @@ const NewPlaceForm = () => {
                 description: currentDescription,
                 latitude: currentLat,
                 longitude: currentLng,
-                category: JSON.stringify(categoryData),
+                category:
+                  categoryData.length === 0 ? '' : JSON.stringify(categoryData),
               },
             }
             const response = await createPlace(place)

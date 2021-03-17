@@ -61,9 +61,7 @@ const Header = () => {
     <>
       <AppBar position="static">
         <Toolbar>
-          <HeaderLink
-            onClick={() => console.log('placeholder to create roadtrip')}
-          >
+          <HeaderLink component={RouterLink} to={`/`} variant="h6">
             Neuer Roadtrip
           </HeaderLink>
           <HeaderLink component={RouterLink} to={`/neuer_ort`} variant="h6">

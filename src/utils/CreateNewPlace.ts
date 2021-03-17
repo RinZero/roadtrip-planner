@@ -10,7 +10,7 @@ export type placeType = {
     description: string
     latitude: number
     longitude: number
-    // categories: { number: string; name: string }[]
+    category: string
   }
 }
 

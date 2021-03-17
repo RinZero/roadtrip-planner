@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { selectUserId } from '../../store/selectors'
+import { checkDigetInputLng, checkDigetInputLat } from '../../utils/CheckLatLng'
 import { createPlace } from '../../utils/CreateNewPlace'
 import {
   getAllCategories,
@@ -73,23 +74,18 @@ const NewPlaceForm = () => {
   const userID = useSelector(selectUserId())
 
   const checkDigetInput = (event: any) => {
-    const num = event.target.value
     const type = event.target.id
-    let errorMessage = ''
-    let error = false
+    const errorMessage = ''
+    const error = false
+    let obj = { error, errorMessage }
 
-    if (num > 180) {
-      errorMessage = 'zu groß'
-      error = true
-    } else if (num < 0) {
-      errorMessage = 'zu klein'
-      error = true
-    } else if (num.match('\\D') && num.match('\\D')[0] !== '.') {
-      errorMessage = 'falsches Format'
-      error = true
+    if (type === 'lat') {
+      obj = checkDigetInputLat(event)
+    } else {
+      obj = checkDigetInputLng(event)
     }
 
-    setError(type, errorMessage, error)
+    setError(type, obj.errorMessage, obj.error)
   }
 
   const setError = (latLng: string, errorString: string, error: boolean) => {
@@ -239,7 +235,7 @@ const NewPlaceForm = () => {
             } else {
               const arr: any[] = []
               response.forEach(function (item: any) {
-                arr.push(item[1][0])
+                arr.push(item[1].pop())
               })
               const str = arr.join(' ')
               setResponseMessage(str)

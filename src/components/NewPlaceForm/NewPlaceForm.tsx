@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { selectUserId } from '../../store/selectors'
-import { checkDigetInputLng, checkDigetInputLat } from '../../utils/CheckLatLng'
 import { createPlace } from '../../utils/CreateNewPlace'
 import {
   getAllCategories,
@@ -77,19 +76,14 @@ const NewPlaceForm = () => {
 
   const userID = useSelector(selectUserId())
 
-  const checkDigetInput = (event: any) => {
+  const checkDigetInput = (event: any, max: number) => {
     const type = event.target.id
-    const errorMessage = ''
-    const error = false
-    let obj = { error, errorMessage }
-
-    if (type === 'lat') {
-      obj = checkDigetInputLat(event)
-    } else {
-      obj = checkDigetInputLng(event)
-    }
-
-    setError(type, obj.errorMessage, obj.error)
+    const num = event.target.value
+    const errorMessage1 = num > max ? 'zu groß' : ''
+    const errorMessage2 = num < -max ? 'zu klein' : ''
+    const error = num <= max && num >= -max ? false : true
+    const errorMessage = errorMessage1 !== '' ? errorMessage1 : errorMessage2
+    setError(type, errorMessage, error)
   }
 
   const setError = (latLng: string, errorString: string, error: boolean) => {
@@ -158,10 +152,9 @@ const NewPlaceForm = () => {
           error={latError}
           value={currentLat}
           onChange={(e: any) => {
-            checkDigetInput(e)
+            checkDigetInput(e, 180)
             setCurrentLat(e.target.value)
           }}
-          // Österreichs Oberster und Unterster Breitengrad
           inputProps={{ step: '0.0100' }}
           helperText={latHelperText}
         />
@@ -174,10 +167,9 @@ const NewPlaceForm = () => {
           error={lngError}
           value={currentLng}
           onChange={(e: any) => {
-            checkDigetInput(e)
+            checkDigetInput(e, 90)
             setCurrentLng(e.target.value)
           }}
-          // Österreichs Linkester und Rechtester Längengrad
           inputProps={{ step: '0.0100' }}
           helperText={lngHelperText}
         />

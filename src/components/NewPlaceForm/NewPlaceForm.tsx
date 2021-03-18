@@ -111,6 +111,35 @@ const NewPlaceForm = () => {
     return allTagsArr
   }
 
+  const submitFunction = async () => {
+    const allCategoryNames = getCategoryNames()
+    const categoryData = getAllSelectedCategories(allCategoryNames)
+    const place = {
+      type: 'user_entry',
+      userId: userID,
+      attributes: {
+        public: currentRadio === 'privat' ? false : true,
+        name: currentName,
+        description: currentDescription,
+        latitude: currentLat,
+        longitude: currentLng,
+        category: categoryData.length === 0 ? '' : JSON.stringify(categoryData),
+      },
+    }
+    const response = await createPlace(place)
+    // Get response messages
+    if (response.includes('erstellt')) {
+      setResponseMessage(response)
+    } else {
+      const arr: any[] = []
+      response.forEach(function (item: any) {
+        arr.push(item[1].pop())
+      })
+      const str = arr.join(' ')
+      setResponseMessage(str)
+    }
+  }
+
   return (
     <>
       {responseMessage !== '' ? (
@@ -213,34 +242,8 @@ const NewPlaceForm = () => {
         />
 
         <StyledButton
-          onClick={async () => {
-            const allCategoryNames = getCategoryNames()
-            const categoryData = getAllSelectedCategories(allCategoryNames)
-            const place = {
-              type: 'user_entry',
-              userId: userID,
-              attributes: {
-                public: currentRadio === 'privat' ? false : true,
-                name: currentName,
-                description: currentDescription,
-                latitude: currentLat,
-                longitude: currentLng,
-                category:
-                  categoryData.length === 0 ? '' : JSON.stringify(categoryData),
-              },
-            }
-            const response = await createPlace(place)
-            // Get response messages
-            if (response.includes('erstellt')) {
-              setResponseMessage(response)
-            } else {
-              const arr: any[] = []
-              response.forEach(function (item: any) {
-                arr.push(item[1].pop())
-              })
-              const str = arr.join(' ')
-              setResponseMessage(str)
-            }
+          onClick={() => {
+            submitFunction()
           }}
         >
           Neuen Ort erstellen

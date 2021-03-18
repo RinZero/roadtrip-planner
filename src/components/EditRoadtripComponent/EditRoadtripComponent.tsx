@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect, DragEvent } from 'react'
+import React, { memo, useState, DragEvent } from 'react'
 
 import {
   Box,
@@ -11,12 +11,14 @@ import {
 } from '@material-ui/core'
 // Import BoardItem component
 import DeleteIcon from '@material-ui/icons/Delete'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import { setRoadtripInfos } from '../../store/actions'
 import {
   selectMapRoute,
   selectUiSelectedCategories,
+  selectRoadtripInfos,
 } from '../../store/selectors'
 import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { fetchHereData } from '../../utils/fetchHereData'
@@ -41,47 +43,25 @@ const initialDnDState = {
   isDragging: false,
   originalOrder: [
     {
-      title: '',
-      address: { label: '' },
+      address: '',
+      categories: { id: '', name: '' },
+      coordinates: [0, 0],
     },
   ],
   updatedOrder: [
     {
-      title: '',
-      address: { label: '' },
+      address: '',
+      categories: { id: '', name: '' },
+      coordinates: [0, 0],
     },
   ],
 }
 
 const EditRoadtripComponent = () => {
-  const [list, setList] = useState([
-    {
-      title: '',
-      address: { label: '' },
-    },
-  ])
+  const dispatch = useDispatch()
+  const roadtripInfo = useSelector(selectRoadtripInfos())
+  const [list, setList] = useState(roadtripInfo)
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
-
-  const getItems = async () => {
-    const data = await fetchHereData({
-      object: { endpoint: 'browse', query: 'zoo' },
-      at: { longitude: 47.7, latitude: 13.04399 },
-      limit: 12,
-      language: 'de',
-      route: {
-        stopps: [
-          [47.79941, 13.04399, 1.0],
-          [47.7, 13.04399, 2.0],
-          [47.8, 13.04399, 3.0],
-          [48.210552, 16.376495, 4.0],
-          [46.6357, 14.311817, 5.0],
-          [47.416, 15.2617, 6.0],
-        ],
-        width: 20000,
-      },
-    })
-    setList(data.items)
-  }
 
   // onDragStart fires when an element
   // starts being dragged
@@ -140,6 +120,7 @@ const EditRoadtripComponent = () => {
 
   const onDrop = (event: DragEvent<HTMLDivElement>) => {
     setList(dragAndDrop.updatedOrder)
+    dispatch(setRoadtripInfos({ roadtripInfos: list }))
 
     setDragAndDrop({
       ...dragAndDrop,
@@ -161,9 +142,6 @@ const EditRoadtripComponent = () => {
   // für die Zusammenfassung welche Kategorien für den Roadtrip verwendet wurden
   const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
 
-  useEffect(() => {
-    getItems()
-  }, [])
   return (
     <Box display="flex" flex-direction="column" justify-content="space-between">
       <DisplayMapClass allLocations={mapRoute} />
@@ -186,7 +164,7 @@ const EditRoadtripComponent = () => {
                     : ''
                 }
               >
-                <ListItemText primary={item.address.label} />
+                <ListItemText primary={item.address} />
                 <ListItemSecondaryAction>
                   <IconButton>
                     <DeleteIcon />

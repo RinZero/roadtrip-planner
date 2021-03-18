@@ -8,4 +8,9 @@ export type UiState = {
   selectedCategories: Map<string, string>
   mapRoute: string[]
   isLocked: boolean
+  roadtripInfos: {
+    address: string
+    categories: { id: string; name: string; primary?: boolean }
+    coordinates: number[]
+  }[]
 }

@@ -13,6 +13,7 @@ import {
   Box,
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
+import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
@@ -49,13 +50,9 @@ const StyledTextField = withTheme(styled(TextField)`
 `)
 
 const NewPlaceForm = () => {
-  const [responseMessage, setResponseMessage] = useState('')
-
+  const { register, handleSubmit } = useForm()
   const [currentRadio, setCurrentRadio] = useState('privat')
-  const [currentName, setCurrentName] = useState('')
-  const [currentDescription, setCurrentDescription] = useState('')
-  const [currentLat, setCurrentLat] = useState<number | null>(null)
-  const [currentLng, setCurrentLng] = useState<number | null>(null)
+  const [responseMessage, setResponseMessage] = useState('')
 
   //for frontend validation numbers
   const [lngError, setLngError] = useState(false)
@@ -79,23 +76,16 @@ const NewPlaceForm = () => {
     const errorMessage2 = num < -max ? 'zu klein' : ''
     const error = num <= max && num >= -max ? false : true
     const errorMessage = errorMessage1 !== '' ? errorMessage1 : errorMessage2
-    setError(type, errorMessage, error, num)
+    setError(type, errorMessage, error)
   }
 
-  const setError = (
-    latLng: string,
-    errorString: string,
-    error: boolean,
-    currentNum: number
-  ) => {
+  const setError = (latLng: string, errorString: string, error: boolean) => {
     if (latLng === 'lat') {
       setLatError(error)
       setLatHelperText(errorString)
-      setCurrentLat(currentNum)
     } else if (latLng === 'lng') {
       setLngError(error)
       setLngHelperText(errorString)
-      setCurrentLng(currentNum)
     }
   }
 
@@ -114,7 +104,14 @@ const NewPlaceForm = () => {
     return allTagsArr
   }
 
-  const submitFunction = async () => {
+  type IFormInput = {
+    name: string
+    description: string
+    lat: number | null
+    lng: number | null
+  }
+
+  const onFormSubmit = async (data: IFormInput) => {
     const allCategoryNames = getCategoryNames()
     const categoryData = getAllSelectedCategories(allCategoryNames)
     const place = {
@@ -122,10 +119,10 @@ const NewPlaceForm = () => {
       userId: userID,
       attributes: {
         public: currentRadio === 'privat' ? false : true,
-        name: currentName,
-        description: currentDescription,
-        latitude: currentLat,
-        longitude: currentLng,
+        name: data.name,
+        description: data.description,
+        latitude: data.lat,
+        longitude: data.lng,
         category: categoryData.length === 0 ? '' : JSON.stringify(categoryData),
       },
     }
@@ -152,104 +149,98 @@ const NewPlaceForm = () => {
       ) : (
         ''
       )}
-      <StyledForm>
-        <StyledTextField
-          id="name-place"
-          label="Name"
-          value={currentName}
-          variant="outlined"
-          onChange={(e: React.FormEvent<HTMLInputElement>) => {
-            setCurrentName(e.currentTarget.value)
-          }}
-        />
-        <StyledTextField
-          id="description-place"
-          label="Beschreibung"
-          multiline
-          rows={2}
-          rowsMax={4}
-          variant="outlined"
-          value={currentDescription}
-          onChange={(e: React.FormEvent<HTMLInputElement>) => {
-            setCurrentDescription(e.currentTarget.value)
-          }}
-        />
+      <Box>
+        <StyledForm onSubmit={handleSubmit(onFormSubmit)}>
+          <StyledTextField
+            id="name-place"
+            label="Name"
+            name="name"
+            inputRef={register}
+            variant="outlined"
+          />
+          <StyledTextField
+            id="description-place"
+            name="description"
+            label="Beschreibung"
+            inputRef={register}
+            multiline
+            rows={2}
+            rowsMax={4}
+            variant="outlined"
+          />
 
-        <StyledTextField
-          id="lat"
-          label="Breitengrad"
-          type="number"
-          placeholder="47.1234"
-          variant="outlined"
-          error={latError}
-          value={currentLat}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            checkDigetInput(e, 180)
-          }}
-          inputProps={{ step: '0.0100' }}
-          helperText={latHelperText}
-        />
-        <StyledTextField
-          id="lng"
-          label="Längengrad"
-          type="number"
-          placeholder="13.1234"
-          variant="outlined"
-          error={lngError}
-          value={currentLng}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            checkDigetInput(e, 90)
-          }}
-          inputProps={{ step: '0.0100' }}
-          helperText={lngHelperText}
-        />
-
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Sichtbarkeit</FormLabel>
-          <StyledRadioGroup
-            aria-label="Sichtbarkeit"
-            name="sichtbarkeit"
-            value={currentRadio}
-            onChange={(e: React.FormEvent<HTMLInputElement>) => {
-              setCurrentRadio(e.currentTarget.value)
+          <StyledTextField
+            id="lat"
+            name="lat"
+            label="Breitengrad"
+            type="number"
+            placeholder="47.1234"
+            variant="outlined"
+            inputRef={register}
+            error={latError}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              checkDigetInput(e, 180)
             }}
-          >
-            <FormControlLabel
-              value="privat"
-              control={<Radio />}
-              label="Privat"
-            />
-            <FormControlLabel
-              value="öffentlich"
-              control={<Radio />}
-              label="Öffentlich"
-            />
-          </StyledRadioGroup>
-        </FormControl>
+            inputProps={{ step: '0.0100' }}
+            helperText={latHelperText}
+          />
+          <StyledTextField
+            id="lng"
+            name="lng"
+            label="Längengrad"
+            type="number"
+            inputRef={register}
+            placeholder="13.1234"
+            variant="outlined"
+            error={lngError}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              checkDigetInput(e, 90)
+            }}
+            inputProps={{ step: '0.0100' }}
+            helperText={lngHelperText}
+          />
 
-        <Autocomplete
-          multiple
-          fullWidth={true}
-          id="categories"
-          options={allCategories}
-          getOptionLabel={(option) => option.name}
-          filterSelectedOptions
-          onChange={(e: any) => {
-            categoriesChanged(e)
-          }}
-          renderInput={(params) => (
-            <TextField {...params} variant="outlined" label="Kategorien" />
-          )}
-        />
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Sichtbarkeit</FormLabel>
+            <StyledRadioGroup
+              aria-label="Sichtbarkeit"
+              name="radio"
+              value={currentRadio}
+              onChange={(e: React.FormEvent<HTMLInputElement>) => {
+                setCurrentRadio(e.currentTarget.value)
+              }}
+            >
+              <FormControlLabel
+                value="privat"
+                control={<Radio />}
+                label="Privat"
+              />
+              <FormControlLabel
+                value="öffentlich"
+                control={<Radio />}
+                label="Öffentlich"
+              />
+            </StyledRadioGroup>
+          </FormControl>
 
-        <StyledButton
-          onClick={() => {
-            submitFunction()
-          }}
-        >
-          Neuen Ort erstellen
-        </StyledButton>
-      </StyledForm>
+          <Autocomplete
+            multiple
+            fullWidth={true}
+            id="categories"
+            options={allCategories}
+            getOptionLabel={(option) => option.name}
+            filterSelectedOptions
+            onChange={(e: any) => {
+              categoriesChanged(e)
+            }}
+            renderInput={(params) => (
+              <TextField {...params} variant="outlined" label="Kategorien" />
+            )}
+          />
+
+          <StyledButton type="submit">Neuen Ort erstellen</StyledButton>
+        </StyledForm>
+      </Box>
     </>
   )
 }

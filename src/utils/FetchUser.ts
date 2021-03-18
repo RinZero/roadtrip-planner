@@ -10,7 +10,7 @@ export type FetchUserType = {
 export const FetchUser = async (logInUser: FetchUserType) => {
   const url =
     'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/sessions'
-  // 'http://localhost:3000/api/v1/users';
+  // 'http://localhost:3000/api/v1/users'; test
   const response = await fetch(url, {
     method: 'POST',
     headers: {

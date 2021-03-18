@@ -34,7 +34,7 @@ const StyledForm = withTheme(styled.form`
 const StyledRadioGroup = withTheme(styled(RadioGroup)`
   display: flex;
   justify-content: space-between;
-  flex-direction: row !important;
+  flex-direction: row;
 `)
 
 const StyledButton = withTheme(styled(Button)`
@@ -45,13 +45,6 @@ const StyledButton = withTheme(styled(Button)`
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 `)
 const StyledTextField = withTheme(styled(TextField)`
-  width: 100%;
-`)
-const StyledFormControl = withTheme(styled(FormControl)`
-  width: 100%;
-`)
-
-const StyledBox = withTheme(styled(Box)`
   width: 100%;
 `)
 
@@ -153,9 +146,9 @@ const NewPlaceForm = () => {
   return (
     <>
       {responseMessage !== '' ? (
-        <StyledBox>
+        <Box>
           <h4>{responseMessage}</h4>
-        </StyledBox>
+        </Box>
       ) : (
         ''
       )}
@@ -211,7 +204,7 @@ const NewPlaceForm = () => {
           helperText={lngHelperText}
         />
 
-        <StyledFormControl component="fieldset">
+        <FormControl component="fieldset">
           <FormLabel component="legend">Sichtbarkeit</FormLabel>
           <StyledRadioGroup
             aria-label="Sichtbarkeit"
@@ -232,7 +225,7 @@ const NewPlaceForm = () => {
               label="Öffentlich"
             />
           </StyledRadioGroup>
-        </StyledFormControl>
+        </FormControl>
 
         <Autocomplete
           multiple

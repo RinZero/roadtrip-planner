@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { selectUserId } from '../../store/selectors'
@@ -157,6 +157,7 @@ const NewPlaceForm = () => {
             name="name"
             inputRef={register}
             variant="outlined"
+            inputProps={{ maxlength: 50, minlength: 3 }}
           />
           <StyledTextField
             id="description-place"
@@ -167,6 +168,7 @@ const NewPlaceForm = () => {
             rows={2}
             rowsMax={4}
             variant="outlined"
+            inputProps={{ maxlength: 250 }}
           />
 
           <StyledTextField
@@ -181,7 +183,7 @@ const NewPlaceForm = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               checkDigetInput(e, 180)
             }}
-            inputProps={{ step: '0.0100' }}
+            inputProps={{ step: '0.000001', max: 180, min: -180 }}
             helperText={latHelperText}
           />
           <StyledTextField
@@ -196,7 +198,7 @@ const NewPlaceForm = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               checkDigetInput(e, 90)
             }}
-            inputProps={{ step: '0.0100' }}
+            inputProps={{ step: '0.000001', max: 90, min: -90 }}
             helperText={lngHelperText}
           />
 

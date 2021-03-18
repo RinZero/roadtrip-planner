@@ -76,29 +76,39 @@ const NewPlaceForm = () => {
 
   const userID = useSelector(selectUserId())
 
-  const checkDigetInput = (event: any, max: number) => {
+  const checkDigetInput = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    max: number
+  ) => {
     const type = event.target.id
-    const num = event.target.value
+    const num: number = +event.target.value
     const errorMessage1 = num > max ? 'zu groß' : ''
     const errorMessage2 = num < -max ? 'zu klein' : ''
     const error = num <= max && num >= -max ? false : true
     const errorMessage = errorMessage1 !== '' ? errorMessage1 : errorMessage2
-    setError(type, errorMessage, error)
+    setError(type, errorMessage, error, num)
   }
 
-  const setError = (latLng: string, errorString: string, error: boolean) => {
+  const setError = (
+    latLng: string,
+    errorString: string,
+    error: boolean,
+    currentNum: number
+  ) => {
     if (latLng === 'lat') {
       setLatError(error)
       setLatHelperText(errorString)
+      setCurrentLat(currentNum)
     } else if (latLng === 'lng') {
       setLngError(error)
       setLngHelperText(errorString)
+      setCurrentLng(currentNum)
     }
   }
 
-  const categoriesChanged = (event: any) => {
+  const categoriesChanged = (event: React.FormEvent<HTMLInputElement>) => {
     const newSet = new Set(categories)
-    newSet.add(event.target.value)
+    newSet.add(event.currentTarget.value)
     setCategories(newSet)
   }
 
@@ -155,8 +165,8 @@ const NewPlaceForm = () => {
           label="Name"
           value={currentName}
           variant="outlined"
-          onChange={(e: any) => {
-            setCurrentName(e.target.value)
+          onChange={(e: React.FormEvent<HTMLInputElement>) => {
+            setCurrentName(e.currentTarget.value)
           }}
         />
         <StyledTextField
@@ -167,8 +177,8 @@ const NewPlaceForm = () => {
           rowsMax={4}
           variant="outlined"
           value={currentDescription}
-          onChange={(e: any) => {
-            setCurrentDescription(e.target.value)
+          onChange={(e: React.FormEvent<HTMLInputElement>) => {
+            setCurrentDescription(e.currentTarget.value)
           }}
         />
 
@@ -180,9 +190,8 @@ const NewPlaceForm = () => {
           variant="outlined"
           error={latError}
           value={currentLat}
-          onChange={(e: any) => {
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             checkDigetInput(e, 180)
-            setCurrentLat(e.target.value)
           }}
           inputProps={{ step: '0.0100' }}
           helperText={latHelperText}
@@ -195,9 +204,8 @@ const NewPlaceForm = () => {
           variant="outlined"
           error={lngError}
           value={currentLng}
-          onChange={(e: any) => {
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             checkDigetInput(e, 90)
-            setCurrentLng(e.target.value)
           }}
           inputProps={{ step: '0.0100' }}
           helperText={lngHelperText}
@@ -209,8 +217,8 @@ const NewPlaceForm = () => {
             aria-label="Sichtbarkeit"
             name="sichtbarkeit"
             value={currentRadio}
-            onChange={(e: any) => {
-              setCurrentRadio(e.target.value)
+            onChange={(e: React.FormEvent<HTMLInputElement>) => {
+              setCurrentRadio(e.currentTarget.value)
             }}
           >
             <FormControlLabel

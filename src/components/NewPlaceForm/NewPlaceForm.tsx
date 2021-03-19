@@ -45,9 +45,6 @@ const StyledButton = withTheme(styled(Button)`
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 `)
-const StyledTextField = withTheme(styled(TextField)`
-  width: 100%;
-`)
 
 const NewPlaceForm = () => {
   const { register, handleSubmit } = useForm()
@@ -151,7 +148,8 @@ const NewPlaceForm = () => {
       )}
       <Box>
         <StyledForm onSubmit={handleSubmit(onFormSubmit)}>
-          <StyledTextField
+          <TextField
+            fullWidth
             id="name-place"
             label="Name"
             name="name"
@@ -159,7 +157,8 @@ const NewPlaceForm = () => {
             variant="outlined"
             inputProps={{ maxlength: 50, minlength: 3 }}
           />
-          <StyledTextField
+          <TextField
+            fullWidth
             id="description-place"
             name="description"
             label="Beschreibung"
@@ -171,7 +170,8 @@ const NewPlaceForm = () => {
             inputProps={{ maxlength: 250 }}
           />
 
-          <StyledTextField
+          <TextField
+            fullWidth
             id="lat"
             name="lat"
             label="Breitengrad"
@@ -186,7 +186,8 @@ const NewPlaceForm = () => {
             inputProps={{ step: '0.000001', max: 180, min: -180 }}
             helperText={latHelperText}
           />
-          <StyledTextField
+          <TextField
+            fullWidth
             id="lng"
             name="lng"
             label="Längengrad"

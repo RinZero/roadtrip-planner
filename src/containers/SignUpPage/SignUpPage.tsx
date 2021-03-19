@@ -105,7 +105,7 @@ const SignUpPage = () => {
             />
           </Box>
           <LoginButton type="submit" color="primary">
-            LogIn
+            Sign up
           </LoginButton>
         </Box>
       </form>

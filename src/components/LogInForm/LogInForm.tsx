@@ -11,7 +11,7 @@ import { selectUserToken } from '../../store/selectors'
 import { logIn, fetchRoadtrips } from '../../utils/AuthService'
 
 type IFormInput = {
-  username: string
+  email: string
   password: string
 }
 
@@ -36,7 +36,7 @@ const LogInForm = () => {
   const { register, handleSubmit } = useForm()
   const onFormSubmit = async (data: IFormInput) => {
     const user = await logIn({
-      email: data.username,
+      email: data.email,
       password: data.password,
       password_confirmation: data.password,
     })
@@ -54,9 +54,9 @@ const LogInForm = () => {
       <Typography variant="h5">LogIn</Typography>
       <StyledInput
         type="text"
-        name="username"
+        name="email"
         inputRef={register}
-        placeholder="Username"
+        placeholder="Email"
         variant="outlined"
       />
       <StyledInput

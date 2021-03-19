@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { memo, useState } from 'react'
+import React, { ChangeEvent, memo, useState } from 'react'
 
 import {
   TextField,
@@ -67,7 +67,7 @@ const NewPlaceForm = () => {
   const userID = useSelector(selectUserId())
 
   const checkDigetInput = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: ChangeEvent<HTMLInputElement>,
     max: number
   ) => {
     const type = event.target.id
@@ -89,7 +89,7 @@ const NewPlaceForm = () => {
     }
   }
 
-  const categoriesChanged = (event: React.FormEvent<HTMLInputElement>) => {
+  const categoriesChanged = (event: ChangeEvent<HTMLInputElement>) => {
     const newSet = new Set(categories)
     newSet.add(event.currentTarget.value)
     setCategories(newSet)
@@ -180,7 +180,7 @@ const NewPlaceForm = () => {
             variant="outlined"
             inputRef={register}
             error={latError}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
               checkDigetInput(e, 180)
             }}
             inputProps={{ step: '0.000001', max: 180, min: -180 }}
@@ -195,7 +195,7 @@ const NewPlaceForm = () => {
             placeholder="13.1234"
             variant="outlined"
             error={lngError}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
               checkDigetInput(e, 90)
             }}
             inputProps={{ step: '0.000001', max: 90, min: -90 }}
@@ -208,7 +208,7 @@ const NewPlaceForm = () => {
               aria-label="Sichtbarkeit"
               name="radio"
               value={currentRadio}
-              onChange={(e: React.FormEvent<HTMLInputElement>) => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 setCurrentRadio(e.currentTarget.value)
               }}
             >

@@ -5,7 +5,7 @@ import { shallow, mount, configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { Provider } from 'react-redux'
 
-import MainPage from '../containers/MainPage'
+import NewPlacePage from '../containers/NewPlacePage'
 import store from '../store'
 
 configure({ adapter: new Adapter() })
@@ -13,7 +13,15 @@ configure({ adapter: new Adapter() })
 it('renders without crashing', () => {
   render(
     <Provider store={store}>
-      <MainPage />
+      <NewPlacePage />
+    </Provider>
+  )
+})
+
+it(' shallow renders without crashing', () => {
+  shallow(
+    <Provider store={store}>
+      <NewPlacePage />
     </Provider>
   )
 })

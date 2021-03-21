@@ -53,81 +53,88 @@ const StyledPopover = withTheme(styled(Popover)`
   padding: ${(props) => props.theme.spacing(3)}px;
 `)
 
+const HeaderHight = withTheme(styled(Box)`
+  height: 7vh;
+  overflow: visible;
+`)
+
 const Header = () => {
   const userName = useSelector(selectUserName())
   const profilePic = useSelector(selectUserPicture())
   const dispatch = useDispatch()
   return (
     <>
-      <AppBar position="static">
-        <Toolbar>
-          <HeaderLink component={RouterLink} to={`/`} variant="h6">
-            Neuer Roadtrip
-          </HeaderLink>
-          <HeaderLink component={RouterLink} to={`/neuer_ort`} variant="h6">
-            Ort hinzufügen
-          </HeaderLink>
-          <AccountButton
-            aria-label="profile"
-            onClick={() => console.log('placeholder to profile')}
-          >
-            {userName ? (
-              <Avatar alt={userName + 's Profilbild'} src={profilePic} />
-            ) : (
-              <AccountCircleIcon />
+      <HeaderHight>
+        <AppBar position="static">
+          <Toolbar>
+            <HeaderLink component={RouterLink} to={`/`} variant="h6">
+              Neuer Roadtrip
+            </HeaderLink>
+            <HeaderLink component={RouterLink} to={`/neuer_ort`} variant="h6">
+              Ort hinzufügen
+            </HeaderLink>
+            <AccountButton
+              aria-label="profile"
+              onClick={() => console.log('placeholder to profile')}
+            >
+              {userName ? (
+                <Avatar alt={userName + 's Profilbild'} src={profilePic} />
+              ) : (
+                <AccountCircleIcon />
+              )}
+            </AccountButton>
+            {userName === 'Guest' && (
+              <>
+                <PopupState variant="popover" popupId="login-popup-popover">
+                  {(popupState) => (
+                    <>
+                      <div {...bindTrigger(popupState)}>
+                        <Typography variant="body1" color="primary">
+                          LogIn
+                        </Typography>
+                      </div>
+                      <StyledPopover
+                        {...bindPopover(popupState)}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                      >
+                        <Box m={3}>
+                          <LogInForm />
+                        </Box>
+                      </StyledPopover>
+                    </>
+                  )}
+                </PopupState>
+                <Typography variant="body1">or</Typography>
+                <Link component={RouterLink} to={`/sign_up`} variant="h6">
+                  SignUp
+                </Link>
+              </>
             )}
-          </AccountButton>
-          {userName === 'Guest' && (
-            <>
-              <PopupState variant="popover" popupId="login-popup-popover">
-                {(popupState) => (
-                  <>
-                    <div {...bindTrigger(popupState)}>
-                      <Typography variant="body1" color="primary">
-                        LogIn
-                      </Typography>
-                    </div>
-                    <StyledPopover
-                      {...bindPopover(popupState)}
-                      anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                      }}
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                    >
-                      <Box m={3}>
-                        <LogInForm />
-                      </Box>
-                    </StyledPopover>
-                  </>
-                )}
-              </PopupState>
-              <Typography variant="body1">or</Typography>
-              <Link component={RouterLink} to={`/sign_up`} variant="h6">
-                SignUp
-              </Link>
-            </>
-          )}
-          {userName !== 'Guest' && (
-            <>
-              <Typography variant="body1" color="textPrimary">
-                Hallo {userName}, tuastn????
-              </Typography>
+            {userName !== 'Guest' && (
+              <>
+                <Typography variant="body1" color="textPrimary">
+                  Hallo {userName}, tuastn????
+                </Typography>
 
-              <LogoutButton
-                onClick={() => {
-                  dispatch(logOutSuccess())
-                }}
-              >
-                Log out
-              </LogoutButton>
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
+                <LogoutButton
+                  onClick={() => {
+                    dispatch(logOutSuccess())
+                  }}
+                >
+                  Log out
+                </LogoutButton>
+              </>
+            )}
+          </Toolbar>
+        </AppBar>
+      </HeaderHight>
     </>
   )
 }

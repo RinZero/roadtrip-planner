@@ -17,8 +17,8 @@ export const CreateUser = async () => {
   }
 
   const response = await fetch(
-    'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/users',
-    //'http://localhost:3000/api/v1/users',
+    //'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/users',
+    'http://localhost:3000/api/v1/users',
     {
       method: 'POST',
       headers: {

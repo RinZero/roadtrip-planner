@@ -86,3 +86,33 @@ const getSecondCategoriesSpecial = (
   }
   return Array.from(second)
 }
+
+export const getAllCategories = () => {
+  const all = new Set<{ name: string }>()
+
+  for (let i = 0; i < data.length; i++) {
+    all.add({
+      name: data[i].attributes.name,
+    })
+  }
+  return Array.from(all)
+}
+
+export const getAllSelectedCategories = (allName: string[]) => {
+  const all = new Set<{ number: string; name: string }>()
+
+  for (let i = 0; i < data.length; i++) {
+    const temp = getNum(allName[i])
+    if (temp) all.add(temp)
+  }
+
+  return Array.from(all)
+}
+
+const getNum = (name: string) => {
+  for (let i = 0; i < data.length; i++) {
+    // get num by name in json
+    if (data[i].attributes.name === name)
+      return { number: data[i].attributes.id, name: data[i].attributes.name }
+  }
+}

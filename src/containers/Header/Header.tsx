@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-console */
 import React, { memo, useState, MouseEvent } from 'react'
 
@@ -60,14 +61,10 @@ const Header = () => {
     <>
       <AppBar position="static">
         <Toolbar>
-          <HeaderLink
-            onClick={() => console.log('placeholder to create roadtrip')}
-          >
+          <HeaderLink component={RouterLink} to={`/`} variant="h6">
             Neuer Roadtrip
           </HeaderLink>
-          <HeaderLink
-            onClick={() => console.log('placeholder to create location')}
-          >
+          <HeaderLink component={RouterLink} to={`/neuer_ort`} variant="h6">
             Ort hinzufügen
           </HeaderLink>
           <AccountButton

@@ -17,3 +17,14 @@ it('renders without crashing', () => {
     </Provider>
   )
 })
+/*
+it('renders Text', () => {
+  const wrapper = shallow(
+    <Provider store={store}>
+      <MainPage />
+    </Provider>
+  )
+  const text = <h1>Roads were made for journeys, not destinations</h1>
+  expect(wrapper.contains(text)).toEqual(true)
+})
+*/

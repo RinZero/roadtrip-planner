@@ -26,6 +26,7 @@ it(' shallow renders without crashing', () => {
   )
 })
 
+/*
 it(' accepts input', () => {
   const newValue = 'Salzburg'
   const wrapper = mount(
@@ -37,3 +38,4 @@ it(' accepts input', () => {
   input.simulate('change', { target: { value: newValue } })
   expect(wrapper.state()).toEqual(newValue)
 })
+*/

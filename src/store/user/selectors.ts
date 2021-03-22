@@ -4,17 +4,19 @@ import { UserState } from './types'
 
 export const selectUser = (state: { user: UserState }) => state.user
 
-export const makeSelectRoadtrips = (userName: string) =>
+export const selectRoadtrips = () =>
   createSelector(selectUser, (user: UserState) => {
-    if (user.userName === userName) {
-      return user.roadtrips
-    }
-    return null
+    return user.roadtrips
   })
 
 export const selectUserName = () =>
   createSelector(selectUser, (user: UserState) => {
     return user.userName
+  })
+
+export const selectUserEmail = () =>
+  createSelector(selectUser, (user: UserState) => {
+    return user.email
   })
 
 export const selectUserPicture = () =>
@@ -29,4 +31,9 @@ export const selectUserId = () =>
 export const selectUserToken = () =>
   createSelector(selectUser, (user: UserState) => {
     return user.token
+  })
+
+export const selectUserLocations = () =>
+  createSelector(selectUser, (user: UserState) => {
+    return user.locations
   })

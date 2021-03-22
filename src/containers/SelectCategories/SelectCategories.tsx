@@ -26,6 +26,7 @@ import {
   selectMaxRoadtripStops,
   selectRoadtripStops,
   selectUiSelectedCategories,
+  selectUserToken,
 } from '../../store/selectors'
 import {
   getFirstCategories,
@@ -107,6 +108,8 @@ const CategoriesFormControl = withTheme(styled(FormControl)`
 `)
 
 const SelectCategories = () => {
+  const token = useSelector(selectUserToken())
+
   //Loading Animation
   const [loading, setLoading] = useState(false)
 
@@ -281,7 +284,8 @@ const SelectCategories = () => {
                         const response = await roadtripGenerate(
                           stops,
                           maxStops,
-                          dataArray
+                          dataArray,
+                          token
                         )
                         dispatch(setMapRoute({ mapRoute: response.coorArr }))
                         dispatch(

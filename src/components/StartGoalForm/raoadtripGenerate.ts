@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+import { fetchPlaces } from '../../utils/AuthService'
 import { fetchHereData } from '../../utils/fetchHereData'
 
 type info = {
@@ -9,9 +11,12 @@ type info = {
 export const roadtripGenerate = async (
   stops: number[][],
   maxStops: number,
-  categories: string[]
+  categories: string[],
+  token: string
 ) => {
   // const center = createCenter(stops[0], stops[stops.length - 1])
+
+  const additionalStops = await getPlaces(token, categories)
 
   const query = '' + categories.map((category) => category)
 
@@ -33,23 +38,37 @@ export const roadtripGenerate = async (
           width: 40000,
         },
       })
+
+      // add own and/or public user_entries to possible stops
+      additionalStops.forEach(function (arrayItem: any) {
+        possibleStops.items.push(arrayItem)
+      })
+
       if (possibleStops.items.length > 0) {
         const random2 = Math.floor(
           Math.random() * Math.floor(possibleStops.items.length)
         )
-        route[i] = [
-          possibleStops.items[random2].access[0].lat,
-          possibleStops.items[random2].access[0].lng,
-          i + 1,
-        ]
-        const obj = {
-          address: possibleStops.items[random2].address.label,
-          categories: possibleStops.items[random2].categories,
-          coordinates: [
-            possibleStops.items[random2].position.lat,
-            possibleStops.items[random2].position.lng,
-          ],
+        // check if UserEntry oder from HERE
+        if (possibleStops.items[random2].title) {
+          route[i] = [
+            possibleStops.items[random2].access[0].lat,
+            possibleStops.items[random2].access[0].lng,
+            i + 1,
+          ]
+        } else {
+          route[i] = [possibleStops.items[random2].coordinates, i + 1]
         }
+        // check if obj UserEntry or from HERE
+        const obj = possibleStops.items[random2].title
+          ? {
+              address: possibleStops.items[random2].address.label,
+              categories: possibleStops.items[random2].categories,
+              coordinates: [
+                possibleStops.items[random2].position.lat,
+                possibleStops.items[random2].position.lng,
+              ],
+            }
+          : possibleStops.items[random2]
         list.add(obj)
       }
     }
@@ -94,4 +113,24 @@ export const calcDistance = (p1: number[], p2: number[]) => {
     dist = dist * 60 * 1.1515
     return dist
   }
+}
+
+const getPlaces = async (token: string, possibleCategories: string[]) => {
+  const places = await fetchPlaces(token)
+  const additionalPlaces = new Array<info>()
+  for (let i = 0; i < places.length; i++) {
+    const categories = JSON.parse(places[i].category)
+    categories.forEach(function (arrayItem: { name: string; number: string }) {
+      if (possibleCategories.includes(arrayItem.number)) {
+        const addEntry = {
+          address: places[i].name,
+          categories: categories,
+          coordinates: [places[i].latitude, places[i].longitude],
+        }
+        additionalPlaces.push(addEntry)
+      }
+    })
+  }
+
+  return additionalPlaces
 }

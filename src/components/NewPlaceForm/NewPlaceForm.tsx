@@ -130,7 +130,9 @@ const NewPlaceForm = () => {
     } else {
       const arr: any[] = []
       response.forEach(function (item: any) {
-        arr.push(item[1].pop())
+        if (item[1]) {
+          arr.push(item[1].pop())
+        }
       })
       const str = arr.join(' ')
       setResponseMessage(str)

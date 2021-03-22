@@ -22,20 +22,42 @@ const StyledForm = withTheme(styled.form`
   flex-direction: column;
   align-items: center;
   gap: ${(props) => props.theme.spacing(1)}px;
+  .expand {
+    display: block;
+  }
+  .collapse {
+    width: ${(props) => props.theme.spacing(10)}px;
+    padding-top: 0px;
+    label {
+      display: none;
+    }
+    input {
+      font-size: ${(props) => props.theme.spacing(2)}px;
+    }
+  }
 `)
 
 const StyledButton = withTheme(styled(Button)`
   width: 100%;
   color: #ffffff;
   background-color: #71b255;
-  padding: ${(props) => props.theme.spacing(2.5)}px;
+  padding: ${(props) => props.theme.spacing(2)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  margin-top: ${(props) => props.theme.spacing(3.75)}px;
+`)
+
+const AddButton = withTheme(styled(Button)`
+  width: ${(props) => props.theme.spacing(9)}px;
+  border-radius: 15px;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  background-color: #ffffff;
+  padding: ${(props) => props.theme.spacing(2)}px;
+  margin: ${(props) => props.theme.spacing(2)}px;
 `)
 
 const StyledTextField = withTheme(styled(TextField)`
-  padding: ${(props) => props.theme.spacing(2)}px;
-  padding-top: 0;
+  padding-bottom: ${(props) => props.theme.spacing(2)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 
@@ -50,15 +72,36 @@ const StyledTextField = withTheme(styled(TextField)`
 `)
 
 const StartGoalTextField = withTheme(styled(StyledTextField)`
+  margin: ${(props) => props.theme.spacing(2)}px 0;
   input,
   label {
-    font-size: 40px;
+    font-size: ${(props) => props.theme.spacing(3)}px;
     margin-left: ${(props) => props.theme.spacing(3.7)}px;
+  }
+`)
+
+const StopTextField = withTheme(styled(StyledTextField)`
+  margin: ${(props) => props.theme.spacing(2)}px 0;
+  input,
+  label {
+    font-size: ${(props) => props.theme.spacing(3)}px;
+    margin-left: ${(props) => props.theme.spacing(3.7)}px;
+  }
+`)
+
+const FormBox = withTheme(styled(Box)`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: ${(props) => props.theme.spacing(5)}px;
+  popper {
+    color: red;
   }
 `)
 
 export const StartGoalForm = () => {
   const dispatch = useDispatch()
+  const [active, setActive] = useState(false)
   const { register, getValues } = useForm()
   // Array with the options of autocomplete
   const [array, setArray] = useState([])
@@ -71,6 +114,13 @@ export const StartGoalForm = () => {
       setArray([])
     }
   }
+  function toggleClass(e: any) {
+    if (e.key === 'Enter') {
+      setActive(!active)
+    }
+  }
+  const [showStop, setShowStop] = React.useState(false)
+  const onInput = () => setShowStop(true)
 
   const defaultProps = {
     options: array,
@@ -82,7 +132,7 @@ export const StartGoalForm = () => {
   return (
     <>
       <StyledForm>
-        <Box display="flex" width="100%" justifyContent="center">
+        <FormBox>
           <Autocomplete
             {...defaultProps}
             id="stops[0]"
@@ -114,7 +164,7 @@ export const StartGoalForm = () => {
             renderInput={(params) => (
               <StartGoalTextField
                 {...params}
-                label="Goal"
+                label="Ziel"
                 name="stops[4]"
                 inputRef={register}
                 fullWidth
@@ -122,11 +172,13 @@ export const StartGoalForm = () => {
               />
             )}
           />
-        </Box>
+        </FormBox>
 
         <Grid container spacing={1} alignItems="center">
-          <Grid item xs={12} lg={8} justify="space-evenly" alignItems="center">
-            <Typography variant="h6">Stops (optional)</Typography>
+          <Typography variant="h6" align="left">
+            Stops (optional):
+          </Typography>
+          <FormBox>
             <Autocomplete
               {...defaultProps}
               id="stops[1]"
@@ -135,48 +187,36 @@ export const StartGoalForm = () => {
                 getItems(newInputValue, event.type)
               }}
               renderInput={(params) => (
-                <StartGoalTextField
+                <StopTextField
                   {...params}
-                  label="Zwischenstopp 1"
+                  className={active ? 'collapse' : 'expand'}
+                  onKeyDown={toggleClass}
+                  label="Zwischenstopp"
                   name="stops[1]"
                   inputRef={register}
                 />
               )}
             />
-            <Autocomplete
-              {...defaultProps}
-              id="stops[2]"
-              getOptionLabel={(option) => option}
-              onInputChange={(event, newInputValue) => {
-                getItems(newInputValue, event.type)
-              }}
-              renderInput={(params) => (
-                <StartGoalTextField
-                  {...params}
-                  label="Zwischenstopp 2"
-                  name="stops[2]"
-                  inputRef={register}
-                />
-              )}
-            />
-
-            <Autocomplete
-              {...defaultProps}
-              id="stops[3]"
-              getOptionLabel={(option) => option}
-              onInputChange={(event, newInputValue) => {
-                getItems(newInputValue, event.type)
-              }}
-              renderInput={(params) => (
-                <StartGoalTextField
-                  {...params}
-                  label="Zwischenstopp 3"
-                  name="stops[3]"
-                  inputRef={register}
-                />
-              )}
-            />
-          </Grid>
+            {showStop ? (
+              <Autocomplete
+                {...defaultProps}
+                id="stops[2]"
+                getOptionLabel={(option) => option}
+                onInputChange={(event, newInputValue) => {
+                  getItems(newInputValue, event.type)
+                }}
+                renderInput={(params) => (
+                  <StopTextField
+                    {...params}
+                    label="Zwischenstopp"
+                    name="stops[2]"
+                    inputRef={register}
+                  />
+                )}
+              />
+            ) : null}
+            <AddButton onClick={onInput}>+</AddButton>
+          </FormBox>
           <Grid item xs={12} lg={4}>
             <Box p={5}>
               <StyledButton

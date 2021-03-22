@@ -91,3 +91,20 @@ export const fetchUserEntries = (token: string) => {
       return response.data.data
     })
 }
+
+export const fetchPlaces = (token: string) => {
+  // eslint-disable-next-line no-console
+  console.log(token)
+  return fetch
+    .get('user_entries', {
+      headers: {
+        Authorization: token,
+        Both: true,
+      },
+    })
+    .then((response) => {
+      // eslint-disable-next-line no-console
+      console.log(response.data)
+      return response.data
+    })
+}

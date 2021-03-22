@@ -44,7 +44,7 @@ const StyledButton = withTheme(styled(Button)`
   padding: ${(props) => props.theme.spacing(2)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-  margin-top: 30px;
+  margin-top: ${(props) => props.theme.spacing(3.75)}px;
 `)
 
 const AddButton = withTheme(styled(Button)`

@@ -22,12 +22,12 @@ const RoadtripSlide = (props: RoadtripSlideProps) => {
       justifyContent="center"
     >
       <Box display="flex">
-        <Roadtripcard roadtrip={roadtrips[0]} />
-        <Roadtripcard roadtrip={roadtrips[1]} />
+        {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
+        {roadtrips[1] && <Roadtripcard roadtrip={roadtrips[1]} />}
       </Box>
       <Box display="flex">
-        <Roadtripcard roadtrip={roadtrips[2]} />
-        <Roadtripcard roadtrip={roadtrips[3]} />
+        {roadtrips[2] && <Roadtripcard roadtrip={roadtrips[2]} />}
+        {roadtrips[3] && <Roadtripcard roadtrip={roadtrips[3]} />}
       </Box>
     </Box>
   )
@@ -41,6 +41,8 @@ const ProfilePage = () => {
       const chunk = roadtrips.slice(i, i + 4)
       slideRoadtrips.push(chunk)
     }
+    // eslint-disable-next-line no-console
+    console.log(slideRoadtrips)
   }
   return (
     <Grid container spacing={3}>

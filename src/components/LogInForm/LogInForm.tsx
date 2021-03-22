@@ -12,7 +12,7 @@ import {
   getLocationsByUserSuccess,
 } from '../../store/actions'
 import { selectUserToken } from '../../store/selectors'
-import { LocationState } from '../../store/user/types'
+import { LocationState, RoadtripState } from '../../store/user/types'
 import {
   logIn,
   fetchRoadtrips,
@@ -38,6 +38,24 @@ const StyledInput = withTheme(styled(Input)`
   margin-bottom: ${(props) => props.theme.spacing(2)}px;
 `)
 
+const convertToRoadtrip = (data: Array<unknown>) => {
+  // eslint-disable-next-line no-console
+  console.log(data)
+  const locations: LocationState[] = []
+  data.forEach((item: any) => {
+    if (item.attributes.user_entry !== null) {
+      locations.push(item.attributes.user_entry)
+    } else {
+      locations.push(item.attributes.api_entry)
+    }
+  })
+  const roadtrip: RoadtripState = {
+    stops: locations,
+    name: locations[0].name + ' - ' + locations[locations.length - 1].name,
+    distance: 0,
+  }
+  return roadtrip
+}
 const LogInForm = () => {
   const dispatch = useDispatch()
   const history = useHistory()
@@ -51,8 +69,11 @@ const LogInForm = () => {
     })
     if (user) {
       dispatch(logInSuccess(user))
-      const roadtrips = await fetchRoadtrips(user.token)
-      dispatch(getRoadtripsByUserSuccess(roadtrips))
+      const roadtripsRaw = await fetchRoadtrips(user.token)
+      const roadtrips = roadtripsRaw.map((raw: { data: Array<unknown> }) =>
+        convertToRoadtrip(raw.data)
+      )
+      dispatch(getRoadtripsByUserSuccess({ roadtrips: roadtrips }))
       const userEntries = await fetchUserEntries(user.token)
       const obj: { locations: LocationState[] } = { locations: [] }
       userEntries.map((entry: { attributes: LocationState }) =>

@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react'
+import React, { memo, useState, DragEvent } from 'react'
 
 import {
   Box,
@@ -11,14 +11,30 @@ import {
 } from '@material-ui/core'
 // Import BoardItem component
 import DeleteIcon from '@material-ui/icons/Delete'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import { setRoadtripInfos } from '../../store/actions'
+import {
+  selectMapRoute,
+  selectUiSelectedCategories,
+  selectRoadtripInfos,
+} from '../../store/selectors'
+import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { fetchHereData } from '../../utils/fetchHereData'
 
 const StyledBox = withTheme(styled(Box)`
   width: 25%;
+  min-width: ${(props) => props.theme.spacing(25)}px;
   overflow: auto;
-  max-height: 400px;
+  max-height: ${(props) => props.theme.spacing(62.5)}px;
+  margin-left: ${(props) => props.theme.spacing(2)}px;
+`)
+const DragListItem = withTheme(styled(ListItem)`
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  border-radius: 15px;
+  border: 1px solid rgb(0 0 0 / 16%);
+  margin-bottom: ${(props) => props.theme.spacing(1.2)}px;
 `)
 
 const initialDnDState = {
@@ -27,55 +43,29 @@ const initialDnDState = {
   isDragging: false,
   originalOrder: [
     {
-      title: '',
-      address: { label: '' },
+      address: '',
+      categories: { id: '', name: '' },
+      coordinates: [0, 0],
     },
   ],
   updatedOrder: [
     {
-      title: '',
-      address: { label: '' },
+      address: '',
+      categories: { id: '', name: '' },
+      coordinates: [0, 0],
     },
   ],
 }
 
 const EditRoadtripComponent = () => {
-  const [list, setList] = useState([
-    {
-      title: '',
-      address: { label: '' },
-    },
-  ])
+  const dispatch = useDispatch()
+  const roadtripInfo = useSelector(selectRoadtripInfos())
+  const [list, setList] = useState(roadtripInfo)
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
-
-  const getItems = async () => {
-    const data = await fetchHereData({
-      object: { endpoint: 'discover', query: 'zoo' },
-      at: { longitude: 47.7, latitude: 13.04399 },
-      limit: 12,
-      language: 'de',
-      route: {
-        stopps: [
-          [47.79941, 13.04399, 1.0],
-          [47.7, 13.04399, 2.0],
-          [47.8, 13.04399, 3.0],
-          [48.210552, 16.376495, 4.0],
-          [46.6357, 14.311817, 5.0],
-          [47.416, 15.2617, 6.0],
-        ],
-        width: 20000,
-      },
-    })
-    setList(data.items)
-  }
-
-  useEffect(() => {
-    getItems()
-  }, [])
 
   // onDragStart fires when an element
   // starts being dragged
-  const onDragStart = (event: any) => {
+  const onDragStart = (event: DragEvent<HTMLDivElement>) => {
     const initialPosition = Number(event.currentTarget.dataset.position)
 
     setDragAndDrop({
@@ -94,7 +84,7 @@ const EditRoadtripComponent = () => {
   // onDragOver fires when an element being dragged
   // enters a droppable area.
   // In this case, any of the items on the list
-  const onDragOver = (event: any) => {
+  const onDragOver = (event: DragEvent<HTMLDivElement>) => {
     // in order for the onDrop
     // event to fire, we have
     // to cancel out this one
@@ -128,8 +118,9 @@ const EditRoadtripComponent = () => {
     }
   }
 
-  const onDrop = (event: any) => {
+  const onDrop = (event: DragEvent<HTMLDivElement>) => {
     setList(dragAndDrop.updatedOrder)
+    dispatch(setRoadtripInfos({ roadtripInfos: list }))
 
     setDragAndDrop({
       ...dragAndDrop,
@@ -146,37 +137,45 @@ const EditRoadtripComponent = () => {
     })
   }
 
+  const mapRoute = useSelector(selectMapRoute())
+  const selectedCategoriesMap = useSelector(selectUiSelectedCategories())
+  // für die Zusammenfassung welche Kategorien für den Roadtrip verwendet wurden
+  const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
+
   return (
-    <StyledBox>
-      <List component="nav" aria-label="contacts">
-        {list.map((item, index) => {
-          return (
-            <ListItem
-              button
-              key={index}
-              data-position={index}
-              draggable
-              onDragStart={onDragStart}
-              onDragOver={onDragOver}
-              onDrop={onDrop}
-              onDragLeave={onDragLeave}
-              className={
-                dragAndDrop && dragAndDrop.draggedTo === Number(index)
-                  ? 'dropArea'
-                  : ''
-              }
-            >
-              <ListItemText primary={item.address.label} />
-              <ListItemSecondaryAction>
-                <IconButton>
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          )
-        })}
-      </List>
-    </StyledBox>
+    <Box display="flex" flex-direction="column" justify-content="space-between">
+      <DisplayMapClass allLocations={mapRoute} />
+      <StyledBox>
+        <List component="nav" aria-label="contacts">
+          {list.map((item, index) => {
+            return (
+              <DragListItem
+                button
+                key={index}
+                data-position={index}
+                draggable
+                onDragStart={onDragStart}
+                onDragOver={onDragOver}
+                onDrop={onDrop}
+                onDragLeave={onDragLeave}
+                className={
+                  dragAndDrop && dragAndDrop.draggedTo === Number(index)
+                    ? 'dropArea'
+                    : ''
+                }
+              >
+                <ListItemText primary={item.address} />
+                <ListItemSecondaryAction>
+                  <IconButton>
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </DragListItem>
+            )
+          })}
+        </List>
+      </StyledBox>
+    </Box>
   )
 }
 

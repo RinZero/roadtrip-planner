@@ -1,7 +1,16 @@
 export type UiState = {
   progressStep: '1' | '2' | '3' | '4'
-  roadtripStops: string[]
+  roadtripStops: number[][]
+  maxRoadtripStops: number
   isEditOpen: boolean
   isAddPlace: boolean
   isLoginActive: boolean
+  selectedCategories: Map<string, string>
+  mapRoute: string[]
+  isLocked: boolean
+  roadtripInfos: {
+    address: string
+    categories: { id: string; name: string; primary?: boolean }
+    coordinates: number[]
+  }[]
 }

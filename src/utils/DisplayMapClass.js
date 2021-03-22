@@ -85,7 +85,7 @@ export class DisplayMapClass extends React.Component {
       // the callback and an error callback function (called if a
       // communication error occurs):
       router.calculateRoute(routingParameters, onResult, function (error) {
-        alert(error.message)
+        // alert(error.message)
       })
     }
 

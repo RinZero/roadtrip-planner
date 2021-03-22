@@ -2,17 +2,16 @@ import React, { memo } from 'react'
 
 import { Button, Input, Typography, withTheme } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { logInSuccess } from '../../store/actions'
-import { logIn, signUp } from '../../utils/AuthService'
-import { CreateUser } from '../../utils/CreateUser'
-import { FetchUser } from '../../utils/FetchUser'
+import { selectUserToken } from '../../store/selectors'
+import { logIn, fetchRoadtrips } from '../../utils/AuthService'
 
 type IFormInput = {
-  username: string
+  email: string
   password: string
 }
 
@@ -33,15 +32,18 @@ const StyledInput = withTheme(styled(Input)`
 const LogInForm = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const token = useSelector(selectUserToken())
   const { register, handleSubmit } = useForm()
   const onFormSubmit = async (data: IFormInput) => {
     const user = await logIn({
-      email: data.username,
+      email: data.email,
       password: data.password,
       password_confirmation: data.password,
     })
     if (user) {
       dispatch(logInSuccess(user))
+      await fetchRoadtrips(user.token)
+
       history.push('/')
     }
 
@@ -52,9 +54,9 @@ const LogInForm = () => {
       <Typography variant="h5">LogIn</Typography>
       <StyledInput
         type="text"
-        name="username"
+        name="email"
         inputRef={register}
-        placeholder="Username"
+        placeholder="Email"
         variant="outlined"
       />
       <StyledInput

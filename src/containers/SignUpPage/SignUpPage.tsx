@@ -1,6 +1,13 @@
 import React, { memo } from 'react'
 
-import { Button, Input, Typography, withTheme } from '@material-ui/core'
+import {
+  Box,
+  Button,
+  Card,
+  Input,
+  Typography,
+  withTheme,
+} from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -17,7 +24,23 @@ type IFormInput = {
   picture?: string
 }
 const StyledInput = withTheme(styled(Input)`
-  margin-bottom: ${(props) => props.theme.spacing(2)}px;
+  margin: ${(props) => props.theme.spacing(1.5)}px 0;
+  min-width: ${(props) => props.theme.spacing(31)}px;
+`)
+const LoginButton = withTheme(styled(Button)`
+  color: #ffffff;
+  margin: auto;
+  width: ${(props) => props.theme.spacing(28)}px;
+  &:hover {
+    background-color: #50803c;
+  }
+`)
+const SignupCard = withTheme(styled(Card)`
+  max-width: ${(props) => props.theme.spacing(50)}px;
+  padding: ${(props) => props.theme.spacing(3.125)}px;
+  margin: ${(props) => props.theme.spacing(10)}px auto;
+  border-radius: 15px;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 `)
 
 const SignUpPage = () => {
@@ -40,47 +63,53 @@ const SignUpPage = () => {
     // CreateUser()
   }
   return (
-    <form onSubmit={handleSubmit(onFormSubmit)}>
-      <Typography variant="h1">Anmeldung</Typography>
-      <StyledInput
-        type="text"
-        name="username"
-        inputRef={register}
-        placeholder="Username"
-        variant="outlined"
-      />
-      <StyledInput
-        type="email"
-        name="email"
-        inputRef={register}
-        placeholder="Email"
-        variant="outlined"
-      />
-      <StyledInput
-        type="password"
-        name="password"
-        inputRef={register}
-        placeholder="Password"
-        variant="outlined"
-      />
-      <StyledInput
-        type="password"
-        name="password_confirmation"
-        inputRef={register}
-        placeholder="Confirm Password"
-        variant="outlined"
-      />
-      <StyledInput
-        type="text"
-        name="picture"
-        inputRef={register}
-        placeholder="Profile Picture"
-        variant="outlined"
-      />
-      <Button type="submit" color="primary">
-        LogIn
-      </Button>
-    </form>
+    <SignupCard variant="outlined" square>
+      <form onSubmit={handleSubmit(onFormSubmit)}>
+        <Box display="grid" justifyContent="center">
+          <Typography variant="h1">Anmeldung</Typography>
+          <Box margin={3}>
+            <StyledInput
+              type="text"
+              name="username"
+              inputRef={register}
+              placeholder="Username"
+              variant="outlined"
+            />
+            <StyledInput
+              type="email"
+              name="email"
+              inputRef={register}
+              placeholder="Email"
+              variant="outlined"
+            />
+            <StyledInput
+              type="password"
+              name="password"
+              inputRef={register}
+              placeholder="Password"
+              variant="outlined"
+            />
+            <StyledInput
+              type="password"
+              name="password_confirmation"
+              inputRef={register}
+              placeholder="Confirm Password"
+              variant="outlined"
+            />
+            <StyledInput
+              type="text"
+              name="picture"
+              inputRef={register}
+              placeholder="Profile Picture"
+              variant="outlined"
+            />
+          </Box>
+          <LoginButton type="submit" color="primary">
+            Sign up
+          </LoginButton>
+        </Box>
+      </form>
+    </SignupCard>
   )
 }
 

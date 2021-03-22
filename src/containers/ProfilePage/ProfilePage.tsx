@@ -4,6 +4,7 @@ import { Box, Grid, Typography } from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 import { useSelector } from 'react-redux'
 
+import LocationList from '../../components/LoactionList'
 import ProfileComponent from '../../components/ProfileComponent'
 import Roadtripcard from '../../components/Roadtripcard'
 import { selectRoadtrips } from '../../store/user/selectors'
@@ -41,13 +42,15 @@ const ProfilePage = () => {
       const chunk = roadtrips.slice(i, i + 4)
       slideRoadtrips.push(chunk)
     }
-    // eslint-disable-next-line no-console
-    console.log(slideRoadtrips)
   }
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} sm={5}>
         <ProfileComponent />
+        <Box m="auto" width="60%">
+          <Typography variant="h4">Meine Orte:</Typography>
+          <LocationList />
+        </Box>
       </Grid>
       <Grid item xs={12} sm={7}>
         <Typography variant="h4">Meine Roadtrips:</Typography>

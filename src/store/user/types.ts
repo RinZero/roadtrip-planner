@@ -18,7 +18,7 @@ export type RoadtripState = {
 }
 
 export type LocationState = {
-  id?: string
+  id: string
   name: string
   longitude: number
   latitude: number

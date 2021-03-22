@@ -49,8 +49,9 @@ const LogInForm = () => {
     if (user) {
       dispatch(logInSuccess(user))
       const roadtripsRaw = await fetchRoadtrips(user.token)
-      const roadtrips = roadtripsRaw.map((raw: { data: Array<unknown> }) =>
-        convertToRoadtrip(raw.data)
+      const roadtrips = roadtripsRaw.map(
+        (raw: { data: Array<Record<string, any>> }) =>
+          convertToRoadtrip(raw.data)
       )
       dispatch(getRoadtripsByUserSuccess({ roadtrips: roadtrips }))
       const userEntries = await fetchUserEntries(user.token)

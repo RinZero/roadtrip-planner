@@ -28,6 +28,7 @@ import {
   selectUiSelectedCategories,
   selectUserLocations,
 } from '../../store/selectors'
+import { LocationState } from '../../store/user/types'
 import {
   getFirstCategories,
   getSecondCategories,
@@ -130,7 +131,7 @@ const SelectCategories = () => {
   const [secondArray, setSecondArray] = useState([{ number: '', name: '' }])
   const [thirdArray, setThirdArray] = useState([{ number: '', name: '' }])
 
-  type infoType2 = {
+  type infoType = {
     address: string
     categories: { id: string; name: string; primary?: boolean }[]
     coordinates: number[]
@@ -139,12 +140,12 @@ const SelectCategories = () => {
   const userLocations = useSelector(selectUserLocations())
 
   const getUserLocations = () => {
-    const arr = new Array<infoType2>()
+    const arr = new Array<infoType>()
     if (userLocations) {
       userLocations.forEach(function (place: any) {
         const categoryObj = JSON.parse(place.category)
         const allCategories = new Array<{ id: string; name: string }>()
-        categoryObj.forEach((item: any) => {
+        categoryObj.forEach((item: { number: string; name: string }) => {
           allCategories.push({ id: item.number, name: item.name })
         })
         arr.push({
@@ -315,8 +316,6 @@ const SelectCategories = () => {
                           dataArray,
                           userLocationData
                         )
-                        // eslint-disable-next-line no-console
-                        console.log(response)
                         dispatch(setMapRoute({ mapRoute: response.coorArr }))
                         dispatch(
                           setRoadtripInfos({ roadtripInfos: response.infoArr })

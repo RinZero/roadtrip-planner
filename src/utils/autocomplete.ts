@@ -1,6 +1,9 @@
 import { fetchPublicPlaces } from './getPublicPlaces'
 
-export const autocomplete = async (place: string, userLocations?: any[]) => {
+export const autocomplete = async (
+  place: string,
+  userLocations?: Array<Record<string, any>>
+) => {
   // get public locations
   const publicLocations = await fetchPublicPlaces()
   // all locations
@@ -49,7 +52,10 @@ const getCoordinates = async (loactaionId: string) => {
   else return undefined
 }
 
-export const iterateStops = async (stops: string[], userLocations?: any[]) => {
+export const iterateStops = async (
+  stops: string[],
+  userLocations?: Array<Record<string, any>>
+) => {
   const newArr = new Array<number[]>()
   let j = 0
   for (let i = 0; i < stops.length; i++) {
@@ -72,8 +78,6 @@ export const iterateStops = async (stops: string[], userLocations?: any[]) => {
       j++
     }
   }
-  // eslint-disable-next-line no-console
-  console.log(newArr)
   return newArr
 }
 
@@ -91,9 +95,8 @@ export const findLocation = async (
   return result
 }
 
-async function getResult(name: string, allPlaces: any) {
+async function getResult(name: string, allPlaces: Array<Record<string, any>>) {
   for (const place of allPlaces) {
-    // eslint-disable-next-line no-console
     if (place.name === name) {
       const coordinates = [place.latitude, place.longitude]
       return coordinates
@@ -102,8 +105,11 @@ async function getResult(name: string, allPlaces: any) {
 }
 
 // simple autocomplete check for public and own locations
-const checkPlaces = (inputLetters: string, locations: any[]) => {
-  const placesArr = new Array<any>()
+const checkPlaces = (
+  inputLetters: string,
+  locations: Array<Record<string, any>>
+) => {
+  const placesArr = new Array<Record<string, any>>()
   locations.forEach(function (item) {
     const name = item.name.toLowerCase()
     if (name.includes(inputLetters)) placesArr.push(item)

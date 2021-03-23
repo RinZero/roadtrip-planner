@@ -21,12 +21,16 @@ export type RoadtripState = {
 
 export type LocationState = {
   id: string
-  name: string
-  longitude: number
-  latitude: number
+  name?: string
+  longitude?: number
+  latitude?: number
   category?: string
   description?: string
   date?: string
   isReturning?: 'daily' | 'weekly' | 'monthly' | 'yearly' | undefined
   fotos?: string[]
+  user_id?: number
+  public?: boolean
+  is_allowed?: boolean
+  api_entry_key?: string
 }

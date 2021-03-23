@@ -11,9 +11,12 @@ import {
   Typography,
 } from '@material-ui/core'
 import { withTheme } from '@material-ui/core/styles'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import { selectUserToken } from '../../store/selectors'
 import { RoadtripState } from '../../store/user/types'
+import { updateRoadtrip } from '../../utils/AuthService'
 
 type RoadtripcardProps = {
   roadtrip: RoadtripState
@@ -40,6 +43,7 @@ const Roadtripcard = (props: RoadtripcardProps) => {
   const start = roadtrip.stops[0].name
   const destination = roadtrip.stops[roadtrip.stops.length - 1].name
   const stopsnumber = roadtrip.stops.length
+  const token = useSelector(selectUserToken())
   return (
     <MyRoadtripCard variant="outlined" square>
       <CardActionArea>
@@ -62,7 +66,12 @@ const Roadtripcard = (props: RoadtripcardProps) => {
           <IconButton>⛷️</IconButton>
           <IconButton>🍺</IconButton>
         </div>
-        <Button className="large">
+        <Button
+          className="large"
+          onClick={() => {
+            updateRoadtrip(roadtrip, token)
+          }}
+        >
           <Typography variant="button">Route</Typography>
         </Button>
       </Box>

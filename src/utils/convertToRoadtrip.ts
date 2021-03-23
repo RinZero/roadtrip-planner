@@ -1,8 +1,11 @@
 import { LocationState, RoadtripState } from '../store/user/types'
 
-export const convertToRoadtrip = (data: Array<Record<string, any>>) => {
+export const convertToRoadtrip = (
+  roadtripData: Array<Record<string, any>>,
+  infoData: { distance?: number; id: number; public: boolean }
+) => {
   const locations: LocationState[] = []
-  data.forEach((item) => {
+  roadtripData.forEach((item) => {
     if (item.attributes.user_entry !== null) {
       locations.push(item.attributes.user_entry)
     } else {
@@ -13,7 +16,9 @@ export const convertToRoadtrip = (data: Array<Record<string, any>>) => {
     const roadtrip: RoadtripState = {
       stops: locations,
       name: locations[0].name + ' - ' + locations[locations.length - 1].name,
-      distance: 0,
+      distance: infoData.distance,
+      id: infoData.id,
+      public: infoData.public,
     }
     return roadtrip
   }

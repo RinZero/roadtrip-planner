@@ -14,7 +14,9 @@ export type UserState = {
 export type RoadtripState = {
   name: string
   stops: LocationState[]
-  distance: number
+  distance?: number
+  id: number
+  public: boolean
 }
 
 export type LocationState = {

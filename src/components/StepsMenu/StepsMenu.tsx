@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { memo } from 'react'
 
-import { Box, Fab, Typography } from '@material-ui/core'
+import { Box, Fab, Typography, useMediaQuery } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 

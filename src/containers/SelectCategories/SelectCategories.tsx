@@ -75,10 +75,17 @@ const TagChip = withTheme(styled(Chip)`
   font-size: ${(props) => props.theme.spacing(2)}px;
 `)
 
+const KategoryInputLabel = withTheme(styled(InputLabel)`
+  margin-left: ${(props) => props.theme.spacing(2)}px;
+`)
+
 const AllDropdowns = withTheme(styled(Box)`
-  display: flex;
-  justify-content: left;
+  display: block;
   width: 100%;
+  ${(props) => props.theme.breakpoints.up('lg')}: {
+    display: flex;
+    justify-content: left;
+  }
 `)
 
 const Dropdownbox = withTheme(styled(Box)`
@@ -221,7 +228,9 @@ const SelectCategories = () => {
                   }}
                 >
                   <CategoriesFormControl>
-                    <InputLabel id="Kategorie1">Überkategorie</InputLabel>
+                    <KategoryInputLabel id="Kategorie1">
+                      Überkategorie
+                    </KategoryInputLabel>
                     <CategoryDropdown
                       label="Kategorie1"
                       id={1}
@@ -232,7 +241,9 @@ const SelectCategories = () => {
                   </CategoriesFormControl>
                   {numberCategory >= 1 && (
                     <CategoriesFormControl>
-                      <InputLabel id="Kategorie2">1. Unterkategorie</InputLabel>
+                      <KategoryInputLabel id="Kategorie2">
+                        1. Unterkategorie
+                      </KategoryInputLabel>
                       <CategoryDropdown
                         label="Kategorie2"
                         id={2}
@@ -243,7 +254,9 @@ const SelectCategories = () => {
                   )}
                   {numberCategory > 1 && thirdArray[1] && (
                     <CategoriesFormControl>
-                      <InputLabel id="Kategorie3">2. Unterkategorie</InputLabel>
+                      <KategoryInputLabel id="Kategorie3">
+                        2. Unterkategorie
+                      </KategoryInputLabel>
                       <CategoryDropdown
                         label="Kategorie3"
                         id={3}

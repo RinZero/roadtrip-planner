@@ -37,6 +37,16 @@ const DragListItem = withTheme(styled(ListItem)`
   margin-bottom: ${(props) => props.theme.spacing(1.2)}px;
 `)
 
+const ContentBox = withTheme(styled(Box)`
+  display: block;
+  margin: 0 auto;
+  ${(props) => props.theme.breakpoints.up('sm')} {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+`)
+
 const initialDnDState = {
   draggedFrom: 0,
   draggedTo: 0,
@@ -143,7 +153,7 @@ const EditRoadtripComponent = () => {
   const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
 
   return (
-    <Box display="flex" flex-direction="column" justify-content="space-between">
+    <ContentBox>
       <DisplayMapClass allLocations={mapRoute} />
       <StyledBox>
         <List component="nav" aria-label="contacts">
@@ -175,7 +185,7 @@ const EditRoadtripComponent = () => {
           })}
         </List>
       </StyledBox>
-    </Box>
+    </ContentBox>
   )
 }
 

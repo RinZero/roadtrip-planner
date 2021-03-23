@@ -1,4 +1,4 @@
-import React, { memo, useState, MouseEvent } from 'react'
+import React, { memo } from 'react'
 
 import {
   Button,
@@ -11,8 +11,13 @@ import {
   Popover,
   Box,
   Avatar,
+  MenuItem,
+  Menu,
+  Paper,
 } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import CloseIcon from '@material-ui/icons/Close'
+import MenuIcon from '@material-ui/icons/Menu'
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
@@ -25,26 +30,40 @@ import {
   selectUserName,
   selectUserPicture,
 } from '../../store/selectors'
-import { logOut } from '../../utils/AuthService'
+//import { logOut } from '../../utils/AuthService'
 
 // Art 2
 const LogoutButton = withTheme(styled(Button)`
   color: #ffffff;
-  font-size: ${(props) => props.theme.spacing(2.5)}px;
+  font-size: ${(props) => props.theme.spacing(1.75)}px;
+  padding: ${(props) => props.theme.spacing(0.125)}px
+    ${(props) => props.theme.spacing(0.5)}px;
   font-weight: normal;
   background-color: #e67676;
   border-radius: 8px;
-  padding: ${(props) => props.theme.spacing(0.125)}px
-    ${(props) => props.theme.spacing(4.5)}px;
+  ${(props) => props.theme.breakpoints.up('sm')} {
+    font-size: ${(props) => props.theme.spacing(2)}px;
+    padding: ${(props) => props.theme.spacing(0.125)}px
+      ${(props) => props.theme.spacing(1)}px;
+  }
+  ${(props) => props.theme.breakpoints.up('md')} {
+    font-size: ${(props) => props.theme.spacing(2.5)}px;
+    padding: ${(props) => props.theme.spacing(0.125)}px
+      ${(props) => props.theme.spacing(4.5)}px;
+  }
 `)
 const AccountButton = withTheme(styled(IconButton)`
   color: #000000;
-  font-size: 30px;
+  font-size: ${(props) => props.theme.spacing(3.75)}px;
   padding: 0px;
 `)
 const HeaderLink = withTheme(styled(Link)`
-  color: #707070;
-  font-size: 20px;
+  display: none;
+  ${(props) => props.theme.breakpoints.up('sm')} {
+    display: inline;
+    color: #707070;
+    font-size: ${(props) => props.theme.spacing(2.5)}px;
+  }
 `)
 
 const StyledPopover = withTheme(styled(Popover)`
@@ -52,23 +71,74 @@ const StyledPopover = withTheme(styled(Popover)`
 `)
 
 const HeaderHight = withTheme(styled(Box)`
-  height: 7vh;
+  height: 3vh;
   overflow: visible;
+  ${(props) => props.theme.breakpoints.up('sm')} {
+    height: 10vh;
+  }
+`)
+const HeaderAppBar = withTheme(styled(AppBar)`
+  height: 10vh;
+  color: #707070;
+`)
+
+const HeaderIconButton = withTheme(styled(IconButton)`
+  margin: 0 auto 0 0;
+  ${(props) => props.theme.breakpoints.up('sm')} {
+    display: none;
+  }
+`)
+
+const BurgerMenu = withTheme(styled(Menu)`
+  .MuiMenu-paper {
+    top: 0;
+  }
 `)
 
 const Header = () => {
+  const [mobileOpen, setMobileOpen] = React.useState(false)
+  function handleDrawerToggle() {
+    setMobileOpen(!mobileOpen)
+  }
   const history = useHistory()
   const userName = useSelector(selectUserName())
   const profilePic = useSelector(selectUserPicture())
   const dispatch = useDispatch()
   return (
     <HeaderHight>
-      <AppBar position="static">
+      <HeaderAppBar>
         <Toolbar>
-          <HeaderLink component={RouterLink} to={`/neuer_ort`} variant="h6">
+          {mobileOpen ? (
+            <HeaderIconButton onClick={handleDrawerToggle}>
+              <CloseIcon />
+              <BurgerMenu
+                autoFocus={false}
+                open={Boolean(mobileOpen)}
+                onClose={handleDrawerToggle}
+              >
+                <MenuItem component={RouterLink} to={`/`}>
+                  Neuer Roadtrip
+                </MenuItem>
+                <MenuItem component={RouterLink} to={`/neuer_ort`}>
+                  Ort hinzufügen
+                </MenuItem>
+              </BurgerMenu>
+            </HeaderIconButton>
+          ) : (
+            <HeaderIconButton onClick={handleDrawerToggle}>
+              <MenuIcon />
+            </HeaderIconButton>
+          )}
+
+          <HeaderLink component={RouterLink} to={`/`} variant="h6">
             Neuer Roadtrip
           </HeaderLink>
-          <HeaderLink HeaderLink component={RouterLink} to={`/`} variant="h6">
+          <HeaderLink
+            HeaderLink
+            component={RouterLink}
+            to={`/neuer_ort`}
+            variant="h6"
+          >
             Ort hinzufügen
           </HeaderLink>
 
@@ -90,9 +160,9 @@ const Header = () => {
                 {(popupState) => (
                   <>
                     <div {...bindTrigger(popupState)}>
-                      <Typography variant="body1" color="primary">
+                      <Link variant="h6" color="primary">
                         LogIn
-                      </Typography>
+                      </Link>
                     </div>
                     <StyledPopover
                       {...bindPopover(popupState)}
@@ -134,7 +204,7 @@ const Header = () => {
             </>
           )}
         </Toolbar>
-      </AppBar>
+      </HeaderAppBar>
     </HeaderHight>
   )
 }

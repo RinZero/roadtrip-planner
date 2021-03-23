@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
 
-import { logInSuccess } from '../store/actions'
+import { userEntry } from '../store/ui/types'
 
 export type logInType = {
   email: string
@@ -19,6 +18,21 @@ export type signUpType = {
       password_confirmation: string
       is_admin?: boolean
       picture?: string
+    }
+  }
+}
+
+export type createRoadtripType = {
+  data: {
+    type: string
+    locations: {
+      user_entry?: userEntry
+      api_entry?: { api_entry_key: string }
+    }[]
+    attributes: {
+      name: string
+      public: boolean
+      distance: number
     }
   }
 }
@@ -50,9 +64,28 @@ export const logIn = (logInData: logInType) => {
 }
 
 export const signUp = (signUpData: signUpType) => {
+  // eslint-disable-next-line no-console
+  console.log(signUpData)
   return fetch.post('users', signUpData).then((response) => {
     return response.data.data
   })
+}
+
+export const createRoadtrip = (
+  roadtripData: createRoadtripType,
+  token: string
+) => {
+  // eslint-disable-next-line no-console
+  console.log(roadtripData)
+  return fetch
+    .post('roadtrips', roadtripData, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => {
+      return response.data.data
+    })
 }
 
 //unused for now

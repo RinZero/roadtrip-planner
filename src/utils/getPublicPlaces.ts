@@ -6,8 +6,6 @@ const fetch = axios.create({
 })
 export const fetchPublicPlaces = () => {
   return fetch.get('user_entries').then((response) => {
-    // eslint-disable-next-line no-console
-    console.log(response.data)
     return response.data
   })
 }

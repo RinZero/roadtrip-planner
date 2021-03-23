@@ -228,7 +228,10 @@ export const StartGoalForm = () => {
                   // get name array with choosen stops
                   const values = getValues()
                   // get coordinates array of the stops
-                  const stopArray = await iterateStops(values.stops)
+                  const stopArray = await iterateStops(
+                    values.stops,
+                    userLocations
+                  )
                   dispatch(setRoadtripStops({ roadtripStops: stopArray }))
                   dispatch(setProgressStep({ progressStep: '2' }))
                 }}

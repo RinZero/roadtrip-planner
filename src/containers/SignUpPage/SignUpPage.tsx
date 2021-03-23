@@ -66,7 +66,7 @@ const SignUpPage = () => {
     <SignupCard variant="outlined" square>
       <form onSubmit={handleSubmit(onFormSubmit)}>
         <Box display="grid" justifyContent="center">
-          <Typography variant="h1">Anmeldung</Typography>
+          <Typography variant="h1">Account erstellen</Typography>
           <Box margin={3}>
             <StyledInput
               type="text"
@@ -86,26 +86,26 @@ const SignUpPage = () => {
               type="password"
               name="password"
               inputRef={register}
-              placeholder="Password"
+              placeholder="Passwort"
               variant="outlined"
             />
             <StyledInput
               type="password"
               name="password_confirmation"
               inputRef={register}
-              placeholder="Confirm Password"
+              placeholder="Passwort wiederholen"
               variant="outlined"
             />
             <StyledInput
               type="text"
               name="picture"
               inputRef={register}
-              placeholder="Profile Picture"
+              placeholder="Profilbild"
               variant="outlined"
             />
           </Box>
           <LoginButton type="submit" color="primary">
-            Sign up
+            Registrieren
           </LoginButton>
         </Box>
       </form>

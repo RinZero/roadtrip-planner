@@ -1,22 +1,17 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios'
 
+import { userEntry } from '../store/ui/types'
+
 export type placeType = {
   type: string
   userId: string
-  attributes: {
-    public: boolean
-    name: string
-    description: string
-    latitude: number | null
-    longitude: number | null
-    category: string
-  }
+  attributes: userEntry
 }
 
 const fetch = axios.create({
-  baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
-  // baseURL: 'http://localhost:3000/api/v1/',
+  //baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
+  baseURL: 'http://localhost:3000/api/v1/',
 })
 
 export const createPlace = (data: placeType) => {

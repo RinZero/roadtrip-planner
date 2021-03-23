@@ -31,6 +31,7 @@ export const setRoadtripInfos = createAction('ui/SET_ROADTRIP_INFOS')<{
     address: string
     categories: { id: string; name: string; primary?: boolean }
     coordinates: number[]
+    api_key: string
   }[]
 }>()
 

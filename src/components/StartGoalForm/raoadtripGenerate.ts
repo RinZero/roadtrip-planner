@@ -4,6 +4,7 @@ type info = {
   address: string
   categories: { id: string; name: string; primary?: boolean }
   coordinates: number[]
+  api_key: string
 }
 
 export const roadtripGenerate = async (
@@ -49,6 +50,7 @@ export const roadtripGenerate = async (
             possibleStops.items[random2].position.lat,
             possibleStops.items[random2].position.lng,
           ],
+          api_key: possibleStops.items[random2].id,
         }
         list.add(obj)
       }

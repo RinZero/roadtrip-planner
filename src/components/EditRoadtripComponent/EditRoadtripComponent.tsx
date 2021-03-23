@@ -8,6 +8,7 @@ import {
   IconButton,
   ListItemSecondaryAction,
   withTheme,
+  Button,
 } from '@material-ui/core'
 // Import BoardItem component
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -19,7 +20,11 @@ import {
   selectMapRoute,
   selectUiSelectedCategories,
   selectRoadtripInfos,
+  selectUserToken,
+  selectRoadtrips,
 } from '../../store/selectors'
+import { userEntry } from '../../store/ui/types'
+import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
 import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { fetchHereData } from '../../utils/fetchHereData'
 
@@ -46,6 +51,7 @@ const initialDnDState = {
       address: '',
       categories: { id: '', name: '' },
       coordinates: [0, 0],
+      api_key: '',
     },
   ],
   updatedOrder: [
@@ -53,6 +59,7 @@ const initialDnDState = {
       address: '',
       categories: { id: '', name: '' },
       coordinates: [0, 0],
+      api_key: '',
     },
   ],
 }
@@ -62,6 +69,96 @@ const EditRoadtripComponent = () => {
   const roadtripInfo = useSelector(selectRoadtripInfos())
   const [list, setList] = useState(roadtripInfo)
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
+  const token = useSelector(selectUserToken())
+  // const testRoadtripInfo: {
+  //   address: string
+  //   categories: {
+  //     id: string
+  //     name: string
+  //     primary?: boolean | undefined
+  //   }
+  //   coordinates: number[]
+  //   api_key: string
+  //   entry?: userEntry | undefined
+  // }[] = [
+  //   {
+  //     address: 'test1',
+  //     categories: {
+  //       id: 'dfsf',
+  //       name: 'teserf',
+  //     },
+  //     coordinates: [1, 2],
+  //     api_key: '',
+  //     entry: {
+  //       public: true,
+  //       is_allowed: true,
+  //       name: 'Campus Urstein Beer Pong',
+  //       description: 'Jeden Mittwoch gibt es Beer Pong Tutorium.',
+  //       latitude: 47.7229439,
+  //       longitude: 13.0877695,
+  //       category: '[{"number":"200","name":"Going Out-Entertainment"}]',
+  //     },
+  //   },
+  //   {
+  //     address: 'test2',
+  //     categories: {
+  //       id: 'dfsfdfd',
+  //       name: 'teserdfsdf',
+  //     },
+  //     coordinates: [1, 2],
+  //     api_key: '',
+  //     entry: {
+  //       public: false,
+  //       is_allowed: false,
+  //       name: 'Jonathans Wohnung',
+  //       description: 'Jonathan für ein Bier besuchen.',
+  //       latitude: 47.8130689,
+  //       longitude: 13.0691801,
+  //       category:
+  //         '[{"number":"100","name":"Eat and Drink"},{"number":"200-2000-0011","name":"Bar or Pub"},{"number":"200-2000-0019","name":"Beer Garden"}]',
+  //     },
+  //   },
+  //   {
+  //     address: 'test23',
+  //     categories: {
+  //       id: 'dfsfdfdre',
+  //       name: 'teserdfsdf',
+  //     },
+  //     coordinates: [1, 2],
+  //     api_key: 'here:pds:place:040u23pz-a8f12e3706a241f49c577da6d572893b',
+  //   },
+  // ]
+
+  const submitRoadtrip = async () => {
+    const roadtripData: createRoadtripType = {
+      data: {
+        type: 'roadtrip',
+        locations: [],
+        attributes: {
+          name: 'Roadtrip test',
+          public: false,
+          distance: 1,
+        },
+      },
+    }
+    roadtripInfo.forEach((info) => {
+      //TODO if check between api and user entries
+      if (info.entry) {
+        // User Entry
+        roadtripData.data.locations.push({
+          api_entry: undefined,
+          user_entry: info.entry,
+        })
+      } else {
+        // APi entry
+        roadtripData.data.locations.push({
+          api_entry: { api_entry_key: info.api_key },
+          user_entry: undefined,
+        })
+      }
+    })
+    const result = await createRoadtrip(roadtripData, token)
+  }
 
   // onDragStart fires when an element
   // starts being dragged
@@ -175,6 +272,13 @@ const EditRoadtripComponent = () => {
           })}
         </List>
       </StyledBox>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() => submitRoadtrip()}
+      >
+        Create
+      </Button>
     </Box>
   )
 }

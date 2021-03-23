@@ -1,3 +1,14 @@
+export type userEntry = {
+  public: boolean
+  name: string
+  description: string
+  latitude: number | null
+  longitude: number | null
+  category: string
+  user_id?: number
+  is_allowed?: boolean
+}
+
 export type UiState = {
   progressStep: '1' | '2' | '3' | '4'
   roadtripStops: number[][]
@@ -12,5 +23,7 @@ export type UiState = {
     address: string
     categories: { id: string; name: string; primary?: boolean }
     coordinates: number[]
+    api_key: string
+    entry?: userEntry
   }[]
 }

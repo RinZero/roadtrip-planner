@@ -106,8 +106,8 @@ export const fetchRoadtrips = (token: string) => {
     })
     .then((response) => {
       // eslint-disable-next-line no-console
-      console.log(response.data.data)
-      return response.data.roadtrips
+      console.log(response.data)
+      return response.data
     })
 }
 

@@ -54,7 +54,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI= rreact-scripts build",
     "test": "jest",
     "test:watch": "jest --watch",
     "eject": "react-scripts eject",

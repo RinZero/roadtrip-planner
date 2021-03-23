@@ -16,7 +16,6 @@ export const roadtripGenerate = async (
 ) => {
   // const center = createCenter(stops[0], stops[stops.length - 1])
 
-  // eslint-disable-next-line no-console
   const additionalStops = await getPlaces(token, categories)
 
   const query = '' + categories.map((category) => category)

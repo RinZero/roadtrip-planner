@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 import { Typography } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 
-import EditRoadtripComponent from '../../components/EditRoadtripComponent'
+import EditRoadtripCreation from '../../components/EditRoadtripCreation'
 import StartGoalForm from '../../components/StartGoalForm'
 import StepsMenu from '../../components/StepsMenu'
 import SelectCategories from '../../containers/SelectCategories'
@@ -16,7 +16,7 @@ const RoadtripForm = () => {
       <StepsMenu />
       {progressStep.toString() === '1' && <StartGoalForm />}
       {progressStep.toString() === '2' && <SelectCategories />}
-      {progressStep.toString() === '3' && <EditRoadtripComponent />}
+      {progressStep.toString() === '3' && <EditRoadtripCreation />}
       {progressStep.toString() === '4' && (
         <Typography variant="h3">Danke fürs User Testen xD</Typography>
       )}

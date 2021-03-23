@@ -1,4 +1,16 @@
-export const autocomplete = async (place: string) => {
+import { fetchPublicPlaces } from './getPublicPlaces'
+
+export const autocomplete = async (
+  place: string,
+  userLocations: any[] | undefined
+) => {
+  // get public locations
+  const publicLocations = await fetchPublicPlaces()
+  // all locations
+  const locations = userLocations
+    ? userLocations.concat(publicLocations)
+    : publicLocations
+  const additionalData = checkPlaces(place, locations)
   const apiKey = 'E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
   const url = `https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json&country=AUT?apiKey=${apiKey}&query=${place}`
   const response = await fetch(url)
@@ -7,6 +19,9 @@ export const autocomplete = async (place: string) => {
     return data
   }
   const result = getOnlyImportantInfo(data.suggestions)
+  additionalData.forEach((additionalSuggesion) =>
+    result.add(additionalSuggesion.name)
+  )
   return result
 }
 
@@ -53,11 +68,12 @@ export const iterateStops = async (stops: string[]) => {
   return newArr
 }
 
-// get eigene bzw öffentliche Orte also fetchPlaces - am Besten im Parameter mitgeben (damit nur einmalabgefragt wird)
-const checkPlaces = async (inputLetters: string) => {
-  // get all places from store and check the name with the inputLetter name.includes(inputLetters)
-  // if(name.includes(inputLetters)){
-  // dann hinzufügen zu den results
-  // }
-  // schauen ob mindestens 3 aufeinanderfolgende Buchstaben gleich sind da drin, wenn ja, dann hinzufügen
+// simple autocomplete check for public and own locations
+const checkPlaces = (inputLetters: string, locations: any[]) => {
+  const placesArr = new Array<any>()
+  locations.forEach(function (item) {
+    const name = item.name.toLowerCase()
+    if (name.includes(inputLetters)) placesArr.push(item)
+  })
+  return placesArr
 }

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { fetchPlaces } from '../../utils/AuthService'
 import { fetchHereData } from '../../utils/fetchHereData'
+import { fetchPublicPlaces } from '../../utils/getPublicPlaces'
 
 type info = {
   address: string
@@ -8,16 +8,21 @@ type info = {
   coordinates: number[]
 }
 
+type info2 = {
+  address: string
+  categories: { id: string; name: string; primary?: boolean }[]
+  coordinates: number[]
+}
+
 export const roadtripGenerate = async (
   stops: number[][],
   maxStops: number,
   categories: string[],
-  token: string
+  ownLocations: info2[] | undefined
 ) => {
   // const center = createCenter(stops[0], stops[stops.length - 1])
 
-  const additionalStops = await getPlaces(token, categories)
-
+  const additionalStops = await getAdditionalPlaces(categories, ownLocations)
   const query = '' + categories.map((category) => category)
 
   const list = new Set<info>()
@@ -40,7 +45,7 @@ export const roadtripGenerate = async (
       })
 
       // add own and/or public user_entries to possible stops
-      additionalStops.forEach(function (arrayItem: any) {
+      additionalStops.forEach(function (arrayItem: info) {
         possibleStops.items.push(arrayItem)
       })
 
@@ -56,7 +61,7 @@ export const roadtripGenerate = async (
             i + 1,
           ]
         } else {
-          route[i] = [possibleStops.items[random2].coordinates, i + 1]
+          route[i] = possibleStops.items[random2].coordinates
         }
         // check if obj UserEntry or from HERE
         const obj = possibleStops.items[random2].title
@@ -115,8 +120,33 @@ export const calcDistance = (p1: number[], p2: number[]) => {
   }
 }
 
-const getPlaces = async (token: string, possibleCategories: string[]) => {
-  const places = await fetchPlaces(token)
+const getAdditionalPlaces = async (
+  possibleCategories: string[],
+  ownLocations?: info2[]
+) => {
+  //call getPlaces for all possible public Places
+  const additionalPlaces = await getPlaces(possibleCategories)
+  //add all possible own places
+  if (ownLocations) {
+    for (let i = 0; i < ownLocations.length; i++) {
+      ownLocations[i].categories.forEach((item) => {
+        if (possibleCategories.includes(item.id)) {
+          // only return first Category - idk why
+          const obj = {
+            address: ownLocations[i].address,
+            coordinates: ownLocations[i].coordinates,
+            categories: item,
+          }
+          additionalPlaces.push(obj)
+        }
+      })
+    }
+  }
+  return additionalPlaces
+}
+
+const getPlaces = async (possibleCategories: string[]) => {
+  const places = await fetchPublicPlaces()
   const additionalPlaces = new Array<info>()
   for (let i = 0; i < places.length; i++) {
     const categories = JSON.parse(places[i].category)

@@ -26,7 +26,7 @@ import {
   selectMaxRoadtripStops,
   selectRoadtripStops,
   selectUiSelectedCategories,
-  selectUserToken,
+  selectUserLocations,
 } from '../../store/selectors'
 import {
   getFirstCategories,
@@ -108,8 +108,6 @@ const CategoriesFormControl = withTheme(styled(FormControl)`
 `)
 
 const SelectCategories = () => {
-  const token = useSelector(selectUserToken())
-
   //Loading Animation
   const [loading, setLoading] = useState(false)
 
@@ -131,6 +129,34 @@ const SelectCategories = () => {
   // Get names of the categories later (depends on the category choosen before)
   const [secondArray, setSecondArray] = useState([{ number: '', name: '' }])
   const [thirdArray, setThirdArray] = useState([{ number: '', name: '' }])
+
+  type infoType2 = {
+    address: string
+    categories: { id: string; name: string; primary?: boolean }[]
+    coordinates: number[]
+  }
+  //get Location of User
+  const userLocations = useSelector(selectUserLocations())
+
+  const getUserLocations = () => {
+    const arr = new Array<infoType2>()
+    if (userLocations) {
+      userLocations.forEach(function (place: any) {
+        const categoryObj = JSON.parse(place.category)
+        const allCategories = new Array<{ id: string; name: string }>()
+        categoryObj.forEach((item: any) => {
+          allCategories.push({ id: item.number, name: item.name })
+        })
+        arr.push({
+          address: place.name,
+          categories: allCategories,
+          coordinates: [place.latitude, place.longitude],
+        })
+      })
+      return arr
+    }
+    return undefined
+  }
 
   const formChanged = (event: any) => {
     setNumberCategory(event.target.id)
@@ -280,13 +306,17 @@ const SelectCategories = () => {
                           })
                         )
 
+                        const userLocationData = getUserLocations()
+
                         const dataArray: string[] = Array.from(chips.keys())
                         const response = await roadtripGenerate(
                           stops,
                           maxStops,
                           dataArray,
-                          token
+                          userLocationData
                         )
+                        // eslint-disable-next-line no-console
+                        console.log(response)
                         dispatch(setMapRoute({ mapRoute: response.coorArr }))
                         dispatch(
                           setRoadtripInfos({ roadtripInfos: response.infoArr })

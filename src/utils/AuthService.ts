@@ -94,8 +94,6 @@ export const fetchUserEntries = (token: string) => {
 }
 
 export const fetchPlaces = (token: string) => {
-  // eslint-disable-next-line no-console
-  console.log(token)
   return fetch
     .get('user_entries', {
       headers: {

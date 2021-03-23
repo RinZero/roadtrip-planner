@@ -6,6 +6,8 @@ import {
   logOutSuccess,
   updateUser,
   UserActionsType,
+  getRoadtripsByUserSuccess,
+  getLocationsByUserSuccess,
 } from './actions'
 import { UserState } from './types'
 
@@ -44,6 +46,16 @@ export const userReducer = produce(
         draft.roadtrips = roadtrips
         draft.locations = locations
         draft.token = token
+        return draft
+      }
+      case getType(getRoadtripsByUserSuccess): {
+        const { roadtrips } = action.payload
+        draft.roadtrips = roadtrips
+        return draft
+      }
+      case getType(getLocationsByUserSuccess): {
+        const { locations } = action.payload
+        draft.locations = locations
         return draft
       }
       case getType(updateUser): {

@@ -8,11 +8,21 @@ export const logInSuccess = createAction('user/LOG_IN_SUCCESS')<{
   email: string
   isAdmin: boolean
   picture?: string
-  roadtrips?: {
-    [key: string]: RoadtripState
-  }[]
+  roadtrips?: RoadtripState[]
   locations?: LocationState[]
   token: string
+}>()
+
+export const getRoadtripsByUserSuccess = createAction(
+  'user/GET_ROADTRIPS_BY_USER_SUCCESS'
+)<{
+  roadtrips?: RoadtripState[]
+}>()
+
+export const getLocationsByUserSuccess = createAction(
+  'user/GET_LOCATIONS_BY_USER_SUCCESS'
+)<{
+  locations?: LocationState[]
 }>()
 
 export const updateUser = createAction('user/UPDATE_USER')<{
@@ -28,6 +38,8 @@ export const UserActions = {
   updateUser,
   logInSuccess,
   logOutSuccess,
+  getRoadtripsByUserSuccess,
+  getLocationsByUserSuccess,
 }
 
 export type UserActionsType = ActionType<typeof UserActions>

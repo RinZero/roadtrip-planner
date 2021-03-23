@@ -6,9 +6,7 @@ export type UserState = {
   image: string
   isAdmin: boolean
   picture?: string
-  roadtrips?: {
-    [key: string]: RoadtripState
-  }[]
+  roadtrips?: RoadtripState[]
   locations?: LocationState[]
   token: string
 }

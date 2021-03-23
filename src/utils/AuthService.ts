@@ -23,7 +23,8 @@ export type signUpType = {
   }
 }
 const fetch = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/',
+  baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
+  // baseURL: 'http://localhost:3000/api/v1/',
 })
 
 export const logIn = (logInData: logInType) => {
@@ -71,8 +72,23 @@ export const fetchRoadtrips = (token: string) => {
         Authorization: token,
       },
     })
-    .then((response) =>
+    .then((response) => {
       // eslint-disable-next-line no-console
-      console.log(response)
-    )
+      console.log(response.data.data)
+      return response.data.roadtrips
+    })
+}
+
+export const fetchUserEntries = (token: string) => {
+  return fetch
+    .get('user_entries', {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => {
+      // eslint-disable-next-line no-console
+      console.log(response.data.data)
+      return response.data.data
+    })
 }

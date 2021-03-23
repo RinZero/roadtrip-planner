@@ -1,6 +1,4 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-console */
-import React, { memo, Suspense } from 'react'
+import React, { memo, useState, MouseEvent } from 'react'
 
 import {
   Button,
@@ -17,17 +15,17 @@ import {
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
+import LogInForm from '../../components/LogInForm'
 import { logOutSuccess } from '../../store/actions'
 import {
   selectUserId,
   selectUserName,
   selectUserPicture,
 } from '../../store/selectors'
-
-const LogInForm = React.lazy(() => import('../../components/LogInForm'))
+import { logOut } from '../../utils/AuthService'
 
 // Art 2
 const LogoutButton = withTheme(styled(Button)`
@@ -59,85 +57,85 @@ const HeaderHight = withTheme(styled(Box)`
 `)
 
 const Header = () => {
+  const history = useHistory()
   const userName = useSelector(selectUserName())
   const profilePic = useSelector(selectUserPicture())
   const dispatch = useDispatch()
   return (
-    <>
-      <HeaderHight>
-        <AppBar position="static">
-          <Toolbar>
-            <HeaderLink component={RouterLink} to={`/`} variant="h6">
-              Neuer Roadtrip
-            </HeaderLink>
-            <HeaderLink component={RouterLink} to={`/neuer_ort`} variant="h6">
-              Ort hinzufügen
-            </HeaderLink>
-            <AccountButton
-              aria-label="profile"
-              onClick={() => console.log('placeholder to profile')}
-            >
-              {userName ? (
-                <Avatar alt={userName + 's Profilbild'} src={profilePic} />
-              ) : (
-                <AccountCircleIcon />
-              )}
-            </AccountButton>
-            {userName === 'Guest' && (
-              <>
-                <PopupState variant="popover" popupId="login-popup-popover">
-                  {(popupState) => (
-                    <>
-                      <div {...bindTrigger(popupState)}>
-                        <Typography variant="body1" color="primary">
-                          LogIn
-                        </Typography>
-                      </div>
-                      <StyledPopover
-                        {...bindPopover(popupState)}
-                        anchorOrigin={{
-                          vertical: 'bottom',
-                          horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                      >
-                        <Box m={3}>
-                          <Suspense fallback={<div>Loading...</div>}>
-                            <LogInForm />
-                          </Suspense>
-                        </Box>
-                      </StyledPopover>
-                    </>
-                  )}
-                </PopupState>
-                <Typography variant="body1">or</Typography>
-                <Link component={RouterLink} to={`/sign_up`} variant="h6">
-                  SignUp
-                </Link>
-              </>
-            )}
-            {userName !== 'Guest' && (
-              <>
-                <Typography variant="body1" color="textPrimary">
-                  Hallo {userName}, tuastn????
-                </Typography>
+    <HeaderHight>
+      <AppBar position="static">
+        <Toolbar>
+          <HeaderLink component={RouterLink} to={`/neuer_ort`} variant="h6">
+            Neuer Roadtrip
+          </HeaderLink>
+          <HeaderLink HeaderLink component={RouterLink} to={`/`} variant="h6">
+            Ort hinzufügen
+          </HeaderLink>
 
-                <LogoutButton
-                  onClick={() => {
-                    dispatch(logOutSuccess())
-                  }}
-                >
-                  Log out
-                </LogoutButton>
-              </>
+          <AccountButton
+            aria-label="profile"
+            onClick={() =>
+              history.push(userName === 'Guest' ? '/sign_up' : '/profile')
+            }
+          >
+            {userName ? (
+              <Avatar alt={userName + 's Profilbild'} src={profilePic} />
+            ) : (
+              <AccountCircleIcon />
             )}
-          </Toolbar>
-        </AppBar>
-      </HeaderHight>
-    </>
+          </AccountButton>
+          {userName === 'Guest' && (
+            <>
+              <PopupState variant="popover" popupId="login-popup-popover">
+                {(popupState) => (
+                  <>
+                    <div {...bindTrigger(popupState)}>
+                      <Typography variant="body1" color="primary">
+                        LogIn
+                      </Typography>
+                    </div>
+                    <StyledPopover
+                      {...bindPopover(popupState)}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                    >
+                      <Box m={3}>
+                        <LogInForm />
+                      </Box>
+                    </StyledPopover>
+                  </>
+                )}
+              </PopupState>
+              <Typography variant="body1">or</Typography>
+              <Link component={RouterLink} to={`/sign_up`} variant="h6">
+                SignUp
+              </Link>
+            </>
+          )}
+          {userName !== 'Guest' && (
+            <>
+              <Typography variant="body1" color="textPrimary">
+                Hallo {userName}, tuastn????
+              </Typography>
+
+              <LogoutButton
+                onClick={() => {
+                  dispatch(logOutSuccess())
+                }}
+              >
+                Log out
+              </LogoutButton>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+    </HeaderHight>
   )
 }
 

@@ -2,13 +2,21 @@ import React, { memo } from 'react'
 
 import { Button, Input, Typography, withTheme } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-import { logInSuccess } from '../../store/actions'
-import { selectUserToken } from '../../store/selectors'
-import { logIn, fetchRoadtrips } from '../../utils/AuthService'
+import {
+  logInSuccess,
+  getRoadtripsByUserSuccess,
+  getLocationsByUserSuccess,
+} from '../../store/actions'
+import { LocationState } from '../../store/user/types'
+import {
+  logIn,
+  fetchRoadtrips,
+  fetchUserEntries,
+} from '../../utils/AuthService'
+import { convertToRoadtrip } from '../../utils/convertToRoadtrip'
 
 type IFormInput = {
   email: string
@@ -31,8 +39,6 @@ const StyledInput = withTheme(styled(Input)`
 
 const LogInForm = () => {
   const dispatch = useDispatch()
-  const history = useHistory()
-  const token = useSelector(selectUserToken())
   const { register, handleSubmit } = useForm()
   const onFormSubmit = async (data: IFormInput) => {
     const user = await logIn({
@@ -42,9 +48,18 @@ const LogInForm = () => {
     })
     if (user) {
       dispatch(logInSuccess(user))
-      await fetchRoadtrips(user.token)
-
-      history.push('/')
+      const roadtripsRaw = await fetchRoadtrips(user.token)
+      const roadtrips = roadtripsRaw.map(
+        (raw: { data: Array<Record<string, any>> }) =>
+          convertToRoadtrip(raw.data)
+      )
+      dispatch(getRoadtripsByUserSuccess({ roadtrips: roadtrips }))
+      const userEntries = await fetchUserEntries(user.token)
+      const obj: { locations: LocationState[] } = { locations: [] }
+      userEntries.map((entry: { attributes: LocationState }) =>
+        obj.locations.push(entry.attributes)
+      )
+      dispatch(getLocationsByUserSuccess(obj))
     }
 
     // CreateUser()

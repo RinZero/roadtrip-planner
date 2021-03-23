@@ -54,6 +54,10 @@ export const iterateStops = async (stops: string[]) => {
 }
 
 // get eigene bzw öffentliche Orte also fetchPlaces - am Besten im Parameter mitgeben (damit nur einmalabgefragt wird)
-const checkPlaces = async () => {
+const checkPlaces = async (inputLetters: string) => {
+  // get all places from store and check the name with the inputLetter name.includes(inputLetters)
+  // if(name.includes(inputLetters)){
+  // dann hinzufügen zu den results
+  // }
   // schauen ob mindestens 3 aufeinanderfolgende Buchstaben gleich sind da drin, wenn ja, dann hinzufügen
 }

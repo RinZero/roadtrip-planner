@@ -64,9 +64,8 @@ const LogInForm = () => {
       const places = await fetchPlaces(user.token)
       // eslint-disable-next-line no-console
       console.log(places)
+      //hier im Store speichern - updaten wenn man einen neuen Ort erstellt
     }
-
-    // CreateUser()
   }
   return (
     <StyledForm onSubmit={handleSubmit(onFormSubmit)}>

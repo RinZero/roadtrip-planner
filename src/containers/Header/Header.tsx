@@ -1,4 +1,4 @@
-import React, { memo, useState, MouseEvent } from 'react'
+import React, { memo, Suspense } from 'react'
 
 import {
   Button,
@@ -18,14 +18,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import LogInForm from '../../components/LogInForm'
 import { logOutSuccess } from '../../store/actions'
 import {
   selectUserId,
   selectUserName,
   selectUserPicture,
 } from '../../store/selectors'
-import { logOut } from '../../utils/AuthService'
+
+const LogInForm = React.lazy(() => import('../../components/LogInForm'))
 
 // Art 2
 const LogoutButton = withTheme(styled(Button)`
@@ -106,7 +106,9 @@ const Header = () => {
                       }}
                     >
                       <Box m={3}>
-                        <LogInForm />
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <LogInForm />
+                        </Suspense>
                       </Box>
                     </StyledPopover>
                   </>

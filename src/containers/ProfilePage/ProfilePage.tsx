@@ -1,14 +1,15 @@
-import React, { memo } from 'react'
+import React, { memo, Suspense } from 'react'
 
 import { Box, Grid, Typography } from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 import { useSelector } from 'react-redux'
 
-import LocationList from '../../components/LoactionList'
 import ProfileComponent from '../../components/ProfileComponent'
 import Roadtripcard from '../../components/Roadtripcard'
 import { selectRoadtrips } from '../../store/user/selectors'
 import { RoadtripState } from '../../store/user/types'
+
+const LocationList = React.lazy(() => import('../../components/LoactionList'))
 
 type RoadtripSlideProps = {
   roadtrips: RoadtripState[]
@@ -49,7 +50,9 @@ const ProfilePage = () => {
         <ProfileComponent />
         <Box m="auto" width="60%">
           <Typography variant="h4">Meine Orte:</Typography>
-          <LocationList />
+          <Suspense fallback={<div>Loading...</div>}>
+            <LocationList />
+          </Suspense>
         </Box>
       </Grid>
       <Grid item xs={12} sm={7}>

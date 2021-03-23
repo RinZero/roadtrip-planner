@@ -29,7 +29,7 @@ import {
 
 //Art 2
 const ProfileBox = withTheme(styled(Box)`
-  margin-top: ${(props) => props.theme.spacing(4)}px;
+  margin-top: ${(props) => props.theme.spacing(10)}px;
   margin-bottom: ${(props) => props.theme.spacing(7)}px;
 `)
 

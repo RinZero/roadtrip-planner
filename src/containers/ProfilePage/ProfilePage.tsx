@@ -1,14 +1,19 @@
 import React, { memo } from 'react'
 
-import { Box, Grid, Typography } from '@material-ui/core'
+import { Box, Grid, Typography, withTheme } from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 import { useSelector } from 'react-redux'
+import styled from 'styled-components'
 
 import LocationList from '../../components/LoactionList'
 import ProfileComponent from '../../components/ProfileComponent'
 import Roadtripcard from '../../components/Roadtripcard'
 import { selectRoadtrips } from '../../store/user/selectors'
 import { RoadtripState } from '../../store/user/types'
+
+const RoadtripsBox = withTheme(styled(Box)`
+  margin-top: ${(props) => props.theme.spacing(10)}px;
+`)
 
 type RoadtripSlideProps = {
   roadtrips: RoadtripState[]
@@ -48,17 +53,19 @@ const ProfilePage = () => {
       <Grid item xs={12} sm={5}>
         <ProfileComponent />
         <Box m="auto" width="60%">
-          <Typography variant="h4">Meine Orte:</Typography>
+          <Typography variant="h4">Meine Orte: </Typography>
           <LocationList />
         </Box>
       </Grid>
       <Grid item xs={12} sm={7}>
-        <Typography variant="h4">Meine Roadtrips:</Typography>
-        <Carousel autoPlay={false} animation="slide" timeout={600}>
-          {slideRoadtrips.map((chunk) => (
-            <RoadtripSlide roadtrips={chunk} />
-          ))}
-        </Carousel>
+        <RoadtripsBox>
+          <Typography variant="h4">Meine Roadtrips: </Typography>
+          <Carousel autoPlay={false} animation="slide" timeout={600}>
+            {slideRoadtrips.map((chunk) => (
+              <RoadtripSlide roadtrips={chunk} />
+            ))}
+          </Carousel>
+        </RoadtripsBox>
       </Grid>
     </Grid>
   )

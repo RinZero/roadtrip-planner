@@ -15,6 +15,7 @@ import {
   logIn,
   fetchRoadtrips,
   fetchUserEntries,
+  fetchPlaces,
 } from '../../utils/AuthService'
 import { convertToRoadtrip } from '../../utils/convertToRoadtrip'
 
@@ -60,6 +61,9 @@ const LogInForm = () => {
         obj.locations.push(entry.attributes)
       )
       dispatch(getLocationsByUserSuccess(obj))
+      const places = await fetchPlaces(user.token)
+      // eslint-disable-next-line no-console
+      console.log(places)
     }
 
     // CreateUser()

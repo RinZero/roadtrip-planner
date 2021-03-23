@@ -52,3 +52,8 @@ export const iterateStops = async (stops: string[]) => {
 
   return newArr
 }
+
+// get eigene bzw öffentliche Orte also fetchPlaces - am Besten im Parameter mitgeben (damit nur einmalabgefragt wird)
+const checkPlaces = async () => {
+  // schauen ob mindestens 3 aufeinanderfolgende Buchstaben gleich sind da drin, wenn ja, dann hinzufügen
+}

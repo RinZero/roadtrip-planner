@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { memo, useState } from 'react'
 
 import {
@@ -135,6 +134,7 @@ const SelectCategories = () => {
     address: string
     categories: { id: string; name: string; primary?: boolean }[]
     coordinates: number[]
+    api_key: string
   }
   //get Location of User
   const userLocations = useSelector(selectUserLocations())
@@ -150,9 +150,10 @@ const SelectCategories = () => {
             allCategories.push({ id: item.number, name: item.name })
           })
           arr.push({
-            address: place.name,
+            address: place.name || '',
             categories: allCategories,
-            coordinates: [place.latitude, place.longitude],
+            coordinates: [place.latitude || 0, place.longitude || 0],
+            api_key: place.api_entry_key || '',
           })
         }
       })
@@ -318,11 +319,15 @@ const SelectCategories = () => {
                           dataArray,
                           userLocationData
                         )
-                        dispatch(setMapRoute({ mapRoute: response.coorArr }))
-                        dispatch(
-                          setRoadtripInfos({ roadtripInfos: response.infoArr })
-                        )
-                        dispatch(setProgressStep({ progressStep: '3' }))
+                        if (response) {
+                          dispatch(setMapRoute({ mapRoute: response.coorArr }))
+                          dispatch(
+                            setRoadtripInfos({
+                              roadtripInfos: response.infoArr,
+                            })
+                          )
+                          dispatch(setProgressStep({ progressStep: '3' }))
+                        }
                       }}
                     >
                       Generiere

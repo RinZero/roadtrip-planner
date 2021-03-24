@@ -100,8 +100,10 @@ export const findLocation = async (
 async function getResult(name: string, allPlaces: LocationState[]) {
   for (const place of allPlaces) {
     if (place.name === name) {
-      const coordinates = [place.latitude, place.longitude]
-      return coordinates
+      if (place.latitude && place.longitude) {
+        const coordinates = [place.latitude, place.longitude]
+        return coordinates
+      }
     }
   }
 }

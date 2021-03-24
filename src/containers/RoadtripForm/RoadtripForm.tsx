@@ -3,13 +3,9 @@ import React, { memo, Suspense, lazy } from 'react'
 import { Typography } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 
-import EditRoadtripCreation from '../../components/EditRoadtripCreation'
-import StartGoalForm from '../../components/StartGoalForm'
-import StepsMenu from '../../components/StepsMenu'
-import SelectCategories from '../../containers/SelectCategories'
 import { selectProgessStep } from '../../store/selectors'
-const EditRoadtripComponent = React.lazy(
-  () => import('../../components/EditRoadtripComponent')
+const EditRoadtripCreation = React.lazy(
+  () => import('../../components/EditRoadtripCreation')
 )
 const StepsMenu = React.lazy(() => import('../../components/StepsMenu'))
 const StartGoalForm = React.lazy(() => import('../../components/StartGoalForm'))

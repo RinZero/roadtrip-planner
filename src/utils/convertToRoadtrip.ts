@@ -12,6 +12,8 @@ export const convertToRoadtrip = (
       locations.push(item.attributes.api_entry)
     }
   })
+  // eslint-disable-next-line no-console
+  console.log(roadtripData)
   if (locations.length > 0) {
     const roadtrip: RoadtripState = {
       stops: locations,

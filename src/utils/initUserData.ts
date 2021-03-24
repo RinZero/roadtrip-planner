@@ -1,18 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { Dispatch } from 'redux'
 
 import {
   getRoadtripsByUserSuccess,
   getLocationsByUserSuccess,
 } from '../store/actions'
-import { selectUserToken } from '../store/selectors'
 import { LocationState } from '../store/user/types'
 import { fetchRoadtrips, fetchUserEntries } from './AuthService'
 import { convertToRoadtrip } from './convertToRoadtrip'
 
-export const initUserData = async () => {
-  const token = useSelector(selectUserToken())
+export const initUserData = async (token: string, dispatch: Dispatch<any>) => {
   const roadtripsRaw = await fetchRoadtrips(token)
-  const dispatch = useDispatch()
+
   const roadtrips = roadtripsRaw.roadtrips.map(
     (
       raw: {
@@ -22,7 +20,7 @@ export const initUserData = async () => {
     ) => convertToRoadtrip(raw.data, roadtripsRaw.info.data[index].attributes)
   )
   dispatch(getRoadtripsByUserSuccess({ roadtrips: roadtrips }))
-  const userEntries = await fetchUserEntries(user.token)
+  const userEntries = await fetchUserEntries(token)
   const obj: { locations: LocationState[] } = { locations: [] }
   userEntries.map((entry: { attributes: LocationState }) =>
     obj.locations.push(entry.attributes)

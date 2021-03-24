@@ -142,17 +142,19 @@ const SelectCategories = () => {
   const getUserLocations = () => {
     const arr = new Array<infoType>()
     if (userLocations) {
-      userLocations.forEach(function (place: any) {
-        const categoryObj = JSON.parse(place.category)
-        const allCategories = new Array<{ id: string; name: string }>()
-        categoryObj.forEach((item: { number: string; name: string }) => {
-          allCategories.push({ id: item.number, name: item.name })
-        })
-        arr.push({
-          address: place.name,
-          categories: allCategories,
-          coordinates: [place.latitude, place.longitude],
-        })
+      userLocations.forEach(function (place: LocationState) {
+        if (place.category) {
+          const categoryObj = JSON.parse(place.category)
+          const allCategories = new Array<{ id: string; name: string }>()
+          categoryObj.forEach((item: { number: string; name: string }) => {
+            allCategories.push({ id: item.number, name: item.name })
+          })
+          arr.push({
+            address: place.name,
+            categories: allCategories,
+            coordinates: [place.latitude, place.longitude],
+          })
+        }
       })
       return arr
     }

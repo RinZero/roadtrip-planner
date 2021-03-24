@@ -38,9 +38,9 @@ const StartButton = withTheme(styled(Button)`
   background-color: #71b255;
   box-shadow: 0px 3px 6px 0px #b1b1b1;
   color: white;
-  height: ${(props) => props.theme.spacing(5)}px;
-  width: ${(props) => props.theme.spacing(44.25)}px;
   margin-top: ${(props) => props.theme.spacing(2)}px;
+  padding: ${(props) => props.theme.spacing(2)}px;
+  width: 80%;
   &:hover,
   &:active {
     background-color: #355727;

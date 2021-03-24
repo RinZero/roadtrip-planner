@@ -39,7 +39,7 @@ const StyledForm = withTheme(styled.form`
 `)
 
 const StyledButton = withTheme(styled(Button)`
-  width: 100%;
+  width: 80%;
   color: #ffffff;
   background-color: #71b255;
   padding: ${(props) => props.theme.spacing(2)}px;

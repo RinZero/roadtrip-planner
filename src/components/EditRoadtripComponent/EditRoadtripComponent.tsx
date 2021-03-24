@@ -141,6 +141,8 @@ const EditRoadtripComponent = () => {
         },
       },
     }
+    // eslint-disable-next-line no-console
+    console.log(roadtripInfo)
     roadtripInfo.forEach((info) => {
       //TODO if check between api and user entries
       if (info.entry) {

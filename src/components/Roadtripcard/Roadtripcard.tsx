@@ -39,8 +39,7 @@ const MyRoadtripCardMedia = withTheme(styled(CardMedia)`
 
 const Roadtripcard = (props: RoadtripcardProps) => {
   const { roadtrip } = props
-  const start = roadtrip.stops[0].name
-  const destination = roadtrip.stops[roadtrip.stops.length - 1].name
+  const name = roadtrip.name
   const stopsnumber = roadtrip.stops.length
   const history = useHistory()
   const dispatch = useDispatch()
@@ -54,7 +53,7 @@ const Roadtripcard = (props: RoadtripcardProps) => {
         />
         <CardContent>
           <Typography align="left" variant="h5" component="h2">
-            {start} - {destination}
+            {name}
           </Typography>
           <Typography align="left" color="textSecondary">
             {stopsnumber} Stops

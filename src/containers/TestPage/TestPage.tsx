@@ -3,7 +3,6 @@ import React, { memo, useEffect } from 'react'
 import { Box, Button, makeStyles, Theme } from '@material-ui/core'
 import styled from 'styled-components'
 
-import EditRoadtripComponent from '../../components/EditRoadtripComponent'
 import StartGoalForm from '../../components/StartGoalForm'
 import StepsMenu from '../../components/StepsMenu'
 import TitleSection from '../../components/TitleSection'

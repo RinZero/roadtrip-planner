@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { fetchHereData } from '../../utils/fetchHereData'
 import { fetchPublicPlaces } from '../../utils/getPublicPlaces'
 
@@ -6,12 +5,14 @@ type info = {
   address: string
   categories: { id: string; name: string; primary?: boolean }
   coordinates: number[]
+  api_key: string
 }
 
 type info2 = {
   address: string
   categories: { id: string; name: string; primary?: boolean }[]
   coordinates: number[]
+  api_key: string
 }
 
 export const roadtripGenerate = async (
@@ -43,7 +44,6 @@ export const roadtripGenerate = async (
           width: 40000,
         },
       })
-
       // add own and/or public user_entries to possible stops
       additionalStops.forEach(function (arrayItem: info) {
         possibleStops.items.push(arrayItem)
@@ -53,7 +53,6 @@ export const roadtripGenerate = async (
         const random2 = Math.floor(
           Math.random() * Math.floor(possibleStops.items.length)
         )
-        // check if UserEntry oder from HERE
         if (possibleStops.items[random2].title) {
           route[i] = [
             possibleStops.items[random2].access[0].lat,
@@ -72,23 +71,28 @@ export const roadtripGenerate = async (
                 possibleStops.items[random2].position.lat,
                 possibleStops.items[random2].position.lng,
               ],
+              api_key: possibleStops.items[random2].id,
             }
           : possibleStops.items[random2]
+
         list.add(obj)
+
+        route.sort(
+          (a, b) => calcDistance(stops[0], a) - calcDistance(stops[0], b)
+        )
+        route.sort((a, b) => {
+          if (calcDistance(stops[stops.length - 1], a) <= 0) {
+            return (
+              calcDistance(stops[stops.length - 1], b) -
+              calcDistance(stops[stops.length - 1], a)
+            )
+          }
+          return -1
+        })
       }
     }
-
-    route.sort((a, b) => calcDistance(stops[0], a) - calcDistance(stops[0], b))
-    route.sort((a, b) => {
-      if (calcDistance(stops[stops.length - 1], a) <= 0) {
-        return (
-          calcDistance(stops[stops.length - 1], b) -
-          calcDistance(stops[stops.length - 1], a)
-        )
-      }
-      return -1
-    })
   }
+
   return {
     coorArr: route.map((data) => data[0].toString() + ',' + data[1].toString()),
     infoArr: Array.from(list),
@@ -136,6 +140,7 @@ const getAdditionalPlaces = async (
             address: ownLocations[i].address,
             coordinates: ownLocations[i].coordinates,
             categories: item,
+            api_key: ownLocations[i].api_key,
           }
           additionalPlaces.push(obj)
         }
@@ -156,6 +161,7 @@ const getPlaces = async (possibleCategories: string[]) => {
           address: places[i].name,
           categories: categories,
           coordinates: [places[i].latitude, places[i].longitude],
+          api_key: places[i].api_key,
         }
         additionalPlaces.push(addEntry)
       }

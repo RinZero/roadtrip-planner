@@ -1,4 +1,4 @@
-import React, { memo, useState, DragEvent } from 'react'
+import React, { memo, useState, DragEvent, FC } from 'react'
 
 import {
   Box,
@@ -42,34 +42,31 @@ const DragListItem = withTheme(styled(ListItem)`
   margin-bottom: ${(props) => props.theme.spacing(1.2)}px;
 `)
 
-const initialDnDState = {
-  draggedFrom: 0,
-  draggedTo: 0,
-  isDragging: false,
-  originalOrder: [
-    {
-      address: '',
-      categories: { id: '', name: '' },
-      coordinates: [0, 0],
-      api_key: '',
-    },
-  ],
-  updatedOrder: [
-    {
-      address: '',
-      categories: { id: '', name: '' },
-      coordinates: [0, 0],
-      api_key: '',
-    },
-  ],
+export type EditRoadtripComponentProps = {
+  dndStateOrder: Array<Record<string, any>>
+  onSave: () => void
+  listInfo: Array<Record<string, any>>
+  onChange: (r: Array<Record<string, any>>) => void
 }
-
-const EditRoadtripComponent = () => {
+const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
+  dndStateOrder,
+  onSave,
+  listInfo,
+  onChange,
+}) => {
   const dispatch = useDispatch()
   const roadtripInfo = useSelector(selectRoadtripInfos())
-  const [list, setList] = useState(roadtripInfo)
+  const [list, setList] = useState(listInfo)
+  const initialDnDState = {
+    draggedFrom: 0,
+    draggedTo: 0,
+    isDragging: false,
+    originalOrder: dndStateOrder,
+    updatedOrder: dndStateOrder,
+  }
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
   const token = useSelector(selectUserToken())
+
   // const testRoadtripInfo: {
   //   address: string
   //   categories: {
@@ -129,36 +126,36 @@ const EditRoadtripComponent = () => {
   //   },
   // ]
 
-  const submitRoadtrip = async () => {
-    const roadtripData: createRoadtripType = {
-      data: {
-        type: 'roadtrip',
-        locations: [],
-        attributes: {
-          name: 'Roadtrip test',
-          public: false,
-          distance: 1,
-        },
-      },
-    }
-    roadtripInfo.forEach((info) => {
-      //TODO if check between api and user entries
-      if (info.entry) {
-        // User Entry
-        roadtripData.data.locations.push({
-          api_entry: undefined,
-          user_entry: info.entry,
-        })
-      } else {
-        // APi entry
-        roadtripData.data.locations.push({
-          api_entry: { api_entry_key: info.api_key },
-          user_entry: undefined,
-        })
-      }
-    })
-    const result = await createRoadtrip(roadtripData, token)
-  }
+  //   const submitRoadtrip = async () => {
+  //     const roadtripData: createRoadtripType = {
+  //       data: {
+  //         type: 'roadtrip',
+  //         locations: [],
+  //         attributes: {
+  //           name: 'Roadtrip test',
+  //           public: false,
+  //           distance: 1,
+  //         },
+  //       },
+  //     }
+  //     roadtripInfo.forEach((info) => {
+  //       //TODO if check between api and user entries
+  //       if (info.entry) {
+  //         // User Entry
+  //         roadtripData.data.locations.push({
+  //           api_entry: undefined,
+  //           user_entry: info.entry,
+  //         })
+  //       } else {
+  //         // APi entry
+  //         roadtripData.data.locations.push({
+  //           api_entry: { api_entry_key: info.api_key },
+  //           user_entry: undefined,
+  //         })
+  //       }
+  //     })
+  //     const result = await createRoadtrip(roadtripData, token)
+  //   }
 
   // onDragStart fires when an element
   // starts being dragged
@@ -205,9 +202,7 @@ const EditRoadtripComponent = () => {
       itemDragged,
       ...remainingItems.slice(draggedTo),
     ]
-
     setList(newList)
-
     if (draggedTo !== dragAndDrop.draggedTo) {
       setDragAndDrop({
         ...dragAndDrop,
@@ -219,7 +214,8 @@ const EditRoadtripComponent = () => {
 
   const onDrop = (event: DragEvent<HTMLDivElement>) => {
     setList(dragAndDrop.updatedOrder)
-    dispatch(setRoadtripInfos({ roadtripInfos: list }))
+
+    onChange(list)
 
     setDragAndDrop({
       ...dragAndDrop,
@@ -263,7 +259,7 @@ const EditRoadtripComponent = () => {
                     : ''
                 }
               >
-                <ListItemText primary={item.address} />
+                <ListItemText primary={item.address || item.name} />
                 <ListItemSecondaryAction>
                   <IconButton>
                     <DeleteIcon />
@@ -274,15 +270,11 @@ const EditRoadtripComponent = () => {
           })}
         </List>
       </StyledBox>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() => submitRoadtrip()}
-      >
+      <Button color="primary" variant="contained" onClick={() => onSave()}>
         Create
       </Button>
     </Box>
   )
 }
 
-export default memo(EditRoadtripComponent)
+export default memo(EditRoadtripTemplate)

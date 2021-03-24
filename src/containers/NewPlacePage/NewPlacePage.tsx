@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { memo, Suspense, lazy } from 'react'
 
 import { Box, withTheme } from '@material-ui/core'

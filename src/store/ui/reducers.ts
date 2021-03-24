@@ -10,6 +10,8 @@ import {
   setRoadtripStops,
   setUiSelectedCategories,
   UiActionsType,
+  setEditRoadtripStops,
+  setEditRoadtrip,
 } from './actions'
 import { UiState } from './types'
 
@@ -24,6 +26,7 @@ export const initialState: UiState = {
   mapRoute: [],
   isLocked: false,
   roadtripInfos: [],
+  editRoadtrip: { name: '', stops: [], id: -1, public: false },
 }
 
 export const uiReducer = produce(
@@ -62,6 +65,16 @@ export const uiReducer = produce(
       case getType(setRoadtripInfos): {
         const { roadtripInfos } = action.payload
         draft.roadtripInfos = roadtripInfos
+        return draft
+      }
+      case getType(setEditRoadtripStops): {
+        const { editRoadtripStops } = action.payload
+        draft.editRoadtrip.stops = editRoadtripStops
+        return draft
+      }
+      case getType(setEditRoadtrip): {
+        const { editRoadtrip } = action.payload
+        draft.editRoadtrip = editRoadtrip
         return draft
       }
       default:

@@ -92,8 +92,7 @@ export const roadtripGenerate = async (
       }
     }
   }
-  // eslint-disable-next-line no-console
-  console.log(list)
+
   return {
     coorArr: route.map((data) => data[0].toString() + ',' + data[1].toString()),
     infoArr: Array.from(list),

@@ -49,8 +49,7 @@ const LogInForm = () => {
     if (user) {
       dispatch(logInSuccess(user))
       const roadtripsRaw = await fetchRoadtrips(user.token)
-      // eslint-disable-next-line no-console
-      console.log(roadtripsRaw)
+
       const roadtrips = roadtripsRaw.roadtrips.map(
         (
           raw: {

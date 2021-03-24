@@ -1,8 +1,10 @@
+import { LocationState } from '../store/user/types'
+import { PublicPlaceType } from './additionalTypes'
 import { fetchPublicPlaces } from './getPublicPlaces'
 
 export const autocomplete = async (
   place: string,
-  userLocations?: Array<Record<string, any>>
+  userLocations?: LocationState[]
 ) => {
   // get public locations
   const publicLocations = await fetchPublicPlaces()
@@ -54,7 +56,7 @@ const getCoordinates = async (loactaionId: string) => {
 
 export const iterateStops = async (
   stops: string[],
-  userLocations?: Array<Record<string, any>>
+  userLocations?: LocationState[]
 ) => {
   const newArr = new Array<number[]>()
   let j = 0
@@ -70,8 +72,8 @@ export const iterateStops = async (
 
         const getLatLon = await findLocation(
           stops[i],
-          userLocations,
-          publicPlaces
+          publicPlaces,
+          userLocations
         )
         if (getLatLon) newArr[j] = getLatLon
       }
@@ -84,18 +86,18 @@ export const iterateStops = async (
 // find public or own Place by name
 export const findLocation = async (
   name: string,
-  userLocations?: any,
-  publicPlaces?: any
+  publicPlaces: PublicPlaceType[],
+  userLocations?: LocationState[]
 ) => {
   const allPlaces = userLocations
-    ? userLocations.concat(publicPlaces)
+    ? userLocations.concat(publicPlaces as LocationState[])
     : publicPlaces
 
   const result = await getResult(name, allPlaces)
   return result
 }
 
-async function getResult(name: string, allPlaces: Array<Record<string, any>>) {
+async function getResult(name: string, allPlaces: LocationState[]) {
   for (const place of allPlaces) {
     if (place.name === name) {
       const coordinates = [place.latitude, place.longitude]
@@ -112,7 +114,7 @@ const checkPlaces = (
   const placesArr = new Array<Record<string, any>>()
   locations.forEach(function (item) {
     const name = item.name.toLowerCase()
-    if (name.includes(inputLetters)) placesArr.push(item)
+    if (name.includes(inputLetters.toLowerCase())) placesArr.push(item)
   })
   return placesArr
 }

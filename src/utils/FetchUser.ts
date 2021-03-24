@@ -20,8 +20,6 @@ export const FetchUser = async (logInUser: FetchUserType) => {
     body: JSON.stringify(logInUser),
   })
 
-  // eslint-disable-next-line no-console
-  console.log(response)
   const data = await response.json()
   const token = data.jwt
   localStorage.setItem('token', token)

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import axios from 'axios'
 
 import { userEntry } from '../store/ui/types'

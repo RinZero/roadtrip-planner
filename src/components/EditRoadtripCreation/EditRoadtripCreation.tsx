@@ -48,8 +48,7 @@ const EditRoadtripCreation = () => {
         })
       }
     })
-    // eslint-disable-next-line no-console
-    console.log(roadtripData)
+
     const result = await createRoadtrip(roadtripData, token)
   }, [roadtripInfo, token])
 

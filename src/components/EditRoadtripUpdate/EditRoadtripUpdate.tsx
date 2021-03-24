@@ -27,16 +27,12 @@ const EditRoadtripUpdate = () => {
       )
     }
     test().then((data) => {
-      // eslint-disable-next-line no-console
-      console.log('hesssssssssssssssss', data)
       dispatch(setEditRoadtripStops({ editRoadtripStops: data }))
     })
   }, [editRoadtrip.stops, dispatch])
 
   useEffect(() => {
     addHereDataToStops()
-    // eslint-disable-next-line no-console
-    console.log(editRoadtrip.stops)
   }, [])
 
   const token = useSelector(selectUserToken())

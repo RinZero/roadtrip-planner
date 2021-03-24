@@ -6,8 +6,6 @@ export const reverseLookupHereData = (id: string) => {
     id +
     '&apiKey=E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
   return axios.get(url).then((response) => {
-    // eslint-disable-next-line no-console
-    // console.log(response.data)
     return response.data
   })
 }

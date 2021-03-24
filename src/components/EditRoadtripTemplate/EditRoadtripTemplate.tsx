@@ -214,8 +214,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
 
   const onDrop = (event: DragEvent<HTMLDivElement>) => {
     setList(dragAndDrop.updatedOrder)
-    // eslint-disable-next-line no-console
-    console.log(list)
+
     onChange(list)
 
     setDragAndDrop({

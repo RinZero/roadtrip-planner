@@ -75,7 +75,7 @@ const TagChip = withTheme(styled(Chip)`
   font-size: ${(props) => props.theme.spacing(2)}px;
 `)
 
-const KategoryInputLabel = withTheme(styled(InputLabel)`
+const CategoryInputLabel = withTheme(styled(InputLabel)`
   margin-left: ${(props) => props.theme.spacing(2)}px;
 `)
 
@@ -111,6 +111,7 @@ const AddText = withTheme(styled(Box)`
 
 const CategoriesFormControl = withTheme(styled(FormControl)`
   margin: ${(props) => props.theme.spacing(1.5)}px;
+  min-width: ${(props) => props.theme.spacing(25)}px;
 `)
 
 const SelectCategories = () => {
@@ -228,9 +229,9 @@ const SelectCategories = () => {
                   }}
                 >
                   <CategoriesFormControl>
-                    <KategoryInputLabel id="Kategorie1">
+                    <CategoryInputLabel id="Kategorie1">
                       Überkategorie
-                    </KategoryInputLabel>
+                    </CategoryInputLabel>
                     <CategoryDropdown
                       label="Kategorie1"
                       id={1}
@@ -241,9 +242,9 @@ const SelectCategories = () => {
                   </CategoriesFormControl>
                   {numberCategory >= 1 && (
                     <CategoriesFormControl>
-                      <KategoryInputLabel id="Kategorie2">
+                      <CategoryInputLabel id="Kategorie2">
                         1. Unterkategorie
-                      </KategoryInputLabel>
+                      </CategoryInputLabel>
                       <CategoryDropdown
                         label="Kategorie2"
                         id={2}
@@ -254,9 +255,9 @@ const SelectCategories = () => {
                   )}
                   {numberCategory > 1 && thirdArray[1] && (
                     <CategoriesFormControl>
-                      <KategoryInputLabel id="Kategorie3">
+                      <CategoryInputLabel id="Kategorie3">
                         2. Unterkategorie
-                      </KategoryInputLabel>
+                      </CategoryInputLabel>
                       <CategoryDropdown
                         label="Kategorie3"
                         id={3}

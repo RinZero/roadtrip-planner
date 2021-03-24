@@ -24,25 +24,47 @@ import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { fetchHereData } from '../../utils/fetchHereData'
 
 const StyledBox = withTheme(styled(Box)`
-  width: 25%;
+  width: 100%;
   min-width: ${(props) => props.theme.spacing(25)}px;
   overflow: auto;
-  max-height: ${(props) => props.theme.spacing(62.5)}px;
+  max-width: ${(props) => props.theme.spacing(8.75)}vw;
+  max-height: ${(props) => props.theme.spacing(4)}vh;
   margin-left: ${(props) => props.theme.spacing(2)}px;
+  .MuiList-root {
+    display: flex;
+  }
+  ${(props) => props.theme.breakpoints.up('md')} {
+    width: 25%;
+    min-width: ${(props) => props.theme.spacing(25)}px;
+    overflow: auto;
+    max-height: ${(props) => props.theme.spacing(6.5)}vh;
+    margin-left: ${(props) => props.theme.spacing(2)}px;
+    .MuiList-root {
+      display: inline;
+    }
+  }
 `)
 const DragListItem = withTheme(styled(ListItem)`
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
   border-radius: 15px;
   border: 1px solid rgb(0 0 0 / 16%);
   margin-bottom: ${(props) => props.theme.spacing(1.2)}px;
+
+  .MuiListItemSecondaryAction-root {
+    top: 28%;
+    ${(props) => props.theme.breakpoints.up('md')} {
+      top: 50%;
+    }
+  }
 `)
 
 const ContentBox = withTheme(styled(Box)`
-  display: block;
-  margin: 0 auto;
-  ${(props) => props.theme.breakpoints.up('sm')} {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  ${(props) => props.theme.breakpoints.up('md')} {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
   }
 `)

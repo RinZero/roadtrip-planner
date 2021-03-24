@@ -43,6 +43,12 @@ export default () => {
           padding: '10px 15px',
         },
       },
+      MuiListItemSecondaryAction: {
+        root: {
+          top: '24px',
+          right: '8px',
+        },
+      },
       MuiAppBar: {
         colorPrimary: {
           backgroundColor: '#FFFFFF',

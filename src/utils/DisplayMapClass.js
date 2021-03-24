@@ -92,11 +92,11 @@ export class DisplayMapClass extends React.Component {
     // MapEvents enables the event system
     // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
     // This variable is unused and is present for explanatory purposes
-    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
+    //const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
 
     // Create the default UI components to allow the user to interact with them
     // This variable is unused
-    const ui = H.ui.UI.createDefault(map, defaultLayers)
+    //const ui = H.ui.UI.createDefault(map, defaultLayers)
 
     this.setState({ map })
   }
@@ -106,6 +106,11 @@ export class DisplayMapClass extends React.Component {
   }
 
   render() {
-    return <div ref={this.mapRef} style={{ height: '500px', width: '70%' }} />
+    return (
+      <div
+        ref={this.mapRef}
+        style={{ height: '52vh', width: '70vw', minWidth: '270px' }}
+      />
+    )
   }
 }

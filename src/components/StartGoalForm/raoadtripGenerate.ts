@@ -70,14 +70,14 @@ export const roadtripGenerate = async (
         // check if obj UserEntry or from HERE
         const obj = possibleStops.items[random2].title
           ? {
-              address: possibleStops.items[random2].address.label,
-              categories: possibleStops.items[random2].categories,
-              coordinates: [
-                possibleStops.items[random2].position.lat,
-                possibleStops.items[random2].position.lng,
-              ],
-              api_key: possibleStops.items[random2].id,
-            }
+            address: possibleStops.items[random2].address.label,
+            categories: possibleStops.items[random2].categories,
+            coordinates: [
+              possibleStops.items[random2].position.lat,
+              possibleStops.items[random2].position.lng,
+            ],
+            api_key: possibleStops.items[random2].id,
+          }
           : possibleStops.items[random2]
 
         list.add(obj)
@@ -141,6 +141,11 @@ const getAdditionalPlaces = async (
       ownLocations[i].categories.forEach((item) => {
         if (possibleCategories.includes(item.id)) {
           // only return first Category - idk why
+          const userEntry = {
+            name: ownLocations[i].address,
+            latitude: ownLocations[i].coordinates[0],
+            longitude: ownLocations[i].coordinates[1],
+          }
           const obj = {
             address: ownLocations[i].address,
             coordinates: ownLocations[i].coordinates,

@@ -11,7 +11,7 @@ import { convertToRoadtrip } from './convertToRoadtrip'
 export const initUserData = async (token: string, dispatch: Dispatch<any>) => {
   const roadtripsRaw = await fetchRoadtrips(token)
 
-  const roadtrips = roadtripsRaw.roadtrips.map(
+  const roadtrips = await roadtripsRaw.roadtrips.map(
     (
       raw: {
         data: Array<Record<string, any>>
@@ -22,7 +22,7 @@ export const initUserData = async (token: string, dispatch: Dispatch<any>) => {
   dispatch(getRoadtripsByUserSuccess({ roadtrips: roadtrips }))
   const userEntries = await fetchUserEntries(token)
   const obj: { locations: LocationState[] } = { locations: [] }
-  userEntries.map((entry: { attributes: LocationState }) =>
+  await userEntries.map((entry: { attributes: LocationState }) =>
     obj.locations.push(entry.attributes)
   )
   dispatch(getLocationsByUserSuccess(obj))

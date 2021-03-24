@@ -10,10 +10,11 @@ import {
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { setProgressStep, setRoadtripStops } from '../../store/actions'
+import { selectUserLocations } from '../../store/selectors'
 import { autocomplete, iterateStops } from '../../utils/autocomplete'
 
 const StyledForm = withTheme(styled.form`
@@ -106,9 +107,12 @@ export const StartGoalForm = () => {
   // Array with the options of autocomplete
   const [array, setArray] = useState([])
 
+  //get Location of User
+  const userLocations = useSelector(selectUserLocations())
+
   const getItems = async (inputNew: string, eventType: string) => {
     if (inputNew.length > 2 && eventType !== 'click') {
-      const newSet = await autocomplete(inputNew)
+      const newSet = await autocomplete(inputNew, userLocations)
       setArray(Array.from(newSet))
     } else {
       setArray([])
@@ -224,7 +228,10 @@ export const StartGoalForm = () => {
                   // get name array with choosen stops
                   const values = getValues()
                   // get coordinates array of the stops
-                  const stopArray = await iterateStops(values.stops)
+                  const stopArray = await iterateStops(
+                    values.stops,
+                    userLocations
+                  )
                   dispatch(setRoadtripStops({ roadtripStops: stopArray }))
                   dispatch(setProgressStep({ progressStep: '2' }))
                 }}

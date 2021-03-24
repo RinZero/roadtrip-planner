@@ -26,7 +26,9 @@ import {
   selectMaxRoadtripStops,
   selectRoadtripStops,
   selectUiSelectedCategories,
+  selectUserLocations,
 } from '../../store/selectors'
+import { LocationState } from '../../store/user/types'
 import {
   getFirstCategories,
   getSecondCategories,
@@ -128,6 +130,36 @@ const SelectCategories = () => {
   // Get names of the categories later (depends on the category choosen before)
   const [secondArray, setSecondArray] = useState([{ number: '', name: '' }])
   const [thirdArray, setThirdArray] = useState([{ number: '', name: '' }])
+
+  type infoType = {
+    address: string
+    categories: { id: string; name: string; primary?: boolean }[]
+    coordinates: number[]
+  }
+  //get Location of User
+  const userLocations = useSelector(selectUserLocations())
+
+  const getUserLocations = () => {
+    const arr = new Array<infoType>()
+    if (userLocations) {
+      userLocations.forEach(function (place: LocationState) {
+        if (place.category) {
+          const categoryObj = JSON.parse(place.category)
+          const allCategories = new Array<{ id: string; name: string }>()
+          categoryObj.forEach((item: { number: string; name: string }) => {
+            allCategories.push({ id: item.number, name: item.name })
+          })
+          arr.push({
+            address: place.name,
+            categories: allCategories,
+            coordinates: [place.latitude, place.longitude],
+          })
+        }
+      })
+      return arr
+    }
+    return undefined
+  }
 
   const formChanged = (event: any) => {
     setNumberCategory(event.target.id)
@@ -277,11 +309,14 @@ const SelectCategories = () => {
                           })
                         )
 
+                        const userLocationData = getUserLocations()
+
                         const dataArray: string[] = Array.from(chips.keys())
                         const response = await roadtripGenerate(
                           stops,
                           maxStops,
-                          dataArray
+                          dataArray,
+                          userLocationData
                         )
                         dispatch(setMapRoute({ mapRoute: response.coorArr }))
                         dispatch(

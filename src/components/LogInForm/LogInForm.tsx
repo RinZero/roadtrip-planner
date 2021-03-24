@@ -61,8 +61,6 @@ const LogInForm = () => {
       )
       dispatch(getLocationsByUserSuccess(obj))
     }
-
-    // CreateUser()
   }
   return (
     <StyledForm onSubmit={handleSubmit(onFormSubmit)}>

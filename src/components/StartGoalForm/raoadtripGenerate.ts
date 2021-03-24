@@ -1,4 +1,6 @@
+/* eslint-disable prettier/prettier */
 import { fetchHereData } from '../../utils/fetchHereData'
+import { fetchPublicPlaces } from '../../utils/getPublicPlaces'
 
 type info = {
   address: string
@@ -6,13 +8,21 @@ type info = {
   coordinates: number[]
 }
 
+type info2 = {
+  address: string
+  categories: { id: string; name: string; primary?: boolean }[]
+  coordinates: number[]
+}
+
 export const roadtripGenerate = async (
   stops: number[][],
   maxStops: number,
-  categories: string[]
+  categories: string[],
+  ownLocations: info2[] | undefined
 ) => {
   // const center = createCenter(stops[0], stops[stops.length - 1])
 
+  const additionalStops = await getAdditionalPlaces(categories, ownLocations)
   const query = '' + categories.map((category) => category)
 
   const list = new Set<info>()
@@ -33,23 +43,37 @@ export const roadtripGenerate = async (
           width: 40000,
         },
       })
+
+      // add own and/or public user_entries to possible stops
+      additionalStops.forEach(function (arrayItem: info) {
+        possibleStops.items.push(arrayItem)
+      })
+
       if (possibleStops.items.length > 0) {
         const random2 = Math.floor(
           Math.random() * Math.floor(possibleStops.items.length)
         )
-        route[i] = [
-          possibleStops.items[random2].access[0].lat,
-          possibleStops.items[random2].access[0].lng,
-          i + 1,
-        ]
-        const obj = {
-          address: possibleStops.items[random2].address.label,
-          categories: possibleStops.items[random2].categories,
-          coordinates: [
-            possibleStops.items[random2].position.lat,
-            possibleStops.items[random2].position.lng,
-          ],
+        // check if UserEntry oder from HERE
+        if (possibleStops.items[random2].title) {
+          route[i] = [
+            possibleStops.items[random2].access[0].lat,
+            possibleStops.items[random2].access[0].lng,
+            i + 1,
+          ]
+        } else {
+          route[i] = possibleStops.items[random2].coordinates
         }
+        // check if obj UserEntry or from HERE
+        const obj = possibleStops.items[random2].title
+          ? {
+              address: possibleStops.items[random2].address.label,
+              categories: possibleStops.items[random2].categories,
+              coordinates: [
+                possibleStops.items[random2].position.lat,
+                possibleStops.items[random2].position.lng,
+              ],
+            }
+          : possibleStops.items[random2]
         list.add(obj)
       }
     }
@@ -94,4 +118,49 @@ export const calcDistance = (p1: number[], p2: number[]) => {
     dist = dist * 60 * 1.1515
     return dist
   }
+}
+
+const getAdditionalPlaces = async (
+  possibleCategories: string[],
+  ownLocations?: info2[]
+) => {
+  //call getPlaces for all possible public Places
+  const additionalPlaces = await getPlaces(possibleCategories)
+  //add all possible own places
+  if (ownLocations) {
+    for (let i = 0; i < ownLocations.length; i++) {
+      ownLocations[i].categories.forEach((item) => {
+        if (possibleCategories.includes(item.id)) {
+          // only return first Category - idk why
+          const obj = {
+            address: ownLocations[i].address,
+            coordinates: ownLocations[i].coordinates,
+            categories: item,
+          }
+          additionalPlaces.push(obj)
+        }
+      })
+    }
+  }
+  return additionalPlaces
+}
+
+const getPlaces = async (possibleCategories: string[]) => {
+  const places = await fetchPublicPlaces()
+  const additionalPlaces = new Array<info>()
+  for (let i = 0; i < places.length; i++) {
+    const categories = JSON.parse(places[i].category)
+    categories.forEach(function (arrayItem: { name: string; number: string }) {
+      if (possibleCategories.includes(arrayItem.number)) {
+        const addEntry = {
+          address: places[i].name,
+          categories: categories,
+          coordinates: [places[i].latitude, places[i].longitude],
+        }
+        additionalPlaces.push(addEntry)
+      }
+    })
+  }
+
+  return additionalPlaces
 }

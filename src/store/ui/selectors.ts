@@ -53,3 +53,8 @@ export const selectRoadtripInfos = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.roadtripInfos
   })
+
+export const selectEditRoadtrip = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.editRoadtrip
+  })

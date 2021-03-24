@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -20,7 +20,7 @@ const EditRoadtripCreation = () => {
   ]
   const token = useSelector(selectUserToken())
 
-  const submitRoadtrip = async () => {
+  const submitRoadtrip = useCallback(async () => {
     const roadtripData: createRoadtripType = {
       data: {
         type: 'roadtrip',
@@ -49,7 +49,7 @@ const EditRoadtripCreation = () => {
       }
     })
     const result = await createRoadtrip(roadtripData, token)
-  }
+  }, [roadtripInfo, token])
 
   const onChange = (r: Array<Record<string, any>>) => {
     dispatch(

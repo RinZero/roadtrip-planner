@@ -1,3 +1,5 @@
+import { RoadtripState } from '../user/types'
+
 export type userEntry = {
   public: boolean
   name: string
@@ -26,4 +28,5 @@ export type UiState = {
     api_key: string
     entry?: userEntry
   }[]
+  editRoadtrip: RoadtripState
 }

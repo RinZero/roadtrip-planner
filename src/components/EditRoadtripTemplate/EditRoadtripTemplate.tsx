@@ -202,7 +202,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
       itemDragged,
       ...remainingItems.slice(draggedTo),
     ]
-
+    setList(newList)
     if (draggedTo !== dragAndDrop.draggedTo) {
       setDragAndDrop({
         ...dragAndDrop,
@@ -214,6 +214,8 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
 
   const onDrop = (event: DragEvent<HTMLDivElement>) => {
     setList(dragAndDrop.updatedOrder)
+    // eslint-disable-next-line no-console
+    console.log(list)
     onChange(list)
 
     setDragAndDrop({
@@ -258,7 +260,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
                     : ''
                 }
               >
-                <ListItemText primary={item.address} />
+                <ListItemText primary={item.address || item.name} />
                 <ListItemSecondaryAction>
                   <IconButton>
                     <DeleteIcon />

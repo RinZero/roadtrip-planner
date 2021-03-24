@@ -1,12 +1,12 @@
 import { RoadtripState } from '../user/types'
 
 export type userEntry = {
-  public: boolean
+  public?: boolean
   name: string
-  description: string
+  description?: string
   latitude: number | null
   longitude: number | null
-  category: string
+  category?: string
   user_id?: number
   is_allowed?: boolean
 }

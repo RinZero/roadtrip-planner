@@ -71,7 +71,7 @@ export const roadtripGenerate = async (
                 possibleStops.items[random2].position.lat,
                 possibleStops.items[random2].position.lng,
               ],
-              api_key: possibleStops.items[random2].api_key,
+              api_key: possibleStops.items[random2].id,
             }
           : possibleStops.items[random2]
 

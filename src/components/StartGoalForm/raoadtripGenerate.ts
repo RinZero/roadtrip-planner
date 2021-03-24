@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+import { userEntry } from '../../store/ui/types'
+import { fetchUserEntries } from '../../utils/AuthService'
 import { fetchHereData } from '../../utils/fetchHereData'
 import { fetchPublicPlaces } from '../../utils/getPublicPlaces'
 
@@ -6,6 +9,7 @@ type info = {
   categories: { id: string; name: string; primary?: boolean }
   coordinates: number[]
   api_key: string
+  entry?: userEntry
 }
 
 type info2 = {
@@ -13,6 +17,7 @@ type info2 = {
   categories: { id: string; name: string; primary?: boolean }[]
   coordinates: number[]
   api_key: string
+  entry?: userEntry
 }
 
 export const roadtripGenerate = async (
@@ -141,6 +146,7 @@ const getAdditionalPlaces = async (
             coordinates: ownLocations[i].coordinates,
             categories: item,
             api_key: ownLocations[i].api_key,
+            entry: ownLocations[i].entry,
           }
           additionalPlaces.push(obj)
         }
@@ -157,16 +163,26 @@ const getPlaces = async (possibleCategories: string[]) => {
     const categories = JSON.parse(places[i].category)
     categories.forEach(function (arrayItem: { name: string; number: string }) {
       if (possibleCategories.includes(arrayItem.number)) {
+        const userEntry = {
+          public: places[i].public,
+          name: places[i].name,
+          description: places[i].description,
+          latitude: places[i].latitude,
+          longitude: places[i].longitude,
+          category: places[i].category,
+          user_id: places[i].user_id,
+          is_allowed: places[i].is_allowed,
+        }
         const addEntry = {
           address: places[i].name,
           categories: categories,
           coordinates: [places[i].latitude, places[i].longitude],
           api_key: places[i].api_key,
+          entry: userEntry,
         }
         additionalPlaces.push(addEntry)
       }
     })
   }
-
   return additionalPlaces
 }

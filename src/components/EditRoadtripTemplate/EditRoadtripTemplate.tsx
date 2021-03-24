@@ -261,7 +261,12 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
               >
                 <ListItemText primary={item.address || item.name} />
                 <ListItemSecondaryAction>
-                  <IconButton>
+                  <IconButton
+                    onClick={() => {
+                      setList(list.filter((listitem) => listitem !== item))
+                      onChange(list.filter((listitem) => listitem !== item))
+                    }}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>

@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+import { userEntry } from '../../store/ui/types'
 import { fetchHereData } from '../../utils/fetchHereData'
 import { fetchPublicPlaces } from '../../utils/getPublicPlaces'
 
@@ -6,6 +8,7 @@ type info = {
   categories: { id: string; name: string; primary?: boolean }
   coordinates: number[]
   api_key: string
+  entry?: userEntry
 }
 
 type info2 = {
@@ -13,6 +16,7 @@ type info2 = {
   categories: { id: string; name: string; primary?: boolean }[]
   coordinates: number[]
   api_key: string
+  entry?: userEntry
 }
 
 export const roadtripGenerate = async (
@@ -136,11 +140,17 @@ const getAdditionalPlaces = async (
       ownLocations[i].categories.forEach((item) => {
         if (possibleCategories.includes(item.id)) {
           // only return first Category - idk why
+          const userEntry = {
+            name: ownLocations[i].address,
+            latitude: ownLocations[i].coordinates[0],
+            longitude: ownLocations[i].coordinates[1],
+          }
           const obj = {
             address: ownLocations[i].address,
             coordinates: ownLocations[i].coordinates,
             categories: item,
             api_key: ownLocations[i].api_key,
+            entry: userEntry,
           }
           additionalPlaces.push(obj)
         }
@@ -157,16 +167,27 @@ const getPlaces = async (possibleCategories: string[]) => {
     const categories = JSON.parse(places[i].category)
     categories.forEach(function (arrayItem: { name: string; number: string }) {
       if (possibleCategories.includes(arrayItem.number)) {
+        const userEntry = {
+          public: places[i].public,
+          name: places[i].name,
+          category: categories,
+          latitude: places[i].latitude,
+          longitude: places[i].longitude,
+          api_key: places[i].api_key,
+          user_id: places[i].user.id,
+        }
         const addEntry = {
           address: places[i].name,
           categories: categories,
           coordinates: [places[i].latitude, places[i].longitude],
           api_key: places[i].api_key,
+          entry: userEntry,
         }
         additionalPlaces.push(addEntry)
       }
     })
   }
-
+  // eslint-disable-next-line no-console
+  console.log(additionalPlaces)
   return additionalPlaces
 }

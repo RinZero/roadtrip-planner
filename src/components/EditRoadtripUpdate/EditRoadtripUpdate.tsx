@@ -50,7 +50,7 @@ const EditRoadtripUpdate = () => {
       name: '',
     },
   ]
-  return editRoadtrip.stops[0].name ? (
+  return editRoadtrip.stops.every((stop) => stop.name !== undefined) ? (
     <EditRoadtripTemplate
       onChange={onChange}
       listInfo={editRoadtrip.stops}

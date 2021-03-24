@@ -80,6 +80,10 @@ const HeaderHight = withTheme(styled(Box)`
 const HeaderAppBar = withTheme(styled(AppBar)`
   height: 10vh;
   color: #707070;
+  padding-top: ${(props) => props.theme.spacing(1)}px;
+  MuiPopover-paper {
+    top: 0;
+  }
 `)
 
 const HeaderIconButton = withTheme(styled(IconButton)`
@@ -89,47 +93,42 @@ const HeaderIconButton = withTheme(styled(IconButton)`
   }
 `)
 
-const BurgerMenu = withTheme(styled(Menu)`
-  .MuiMenu-paper {
-    top: 0;
-  }
-`)
+const BurgerMenu = withTheme(styled(Menu)``)
 
 const Header = () => {
-  const [mobileOpen, setMobileOpen] = React.useState(false)
-  function handleDrawerToggle() {
-    setMobileOpen(!mobileOpen)
-  }
+  const [anchorEl, setAnchorEl] = React.useState(null)
   const history = useHistory()
   const userName = useSelector(selectUserName())
   const profilePic = useSelector(selectUserPicture())
   const dispatch = useDispatch()
+
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
   return (
     <HeaderHight>
       <HeaderAppBar>
         <Toolbar>
-          {mobileOpen ? (
-            <HeaderIconButton onClick={handleDrawerToggle}>
-              <CloseIcon />
-              <BurgerMenu
-                autoFocus={false}
-                open={Boolean(mobileOpen)}
-                onClose={handleDrawerToggle}
-              >
-                <MenuItem component={RouterLink} to={`/`}>
-                  Neuer Roadtrip
-                </MenuItem>
-                <MenuItem component={RouterLink} to={`/neuer_ort`}>
-                  Ort hinzufügen
-                </MenuItem>
-              </BurgerMenu>
-            </HeaderIconButton>
-          ) : (
-            <HeaderIconButton onClick={handleDrawerToggle}>
-              <MenuIcon />
-            </HeaderIconButton>
-          )}
-
+          <HeaderIconButton onClick={handleClick}>
+            <MenuIcon />
+          </HeaderIconButton>
+          <BurgerMenu
+            autoFocus={false}
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem component={RouterLink} to={`/`}>
+              Neuer Roadtrip
+            </MenuItem>
+            <MenuItem component={RouterLink} to={`/neuer_ort`}>
+              Ort hinzufügen
+            </MenuItem>
+          </BurgerMenu>
           <HeaderLink component={RouterLink} to={`/`} variant="h6">
             Neuer Roadtrip
           </HeaderLink>

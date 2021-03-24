@@ -27,6 +27,7 @@ import { userEntry } from '../../store/ui/types'
 import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
 import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { fetchHereData } from '../../utils/fetchHereData'
+import { initUserData } from '../../utils/initUserData'
 
 const StyledBox = withTheme(styled(Box)`
   width: 100%;
@@ -105,7 +106,6 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   }
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
   const token = useSelector(selectUserToken())
-
   // const testRoadtripInfo: {
   //   address: string
   //   categories: {
@@ -279,7 +279,10 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   return (
     <>
       <Box>
-        <CreateButton color="primary" onClick={() => onSave()}>
+        <CreateButton color="primary" onClick={async () => {
+          onSave()
+          initUserData(token, dispatch)
+        }>
           Erstellen
         </CreateButton>
       </Box>

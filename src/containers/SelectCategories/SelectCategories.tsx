@@ -27,6 +27,7 @@ import {
   selectUiSelectedCategories,
   selectUserLocations,
 } from '../../store/selectors'
+import { userEntry } from '../../store/ui/types'
 import { LocationState } from '../../store/user/types'
 import {
   getFirstCategories,
@@ -135,6 +136,7 @@ const SelectCategories = () => {
     categories: { id: string; name: string; primary?: boolean }[]
     coordinates: number[]
     api_key: string
+    entry?: userEntry | any
   }
   //get Location of User
   const userLocations = useSelector(selectUserLocations())
@@ -142,18 +144,31 @@ const SelectCategories = () => {
   const getUserLocations = () => {
     const arr = new Array<infoType>()
     if (userLocations) {
-      userLocations.forEach(function (place: LocationState) {
+      userLocations.forEach(function (place: any) {
         if (place.category) {
           const categoryObj = JSON.parse(place.category)
           const allCategories = new Array<{ id: string; name: string }>()
           categoryObj.forEach((item: { number: string; name: string }) => {
             allCategories.push({ id: item.number, name: item.name })
           })
+
+          const userEntry = {
+            public: place.public,
+            name: place.name,
+            description: place.description,
+            latitude: place.latitude,
+            longitude: place.longitude,
+            category: place.category,
+            user_id: place.user.id,
+            is_allowed: place.is_allowed,
+          }
+
           arr.push({
             address: place.name || '',
             categories: allCategories,
             coordinates: [place.latitude || 0, place.longitude || 0],
             api_key: place.api_entry_key || '',
+            entry: userEntry,
           })
         }
       })

@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { userEntry } from '../../store/ui/types'
+import { fetchUserEntries } from '../../utils/AuthService'
 import { fetchHereData } from '../../utils/fetchHereData'
 import { fetchPublicPlaces } from '../../utils/getPublicPlaces'
 
@@ -8,7 +9,7 @@ type info = {
   categories: { id: string; name: string; primary?: boolean }
   coordinates: number[]
   api_key: string
-  entry?: userEntry
+  entry?: userEntry | any
 }
 
 type info2 = {
@@ -16,7 +17,7 @@ type info2 = {
   categories: { id: string; name: string; primary?: boolean }[]
   coordinates: number[]
   api_key: string
-  entry?: userEntry
+  entry?: userEntry | any
 }
 
 export const roadtripGenerate = async (
@@ -140,17 +141,12 @@ const getAdditionalPlaces = async (
       ownLocations[i].categories.forEach((item) => {
         if (possibleCategories.includes(item.id)) {
           // only return first Category - idk why
-          const userEntry = {
-            name: ownLocations[i].address,
-            latitude: ownLocations[i].coordinates[0],
-            longitude: ownLocations[i].coordinates[1],
-          }
           const obj = {
             address: ownLocations[i].address,
             coordinates: ownLocations[i].coordinates,
             categories: item,
             api_key: ownLocations[i].api_key,
-            entry: userEntry,
+            entry: ownLocations[i].entry,
           }
           additionalPlaces.push(obj)
         }
@@ -170,11 +166,12 @@ const getPlaces = async (possibleCategories: string[]) => {
         const userEntry = {
           public: places[i].public,
           name: places[i].name,
-          category: categories,
+          description: places[i].description,
           latitude: places[i].latitude,
           longitude: places[i].longitude,
-          api_key: places[i].api_key,
-          user_id: places[i].user.id,
+          category: places[i].category,
+          user_id: places[i].user_id,
+          is_allowed: places[i].is_allowed,
         }
         const addEntry = {
           address: places[i].name,
@@ -187,7 +184,5 @@ const getPlaces = async (possibleCategories: string[]) => {
       }
     })
   }
-  // eslint-disable-next-line no-console
-  console.log(additionalPlaces)
   return additionalPlaces
 }

@@ -29,17 +29,56 @@ import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { fetchHereData } from '../../utils/fetchHereData'
 
 const StyledBox = withTheme(styled(Box)`
-  width: 25%;
+  width: 100%;
   min-width: ${(props) => props.theme.spacing(25)}px;
   overflow: auto;
-  max-height: ${(props) => props.theme.spacing(62.5)}px;
-  margin-left: ${(props) => props.theme.spacing(2)}px;
+  max-width: ${(props) => props.theme.spacing(8.75)}vw;
+  max-height: ${(props) => props.theme.spacing(4)}vh;
+  margin-top: ${(props) => props.theme.spacing(1)}px;
+  .MuiList-root {
+    display: flex;
+  }
+  ${(props) => props.theme.breakpoints.up('md')} {
+    width: 25%;
+    min-width: ${(props) => props.theme.spacing(25)}px;
+    overflow: auto;
+    max-height: ${(props) => props.theme.spacing(6.5)}vh;
+    margin-left: ${(props) => props.theme.spacing(2)}px;
+    .MuiList-root {
+      display: inline;
+    }
+    .MuiListItemSecondaryAction-root {
+      top: 28%;
+      ${(props) => props.theme.breakpoints.up('md')} {
+        top: 50%;
+      }
+    }
 `)
 const DragListItem = withTheme(styled(ListItem)`
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
   border-radius: 15px;
   border: 1px solid rgb(0 0 0 / 16%);
   margin-bottom: ${(props) => props.theme.spacing(1.2)}px;
+`)
+
+const ContentBox = withTheme(styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  ${(props) => props.theme.breakpoints.up('md')} {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+`)
+const CreateButton = withTheme(styled(Button)`
+  width: ${(props) => props.theme.spacing(35)}px;
+  color: #ffffff;
+  background-color: #71b255;
+  padding: ${(props) => props.theme.spacing(2)}px;
+  border-radius: 15px;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  margin: ${(props) => props.theme.spacing(3.75)}px 0;
 `)
 
 export type EditRoadtripComponentProps = {
@@ -238,42 +277,46 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
 
   return (
-    <Box display="flex" flex-direction="column" justify-content="space-between">
-      <DisplayMapClass allLocations={mapRoute} />
-      <StyledBox>
-        <List component="nav" aria-label="contacts">
-          {list.map((item, index) => {
-            return (
-              <DragListItem
-                button
-                key={index}
-                data-position={index}
-                draggable
-                onDragStart={onDragStart}
-                onDragOver={onDragOver}
-                onDrop={onDrop}
-                onDragLeave={onDragLeave}
-                className={
-                  dragAndDrop && dragAndDrop.draggedTo === Number(index)
-                    ? 'dropArea'
-                    : ''
-                }
-              >
-                <ListItemText primary={item.address || item.name} />
-                <ListItemSecondaryAction>
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </DragListItem>
-            )
-          })}
-        </List>
-      </StyledBox>
-      <Button color="primary" variant="contained" onClick={() => onSave()}>
-        Create
-      </Button>
-    </Box>
+    <>
+      <Box>
+        <CreateButton color="primary" onClick={() => onSave()}>
+          Erstellen
+        </CreateButton>
+      </Box>
+      <ContentBox>
+        <DisplayMapClass allLocations={mapRoute} />
+        <StyledBox>
+          <List component="nav" aria-label="contacts">
+            {list.map((item, index) => {
+              return (
+                <DragListItem
+                  button
+                  key={index}
+                  data-position={index}
+                  draggable
+                  onDragStart={onDragStart}
+                  onDragOver={onDragOver}
+                  onDrop={onDrop}
+                  onDragLeave={onDragLeave}
+                  className={
+                    dragAndDrop && dragAndDrop.draggedTo === Number(index)
+                      ? 'dropArea'
+                      : ''
+                  }
+                >
+                  <ListItemText primary={item.address || item.name} />
+                  <ListItemSecondaryAction>
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </DragListItem>
+              )
+            })}
+          </List>
+        </StyledBox>
+      </ContentBox>
+    </>
   )
 }
 

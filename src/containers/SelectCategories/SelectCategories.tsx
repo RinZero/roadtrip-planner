@@ -38,9 +38,9 @@ const StartButton = withTheme(styled(Button)`
   background-color: #71b255;
   box-shadow: 0px 3px 6px 0px #b1b1b1;
   color: white;
-  height: ${(props) => props.theme.spacing(5)}px;
-  width: ${(props) => props.theme.spacing(44.25)}px;
   margin-top: ${(props) => props.theme.spacing(2)}px;
+  padding: ${(props) => props.theme.spacing(2)}px;
+  width: 80%;
   &:hover,
   &:active {
     background-color: #355727;
@@ -76,10 +76,17 @@ const TagChip = withTheme(styled(Chip)`
   font-size: ${(props) => props.theme.spacing(2)}px;
 `)
 
+const CategoryInputLabel = withTheme(styled(InputLabel)`
+  margin-left: ${(props) => props.theme.spacing(2)}px;
+`)
+
 const AllDropdowns = withTheme(styled(Box)`
-  display: flex;
-  justify-content: left;
+  display: block;
   width: 100%;
+  ${(props) => props.theme.breakpoints.up('lg')}: {
+    display: flex;
+    justify-content: left;
+  }
 `)
 
 const Dropdownbox = withTheme(styled(Box)`
@@ -105,6 +112,7 @@ const AddText = withTheme(styled(Box)`
 
 const CategoriesFormControl = withTheme(styled(FormControl)`
   margin: ${(props) => props.theme.spacing(1.5)}px;
+  min-width: ${(props) => props.theme.spacing(25)}px;
 `)
 
 const SelectCategories = () => {
@@ -254,7 +262,9 @@ const SelectCategories = () => {
                   }}
                 >
                   <CategoriesFormControl>
-                    <InputLabel id="Kategorie1">Überkategorie</InputLabel>
+                    <CategoryInputLabel id="Kategorie1">
+                      Überkategorie
+                    </CategoryInputLabel>
                     <CategoryDropdown
                       label="Kategorie1"
                       id={1}
@@ -265,7 +275,9 @@ const SelectCategories = () => {
                   </CategoriesFormControl>
                   {numberCategory >= 1 && (
                     <CategoriesFormControl>
-                      <InputLabel id="Kategorie2">1. Unterkategorie</InputLabel>
+                      <CategoryInputLabel id="Kategorie2">
+                        1. Unterkategorie
+                      </CategoryInputLabel>
                       <CategoryDropdown
                         label="Kategorie2"
                         id={2}
@@ -276,7 +288,9 @@ const SelectCategories = () => {
                   )}
                   {numberCategory > 1 && thirdArray[1] && (
                     <CategoriesFormControl>
-                      <InputLabel id="Kategorie3">2. Unterkategorie</InputLabel>
+                      <CategoryInputLabel id="Kategorie3">
+                        2. Unterkategorie
+                      </CategoryInputLabel>
                       <CategoryDropdown
                         label="Kategorie3"
                         id={3}

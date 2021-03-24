@@ -10,7 +10,7 @@ const NewPlaceStyles = withTheme(styled.div`
   padding: ${(props) => props.theme.spacing(10)}px 0;
   display: flex;
   flex-direction: column;
-  height: 93vh;
+  height: 90vh;
   justify-content: space-around;
 `)
 

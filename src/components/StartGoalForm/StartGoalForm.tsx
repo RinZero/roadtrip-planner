@@ -39,7 +39,7 @@ const StyledForm = withTheme(styled.form`
 `)
 
 const StyledButton = withTheme(styled(Button)`
-  width: 100%;
+  width: 80%;
   color: #ffffff;
   background-color: #71b255;
   padding: ${(props) => props.theme.spacing(2)}px;
@@ -58,7 +58,7 @@ const AddButton = withTheme(styled(Button)`
 `)
 
 const StyledTextField = withTheme(styled(TextField)`
-  padding-bottom: ${(props) => props.theme.spacing(2)}px;
+  padding-bottom: ${(props) => props.theme.spacing(1.25)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 
@@ -81,22 +81,13 @@ const StartGoalTextField = withTheme(styled(StyledTextField)`
   }
 `)
 
-const StopTextField = withTheme(styled(StyledTextField)`
-  margin: ${(props) => props.theme.spacing(2)}px 0;
-  input,
-  label {
-    font-size: ${(props) => props.theme.spacing(3)}px;
-    margin-left: ${(props) => props.theme.spacing(3.7)}px;
-  }
-`)
-
 const FormBox = withTheme(styled(Box)`
-  display: flex;
+  display: block;
   width: 100%;
-  justify-content: center;
-  gap: ${(props) => props.theme.spacing(5)}px;
-  popper {
-    color: red;
+  ${(props) => props.theme.breakpoints.up('md')} {
+    display: flex;
+    justify-content: center;
+    gap: ${(props) => props.theme.spacing(5)}px;
   }
 `)
 
@@ -191,7 +182,7 @@ export const StartGoalForm = () => {
                 getItems(newInputValue, event.type)
               }}
               renderInput={(params) => (
-                <StopTextField
+                <StartGoalTextField
                   {...params}
                   className={active ? 'collapse' : 'expand'}
                   onKeyDown={toggleClass}
@@ -210,7 +201,7 @@ export const StartGoalForm = () => {
                   getItems(newInputValue, event.type)
                 }}
                 renderInput={(params) => (
-                  <StopTextField
+                  <StartGoalTextField
                     {...params}
                     label="Zwischenstopp"
                     name="stops[2]"

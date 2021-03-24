@@ -45,6 +45,8 @@ const fetch = axios.create({
 export const logIn = (logInData: logInType) => {
   return fetch.post('sessions', logInData).then((response) => {
     if (response.data.status === 'unprocessable_entity') {
+      // eslint-disable-next-line no-console
+      console.log(response.data.status)
     } else {
       const { id, email, username, is_admin, picture } = response.data.user
       const jwtToken = response.data.token
@@ -85,6 +87,8 @@ export const createRoadtrip = (
 export const logOut = (id: string) => {
   return fetch.delete('sessions/' + id).then((response) => {
     if (response.data.errors) {
+      // eslint-disable-next-line no-console
+      console.log(response.data.errors)
     }
   })
 }

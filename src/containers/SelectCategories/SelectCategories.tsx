@@ -152,7 +152,7 @@ const SelectCategories = () => {
   const getUserLocations = () => {
     const arr = new Array<infoType>()
     if (userLocations) {
-      userLocations.forEach(function (place: any) {
+      userLocations.forEach(function (place: Record<string, any>) {
         if (place.category) {
           const categoryObj = JSON.parse(place.category)
           const allCategories = new Array<{ id: string; name: string }>()

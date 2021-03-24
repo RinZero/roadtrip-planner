@@ -57,7 +57,7 @@ const AddButton = withTheme(styled(Button)`
 `)
 
 const StyledTextField = withTheme(styled(TextField)`
-  padding-bottom: ${(props) => props.theme.spacing(2)}px;
+  padding-bottom: ${(props) => props.theme.spacing(1.25)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 
@@ -83,7 +83,7 @@ const StartGoalTextField = withTheme(styled(StyledTextField)`
 const FormBox = withTheme(styled(Box)`
   display: block;
   width: 100%;
-  ${(props) => props.theme.breakpoints.up('sm')} {
+  ${(props) => props.theme.breakpoints.up('md')} {
     display: flex;
     justify-content: center;
     gap: ${(props) => props.theme.spacing(5)}px;

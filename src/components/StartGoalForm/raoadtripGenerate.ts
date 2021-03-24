@@ -141,11 +141,6 @@ const getAdditionalPlaces = async (
       ownLocations[i].categories.forEach((item) => {
         if (possibleCategories.includes(item.id)) {
           // only return first Category - idk why
-          const userEntry = {
-            name: ownLocations[i].address,
-            latitude: ownLocations[i].coordinates[0],
-            longitude: ownLocations[i].coordinates[1],
-          }
           const obj = {
             address: ownLocations[i].address,
             coordinates: ownLocations[i].coordinates,

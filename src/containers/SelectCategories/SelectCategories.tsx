@@ -144,7 +144,7 @@ const SelectCategories = () => {
     categories: { id: string; name: string; primary?: boolean }[]
     coordinates: number[]
     api_key: string
-    entry?: userEntry | any
+    entry?: userEntry
   }
   //get Location of User
   const userLocations = useSelector(selectUserLocations())

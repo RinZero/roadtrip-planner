@@ -9,7 +9,7 @@ type info = {
   categories: { id: string; name: string; primary?: boolean }
   coordinates: number[]
   api_key: string
-  entry?: userEntry | any
+  entry?: userEntry
 }
 
 type info2 = {
@@ -17,7 +17,7 @@ type info2 = {
   categories: { id: string; name: string; primary?: boolean }[]
   coordinates: number[]
   api_key: string
-  entry?: userEntry | any
+  entry?: userEntry
 }
 
 export const roadtripGenerate = async (
@@ -70,14 +70,14 @@ export const roadtripGenerate = async (
         // check if obj UserEntry or from HERE
         const obj = possibleStops.items[random2].title
           ? {
-            address: possibleStops.items[random2].address.label,
-            categories: possibleStops.items[random2].categories,
-            coordinates: [
-              possibleStops.items[random2].position.lat,
-              possibleStops.items[random2].position.lng,
-            ],
-            api_key: possibleStops.items[random2].id,
-          }
+              address: possibleStops.items[random2].address.label,
+              categories: possibleStops.items[random2].categories,
+              coordinates: [
+                possibleStops.items[random2].position.lat,
+                possibleStops.items[random2].position.lng,
+              ],
+              api_key: possibleStops.items[random2].id,
+            }
           : possibleStops.items[random2]
 
         list.add(obj)

@@ -49,9 +49,15 @@ const LogInForm = () => {
     if (user) {
       dispatch(logInSuccess(user))
       const roadtripsRaw = await fetchRoadtrips(user.token)
-      const roadtrips = roadtripsRaw.map(
-        (raw: { data: Array<Record<string, any>> }) =>
-          convertToRoadtrip(raw.data)
+
+      const roadtrips = roadtripsRaw.roadtrips.map(
+        (
+          raw: {
+            data: Array<Record<string, any>>
+          },
+          index: number
+        ) =>
+          convertToRoadtrip(raw.data, roadtripsRaw.info.data[index].attributes)
       )
       dispatch(getRoadtripsByUserSuccess({ roadtrips: roadtrips }))
       const userEntries = await fetchUserEntries(user.token)
@@ -61,8 +67,6 @@ const LogInForm = () => {
       )
       dispatch(getLocationsByUserSuccess(obj))
     }
-
-    // CreateUser()
   }
   return (
     <StyledForm onSubmit={handleSubmit(onFormSubmit)}>

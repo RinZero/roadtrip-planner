@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { ChangeEvent, memo, useState, useEffect } from 'react'
 
 import { Select, withTheme } from '@material-ui/core'

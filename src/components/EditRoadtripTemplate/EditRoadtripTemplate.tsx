@@ -1,4 +1,4 @@
-import React, { memo, useState, DragEvent } from 'react'
+import React, { memo, useState, DragEvent, FC } from 'react'
 
 import {
   Box,
@@ -34,7 +34,7 @@ const StyledBox = withTheme(styled(Box)`
   overflow: auto;
   max-width: ${(props) => props.theme.spacing(8.75)}vw;
   max-height: ${(props) => props.theme.spacing(4)}vh;
-  margin-left: ${(props) => props.theme.spacing(2)}px;
+  margin-top: ${(props) => props.theme.spacing(1)}px;
   .MuiList-root {
     display: flex;
   }
@@ -47,20 +47,18 @@ const StyledBox = withTheme(styled(Box)`
     .MuiList-root {
       display: inline;
     }
-  }
+    .MuiListItemSecondaryAction-root {
+      top: 28%;
+      ${(props) => props.theme.breakpoints.up('md')} {
+        top: 50%;
+      }
+    }
 `)
 const DragListItem = withTheme(styled(ListItem)`
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
   border-radius: 15px;
   border: 1px solid rgb(0 0 0 / 16%);
   margin-bottom: ${(props) => props.theme.spacing(1.2)}px;
-
-  .MuiListItemSecondaryAction-root {
-    top: 28%;
-    ${(props) => props.theme.breakpoints.up('md')} {
-      top: 50%;
-    }
-  }
 `)
 
 const ContentBox = withTheme(styled(Box)`
@@ -73,35 +71,41 @@ const ContentBox = withTheme(styled(Box)`
     justify-content: space-between;
   }
 `)
+const CreateButton = withTheme(styled(Button)`
+  width: ${(props) => props.theme.spacing(35)}px;
+  color: #ffffff;
+  background-color: #71b255;
+  padding: ${(props) => props.theme.spacing(2)}px;
+  border-radius: 15px;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  margin: ${(props) => props.theme.spacing(3.75)}px 0;
+`)
 
-const initialDnDState = {
-  draggedFrom: 0,
-  draggedTo: 0,
-  isDragging: false,
-  originalOrder: [
-    {
-      address: '',
-      categories: { id: '', name: '' },
-      coordinates: [0, 0],
-      api_key: '',
-    },
-  ],
-  updatedOrder: [
-    {
-      address: '',
-      categories: { id: '', name: '' },
-      coordinates: [0, 0],
-      api_key: '',
-    },
-  ],
+export type EditRoadtripComponentProps = {
+  dndStateOrder: Array<Record<string, any>>
+  onSave: () => void
+  listInfo: Array<Record<string, any>>
+  onChange: (r: Array<Record<string, any>>) => void
 }
-
-const EditRoadtripComponent = () => {
+const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
+  dndStateOrder,
+  onSave,
+  listInfo,
+  onChange,
+}) => {
   const dispatch = useDispatch()
   const roadtripInfo = useSelector(selectRoadtripInfos())
-  const [list, setList] = useState(roadtripInfo)
+  const [list, setList] = useState(listInfo)
+  const initialDnDState = {
+    draggedFrom: 0,
+    draggedTo: 0,
+    isDragging: false,
+    originalOrder: dndStateOrder,
+    updatedOrder: dndStateOrder,
+  }
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
   const token = useSelector(selectUserToken())
+
   // const testRoadtripInfo: {
   //   address: string
   //   categories: {
@@ -161,36 +165,36 @@ const EditRoadtripComponent = () => {
   //   },
   // ]
 
-  const submitRoadtrip = async () => {
-    const roadtripData: createRoadtripType = {
-      data: {
-        type: 'roadtrip',
-        locations: [],
-        attributes: {
-          name: 'Roadtrip test',
-          public: false,
-          distance: 1,
-        },
-      },
-    }
-    roadtripInfo.forEach((info) => {
-      //TODO if check between api and user entries
-      if (info.entry) {
-        // User Entry
-        roadtripData.data.locations.push({
-          api_entry: undefined,
-          user_entry: info.entry,
-        })
-      } else {
-        // APi entry
-        roadtripData.data.locations.push({
-          api_entry: { api_entry_key: info.api_key },
-          user_entry: undefined,
-        })
-      }
-    })
-    const result = await createRoadtrip(roadtripData, token)
-  }
+  //   const submitRoadtrip = async () => {
+  //     const roadtripData: createRoadtripType = {
+  //       data: {
+  //         type: 'roadtrip',
+  //         locations: [],
+  //         attributes: {
+  //           name: 'Roadtrip test',
+  //           public: false,
+  //           distance: 1,
+  //         },
+  //       },
+  //     }
+  //     roadtripInfo.forEach((info) => {
+  //       //TODO if check between api and user entries
+  //       if (info.entry) {
+  //         // User Entry
+  //         roadtripData.data.locations.push({
+  //           api_entry: undefined,
+  //           user_entry: info.entry,
+  //         })
+  //       } else {
+  //         // APi entry
+  //         roadtripData.data.locations.push({
+  //           api_entry: { api_entry_key: info.api_key },
+  //           user_entry: undefined,
+  //         })
+  //       }
+  //     })
+  //     const result = await createRoadtrip(roadtripData, token)
+  //   }
 
   // onDragStart fires when an element
   // starts being dragged
@@ -237,9 +241,7 @@ const EditRoadtripComponent = () => {
       itemDragged,
       ...remainingItems.slice(draggedTo),
     ]
-
     setList(newList)
-
     if (draggedTo !== dragAndDrop.draggedTo) {
       setDragAndDrop({
         ...dragAndDrop,
@@ -251,7 +253,8 @@ const EditRoadtripComponent = () => {
 
   const onDrop = (event: DragEvent<HTMLDivElement>) => {
     setList(dragAndDrop.updatedOrder)
-    dispatch(setRoadtripInfos({ roadtripInfos: list }))
+
+    onChange(list)
 
     setDragAndDrop({
       ...dragAndDrop,
@@ -274,40 +277,47 @@ const EditRoadtripComponent = () => {
   const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
 
   return (
-    <ContentBox>
-      <DisplayMapClass allLocations={mapRoute} />
-      <StyledBox>
-        <List component="nav" aria-label="contacts">
-          {list.map((item, index) => {
-            return (
-              <DragListItem
-                button
-                key={index}
-                data-position={index}
-                draggable
-                onDragStart={onDragStart}
-                onDragOver={onDragOver}
-                onDrop={onDrop}
-                onDragLeave={onDragLeave}
-                className={
-                  dragAndDrop && dragAndDrop.draggedTo === Number(index)
-                    ? 'dropArea'
-                    : ''
-                }
-              >
-                <ListItemText primary={item.address} />
-                <ListItemSecondaryAction>
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </DragListItem>
-            )
-          })}
-        </List>
-      </StyledBox>
-    </ContentBox>
+    <>
+      <Box>
+        <CreateButton color="primary" onClick={() => onSave()}>
+          Erstellen
+        </CreateButton>
+      </Box>
+      <ContentBox>
+        <DisplayMapClass allLocations={mapRoute} />
+        <StyledBox>
+          <List component="nav" aria-label="contacts">
+            {list.map((item, index) => {
+              return (
+                <DragListItem
+                  button
+                  key={index}
+                  data-position={index}
+                  draggable
+                  onDragStart={onDragStart}
+                  onDragOver={onDragOver}
+                  onDrop={onDrop}
+                  onDragLeave={onDragLeave}
+                  className={
+                    dragAndDrop && dragAndDrop.draggedTo === Number(index)
+                      ? 'dropArea'
+                      : ''
+                  }
+                >
+                  <ListItemText primary={item.address || item.name} />
+                  <ListItemSecondaryAction>
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </DragListItem>
+              )
+            })}
+          </List>
+        </StyledBox>
+      </ContentBox>
+    </>
   )
 }
 
-export default memo(EditRoadtripComponent)
+export default memo(EditRoadtripTemplate)

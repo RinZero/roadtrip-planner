@@ -1,5 +1,7 @@
 import { ActionType, createAction } from 'typesafe-actions'
 
+import { LocationState, RoadtripState } from '../user/types'
+
 export const setProgressStep = createAction('ui/SET_PROGRESS_STEP')<{
   progressStep: '1' | '2' | '3' | '4'
 }>()
@@ -35,6 +37,14 @@ export const setRoadtripInfos = createAction('ui/SET_ROADTRIP_INFOS')<{
   }[]
 }>()
 
+export const setEditRoadtripStops = createAction('ui/SET_EDIT_ROADTRIP_STOPS')<{
+  editRoadtripStops: LocationState[]
+}>()
+
+export const setEditRoadtrip = createAction('ui/SET_EDIT_ROADTRIP')<{
+  editRoadtrip: RoadtripState
+}>()
+
 export const UiActions = {
   setProgressStep,
   setRoadtripStops,
@@ -43,6 +53,8 @@ export const UiActions = {
   setMapRoute,
   setIsLocked,
   setRoadtripInfos,
+  setEditRoadtripStops,
+  setEditRoadtrip,
 }
 
 export type UiActionsType = ActionType<typeof UiActions>

@@ -206,6 +206,8 @@ const EditRoadtripComponent = () => {
       ...remainingItems.slice(draggedTo),
     ]
 
+    setList(newList)
+
     if (draggedTo !== dragAndDrop.draggedTo) {
       setDragAndDrop({
         ...dragAndDrop,

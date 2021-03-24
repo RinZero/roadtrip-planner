@@ -9,14 +9,10 @@ import {
   logInSuccess,
   getRoadtripsByUserSuccess,
   getLocationsByUserSuccess,
-} from '../../store/actions'
-import { LocationState } from '../../store/user/types'
-import {
-  logIn,
-  fetchRoadtrips,
-  fetchUserEntries,
-} from '../../utils/AuthService'
-import { convertToRoadtrip } from '../../utils/convertToRoadtrip'
+} from 'store/actions'
+import { LocationState } from 'store/user/types'
+import { logIn, fetchRoadtrips, fetchUserEntries } from 'utils/AuthService'
+import { convertToRoadtrip } from 'utils/convertToRoadtrip'
 
 type IFormInput = {
   email: string

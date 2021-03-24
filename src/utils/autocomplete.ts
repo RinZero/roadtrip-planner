@@ -1,4 +1,5 @@
-import { LocationState } from '../store/user/types'
+import { LocationState } from 'store/user/types'
+
 import { PublicPlaceType } from './additionalTypes'
 import { fetchPublicPlaces } from './getPublicPlaces'
 

@@ -5,12 +5,12 @@ import Carousel from 'react-material-ui-carousel'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import ProfileComponent from '../../components/ProfileComponent'
-import Roadtripcard from '../../components/Roadtripcard'
-import { selectRoadtrips } from '../../store/user/selectors'
-import { RoadtripState } from '../../store/user/types'
+import ProfileComponent from 'components/ProfileComponent'
+import Roadtripcard from 'components/Roadtripcard'
+import { selectRoadtrips } from 'store/user/selectors'
+import { RoadtripState } from 'store/user/types'
 
-const LocationList = React.lazy(() => import('../../components/LoactionList'))
+const LocationList = React.lazy(() => import('components/LoactionList'))
 
 const RoadtripsBox = withTheme(styled(Box)`
   margin-top: ${(props) => props.theme.spacing(10)}px;

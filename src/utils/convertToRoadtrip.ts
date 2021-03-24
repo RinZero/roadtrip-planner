@@ -1,4 +1,4 @@
-import { LocationState, RoadtripState } from '../store/user/types'
+import { LocationState, RoadtripState } from 'store/user/types'
 
 export const convertToRoadtrip = (
   roadtripData: Array<Record<string, any>>,

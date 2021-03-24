@@ -1,9 +1,9 @@
-import React, { memo, Suspense, lazy } from 'react'
+import React, { memo, Suspense } from 'react'
 
 import { Box, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
 
-const NewPlaceForm = React.lazy(() => import('../../components/NewPlaceForm'))
+const NewPlaceForm = React.lazy(() => import('components/NewPlaceForm'))
 
 const NewPlaceStyles = withTheme(styled.div`
   max-width: 70%;

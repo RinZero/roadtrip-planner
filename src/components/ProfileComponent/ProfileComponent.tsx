@@ -20,12 +20,12 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { updateUser } from '../../store/actions'
+import { updateUser } from 'store/actions'
 import {
   selectUserPicture,
   selectUserEmail,
   selectUserName,
-} from '../../store/selectors'
+} from 'store/selectors'
 
 //Art 2
 const ProfileBox = withTheme(styled(Box)`

@@ -6,9 +6,10 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import { Provider } from 'react-redux'
 
+import store, { history } from 'store'
+
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import store, { history } from './store'
 import { createTheme } from './theme'
 
 const theme = createTheme()

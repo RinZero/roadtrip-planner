@@ -2,11 +2,12 @@ import React, { memo, useCallback, useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setEditRoadtripStops } from '../../store/actions'
-import { selectEditRoadtrip, selectUserToken } from '../../store/selectors'
-import { LocationState } from '../../store/user/types'
-import { updateRoadtrip } from '../../utils/AuthService'
-import { reverseLookupHereData } from '../../utils/reverseLookupHereData'
+import { setEditRoadtripStops } from 'store/actions'
+import { selectEditRoadtrip, selectUserToken } from 'store/selectors'
+import { LocationState } from 'store/user/types'
+import { updateRoadtrip } from 'utils/AuthService'
+import { reverseLookupHereData } from 'utils/reverseLookupHereData'
+
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
 
 const EditRoadtripUpdate = () => {

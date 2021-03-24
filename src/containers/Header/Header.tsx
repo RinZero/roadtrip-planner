@@ -13,24 +13,18 @@ import {
   Avatar,
   MenuItem,
   Menu,
-  Paper,
 } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import CloseIcon from '@material-ui/icons/Close'
 import MenuIcon from '@material-ui/icons/Menu'
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { logOutSuccess } from '../../store/actions'
-import {
-  selectUserId,
-  selectUserName,
-  selectUserPicture,
-} from '../../store/selectors'
+import { logOutSuccess } from 'store/actions'
+import { selectUserName, selectUserPicture } from 'store/selectors'
 
-const LogInForm = React.lazy(() => import('../../components/LogInForm'))
+const LogInForm = React.lazy(() => import('components/LogInForm'))
 
 // Art 2
 const LogoutButton = withTheme(styled(Button)`

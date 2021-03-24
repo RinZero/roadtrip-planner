@@ -4,8 +4,9 @@ import './App.css'
 
 import { CssBaseline } from '@material-ui/core'
 
-import Header from './containers/Header'
-import Router from './containers/Router'
+import Header from 'containers/Header'
+import Router from 'containers/Router'
+
 import { createTheme } from './theme'
 
 function App() {

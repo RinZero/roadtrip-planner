@@ -14,7 +14,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { selectUserLocations } from '../../store/selectors'
+import { selectUserLocations } from 'store/selectors'
 
 const LoactionListItem = withTheme(styled(ListItem)`
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);

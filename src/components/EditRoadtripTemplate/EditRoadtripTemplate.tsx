@@ -15,18 +15,18 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { setRoadtripInfos } from '../../store/actions'
+import { setRoadtripInfos } from 'store/actions'
 import {
   selectMapRoute,
   selectUiSelectedCategories,
   selectRoadtripInfos,
   selectUserToken,
   selectRoadtrips,
-} from '../../store/selectors'
-import { userEntry } from '../../store/ui/types'
-import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
-import { DisplayMapClass } from '../../utils/DisplayMapClass'
-import { fetchHereData } from '../../utils/fetchHereData'
+} from 'store/selectors'
+import { userEntry } from 'store/ui/types'
+import { createRoadtrip, createRoadtripType } from 'utils/AuthService'
+import { DisplayMapClass } from 'utils/DisplayMapClass'
+import { fetchHereData } from 'utils/fetchHereData'
 
 const StyledBox = withTheme(styled(Box)`
   width: 100%;

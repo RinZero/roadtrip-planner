@@ -3,12 +3,11 @@ import React, { memo, useEffect } from 'react'
 import { Box, Button, makeStyles, Theme } from '@material-ui/core'
 import styled from 'styled-components'
 
-import StartGoalForm from '../../components/StartGoalForm'
-import StepsMenu from '../../components/StepsMenu'
-import TitleSection from '../../components/TitleSection'
-import { CreateUser } from '../../utils/CreateUser'
+import StartGoalForm from 'components/StartGoalForm'
+import StepsMenu from 'components/StepsMenu'
+import TitleSection from 'components/TitleSection'
 
-//import TestComponent from "././components/TestComponent"
+//import TestComponent from "components/TestComponent"
 
 // Styles hinzufügen Art 1
 const useStyles = makeStyles((theme: Theme) => ({

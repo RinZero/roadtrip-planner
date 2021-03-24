@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import { userEntry } from '../store/ui/types'
-import { RoadtripState } from '../store/user/types'
+import { userEntry } from 'store/ui/types'
+import { RoadtripState } from 'store/user/types'
 
 export type logInType = {
   email: string

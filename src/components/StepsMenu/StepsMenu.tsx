@@ -5,8 +5,8 @@ import { Box, Fab, Typography } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { setProgressStep } from '../../store/actions'
-import { selectProgessStep } from '../../store/selectors'
+import { setProgressStep } from 'store/actions'
+import { selectProgessStep } from 'store/selectors'
 
 const StyledFab = styled(Fab)`
   background-color: #fff;

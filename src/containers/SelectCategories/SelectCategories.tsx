@@ -12,27 +12,27 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import CategoryDropdown from '../../components/CategoryDropdown'
-import { roadtripGenerate } from '../../components/StartGoalForm/raoadtripGenerate'
+import CategoryDropdown from 'components/CategoryDropdown'
+import { roadtripGenerate } from 'components/StartGoalForm/raoadtripGenerate'
 import {
   setMapRoute,
   setMaxRoadtripStops,
   setProgressStep,
   setRoadtripInfos,
   setUiSelectedCategories,
-} from '../../store/actions'
+} from 'store/actions'
 import {
   selectMaxRoadtripStops,
   selectRoadtripStops,
   selectUiSelectedCategories,
   selectUserLocations,
-} from '../../store/selectors'
-import { LocationState } from '../../store/user/types'
+} from 'store/selectors'
+import { LocationState } from 'store/user/types'
 import {
   getFirstCategories,
   getSecondCategories,
   getThirdCategories,
-} from '../../utils/getCategoriesArray'
+} from 'utils/getCategoriesArray'
 
 const StartButton = withTheme(styled(Button)`
   background-color: #71b255;

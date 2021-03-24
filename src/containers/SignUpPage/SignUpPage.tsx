@@ -13,8 +13,8 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { logInSuccess } from '../../store/actions'
-import { logIn, signUp } from '../../utils/AuthService'
+import { logInSuccess } from 'store/actions'
+import { logIn, signUp } from 'utils/AuthService'
 
 type IFormInput = {
   email: string

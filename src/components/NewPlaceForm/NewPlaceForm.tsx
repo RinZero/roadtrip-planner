@@ -16,12 +16,12 @@ import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { selectUserId } from '../../store/selectors'
-import { createPlace } from '../../utils/CreateNewPlace'
+import { selectUserId } from 'store/selectors'
+import { createPlace } from 'utils/CreateNewPlace'
 import {
   getAllCategories,
   getAllSelectedCategories,
-} from '../../utils/getCategoriesArray'
+} from 'utils/getCategoriesArray'
 
 const StyledForm = withTheme(styled.form`
   width: 100%;

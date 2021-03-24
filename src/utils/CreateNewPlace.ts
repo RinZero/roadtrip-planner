@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { userEntry } from '../store/ui/types'
+import { userEntry } from 'store/ui/types'
 
 export type placeType = {
   type: string

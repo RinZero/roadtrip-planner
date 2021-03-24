@@ -3,7 +3,8 @@ import React, { memo, Suspense } from 'react'
 import { Box, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
 
-import TitleSection from '../../components/TitleSection'
+import TitleSection from 'components/TitleSection'
+
 import RoadtripForm from '../RoadtripForm'
 
 const MainPageStyles = withTheme(styled.div`

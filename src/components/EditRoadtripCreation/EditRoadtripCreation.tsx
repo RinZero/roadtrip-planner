@@ -2,9 +2,10 @@ import React, { memo, useCallback } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setRoadtripInfos } from '../../store/actions'
-import { selectRoadtripInfos, selectUserToken } from '../../store/selectors'
-import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
+import { setRoadtripInfos } from 'store/actions'
+import { selectRoadtripInfos, selectUserToken } from 'store/selectors'
+import { createRoadtrip, createRoadtripType } from 'utils/AuthService'
+
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
 
 const EditRoadtripCreation = () => {

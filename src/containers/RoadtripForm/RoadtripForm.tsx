@@ -1,17 +1,15 @@
-import React, { memo, Suspense, lazy } from 'react'
+import React, { memo } from 'react'
 
 import { Typography } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 
-import { selectProgessStep } from '../../store/selectors'
+import { selectProgessStep } from 'store/selectors'
 const EditRoadtripCreation = React.lazy(
-  () => import('../../components/EditRoadtripCreation')
+  () => import('components/EditRoadtripCreation')
 )
-const StepsMenu = React.lazy(() => import('../../components/StepsMenu'))
-const StartGoalForm = React.lazy(() => import('../../components/StartGoalForm'))
-const SelectCategories = React.lazy(
-  () => import('../../containers/SelectCategories')
-)
+const StepsMenu = React.lazy(() => import('components/StepsMenu'))
+const StartGoalForm = React.lazy(() => import('components/StartGoalForm'))
+const SelectCategories = React.lazy(() => import('containers/SelectCategories'))
 
 const RoadtripForm = () => {
   const progressStep = useSelector(selectProgessStep())

@@ -1,5 +1,5 @@
-import { fetchHereData } from '../../utils/fetchHereData'
-import { fetchPublicPlaces } from '../../utils/getPublicPlaces'
+import { fetchHereData } from 'utils/fetchHereData'
+import { fetchPublicPlaces } from 'utils/getPublicPlaces'
 
 type info = {
   address: string

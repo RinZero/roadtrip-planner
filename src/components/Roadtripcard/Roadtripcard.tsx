@@ -15,8 +15,8 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { setEditRoadtrip } from '../../store/actions'
-import { RoadtripState } from '../../store/user/types'
+import { setEditRoadtrip } from 'store/actions'
+import { RoadtripState } from 'store/user/types'
 
 type RoadtripcardProps = {
   roadtrip: RoadtripState

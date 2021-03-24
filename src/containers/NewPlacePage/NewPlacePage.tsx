@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
-import React, { memo } from 'react'
+import React, { memo, Suspense, lazy } from 'react'
 
 import { Box, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
 
-import NewPlaceForm from '../../components/NewPlaceForm'
+const NewPlaceForm = React.lazy(() => import('../../components/NewPlaceForm'))
 
 const NewPlaceStyles = withTheme(styled.div`
   max-width: 70%;
@@ -19,7 +19,9 @@ const NewPlacePage = () => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <NewPlaceStyles>
-        <NewPlaceForm />
+        <Suspense fallback={<div>Loading...</div>}>
+          <NewPlaceForm />
+        </Suspense>
       </NewPlaceStyles>
     </Box>
   )

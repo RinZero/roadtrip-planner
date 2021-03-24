@@ -1,15 +1,16 @@
-import React, { memo } from 'react'
+import React, { memo, Suspense } from 'react'
 
 import { Box, Grid, Typography, withTheme } from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import LocationList from '../../components/LoactionList'
 import ProfileComponent from '../../components/ProfileComponent'
 import Roadtripcard from '../../components/Roadtripcard'
 import { selectRoadtrips } from '../../store/user/selectors'
 import { RoadtripState } from '../../store/user/types'
+
+const LocationList = React.lazy(() => import('../../components/LoactionList'))
 
 const RoadtripsBox = withTheme(styled(Box)`
   margin-top: ${(props) => props.theme.spacing(10)}px;
@@ -53,8 +54,10 @@ const ProfilePage = () => {
       <Grid item xs={12} sm={5}>
         <ProfileComponent />
         <Box m="auto" width="60%">
-          <Typography variant="h4">Meine Orte: </Typography>
-          <LocationList />
+          <Typography variant="h4">Meine Orte:</Typography>
+          <Suspense fallback={<div>Loading...</div>}>
+            <LocationList />
+          </Suspense>
         </Box>
       </Grid>
       <Grid item xs={12} sm={7}>

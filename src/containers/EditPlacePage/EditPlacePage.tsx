@@ -1,4 +1,4 @@
-import React, { memo, Suspense, lazy } from 'react'
+import React, { memo, lazy } from 'react'
 
 import { Box, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
@@ -22,9 +22,7 @@ const EditPlacePage = (props: PropsForForm) => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <NewPlaceStyles>
-        <Suspense fallback={<div>Loading...</div>}>
-          <NewPlaceForm match={props.match} />
-        </Suspense>
+        <NewPlaceForm match={props.match} />
       </NewPlaceStyles>
     </Box>
   )

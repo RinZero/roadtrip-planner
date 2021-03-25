@@ -27,8 +27,8 @@ const StyledBox = withTheme(styled(Box)`
   width: 100%;
   min-width: ${(props) => props.theme.spacing(25)}px;
   overflow: auto;
-  max-width: ${(props) => props.theme.spacing(8.75)}vw;
-  max-height: ${(props) => props.theme.spacing(4)}vh;
+  max-width: 70vw;
+  max-height: 32vh;
   margin-top: ${(props) => props.theme.spacing(1)}px;
   .MuiList-root {
     display: flex;
@@ -37,7 +37,7 @@ const StyledBox = withTheme(styled(Box)`
     width: 25%;
     min-width: ${(props) => props.theme.spacing(25)}px;
     overflow: auto;
-    max-height: ${(props) => props.theme.spacing(6.5)}vh;
+    max-height: 52vh;
     margin-left: ${(props) => props.theme.spacing(2)}px;
     .MuiList-root {
       display: inline;

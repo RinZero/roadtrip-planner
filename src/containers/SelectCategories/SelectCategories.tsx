@@ -12,7 +12,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import logo from '../../assets/roadabout_logo.svg'
 import CategoryDropdown from '../../components/CategoryDropdown'
 import { roadtripGenerate } from '../../components/StartGoalForm/raoadtripGenerate'
 import {
@@ -47,11 +46,6 @@ const StartButton = withTheme(styled(Button)`
   &:active {
     background-color: #355727;
   }
-`)
-
-const ImgBox = withTheme(styled(Box)`
-  background-color: #71b255;
-  margin-top: ${(props) => props.theme.spacing(6)}px;
 `)
 
 const AddButton = withTheme(styled(Button)`
@@ -247,9 +241,13 @@ const SelectCategories = () => {
     <>
       <div>
         {loading ? (
-          <ImgBox>
-            <img src={logo} alt="loading animation" height="500px" />
-          </ImgBox>
+          <div>
+            <img
+              src="https://cdn.dribbble.com/users/1215152/screenshots/6958100/media/39ff624c788547951d1b383d724a05b7.gif "
+              alt="loading animation"
+              height="300"
+            />
+          </div>
         ) : (
           <div>
             <Box>

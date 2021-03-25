@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, Suspense, lazy } from 'react'
 
 import { Box, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
@@ -18,7 +18,9 @@ const NewPlacePage = () => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <NewPlaceStyles>
-        <NewPlaceForm />
+        <Suspense fallback={<div>Loading...</div>}>
+          <NewPlaceForm />
+        </Suspense>
       </NewPlaceStyles>
     </Box>
   )

@@ -273,17 +273,6 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
 
   return (
     <>
-      <Box>
-        <CreateButton
-          color="primary"
-          onClick={async () => {
-            await onSave()
-            await initUserData(token, dispatch)
-          }}
-        >
-          Erstellen
-        </CreateButton>
-      </Box>
       <ContentBox>
         <DisplayMapClass allLocations={mapRoute} />
         <StyledBox>
@@ -322,6 +311,17 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
           </List>
         </StyledBox>
       </ContentBox>
+      <Box>
+        <CreateButton
+          color="primary"
+          onClick={async () => {
+            await onSave()
+            await initUserData(token, dispatch)
+          }}
+        >
+          Erstellen
+        </CreateButton>
+      </Box>
     </>
   )
 }

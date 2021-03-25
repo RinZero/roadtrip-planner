@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { ChangeEvent, memo, useEffect, useState } from 'react'
 
 import {
@@ -22,11 +21,13 @@ import {
   selectUserLocations,
   selectUserToken,
 } from '../../store/selectors'
+import { LocationState } from '../../store/user/types'
 import { FormInputUserEntry } from '../../utils/additionalTypes'
 import {
   createPlace,
   editPlace,
   findLocationById,
+  placeType,
 } from '../../utils/CreateNewPlace'
 import {
   getAllCategories,
@@ -55,8 +56,7 @@ const StyledButton = withTheme(styled(Button)`
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 `)
 type PropsForForm = {
-  history: History
-  match: any
+  match: Record<string, any>
 }
 
 const NewPlaceForm = (props: PropsForForm) => {
@@ -70,6 +70,9 @@ const NewPlaceForm = (props: PropsForForm) => {
   const [currentCategories, setCurrentCategories] = useState(
     new Array<{ name: string }>()
   )
+  const [currentCategoriesSet, setCurrentCategoriesSet] = useState(
+    new Set<{ name: string }>()
+  )
   const [responseMessage, setResponseMessage] = useState('')
 
   //for frontend validation numbers
@@ -79,7 +82,6 @@ const NewPlaceForm = (props: PropsForForm) => {
   const [latHelperText, setLatHelperText] = useState('')
 
   //get all categories
-  const [categories, setCategories] = useState(new Set())
   const allCategories = getAllCategories()
 
   const checkDigetInput = (
@@ -105,28 +107,12 @@ const NewPlaceForm = (props: PropsForForm) => {
     }
   }
 
-  //löschen geht nicht
-  const categoriesChanged = (value: any) => {
-    setCurrentCategories(value)
-  }
-
-  const getCategoryNames = () => {
-    const allTags = document.getElementsByClassName('MuiChip-label')
-    const allTagsArr = new Array(allTags.length)
-    for (let i = 0; i < allTags.length; i++) {
-      allTagsArr[i] = allTags[i].innerHTML
-    }
-    return allTagsArr
-  }
-
   const onFormSubmit = async (data: FormInputUserEntry) => {
-    const allCategoryNames = getCategoryNames()
-    const categoryData = getAllSelectedCategories(allCategoryNames)
-    const place = {
+    const categoryData = getAllSelectedCategories(currentCategories)
+    const place: placeType = {
       type: 'user_entry',
       userId: userID,
       attributes: {
-        id: props.match.params.id[1] as number,
         public: currentRadio === 'privat' ? false : true,
         name: data.name,
         description: data.description,
@@ -136,15 +122,22 @@ const NewPlaceForm = (props: PropsForForm) => {
       },
     }
     if (!isAddMode) {
-      await editPlace(place, props.match.params.id[1], token)
+      place.attributes.id = props.match.params.id[1] as number
+      const response = await editPlace(place, props.match.params.id[1], token)
+      // Get response messages
+      if (response.includes('bearbeitet')) {
+        setResponseMessage(response)
+      } else {
+        setResponseMessage('Hat leider nicht funktioniert')
+      }
     } else {
       const response = await createPlace(place)
       // Get response messages
       if (response.includes('erstellt')) {
         setResponseMessage(response)
       } else {
-        const arr: any[] = []
-        response.forEach(function (item: any) {
+        const arr: Array<Record<string, any>> = []
+        response.forEach(function (item: Record<string, any>) {
           if (item[1]) {
             arr.push(item[1].pop())
           }
@@ -159,21 +152,24 @@ const NewPlaceForm = (props: PropsForForm) => {
     if (!isAddMode) {
       const place = findLocationById(
         props.match.params.id[1],
-        locations as any[],
-        userID
+        locations as LocationState[]
       )
       if (place) {
-        setValue('name', place.attributes.name)
-        setValue('description', place.attributes.description)
-        setValue('latitude', place.attributes.latitude)
-        setValue('longitude', place.attributes.longitude)
-        const radioValue = place.attributes.public ? 'öffentlich' : 'privat'
+        setValue('name', place.name)
+        setValue('description', place.description)
+        setValue('latitude', place.latitude)
+        setValue('longitude', place.longitude)
+        const radioValue = place.public ? 'öffentlich' : 'privat'
         setCurrentRadio(radioValue)
-        const selectedCategoriesJSON = JSON.parse(place.attributes.category)
+        const selectedCategoriesJSON = place.category
+          ? JSON.parse(place.category)
+          : []
         const names = new Array<{ name: string }>()
+        const data = new Array<{ name: string; number: string }>()
         selectedCategoriesJSON.forEach(
           (item: { number: string; name: string }) => {
             names.push({ name: item.name })
+            data.push({ name: item.name, number: item.number })
           }
         )
         setCurrentCategories(names)

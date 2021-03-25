@@ -3,7 +3,6 @@ import React, { memo } from 'react'
 import {
   List,
   ListItemText,
-  ListItemSecondaryAction,
   IconButton,
   ListItem,
   withTheme,
@@ -12,16 +11,10 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import { useSelector } from 'react-redux'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-import {
-  selectUserLocations,
-  selectUserId,
-  selectUserToken,
-} from '../../store/selectors'
-import { userEntry } from '../../store/ui/types'
-import { editPlace, placeType } from '../../utils/CreateNewPlace'
+import { selectUserLocations } from '../../store/selectors'
 
 const LoactionListItem = withTheme(styled(ListItem)`
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
@@ -32,8 +25,6 @@ const LoactionListItem = withTheme(styled(ListItem)`
 
 export const LocationList = () => {
   const locations = useSelector(selectUserLocations())
-  const userID = useSelector(selectUserId())
-  const token = useSelector(selectUserToken())
 
   return (
     <List>
@@ -46,11 +37,11 @@ export const LocationList = () => {
                 <ListItemText secondary={location.description} />
               </Box>
               <Box display="flex" flexDirection="column">
-                <IconButton>
-                  <EditIcon
-                    component={RouterLink}
-                    to={`/neuer_ort/edit/:${location.id}`}
-                  />
+                <IconButton
+                  component={RouterLink}
+                  to={`/neuer_ort/edit/:${location.id}`}
+                >
+                  <EditIcon />
                 </IconButton>
                 <IconButton>
                   <DeleteIcon />

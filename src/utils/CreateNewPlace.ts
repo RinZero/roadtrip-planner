@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { LocationState } from '../store/user/types'
+
 export type placeType = {
   type: string
   userId: string
@@ -33,8 +35,6 @@ export const createPlace = (data: placeType) => {
 }
 
 export const editPlace = (data: placeType, id: string, token: string) => {
-  // eslint-disable-next-line no-console
-  console.log(data)
   return fetch
     .patch(
       `user_entries/${id}`,
@@ -48,37 +48,24 @@ export const editPlace = (data: placeType, id: string, token: string) => {
       }
     )
     .then((response) => {
-      // eslint-disable-next-line no-console
-      console.log(response)
       return response.data.status
     })
     .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.log(error)
-      return Object.entries(error.response.data)
+      return [error]
     })
 }
 
-export const findLocationById = (
-  id: string,
-  locations: any[],
-  userID: string
-) => {
+export const findLocationById = (id: string, locations: LocationState[]) => {
   if (locations) {
     for (let i = 0; i < locations.length; i++) {
       if (locations[i].id === id) {
         const obj = {
-          type: 'user_entries',
-          userId: userID,
-          attributes: {
-            public: locations[i].public,
-            name: locations[i].name,
-            description: locations[i].description,
-            latitude: locations[i].latitude,
-            longitude: locations[i].longitude,
-            category: locations[i].category,
-            id: locations[i].id,
-          },
+          public: locations[i].public,
+          name: locations[i].name,
+          description: locations[i].description,
+          latitude: locations[i].latitude,
+          longitude: locations[i].longitude,
+          category: locations[i].category,
         }
         return obj
       }

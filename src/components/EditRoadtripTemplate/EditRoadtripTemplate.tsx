@@ -189,6 +189,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   //     })
   //     const result = await createRoadtrip(roadtripData, token)
   //   }
+  //TODO: remove test code
 
   // onDragStart fires when an element
   // starts being dragged

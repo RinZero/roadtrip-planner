@@ -1,2 +1,3 @@
 node_modules
 /utilts/*.js
+/config-overrides.js

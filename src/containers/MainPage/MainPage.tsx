@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from 'react'
+import React, { memo } from 'react'
 
 import { Box, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
@@ -19,9 +19,7 @@ const MainPage = () => {
     <Box display="flex" justifyContent="center" alignItems="center">
       <MainPageStyles>
         <TitleSection />
-        <Suspense fallback={<div>Loading...</div>}>
-          <RoadtripForm />
-        </Suspense>
+        <RoadtripForm />
       </MainPageStyles>
     </Box>
   )

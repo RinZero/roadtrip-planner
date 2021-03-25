@@ -16,6 +16,14 @@ const RoadtripsBox = withTheme(styled(Box)`
   margin-top: ${(props) => props.theme.spacing(10)}px;
 `)
 
+const CarouselBox = withTheme(styled(Box)`
+  overflow: scroll;
+  max-height: 70vh;
+`)
+const RoadtripsCarousel = withTheme(styled(Carousel)``)
+
+const ProfileGrid = withTheme(styled(Grid)``)
+
 type RoadtripSlideProps = {
   roadtrips: RoadtripState[]
 }
@@ -28,14 +36,12 @@ const RoadtripSlide = (props: RoadtripSlideProps) => {
       alignItems="center"
       justifyContent="center"
     >
-      <Box display="flex">
+      <CarouselBox display="flex" flexWrap="wrap">
         {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
         {roadtrips[1] && <Roadtripcard roadtrip={roadtrips[1]} />}
-      </Box>
-      <Box display="flex">
         {roadtrips[2] && <Roadtripcard roadtrip={roadtrips[2]} />}
         {roadtrips[3] && <Roadtripcard roadtrip={roadtrips[3]} />}
-      </Box>
+      </CarouselBox>
     </Box>
   )
 }
@@ -50,7 +56,7 @@ const ProfilePage = () => {
     }
   }
   return (
-    <Grid container spacing={3}>
+    <ProfileGrid container spacing={3}>
       <Grid item xs={12} sm={5}>
         <ProfileComponent />
         <Box m="auto" width="60%">
@@ -63,14 +69,25 @@ const ProfilePage = () => {
       <Grid item xs={12} sm={7}>
         <RoadtripsBox>
           <Typography variant="h4">Meine Roadtrips: </Typography>
-          <Carousel autoPlay={false} animation="slide" timeout={600}>
+          <RoadtripsCarousel
+            fullHeightHover
+            autoPlay={false}
+            animation="slide"
+            timeout={600}
+            navButtonsProps={{
+              // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+              style: {
+                backgroundColor: '#71b255',
+              },
+            }}
+          >
             {slideRoadtrips.map((chunk) => (
               <RoadtripSlide roadtrips={chunk} />
             ))}
-          </Carousel>
+          </RoadtripsCarousel>
         </RoadtripsBox>
       </Grid>
-    </Grid>
+    </ProfileGrid>
   )
 }
 

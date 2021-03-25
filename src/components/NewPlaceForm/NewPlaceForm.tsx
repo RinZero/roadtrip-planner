@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import {
@@ -33,6 +33,7 @@ import {
   getAllCategories,
   getAllSelectedCategories,
 } from '../../utils/getCategoriesArray'
+import { initUserData } from '../../utils/initUserData'
 
 const StyledForm = withTheme(styled.form`
   width: 100%;
@@ -64,6 +65,7 @@ const NewPlaceForm = (props: PropsForForm) => {
   const locations = useSelector(selectUserLocations())
   const userID = useSelector(selectUserId())
   const token = useSelector(selectUserToken())
+  const dispatch = useDispatch()
 
   const { register, handleSubmit, setValue } = useForm()
   const [currentRadio, setCurrentRadio] = useState('privat')
@@ -127,6 +129,7 @@ const NewPlaceForm = (props: PropsForForm) => {
       // Get response messages
       if (response.includes('bearbeitet')) {
         setResponseMessage(response)
+        await initUserData(token, dispatch)
       } else {
         setResponseMessage('Hat leider nicht funktioniert')
       }
@@ -135,6 +138,7 @@ const NewPlaceForm = (props: PropsForForm) => {
       // Get response messages
       if (response.includes('erstellt')) {
         setResponseMessage(response)
+        await initUserData(token, dispatch)
       } else {
         const arr: Array<Record<string, any>> = []
         response.forEach(function (item: Record<string, any>) {

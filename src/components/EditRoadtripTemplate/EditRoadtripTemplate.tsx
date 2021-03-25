@@ -15,18 +15,12 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { setRoadtripInfos } from '../../store/actions'
 import {
   selectMapRoute,
   selectUiSelectedCategories,
-  selectRoadtripInfos,
   selectUserToken,
-  selectRoadtrips,
 } from '../../store/selectors'
-import { userEntry } from '../../store/ui/types'
-import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
 import { DisplayMapClass } from '../../utils/DisplayMapClass'
-import { fetchHereData } from '../../utils/fetchHereData'
 import { initUserData } from '../../utils/initUserData'
 
 const StyledBox = withTheme(styled(Box)`
@@ -54,6 +48,7 @@ const StyledBox = withTheme(styled(Box)`
         top: 50%;
       }
     }
+  }
 `)
 const DragListItem = withTheme(styled(ListItem)`
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
@@ -95,7 +90,6 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   onChange,
 }) => {
   const dispatch = useDispatch()
-  const roadtripInfo = useSelector(selectRoadtripInfos())
   const [list, setList] = useState(listInfo)
   const initialDnDState = {
     draggedFrom: 0,
@@ -279,10 +273,13 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   return (
     <>
       <Box>
-        <CreateButton color="primary" onClick={async () => {
-          await onSave()
-          await initUserData(token, dispatch)
-        }>
+        <CreateButton
+          color="primary"
+          onClick={async () => {
+            await onSave()
+            await initUserData(token, dispatch)
+          }}
+        >
           Erstellen
         </CreateButton>
       </Box>
@@ -309,7 +306,12 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
                 >
                   <ListItemText primary={item.address || item.name} />
                   <ListItemSecondaryAction>
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        setList(list.filter((listitem) => listitem !== item))
+                        onChange(list.filter((listitem) => listitem !== item))
+                      }}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>

@@ -123,6 +123,7 @@ export const StartGoalForm = () => {
     noOptionsText: 'keine Ergebnisse',
     fullWidth: true,
     autoSelect: true,
+    freeSolo: true,
   }
   return (
     <>

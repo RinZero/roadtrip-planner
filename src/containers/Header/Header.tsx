@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, Suspense } from 'react'
 
 import {
   Button,
@@ -16,13 +16,13 @@ import {
   Paper,
 } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import CloseIcon from '@material-ui/icons/Close'
 import MenuIcon from '@material-ui/icons/Menu'
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import logo from '../../assets/roadabout_textlogo.svg'
 import { logOutSuccess } from '../../store/actions'
 import {
   selectUserId,
@@ -32,6 +32,7 @@ import {
 
 const LogInForm = React.lazy(() => import('../../components/LogInForm'))
 
+// Art 2
 const LogoutButton = withTheme(styled(Button)`
   color: #ffffff;
   font-size: ${(props) => props.theme.spacing(1.75)}px;
@@ -77,12 +78,9 @@ const HeaderHight = withTheme(styled(Box)`
   }
 `)
 const HeaderAppBar = withTheme(styled(AppBar)`
-  height: 7vh;
+  height: 10vh;
   color: #707070;
-  padding-top: ${(props) => props.theme.spacing(2)}px;
-  ${(props) => props.theme.breakpoints.up('sm')} {
-    height: 10vh;
-  }
+  padding-top: ${(props) => props.theme.spacing(1)}px;
   MuiPopover-paper {
     top: 0;
   }
@@ -92,18 +90,6 @@ const HeaderIconButton = withTheme(styled(IconButton)`
   margin: 0 auto 0 0;
   ${(props) => props.theme.breakpoints.up('sm')} {
     display: none;
-  }
-`)
-
-const LogoBox = withTheme(styled(Box)`
-  display: block;
-  margin-left: 0;
-  margin-right: auto;
-  img {
-    width: ${(props) => props.theme.spacing(18)}px;
-    ${(props) => props.theme.breakpoints.up('md')} {
-      width: ${(props) => props.theme.spacing(30)}px;
-    }
   }
 `)
 
@@ -143,9 +129,6 @@ const Header = () => {
               Ort hinzufügen
             </MenuItem>
           </BurgerMenu>
-          <LogoBox>
-            <img src={logo} alt="loading animation" />
-          </LogoBox>
           <HeaderLink component={RouterLink} to={`/`} variant="h6">
             Neuer Roadtrip
           </HeaderLink>
@@ -192,7 +175,9 @@ const Header = () => {
                       }}
                     >
                       <Box m={3}>
-                        <LogInForm />
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <LogInForm />
+                        </Suspense>
                       </Box>
                     </StyledPopover>
                   </>

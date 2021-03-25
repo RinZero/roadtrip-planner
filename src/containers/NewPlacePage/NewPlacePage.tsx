@@ -3,6 +3,8 @@ import React, { memo, Suspense, lazy } from 'react'
 import { Box, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
 
+import { FormInputUserEntry } from '../../utils/additionalTypes'
+
 const NewPlaceForm = React.lazy(() => import('../../components/NewPlaceForm'))
 
 const NewPlaceStyles = withTheme(styled.div`
@@ -14,12 +16,17 @@ const NewPlaceStyles = withTheme(styled.div`
   justify-content: space-around;
 `)
 
-const NewPlacePage = () => {
+type PropsForForm = {
+  history: History
+  match: any
+}
+
+const NewPlacePage = (props: PropsForForm) => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <NewPlaceStyles>
         <Suspense fallback={<div>Loading...</div>}>
-          <NewPlaceForm />
+          <NewPlaceForm history={props.history} match={props.match} />
         </Suspense>
       </NewPlaceStyles>
     </Box>

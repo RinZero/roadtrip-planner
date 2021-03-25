@@ -62,9 +62,10 @@ const LogInForm = () => {
       dispatch(getRoadtripsByUserSuccess({ roadtrips: roadtrips }))
       const userEntries = await fetchUserEntries(user.token)
       const obj: { locations: LocationState[] } = { locations: [] }
-      userEntries.map((entry: { attributes: LocationState }) =>
+      userEntries.map((entry: { id: string; attributes: LocationState }) => {
+        entry.attributes.id = '' + entry.id
         obj.locations.push(entry.attributes)
-      )
+      })
       dispatch(getLocationsByUserSuccess(obj))
     }
   }

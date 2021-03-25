@@ -17,8 +17,8 @@ export type placeType = {
 }
 
 const fetch = axios.create({
-  // baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
-  baseURL: 'http://localhost:3000/api/v1/',
+  baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
+  // baseURL: 'http://localhost:3000/api/v1/',
 })
 
 export const createPlace = (data: placeType) => {

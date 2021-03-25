@@ -14,6 +14,7 @@ export default () => {
     // hier überschreiben was wir überschreiben wollen - Sachen die wir global brauchen :)
     // buttons, border radius, etc.
     typography: {
+      fontFamily: `"Montserrat", sans-serif`,
       h1: {
         fontSize: '40px',
         color: '#707070',

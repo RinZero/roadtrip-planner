@@ -23,10 +23,19 @@ const LoactionListItem = withTheme(styled(ListItem)`
   margin-bottom: ${(props) => props.theme.spacing(1.2)}px;
 `)
 
+const BoxLocationList = withTheme(styled(List)`
+  width: 100%;
+  min-width: ${(props) => props.theme.spacing(25)}px;
+  overflow: auto;
+  max-width: 70vw;
+  max-height: 32vh;
+  margin-top: ${(props) => props.theme.spacing(1)}px;
+`)
+
 export const LocationList = () => {
   const locations = useSelector(selectUserLocations())
   return (
-    <List>
+    <BoxLocationList>
       {locations?.map((location) => {
         return (
           <LoactionListItem button key={location.id}>
@@ -47,7 +56,7 @@ export const LocationList = () => {
           </LoactionListItem>
         )
       })}
-    </List>
+    </BoxLocationList>
   )
 }
 

@@ -26,10 +26,10 @@ type RoadtripcardProps = {
   roadtrip: RoadtripState
 }
 const MyRoadtripCard = withTheme(styled(Card)`
-  min-width: ${(props) => props.theme.spacing(35)}px;
+  min-width: ${(props) => props.theme.spacing(50)}px;
   max-width: ${(props) => props.theme.spacing(68.5)}px;
   padding: ${(props) => props.theme.spacing(3.125)}px;
-  margin: ${(props) => props.theme.spacing(6.25)}px;
+  margin: ${(props) => props.theme.spacing(3)}px auto;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 `)

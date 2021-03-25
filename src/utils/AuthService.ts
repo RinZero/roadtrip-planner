@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import { userEntry } from '../store/ui/types'
 import { RoadtripState } from '../store/user/types'
+import { initUserData } from './initUserData'
 
 export type logInType = {
   email: string
@@ -165,5 +166,18 @@ export const fetchUserEntries = (token: string) => {
     })
     .then((response) => {
       return response.data.data
+    })
+}
+
+export const deleteRoadtrip = (token: string, id: number) => {
+  return fetch
+    .delete('roadtrips/' + id, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => {
+      // eslint-disable-next-line no-console
+      console.log(response)
     })
 }

@@ -279,8 +279,8 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
         color="primary"
         variant="contained"
         onClick={async () => {
-          onSave()
-          initUserData(token, dispatch)
+          await onSave()
+          await initUserData(token, dispatch)
         }}
       >
         Create

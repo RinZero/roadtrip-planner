@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
-import EditRoadtripUpdate from '../../components/EditRoadtripUpdate'
+import EditRoadtripPage from '../EditRoadtripPage'
 import MainPage from '../MainPage'
 import NewPlacePage from '../NewPlacePage'
 import ProfilePage from '../ProfilePage'
@@ -17,7 +17,7 @@ const Router = () => {
       <Route exact path="/neuer_ort" component={NewPlacePage} />
       <Route exact path="/sign_up" component={SignUpPage} />
       <Route exact path="/profile" component={ProfilePage} />
-      <Route exact path="/edit_roadtrip" component={EditRoadtripUpdate} />
+      <Route exact path="/edit_roadtrip" component={EditRoadtripPage} />
       <Redirect to="/" />
     </Switch>
   )

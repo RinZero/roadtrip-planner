@@ -17,6 +17,7 @@ import {
   fetchUserEntries,
 } from '../../utils/AuthService'
 import { convertToRoadtrip } from '../../utils/convertToRoadtrip'
+import { initUserData } from '../../utils/initUserData'
 
 type IFormInput = {
   email: string
@@ -48,24 +49,7 @@ const LogInForm = () => {
     })
     if (user) {
       dispatch(logInSuccess(user))
-      const roadtripsRaw = await fetchRoadtrips(user.token)
-
-      const roadtrips = roadtripsRaw.roadtrips.map(
-        (
-          raw: {
-            data: Array<Record<string, any>>
-          },
-          index: number
-        ) =>
-          convertToRoadtrip(raw.data, roadtripsRaw.info.data[index].attributes)
-      )
-      dispatch(getRoadtripsByUserSuccess({ roadtrips: roadtrips }))
-      const userEntries = await fetchUserEntries(user.token)
-      const obj: { locations: LocationState[] } = { locations: [] }
-      userEntries.map((entry: { attributes: LocationState }) =>
-        obj.locations.push(entry.attributes)
-      )
-      dispatch(getLocationsByUserSuccess(obj))
+      initUserData(user.token, dispatch)
     }
   }
   return (

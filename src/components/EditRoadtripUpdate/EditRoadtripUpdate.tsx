@@ -9,7 +9,11 @@ import { updateRoadtrip } from '../../utils/AuthService'
 import { reverseLookupHereData } from '../../utils/reverseLookupHereData'
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
 
-const EditRoadtripUpdate = () => {
+type EditRoadtripUpdateProps = {
+  onUpdate?: () => void
+}
+const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
+  const { onUpdate } = props
   const dispatch = useDispatch()
   const editRoadtrip = useSelector(selectEditRoadtrip())
 
@@ -54,7 +58,7 @@ const EditRoadtripUpdate = () => {
     <EditRoadtripTemplate
       onChange={onChange}
       listInfo={editRoadtrip.stops}
-      onSave={submitUpdate}
+      onSave={onUpdate || submitUpdate}
       dndStateOrder={dndStateOrder}
     />
   ) : (

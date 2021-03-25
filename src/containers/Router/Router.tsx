@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
+import EditPlacePage from '../EditPlacePage'
 import EditRoadtripPage from '../EditRoadtripPage'
 import MainPage from '../MainPage'
 import NewPlacePage from '../NewPlacePage'

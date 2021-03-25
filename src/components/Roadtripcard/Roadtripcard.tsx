@@ -11,12 +11,16 @@ import {
   Typography,
 } from '@material-ui/core'
 import { withTheme } from '@material-ui/core/styles'
-import { useDispatch } from 'react-redux'
+import DeleteIcon from '@material-ui/icons/Delete'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { setEditRoadtrip } from '../../store/actions'
+import { selectUserToken } from '../../store/selectors'
 import { RoadtripState } from '../../store/user/types'
+import { deleteRoadtrip } from '../../utils/AuthService'
+import { initUserData } from '../../utils/initUserData'
 
 type RoadtripcardProps = {
   roadtrip: RoadtripState
@@ -40,9 +44,10 @@ const MyRoadtripCardMedia = withTheme(styled(CardMedia)`
 const Roadtripcard = (props: RoadtripcardProps) => {
   const { roadtrip } = props
   const name = roadtrip.name
-  const stopsnumber = roadtrip.stops.length
+  const stopsnumber = roadtrip.stops.length || 0
   const history = useHistory()
   const dispatch = useDispatch()
+  const token = useSelector(selectUserToken())
   return (
     <MyRoadtripCard variant="outlined" square>
       <CardActionArea>
@@ -74,6 +79,14 @@ const Roadtripcard = (props: RoadtripcardProps) => {
         >
           <Typography variant="button">Route</Typography>
         </Button>
+        <IconButton
+          onClick={async () => {
+            await deleteRoadtrip(token, roadtrip.id)
+            initUserData(token, dispatch)
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
       </Box>
     </MyRoadtripCard>
   )

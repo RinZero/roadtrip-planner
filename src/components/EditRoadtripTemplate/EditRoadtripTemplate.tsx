@@ -9,6 +9,7 @@ import {
   ListItemSecondaryAction,
   withTheme,
   Button,
+  useMediaQuery,
 } from '@material-ui/core'
 // Import BoardItem component
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -100,6 +101,24 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   }
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
   const token = useSelector(selectUserToken())
+  const largeDisplay = useMediaQuery('(min-width:960px)')
+  const smallDisplay = useMediaQuery('(max-width:959px)')
+
+  const CreateRoadtripButton = () => {
+    return (
+      <Box>
+        <CreateButton
+          onClick={async () => {
+            await onSave()
+            await initUserData(token, dispatch)
+          }}
+        >
+          Erstellen
+        </CreateButton>
+      </Box>
+    )
+  }
+
   // const testRoadtripInfo: {
   //   address: string
   //   categories: {
@@ -274,6 +293,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   return (
     <>
       <ContentBox>
+        {smallDisplay && <CreateRoadtripButton />}
         <DisplayMapClass allLocations={mapRoute} />
         <StyledBox>
           <List component="nav" aria-label="contacts">
@@ -311,17 +331,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
           </List>
         </StyledBox>
       </ContentBox>
-      <Box>
-        <CreateButton
-          color="primary"
-          onClick={async () => {
-            await onSave()
-            await initUserData(token, dispatch)
-          }}
-        >
-          Erstellen
-        </CreateButton>
-      </Box>
+      {largeDisplay && <CreateRoadtripButton />}
     </>
   )
 }

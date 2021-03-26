@@ -56,8 +56,6 @@ export const roadtripGenerate = async (
           width: 40000,
         },
       })
-      // eslint-disable-next-line no-console
-      console.log(possibleStops)
       // add own and/or public user_entries to possible stops
       additionalStops.forEach(function (arrayItem: info) {
         possibleStops.items.push(arrayItem)

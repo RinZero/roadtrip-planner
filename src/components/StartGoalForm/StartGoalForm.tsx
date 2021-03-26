@@ -46,6 +46,10 @@ const StyledButton = withTheme(styled(Button)`
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
   margin-top: ${(props) => props.theme.spacing(3.75)}px;
+  &:hover,
+  &:active {
+    background-color: #355727;
+  }
 `)
 
 const AddButton = withTheme(styled(Button)`

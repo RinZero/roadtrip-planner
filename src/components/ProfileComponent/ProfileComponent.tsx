@@ -69,6 +69,10 @@ const EditButton = withTheme(styled(Button)`
   color: white;
   height: ${(props) => props.theme.spacing(5)}px;
   min-width: ${(props) => props.theme.spacing(5)}px;
+  &:hover,
+  &:active {
+    background-color: #355727;
+  }
 `)
 
 const ConfirmButton = withTheme(styled(Button)`
@@ -77,6 +81,10 @@ const ConfirmButton = withTheme(styled(Button)`
   color: white;
   height: ${(props) => props.theme.spacing(5)}px;
   min-width: ${(props) => props.theme.spacing(5)}px;
+  &:hover,
+  &:active {
+    background-color: #355727;
+  }
 `)
 
 const ProfileComponent = () => {

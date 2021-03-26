@@ -123,7 +123,8 @@ export const StartGoalForm = () => {
     noOptionsText: 'keine Ergebnisse',
     fullWidth: true,
     autoSelect: true,
-    freeSolo: true,
+    freeSolo: true, //TODO: ist ok, wenn dann gecheckt wird obs den ein Ort in Österreich ist
+    // vielleicht kann man das auch mit der autocomplete funktion machen (schaun ob es was unter den selben namen findet)
   }
   return (
     <>

@@ -16,7 +16,6 @@ export const initialState: UserState = {
   email: '',
   isAdmin: false,
   password: '',
-  image: '',
   roadtrips: [],
   locations: [],
   id: 'guest',
@@ -37,12 +36,13 @@ export const userReducer = produce(
           roadtrips,
           locations,
           token,
+          image,
         } = action.payload
         draft.id = id
         draft.userName = userName
         draft.email = email
         draft.isAdmin = isAdmin
-        draft.picture = picture
+        draft.picture = image || picture
         draft.roadtrips = roadtrips
         draft.locations = locations
         draft.token = token
@@ -59,11 +59,11 @@ export const userReducer = produce(
         return draft
       }
       case getType(updateUser): {
-        const { userName, email, password, image } = action.payload
+        const { userName, email, password, picture } = action.payload
         draft.userName = userName
         draft.email = email
         draft.password = password
-        draft.image = image
+        draft.picture = picture
         return draft
       }
       case getType(logOutSuccess): {

@@ -29,4 +29,5 @@ export type UiState = {
     entry?: userEntry
   }[]
   editRoadtrip: RoadtripState
+  dropzoneFiles: (File & { preview: string })[]
 }

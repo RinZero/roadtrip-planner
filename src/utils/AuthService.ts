@@ -10,20 +10,6 @@ export type logInType = {
   password_confirmation: string
 }
 
-export type signUpType = {
-  data: {
-    type: string
-    attributes: {
-      username: string
-      email: string
-      password: string
-      password_confirmation: string
-      is_admin?: boolean
-      picture?: string
-    }
-  }
-}
-
 export type createRoadtripType = {
   data: {
     type: string
@@ -63,9 +49,9 @@ export const logIn = (logInData: logInType) => {
   })
 }
 
-export const signUp = (signUpData: signUpType) => {
+export const signUp = (signUpData: FormData) => {
   return fetch.post('users', signUpData).then((response) => {
-    return response.data.data
+    return response.data.data.attributes
   })
 }
 

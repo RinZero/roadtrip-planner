@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, Suspense } from 'react'
 
 import {
   Button,
@@ -190,7 +190,9 @@ const Header = () => {
                       }}
                     >
                       <Box m={3}>
-                        <LogInForm />
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <LogInForm />
+                        </Suspense>
                       </Box>
                     </StyledPopover>
                   </>

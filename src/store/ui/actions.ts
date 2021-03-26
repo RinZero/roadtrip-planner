@@ -44,6 +44,9 @@ export const setEditRoadtripStops = createAction('ui/SET_EDIT_ROADTRIP_STOPS')<{
 export const setEditRoadtrip = createAction('ui/SET_EDIT_ROADTRIP')<{
   editRoadtrip: RoadtripState
 }>()
+export const setDropzoneFiles = createAction('ui/SET_DROPZONE_FILES')<{
+  dropzoneFiles: (File & { preview: string })[]
+}>()
 
 export const UiActions = {
   setProgressStep,
@@ -55,6 +58,7 @@ export const UiActions = {
   setRoadtripInfos,
   setEditRoadtripStops,
   setEditRoadtrip,
+  setDropzoneFiles,
 }
 
 export type UiActionsType = ActionType<typeof UiActions>

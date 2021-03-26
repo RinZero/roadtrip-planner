@@ -8,6 +8,7 @@ export const logInSuccess = createAction('user/LOG_IN_SUCCESS')<{
   email: string
   isAdmin: boolean
   picture?: string
+  image?: string
   roadtrips?: RoadtripState[]
   locations?: LocationState[]
   token: string
@@ -29,7 +30,7 @@ export const updateUser = createAction('user/UPDATE_USER')<{
   userName: string
   email: string
   password: string
-  image: string
+  picture: string
 }>()
 
 export const logOutSuccess = createAction('user/LOG_OUT_SUCCESS')()

@@ -58,3 +58,8 @@ export const selectEditRoadtrip = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.editRoadtrip
   })
+
+export const selectDropzoneFiles = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.dropzoneFiles
+  })

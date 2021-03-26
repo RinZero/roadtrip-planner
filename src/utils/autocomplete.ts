@@ -63,7 +63,16 @@ export const iterateStops = async (
   for (let i = 0; i < stops.length; i++) {
     if (stops[i] && stops[i] !== '') {
       const data = await getCoordinates(stops[i])
+
       if (data) {
+        // Wenn Ort nicht existiert bzw. nicht in Österreich liegt blödsinn zurückgeben, um User darauf hinzuweisen
+        if (
+          data.Location.Address.Country &&
+          data.Location.Address.Country !== 'AUT'
+        ) {
+          return [[-1, -1]]
+        }
+
         const lat = data.Location.DisplayPosition.Latitude
         const lon = data.Location.DisplayPosition.Longitude
         newArr[j] = [lat, lon]

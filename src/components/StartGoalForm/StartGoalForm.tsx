@@ -97,6 +97,8 @@ export const StartGoalForm = () => {
   const { register, getValues } = useForm()
   // Array with the options of autocomplete
   const [array, setArray] = useState([])
+  // user messages - wenn zum Beispiel Ort nicht in Österreich oder ungültig
+  const [message, setMessage] = useState('')
 
   //get Location of User
   const userLocations = useSelector(selectUserLocations())
@@ -214,6 +216,7 @@ export const StartGoalForm = () => {
             ) : null}
             <AddButton onClick={onInput}>+</AddButton>
           </FormBox>
+          {message ? <h5>{message}</h5> : null}
           <Grid item xs={12} lg={4}>
             <Box p={5}>
               <StyledButton
@@ -225,8 +228,17 @@ export const StartGoalForm = () => {
                     values.stops,
                     userLocations
                   )
-                  dispatch(setRoadtripStops({ roadtripStops: stopArray }))
-                  dispatch(setProgressStep({ progressStep: '2' }))
+                  if (!stopArray[0] || stopArray[0][0] === -1) {
+                    setMessage(
+                      `Anscheinend stimmt was bei deiner Eingabe nicht.
+                      Start und Ziel müssen ausgefüllt sein und die Orte müssen in Österreich existieren. 
+                      Thx.`
+                    )
+                  } else {
+                    setMessage('')
+                    dispatch(setRoadtripStops({ roadtripStops: stopArray }))
+                    dispatch(setProgressStep({ progressStep: '2' }))
+                  }
                 }}
               >
                 Start

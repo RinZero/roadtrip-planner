@@ -67,7 +67,11 @@ const SignUpPage = () => {
       })
       if (loggedInUser)
         dispatch(
-          logInSuccess(Object.assign(loggedInUser, { image: user.image.url }))
+          logInSuccess(
+            Object.assign(loggedInUser, {
+              image: user.image === null ? undefined : user.image.url,
+            })
+          )
         )
     }
     history.push('/')
@@ -109,14 +113,19 @@ const SignUpPage = () => {
               placeholder="Passwort wiederholen"
               variant="outlined"
             />
-            <StyledInput
-              type="text"
-              name="picture"
-              inputRef={register}
-              placeholder="Profilbild"
-              variant="outlined"
-            />
-            <ImageDropzone />
+            <Box display="flex" alignItems="flex-start" flexDirection="column">
+              <Box mb={1}>
+                <Typography variant="h6">Profilbild:</Typography>
+              </Box>
+              <ImageDropzone />
+              <StyledInput
+                type="text"
+                name="picture"
+                inputRef={register}
+                placeholder="Oder Image-Link einfügen"
+                variant="outlined"
+              />
+            </Box>
           </Box>
           <LoginButton type="submit" color="primary">
             Registrieren

@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, Suspense } from 'react'
 
 import { Box, Grid, Typography, withTheme } from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
@@ -61,7 +61,9 @@ const ProfilePage = () => {
         <ProfileComponent />
         <Box m="auto" width="60%">
           <Typography variant="h4">Meine Orte:</Typography>
-          <LocationList />
+          <Suspense fallback={<div>Loading...</div>}>
+            <LocationList />
+          </Suspense>
         </Box>
       </Grid>
       <Grid item xs={12} sm={7}>

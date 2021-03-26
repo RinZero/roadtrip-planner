@@ -107,8 +107,6 @@ const LogoBox = withTheme(styled(Box)`
   }
 `)
 
-const BurgerMenu = withTheme(styled(Menu)``)
-
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const history = useHistory()
@@ -130,7 +128,7 @@ const Header = () => {
           <HeaderIconButton onClick={handleClick}>
             <MenuIcon />
           </HeaderIconButton>
-          <BurgerMenu
+          <Menu
             autoFocus={false}
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
@@ -142,7 +140,7 @@ const Header = () => {
             <MenuItem component={RouterLink} to={`/neuer_ort`}>
               Ort hinzufügen
             </MenuItem>
-          </BurgerMenu>
+          </Menu>
           <LogoBox>
             <img src={logo} alt="loading animation" />
           </LogoBox>

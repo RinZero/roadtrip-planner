@@ -98,11 +98,11 @@ export const getAllCategories = () => {
   return Array.from(all)
 }
 
-export const getAllSelectedCategories = (allName: string[]) => {
+export const getAllSelectedCategories = (allName: { name: string }[]) => {
   const all = new Set<{ number: string; name: string }>()
 
-  for (let i = 0; i < data.length; i++) {
-    const temp = getNum(allName[i])
+  for (let i = 0; i < allName.length; i++) {
+    const temp = getNum(allName[i].name)
     if (temp) all.add(temp)
   }
 

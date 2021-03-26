@@ -18,7 +18,7 @@ type PropsForForm = {
   match: Record<string, any>
 }
 
-const NewPlacePage = (props: PropsForForm) => {
+const EditPlacePage = (props: PropsForForm) => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <NewPlaceStyles>
@@ -30,4 +30,4 @@ const NewPlacePage = (props: PropsForForm) => {
   )
 }
 
-export default memo(NewPlacePage)
+export default memo(EditPlacePage)

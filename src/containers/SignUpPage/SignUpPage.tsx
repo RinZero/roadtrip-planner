@@ -9,11 +9,13 @@ import {
   withTheme,
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
+import ImageDropzone from '../../components/ImageDropzone'
 import { logInSuccess } from '../../store/actions'
+import { selectDropzoneFiles } from '../../store/selectors'
 import { logIn, signUp } from '../../utils/AuthService'
 
 type IFormInput = {
@@ -47,15 +49,26 @@ const SignUpPage = () => {
   const { register, handleSubmit } = useForm()
   const history = useHistory()
   const dispatch = useDispatch()
+  const image = useSelector(selectDropzoneFiles())
   const onFormSubmit = async (data: IFormInput) => {
-    const user = await signUp({ data: { type: 'user', attributes: data } })
+    const inputData = new FormData()
+    inputData.append('[user]username', data.username)
+    inputData.append('[user]password', data.password)
+    inputData.append('[user]email', data.email)
+    inputData.append('[user]password_confirmation', data.password_confirmation)
+    if (data.picture) inputData.append('[user]picture', data.picture)
+    inputData.append('[user]image', image[0])
+    const user = await signUp(inputData)
     if (user) {
       const loggedInUser = await logIn({
         email: user.email,
         password: data.password,
         password_confirmation: data.password,
       })
-      if (loggedInUser) dispatch(logInSuccess(loggedInUser))
+      if (loggedInUser)
+        dispatch(
+          logInSuccess(Object.assign(loggedInUser, { image: user.image.url }))
+        )
     }
     history.push('/')
     // if (user) dispatch(logInSuccess(user))
@@ -103,6 +116,7 @@ const SignUpPage = () => {
               placeholder="Profilbild"
               variant="outlined"
             />
+            <ImageDropzone />
           </Box>
           <LoginButton type="submit" color="primary">
             Registrieren

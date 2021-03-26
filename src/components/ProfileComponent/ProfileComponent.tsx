@@ -123,7 +123,7 @@ const ProfileComponent = () => {
         userName: data.userName,
         email: data.email,
         password: data.password,
-        image: data.image,
+        picture: data.image,
       })
     )
   }

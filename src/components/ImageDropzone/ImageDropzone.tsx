@@ -2,7 +2,11 @@ import React, { memo, useEffect, useState } from 'react'
 
 import { Typography, withTheme } from '@material-ui/core'
 import { useDropzone } from 'react-dropzone'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+
+import { setDropzoneFiles } from '../../store/actions'
+import { selectDropzoneFiles } from '../../store/selectors'
 
 const getColor = (props: Record<string, any>) => {
   if (props.isDragAccept) {
@@ -64,12 +68,13 @@ const ThumbImg = styled.img`
   width: auto;
   height: 100%;
 `
-type DropzoneProps = {
+type ImageDropzoneProps = {
   maxFiles?: number
 }
-const Dropzone = (props: DropzoneProps) => {
+const ImageDropzone = (props: ImageDropzoneProps) => {
   const { maxFiles = 1 } = props
-  const [files, setFiles] = useState<{ name: string; preview: string }[]>([])
+  const dispatch = useDispatch()
+  const files = useSelector(selectDropzoneFiles())
   const {
     getRootProps,
     getInputProps,
@@ -79,12 +84,14 @@ const Dropzone = (props: DropzoneProps) => {
   } = useDropzone({
     accept: '.jpeg,.jpg,.png,.gif',
     onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
+      dispatch(
+        setDropzoneFiles({
+          dropzoneFiles: acceptedFiles.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          ),
+        })
       )
     },
     maxFiles: maxFiles,
@@ -98,9 +105,9 @@ const Dropzone = (props: DropzoneProps) => {
     </Thumb>
   ))
 
-  useEffect(() => {
-    files.forEach((file) => URL.revokeObjectURL(file.preview))
-  }, [files])
+  // useEffect(() => {
+  //   files.forEach((file) => URL.revokeObjectURL(file.preview))
+  // }, [files])
 
   return (
     <>
@@ -120,4 +127,4 @@ const Dropzone = (props: DropzoneProps) => {
   )
 }
 
-export default memo(Dropzone)
+export default memo(ImageDropzone)

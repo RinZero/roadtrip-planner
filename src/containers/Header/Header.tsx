@@ -214,6 +214,8 @@ const Header = () => {
                 onClick={() => {
                   dispatch(logOutSuccess())
                 }}
+                component={RouterLink}
+                to={`/`}
               >
                 Log out
               </LogoutButton>

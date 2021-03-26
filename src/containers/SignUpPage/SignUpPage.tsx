@@ -91,6 +91,7 @@ const SignUpPage = () => {
               inputRef={register}
               placeholder="Username"
               variant="outlined"
+              inputProps={{ minlength: 3, maxlength: 50, required: true }}
             />
             <StyledInput
               type="email"
@@ -98,6 +99,7 @@ const SignUpPage = () => {
               inputRef={register}
               placeholder="Email"
               variant="outlined"
+              inputProps={{ type: 'email', required: true }}
             />
             <StyledInput
               type="password"
@@ -105,6 +107,7 @@ const SignUpPage = () => {
               inputRef={register}
               placeholder="Passwort"
               variant="outlined"
+              inputProps={{ minlength: 6, required: true }}
             />
             <StyledInput
               type="password"
@@ -112,6 +115,7 @@ const SignUpPage = () => {
               inputRef={register}
               placeholder="Passwort wiederholen"
               variant="outlined"
+              inputProps={{ minlength: 6, required: true }}
             />
             <Box display="flex" alignItems="flex-start" flexDirection="column">
               <Box mb={1}>

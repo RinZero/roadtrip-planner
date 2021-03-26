@@ -61,6 +61,7 @@ const LogInForm = () => {
         inputRef={register}
         placeholder="Email"
         variant="outlined"
+        inputProps={{ type: 'email', required: true }}
       />
       <StyledInput
         type="password"
@@ -68,6 +69,7 @@ const LogInForm = () => {
         inputRef={register}
         placeholder="Password"
         variant="outlined"
+        inputProps={{ type: 'password', required: true }}
       />
       <StyledButton type="submit">LogIn</StyledButton>
     </StyledForm>

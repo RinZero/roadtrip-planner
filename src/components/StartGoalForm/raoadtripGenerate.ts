@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { userEntry } from '../../store/ui/types'
-import { fetchUserEntries } from '../../utils/AuthService'
 import { fetchHereData } from '../../utils/fetchHereData'
 import { fetchPublicPlaces } from '../../utils/getPublicPlaces'
 
@@ -29,8 +28,16 @@ export const roadtripGenerate = async (
   // const center = createCenter(stops[0], stops[stops.length - 1])
 
   const additionalStops = await getAdditionalPlaces(categories, ownLocations)
-  const query = '' + categories.map((category) => category)
-
+  const query =
+    '' +
+    categories.map((category) => {
+      if (category.length === 4) {
+        const firstNumber: number = +category[0] * 100
+        const category2: string = '' + firstNumber + '-' + category
+        return category2
+      }
+      return category
+    })
   const list = new Set<info>()
   const route: number[][] = new Array(maxStops)
   for (let i = 0; i < route.length; i++) {
@@ -49,6 +56,8 @@ export const roadtripGenerate = async (
           width: 40000,
         },
       })
+      // eslint-disable-next-line no-console
+      console.log(possibleStops)
       // add own and/or public user_entries to possible stops
       additionalStops.forEach(function (arrayItem: info) {
         possibleStops.items.push(arrayItem)

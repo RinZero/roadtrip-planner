@@ -2,7 +2,7 @@ import React, { memo, useCallback } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setRoadtripInfos } from '../../store/actions'
+import { setProgressStep, setRoadtripInfos } from '../../store/actions'
 import { selectRoadtripInfos, selectUserToken } from '../../store/selectors'
 import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
 import { initUserData } from '../../utils/initUserData'
@@ -27,7 +27,7 @@ const EditRoadtripCreation = () => {
         type: 'roadtrip',
         locations: [],
         attributes: {
-          name: 'Roadtrip test',
+          name: 'Ein Roadtrip',
           public: false,
           distance: 1,
         },
@@ -51,7 +51,8 @@ const EditRoadtripCreation = () => {
     })
 
     const result = await createRoadtrip(roadtripData, token)
-  }, [roadtripInfo, token])
+    dispatch(setProgressStep({ progressStep: '4' }))
+  }, [roadtripInfo, token, dispatch])
 
   const onChange = (r: Array<Record<string, any>>) => {
     dispatch(

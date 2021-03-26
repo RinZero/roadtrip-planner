@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { ChangeEvent, memo, useEffect, useState } from 'react'
 
 import {
@@ -21,14 +22,8 @@ import {
   selectUserLocations,
   selectUserToken,
 } from '../../store/selectors'
-import { LocationState } from '../../store/user/types'
 import { FormInputUserEntry } from '../../utils/additionalTypes'
-import {
-  createPlace,
-  editPlace,
-  findLocationById,
-  placeType,
-} from '../../utils/CreateNewPlace'
+import { createPlace, editPlace, placeType } from '../../utils/CreateNewPlace'
 import {
   getAllCategories,
   getAllSelectedCategories,
@@ -71,9 +66,6 @@ const NewPlaceForm = (props: PropsForForm) => {
   const [currentRadio, setCurrentRadio] = useState('privat')
   const [currentCategories, setCurrentCategories] = useState(
     new Array<{ name: string }>()
-  )
-  const [currentCategoriesSet, setCurrentCategoriesSet] = useState(
-    new Set<{ name: string }>()
   )
   const [responseMessage, setResponseMessage] = useState('')
 
@@ -154,10 +146,11 @@ const NewPlaceForm = (props: PropsForForm) => {
 
   useEffect(() => {
     if (!isAddMode) {
-      const place = findLocationById(
-        props.match.params.id[1],
-        locations as LocationState[]
-      )
+      const place = locations
+        ? locations.find((location) => {
+            return location.id === props.match.params.id[1]
+          })
+        : undefined
       if (place) {
         setValue('name', place.name)
         setValue('description', place.description)
@@ -277,7 +270,7 @@ const NewPlaceForm = (props: PropsForForm) => {
             options={allCategories}
             getOptionLabel={(option) => option.name}
             filterSelectedOptions
-            onChange={(e: any, value) => {
+            onChange={(e: ChangeEvent<Record<string, any>>, value) => {
               setCurrentCategories(value)
             }}
             value={currentCategories}

@@ -1,3 +1,4 @@
+import { LocationSearching } from '@material-ui/icons'
 import axios from 'axios'
 
 import { LocationState } from '../store/user/types'
@@ -53,23 +54,4 @@ export const editPlace = (data: placeType, id: string, token: string) => {
     .catch((error) => {
       return [error]
     })
-}
-
-export const findLocationById = (id: string, locations: LocationState[]) => {
-  if (locations) {
-    for (let i = 0; i < locations.length; i++) {
-      if (locations[i].id === id) {
-        const obj = {
-          public: locations[i].public,
-          name: locations[i].name,
-          description: locations[i].description,
-          latitude: locations[i].latitude,
-          longitude: locations[i].longitude,
-          category: locations[i].category,
-        }
-        return obj
-      }
-    }
-  }
-  return undefined
 }

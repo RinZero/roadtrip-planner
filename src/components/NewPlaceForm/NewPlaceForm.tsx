@@ -1,4 +1,5 @@
-import React, { ChangeEvent, memo, useState } from 'react'
+/* eslint-disable prettier/prettier */
+import React, { ChangeEvent, memo, useEffect, useState } from 'react'
 
 import {
   TextField,
@@ -13,15 +14,21 @@ import {
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { selectUserId } from '../../store/selectors'
-import { createPlace } from '../../utils/CreateNewPlace'
+import {
+  selectUserId,
+  selectUserLocations,
+  selectUserToken,
+} from '../../store/selectors'
+import { FormInputUserEntry } from '../../utils/additionalTypes'
+import { createPlace, editPlace, placeType } from '../../utils/CreateNewPlace'
 import {
   getAllCategories,
   getAllSelectedCategories,
 } from '../../utils/getCategoriesArray'
+import { initUserData } from '../../utils/initUserData'
 
 const StyledForm = withTheme(styled.form`
   width: 100%;
@@ -44,10 +51,22 @@ const StyledButton = withTheme(styled(Button)`
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 `)
+type PropsForForm = {
+  match: Record<string, any>
+}
 
-const NewPlaceForm = () => {
-  const { register, handleSubmit } = useForm()
+const NewPlaceForm = (props: PropsForForm) => {
+  const isAddMode = !props.match.params.id
+  const locations = useSelector(selectUserLocations())
+  const userID = useSelector(selectUserId())
+  const token = useSelector(selectUserToken())
+  const dispatch = useDispatch()
+
+  const { register, handleSubmit, setValue } = useForm()
   const [currentRadio, setCurrentRadio] = useState('privat')
+  const [currentCategories, setCurrentCategories] = useState(
+    new Array<{ name: string }>()
+  )
   const [responseMessage, setResponseMessage] = useState('')
 
   //for frontend validation numbers
@@ -57,10 +76,7 @@ const NewPlaceForm = () => {
   const [latHelperText, setLatHelperText] = useState('')
 
   //get all categories
-  const [categories, setCategories] = useState(new Set())
   const allCategories = getAllCategories()
-
-  const userID = useSelector(selectUserId())
 
   const checkDigetInput = (
     event: ChangeEvent<HTMLInputElement>,
@@ -76,67 +92,87 @@ const NewPlaceForm = () => {
   }
 
   const setError = (latLng: string, errorString: string, error: boolean) => {
-    if (latLng === 'lat') {
+    if (latLng === 'latitude') {
       setLatError(error)
       setLatHelperText(errorString)
-    } else if (latLng === 'lng') {
+    } else if (latLng === 'longitude') {
       setLngError(error)
       setLngHelperText(errorString)
     }
   }
 
-  const categoriesChanged = (event: ChangeEvent<HTMLInputElement>) => {
-    const newSet = new Set(categories)
-    newSet.add(event.currentTarget.value)
-    setCategories(newSet)
-  }
-
-  const getCategoryNames = () => {
-    const allTags = document.getElementsByClassName('MuiChip-label')
-    const allTagsArr = new Array(allTags.length)
-    for (let i = 0; i < allTags.length; i++) {
-      allTagsArr[i] = allTags[i].innerHTML
-    }
-    return allTagsArr
-  }
-
-  type IFormInput = {
-    name: string
-    description: string
-    lat: number | null
-    lng: number | null
-  }
-
-  const onFormSubmit = async (data: IFormInput) => {
-    const allCategoryNames = getCategoryNames()
-    const categoryData = getAllSelectedCategories(allCategoryNames)
-    const place = {
+  const onFormSubmit = async (data: FormInputUserEntry) => {
+    const categoryData = getAllSelectedCategories(currentCategories)
+    const place: placeType = {
       type: 'user_entry',
       userId: userID,
       attributes: {
         public: currentRadio === 'privat' ? false : true,
         name: data.name,
         description: data.description,
-        latitude: data.lat,
-        longitude: data.lng,
+        latitude: data.latitude,
+        longitude: data.longitude,
         category: categoryData.length === 0 ? '' : JSON.stringify(categoryData),
       },
     }
-    const response = await createPlace(place)
-    // Get response messages
-    if (response.includes('erstellt')) {
-      setResponseMessage(response)
+    if (!isAddMode) {
+      place.attributes.id = props.match.params.id[1] as number
+      const response = await editPlace(place, props.match.params.id[1], token)
+      // Get response messages
+      if (response.includes('bearbeitet')) {
+        setResponseMessage(response)
+        await initUserData(token, dispatch)
+      } else {
+        setResponseMessage('Hat leider nicht funktioniert')
+      }
     } else {
-      const arr: any[] = []
-      response.forEach(function (item: any) {
-        if (item[1]) {
-          arr.push(item[1].pop())
-        }
-      })
-      const str = arr.join(' ')
-      setResponseMessage(str)
+      const response = await createPlace(place)
+      // Get response messages
+      if (response.includes('erstellt')) {
+        setResponseMessage(response)
+        await initUserData(token, dispatch)
+      } else {
+        const arr: Array<Record<string, any>> = []
+        response.forEach(function (item: Record<string, any>) {
+          if (item[1]) {
+            arr.push(item[1].pop())
+          }
+        })
+        const str = arr.join(' ')
+        setResponseMessage(str)
+      }
     }
   }
+
+  useEffect(() => {
+    if (!isAddMode) {
+      const place = locations
+        ? locations.find((location) => {
+            return location.id === props.match.params.id[1]
+          })
+        : undefined
+      if (place) {
+        setValue('name', place.name)
+        setValue('description', place.description)
+        setValue('latitude', place.latitude)
+        setValue('longitude', place.longitude)
+        const radioValue = place.public ? 'öffentlich' : 'privat'
+        setCurrentRadio(radioValue)
+        const selectedCategoriesJSON = place.category
+          ? JSON.parse(place.category)
+          : []
+        const names = new Array<{ name: string }>()
+        const data = new Array<{ name: string; number: string }>()
+        selectedCategoriesJSON.forEach(
+          (item: { number: string; name: string }) => {
+            names.push({ name: item.name })
+            data.push({ name: item.name, number: item.number })
+          }
+        )
+        setCurrentCategories(names)
+      }
+    }
+  }, [])
 
   return (
     <>
@@ -173,8 +209,8 @@ const NewPlaceForm = () => {
 
           <TextField
             fullWidth
-            id="lat"
-            name="lat"
+            id="latitude"
+            name="latitude"
             label="Breitengrad"
             type="number"
             placeholder="47.1234"
@@ -189,8 +225,8 @@ const NewPlaceForm = () => {
           />
           <TextField
             fullWidth
-            id="lng"
-            name="lng"
+            id="longitude"
+            name="longitude"
             label="Längengrad"
             type="number"
             inputRef={register}
@@ -234,9 +270,10 @@ const NewPlaceForm = () => {
             options={allCategories}
             getOptionLabel={(option) => option.name}
             filterSelectedOptions
-            onChange={(e: any) => {
-              categoriesChanged(e)
+            onChange={(e: ChangeEvent<Record<string, any>>, value) => {
+              setCurrentCategories(value)
             }}
+            value={currentCategories}
             renderInput={(params) => (
               <TextField {...params} variant="outlined" label="Kategorien" />
             )}

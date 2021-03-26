@@ -3,7 +3,6 @@ import React, { memo } from 'react'
 import {
   List,
   ListItemText,
-  ListItemSecondaryAction,
   IconButton,
   ListItem,
   withTheme,
@@ -12,6 +11,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import { useSelector } from 'react-redux'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { selectUserLocations } from '../../store/selectors'
@@ -25,6 +25,7 @@ const LoactionListItem = withTheme(styled(ListItem)`
 
 export const LocationList = () => {
   const locations = useSelector(selectUserLocations())
+
   return (
     <List>
       {locations?.map((location) => {
@@ -36,7 +37,10 @@ export const LocationList = () => {
                 <ListItemText secondary={location.description} />
               </Box>
               <Box display="flex" flexDirection="column">
-                <IconButton>
+                <IconButton
+                  component={RouterLink}
+                  to={`/neuer_ort/edit/:${location.id}`}
+                >
                   <EditIcon />
                 </IconButton>
                 <IconButton>

@@ -121,7 +121,7 @@ const SignUpPage = () => {
               type="text"
               name="picture"
               inputRef={register}
-              placeholder="hier bitte Image-Link einfügen"
+              placeholder="hier Image-Link einfügen"
               variant="outlined"
             />
             {/* <Box display="flex" alignItems="flex-start" flexDirection="column"> */}
@@ -129,6 +129,13 @@ const SignUpPage = () => {
                 <Typography variant="h6">Profilbild:</Typography>
               </Box> */}
             {/* <ImageDropzone /> */}
+            {/* <StyledInput
+              type="text"
+              name="picture"
+              inputRef={register}
+              placeholder="oder hier Image-Link einfügen"
+              variant="outlined"
+            /> */}
             {/* </Box> */}
           </Box>
           <LoginButton type="submit" color="primary">

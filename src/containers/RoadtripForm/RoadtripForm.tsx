@@ -22,7 +22,7 @@ const RoadtripForm = () => {
       {progressStep.toString() === '2' && <SelectCategories />}
       {progressStep.toString() === '3' && <EditRoadtripCreation />}
       {progressStep.toString() === '4' && (
-        <Typography variant="h3">Danke fürs User Testen xD</Typography>
+        <Typography variant="h3">Der Roadtrip wurde erstellt ^^</Typography>
       )}
     </>
   )

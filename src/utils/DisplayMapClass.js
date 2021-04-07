@@ -89,6 +89,11 @@ export class DisplayMapClass extends React.Component {
       })
     }
 
+    // resize map when window size change - responsive
+    window.addEventListener('resize', function () {
+      map.getViewPort().resize()
+    })
+
     // MapEvents enables the event system
     // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))

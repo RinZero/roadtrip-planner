@@ -116,7 +116,12 @@ const NewPlaceForm = (props: PropsForForm) => {
       },
     }
     if (!isAddMode) {
-      place.attributes.id = props.match.params.id[1] as number
+      // FEHLER - so ist besser props.match.params.id.substring(1)
+      // eslint-disable-next-line no-console
+      console.log(props.match.params.id)
+      // eslint-disable-next-line no-console
+      console.log(props.match.params.id.substring(1))
+      place.attributes.id = props.match.params.id.substring(1) as number
       const response = await editPlace(place, props.match.params.id[1], token)
       // Get response messages
       if (response.includes('bearbeitet')) {

@@ -167,3 +167,35 @@ export const deleteRoadtrip = (token: string, id: number) => {
       console.log(response)
     })
 }
+
+type userUpdateState = {
+  username: string
+  email: string
+  password: string
+  password_confirmation: string
+  is_admin: boolean
+  image?: string
+  picture?: string
+  id: number
+}
+
+export const editUser = (data: userUpdateState, token: string) => {
+  return fetch
+    .patch(
+      `users/${data.id}`,
+      {
+        data: data,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    )
+    .then((response) => {
+      return response.data.status
+    })
+    .catch((error) => {
+      return error
+    })
+}

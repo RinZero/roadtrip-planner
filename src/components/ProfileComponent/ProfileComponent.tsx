@@ -13,6 +13,7 @@ import {
   IconButton,
   InputAdornment,
   Divider,
+  ClickAwayListener,
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
@@ -25,7 +26,10 @@ import {
   selectUserPicture,
   selectUserEmail,
   selectUserName,
+  selectUserToken,
+  selectUserId,
 } from '../../store/selectors'
+import { editUser } from '../../utils/AuthService'
 
 //Art 2
 const ProfileBox = withTheme(styled(Box)`
@@ -80,18 +84,28 @@ const ConfirmButton = withTheme(styled(Button)`
 `)
 
 const ProfileComponent = () => {
+  const token = useSelector(selectUserToken())
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null)
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget)
-  }
-
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popper' : undefined
+  const [id, setId] = useState<string | undefined>(undefined)
   const [values, setValues] = React.useState({
     showPassword: false,
+    showPassword2: false,
+    open: false,
   })
+
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget)
+    setValues({ ...values, open: !values.open })
+    setId(values.open ? 'simple-popper' : undefined)
+  }
+
+  const handleClickAway = () => {
+    setValues({ ...values, open: false })
+    setAnchorEl(null)
+    setId(values.open ? 'simple-popper' : undefined)
+  }
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
@@ -101,87 +115,143 @@ const ProfileComponent = () => {
     event.preventDefault()
   }
 
+  const handleClickShowPassword2 = () => {
+    setValues({ ...values, showPassword2: !values.showPassword2 })
+  }
+
+  const handleMouseDownPassword2 = (event: MouseEvent) => {
+    event.preventDefault()
+  }
+
   type IFormInput = {
     userName: string
     email: string
     password: string
+    password_confirmation: string
     image: string
   }
 
+  const userId = useSelector(selectUserId())
+  const name = useSelector(selectUserName())
+  const email = useSelector(selectUserEmail())
+  const profilePic = useSelector(selectUserPicture())
+
   const dispatch = useDispatch()
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      userName: '',
-      email: '',
-      password: '',
-      image: '',
-    },
-  })
-  const onFormSubmit = (data: IFormInput) => {
+  const { register, handleSubmit } = useForm()
+  const onFormSubmit = async (data: IFormInput) => {
     dispatch(
       updateUser({
         userName: data.userName,
         email: data.email,
         password: data.password,
-        picture: data.image,
+        // TODO: image upload, image link should be possible in edit
+        // picture: data.image,
+        picture: profilePic,
       })
     )
+
+    const user = {
+      username: data.userName,
+      email: data.email,
+      password: data.password,
+      password_confirmation: data.password_confirmation,
+      is_admin: false,
+      // picture: '',
+      // image: '',
+      id: (userId as unknown) as number,
+    }
+
+    const response = await editUser(user, token)
+    // eslint-disable-next-line no-console
+    console.log(response)
   }
 
-  const name = useSelector(selectUserName())
-  const email = useSelector(selectUserEmail())
-  const profilePic = useSelector(selectUserPicture())
   return (
     <>
       <ProfileBox>
-        <ProfileAvatar alt="profile picture" src={profilePic} />
+        <ProfileAvatar alt="Profilbild" src={profilePic} />
         <Typography variant="h3">{name}</Typography>
         <Typography variant="h3">{email}</Typography>
         <EditButton aria-describedby={id} type="button" onClick={handleClick}>
           <EditIcon />
         </EditButton>
-        <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom">
-          <PopperBox>
-            <Typography variant="h3">Bearbeiten:</Typography>
-            <FormControl>
-              <InputLabel>Name</InputLabel>
-              <Input name="userName" ref={register} />
-            </FormControl>
-            <Divider />
-            <FormControl>
-              <InputLabel>Email</InputLabel>
-              <Input name="email" ref={register} />
-            </FormControl>
-            <Divider />
-            <FormControl>
-              <InputLabel>Password</InputLabel>
-              <Input
-                name="password"
-                ref={register}
-                type={values.showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-            <IconBox>
-              <InfoButton>Profilbild</InfoButton>
-              <ConfirmButton
-                type="submit"
-                onSubmit={handleSubmit(onFormSubmit)}
-              >
-                Speichern
-              </ConfirmButton>
-            </IconBox>
-          </PopperBox>
+        <Popper
+          id={id}
+          open={values.open}
+          anchorEl={anchorEl}
+          placement="bottom"
+        >
+          <ClickAwayListener onClickAway={handleClickAway}>
+            <PopperBox onSubmit={handleSubmit(onFormSubmit)}>
+              <Typography variant="h3">Bearbeiten:</Typography>
+              <FormControl>
+                <InputLabel>Name</InputLabel>
+                <Input
+                  name="userName"
+                  inputRef={register}
+                  defaultValue={name}
+                />
+              </FormControl>
+              <Divider />
+              <FormControl>
+                <InputLabel>E-Mail</InputLabel>
+                <Input name="email" inputRef={register} defaultValue={email} />
+              </FormControl>
+              <Divider />
+              <FormControl>
+                <InputLabel>Passwort</InputLabel>
+                <Input
+                  name="password"
+                  inputRef={register}
+                  type={values.showPassword ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {values.showPassword ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+              <Divider />
+              <FormControl>
+                <InputLabel>Passwort Bestätigung</InputLabel>
+                <Input
+                  name="password_confirmation"
+                  inputRef={register}
+                  type={values.showPassword2 ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword2}
+                        onMouseDown={handleMouseDownPassword2}
+                      >
+                        {values.showPassword2 ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+
+              <IconBox>
+                <InfoButton>Profilbild</InfoButton>
+                <ConfirmButton type="submit">Speichern</ConfirmButton>
+              </IconBox>
+            </PopperBox>
+          </ClickAwayListener>
         </Popper>
       </ProfileBox>
     </>

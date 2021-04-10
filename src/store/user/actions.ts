@@ -30,7 +30,7 @@ export const updateUser = createAction('user/UPDATE_USER')<{
   userName: string
   email: string
   password: string
-  picture: string
+  picture: string | undefined
 }>()
 
 export const logOutSuccess = createAction('user/LOG_OUT_SUCCESS')()

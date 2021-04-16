@@ -116,8 +116,12 @@ const NewPlaceForm = (props: PropsForForm) => {
       },
     }
     if (!isAddMode) {
-      place.attributes.id = props.match.params.id[1] as number
-      const response = await editPlace(place, props.match.params.id[1], token)
+      place.attributes.id = props.match.params.id.substring(1) as number
+      const response = await editPlace(
+        place,
+        props.match.params.id.substring(1),
+        token
+      )
       // Get response messages
       if (response.includes('bearbeitet')) {
         setResponseMessage(response)
@@ -148,7 +152,7 @@ const NewPlaceForm = (props: PropsForForm) => {
     if (!isAddMode) {
       const place = locations
         ? locations.find((location) => {
-            return location.id === props.match.params.id[1]
+            return location.id === props.match.params.id.substring(1)
           })
         : undefined
       if (place) {

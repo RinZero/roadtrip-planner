@@ -26,7 +26,7 @@ export type createRoadtripType = {
 }
 const fetch = axios.create({
   baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
-  //baseURL: 'http://localhost:3000/api/v1/',
+  // baseURL: 'http://localhost:3000/api/v1/',
 })
 
 export const logIn = (logInData: logInType) => {
@@ -184,7 +184,7 @@ export const editUser = (data: userUpdateState, token: string) => {
     .patch(
       `users/${data.id}`,
       {
-        data: data,
+        data,
       },
       {
         headers: {
@@ -197,5 +197,17 @@ export const editUser = (data: userUpdateState, token: string) => {
     })
     .catch((error) => {
       return error
+    })
+}
+
+export const deleteUser = (token: string, id: number) => {
+  return fetch
+    .delete(`users/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => {
+      return response
     })
 }

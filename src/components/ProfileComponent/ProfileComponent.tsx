@@ -14,14 +14,21 @@ import {
   InputAdornment,
   Divider,
   ClickAwayListener,
+  Link,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { updateUser } from '../../store/actions'
+import { logOutSuccess, updateUser } from '../../store/actions'
 import {
   selectUserPicture,
   selectUserEmail,
@@ -29,9 +36,8 @@ import {
   selectUserToken,
   selectUserId,
 } from '../../store/selectors'
-import { editUser } from '../../utils/AuthService'
+import { editUser, deleteUser } from '../../utils/AuthService'
 
-//Art 2
 const ProfileBox = withTheme(styled(Box)`
   margin-top: ${(props) => props.theme.spacing(10)}px;
   margin-bottom: ${(props) => props.theme.spacing(7)}px;
@@ -52,6 +58,12 @@ const IconBox = withTheme(styled(Box)`
     ${(props) => props.theme.spacing(1)}px;
 `)
 
+const CenteredBox = withTheme(styled(Box)`
+  display: flex;
+  justify-content: center;
+  margin-top: ${(props) => props.theme.spacing(3)}px;
+`)
+
 const ProfileAvatar = withTheme(styled(Avatar)`
   width: ${(props) => props.theme.spacing(36)}px;
   height: ${(props) => props.theme.spacing(36)}px;
@@ -63,7 +75,6 @@ const InfoButton = withTheme(styled(Button)`
   background-color: white;
   box-shadow: 0px 3px 6px 0px #b1b1b1;
   height: ${(props) => props.theme.spacing(5)}px;
-  width: ${(props) => props.theme.spacing(10)}px;
   margin-right: ${(props) => props.theme.spacing(0.5)}px;
 `)
 
@@ -83,8 +94,18 @@ const ConfirmButton = withTheme(styled(Button)`
   min-width: ${(props) => props.theme.spacing(5)}px;
 `)
 
+const InputLink = withTheme(styled(Input)`
+  width: 100%;
+`)
+
 const ProfileComponent = () => {
   const token = useSelector(selectUserToken())
+  const userId = useSelector(selectUserId())
+  const name = useSelector(selectUserName())
+  const email = useSelector(selectUserEmail())
+  const profilePic = useSelector(selectUserPicture())
+
+  const history = useHistory()
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null)
@@ -93,6 +114,7 @@ const ProfileComponent = () => {
     showPassword: false,
     showPassword2: false,
     open: false,
+    openDelete: false,
   })
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -105,6 +127,31 @@ const ProfileComponent = () => {
     setValues({ ...values, open: false })
     setAnchorEl(null)
     setId(values.open ? 'simple-popper' : undefined)
+  }
+
+  const handleClickOpenDelete = () => {
+    setValues({ ...values, openDelete: true })
+  }
+
+  const handleCloseDelete = () => {
+    setValues({ ...values, openDelete: false })
+  }
+
+  const handleDelete = async () => {
+    const response = await deleteUser(token, (userId as unknown) as number)
+    if (response.status && response.status === 204) {
+      dispatch(
+        updateUser({
+          userName: '',
+          email: '',
+          password: '',
+          picture: '',
+        })
+      )
+      handleCloseDelete()
+      dispatch(logOutSuccess())
+      history.push('/')
+    }
   }
 
   const handleClickShowPassword = () => {
@@ -128,42 +175,38 @@ const ProfileComponent = () => {
     email: string
     password: string
     password_confirmation: string
-    image: string
+    picture: string
   }
-
-  const userId = useSelector(selectUserId())
-  const name = useSelector(selectUserName())
-  const email = useSelector(selectUserEmail())
-  const profilePic = useSelector(selectUserPicture())
 
   const dispatch = useDispatch()
   const { register, handleSubmit } = useForm()
   const onFormSubmit = async (data: IFormInput) => {
-    dispatch(
-      updateUser({
-        userName: data.userName,
-        email: data.email,
-        password: data.password,
-        // TODO: image upload, image link should be possible in edit
-        // picture: data.image,
-        picture: profilePic,
-      })
-    )
-
     const user = {
       username: data.userName,
       email: data.email,
       password: data.password,
       password_confirmation: data.password_confirmation,
       is_admin: false,
-      // picture: '',
+      picture: data.picture,
       // image: '',
       id: (userId as unknown) as number,
     }
 
     const response = await editUser(user, token)
-    // eslint-disable-next-line no-console
-    console.log(response)
+    if (response === 'Dein Profil wurde bearbeitet!') {
+      dispatch(
+        updateUser({
+          userName: data.userName,
+          email: data.email,
+          password: data.password,
+          // TODO: image upload, image link should be possible in edit
+          picture: data.picture,
+          // image: data.image,
+        })
+      )
+    }
+    //close popup
+    handleClickAway()
   }
 
   return (
@@ -245,11 +288,59 @@ const ProfileComponent = () => {
                   }
                 />
               </FormControl>
+              <Divider />
+              <FormControl>
+                <InputLabel>Bild Link</InputLabel>
+                <InputLink
+                  type="text"
+                  name="picture"
+                  inputRef={register}
+                  placeholder="hier Bild-Link einfügen"
+                  defaultValue={profilePic}
+                />
+              </FormControl>
+              <Divider />
 
               <IconBox>
-                <InfoButton>Profilbild</InfoButton>
+                <InfoButton onClick={handleClickOpenDelete}>
+                  Profil löschen
+                </InfoButton>
                 <ConfirmButton type="submit">Speichern</ConfirmButton>
               </IconBox>
+
+              {/* <CenteredBox>
+                <Link
+                  variant="body2"
+                  onClick={() => {
+                    handleClickOpenDelete()
+                  }}
+                >
+                  Profil löschen :(
+                </Link>
+              </CenteredBox> */}
+              <Dialog
+                open={values.openDelete}
+                onClose={handleCloseDelete}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  Willst du dein Profil wirklich löschen?
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Das Löschen deines Profils kann nicht mehr rückgängig
+                    gemacht werden. Damit gehen auch deine erstellten Roadtrips
+                    und Orte verloren.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <InfoButton onClick={handleCloseDelete}>Abbrechen</InfoButton>
+                  <InfoButton onClick={handleDelete} color="secondary">
+                    Löschen
+                  </InfoButton>
+                </DialogActions>
+              </Dialog>
             </PopperBox>
           </ClickAwayListener>
         </Popper>

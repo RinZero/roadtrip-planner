@@ -118,13 +118,6 @@ const SignUpPage = () => {
               variant="outlined"
               inputProps={{ minlength: 6, required: true }}
             />
-            <StyledInput
-              type="text"
-              name="picture"
-              inputRef={register}
-              placeholder="hier Image-Link einfügen"
-              variant="outlined"
-            />
             <Box display="flex" alignItems="flex-start" flexDirection="column">
               <Box mb={1}>
                 <Typography variant="h6">Profilbild:</Typography>

@@ -14,7 +14,6 @@ import {
   InputAdornment,
   Divider,
   ClickAwayListener,
-  Link,
   Dialog,
   DialogActions,
   DialogTitle,
@@ -56,12 +55,6 @@ const IconBox = withTheme(styled(Box)`
   margin: ${(props) => props.theme.spacing(2.5)}px
     ${(props) => props.theme.spacing(1)}px
     ${(props) => props.theme.spacing(1)}px;
-`)
-
-const CenteredBox = withTheme(styled(Box)`
-  display: flex;
-  justify-content: center;
-  margin-top: ${(props) => props.theme.spacing(3)}px;
 `)
 
 const ProfileAvatar = withTheme(styled(Avatar)`
@@ -233,12 +226,18 @@ const ProfileComponent = () => {
                   name="userName"
                   inputRef={register}
                   defaultValue={name}
+                  inputProps={{ minlength: 3, maxlength: 50, required: true }}
                 />
               </FormControl>
               <Divider />
               <FormControl>
                 <InputLabel>E-Mail</InputLabel>
-                <Input name="email" inputRef={register} defaultValue={email} />
+                <Input
+                  name="email"
+                  inputRef={register}
+                  defaultValue={email}
+                  inputProps={{ type: 'email', required: true }}
+                />
               </FormControl>
               <Divider />
               <FormControl>
@@ -247,6 +246,7 @@ const ProfileComponent = () => {
                   name="password"
                   inputRef={register}
                   type={values.showPassword ? 'text' : 'password'}
+                  inputProps={{ minlength: 6, required: true }}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -271,6 +271,7 @@ const ProfileComponent = () => {
                   name="password_confirmation"
                   inputRef={register}
                   type={values.showPassword2 ? 'text' : 'password'}
+                  inputProps={{ minlength: 6, required: true }}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -308,16 +309,6 @@ const ProfileComponent = () => {
                 <ConfirmButton type="submit">Speichern</ConfirmButton>
               </IconBox>
 
-              {/* <CenteredBox>
-                <Link
-                  variant="body2"
-                  onClick={() => {
-                    handleClickOpenDelete()
-                  }}
-                >
-                  Profil löschen :(
-                </Link>
-              </CenteredBox> */}
               <Dialog
                 open={values.openDelete}
                 onClose={handleCloseDelete}

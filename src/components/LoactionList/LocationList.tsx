@@ -10,11 +10,13 @@ import {
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { selectUserLocations } from '../../store/selectors'
+import { selectUserLocations, selectUserToken } from '../../store/selectors'
+import { deletePlace } from '../../utils/CreateNewPlace'
+import { initUserData } from '../../utils/initUserData'
 
 const LoactionListItem = withTheme(styled(ListItem)`
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
@@ -25,6 +27,8 @@ const LoactionListItem = withTheme(styled(ListItem)`
 
 export const LocationList = () => {
   const locations = useSelector(selectUserLocations())
+  const token = useSelector(selectUserToken())
+  const dispatch = useDispatch()
 
   return (
     <List>
@@ -43,7 +47,13 @@ export const LocationList = () => {
                 >
                   <EditIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton
+                  onClick={async () => {
+                    const response = await deletePlace(token, location.id)
+                    if (response.status && response.status === 204)
+                      await initUserData(token, dispatch)
+                  }}
+                >
                   <DeleteIcon />
                 </IconButton>
               </Box>

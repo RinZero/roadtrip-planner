@@ -8,6 +8,7 @@ import {
   withTheme,
 } from '@material-ui/core'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import EditRoadtripUpdate from '../../components/EditRoadtripUpdate'
@@ -27,11 +28,13 @@ const EditRoadtripPage = () => {
   const [isPublic, setIsPublic] = useState(editRoadtrip.public || false)
   const [name, setName] = useState(editRoadtrip.name)
   const token = useSelector(selectUserToken())
+  const history = useHistory()
   const onUpdate = async () => {
     if (editRoadtrip) {
       const updatedRoadtrip = { ...editRoadtrip, public: isPublic, name: name }
 
       await updateRoadtrip(updatedRoadtrip, token)
+      history.push('/profile')
     }
   }
   return (

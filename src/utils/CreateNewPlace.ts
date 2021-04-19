@@ -55,3 +55,15 @@ export const editPlace = (data: placeType, id: string, token: string) => {
       return [error]
     })
 }
+
+export const deletePlace = (token: string, id: string) => {
+  return fetch
+    .delete(`user_entries/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => {
+      return response
+    })
+}

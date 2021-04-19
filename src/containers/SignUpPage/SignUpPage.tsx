@@ -77,8 +77,6 @@ const SignUpPage = () => {
     }
     history.push('/')
     // if (user) dispatch(logInSuccess(user))
-
-    // CreateUser()
   }
   return (
     <SignupCard variant="outlined" square>

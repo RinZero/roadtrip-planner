@@ -14,6 +14,7 @@ import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 // import ImageDropzone from '../../components/ImageDropzone'
+import ImageDropzone from '../../components/ImageDropzone'
 import { logInSuccess } from '../../store/actions'
 import { selectDropzoneFiles } from '../../store/selectors'
 import { logIn, signUp } from '../../utils/AuthService'
@@ -117,26 +118,19 @@ const SignUpPage = () => {
               variant="outlined"
               inputProps={{ minlength: 6, required: true }}
             />
-            <StyledInput
-              type="text"
-              name="picture"
-              inputRef={register}
-              placeholder="hier Image-Link einfügen"
-              variant="outlined"
-            />
-            {/* <Box display="flex" alignItems="flex-start" flexDirection="column"> */}
-            {/* <Box mb={1}>
+            <Box display="flex" alignItems="flex-start" flexDirection="column">
+              <Box mb={1}>
                 <Typography variant="h6">Profilbild:</Typography>
-              </Box> */}
-            {/* <ImageDropzone /> */}
-            {/* <StyledInput
-              type="text"
-              name="picture"
-              inputRef={register}
-              placeholder="oder hier Image-Link einfügen"
-              variant="outlined"
-            /> */}
-            {/* </Box> */}
+              </Box>
+              <ImageDropzone />
+              <StyledInput
+                type="text"
+                name="picture"
+                inputRef={register}
+                placeholder="oder hier Image-Link einfügen"
+                variant="outlined"
+              />
+            </Box>
           </Box>
           <LoginButton type="submit" color="primary">
             Registrieren

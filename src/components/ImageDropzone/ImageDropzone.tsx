@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo } from 'react'
 
 import { Typography, withTheme } from '@material-ui/core'
 import { useDropzone } from 'react-dropzone'

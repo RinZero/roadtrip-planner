@@ -70,19 +70,12 @@ const StyledPopover = withTheme(styled(Popover)`
 `)
 
 const HeaderHight = withTheme(styled(Box)`
-  height: 3vh;
+  height: ${(props) => props.theme.spacing(5)}px;
   overflow: visible;
-  ${(props) => props.theme.breakpoints.up('sm')} {
-    height: 10vh;
-  }
 `)
 const HeaderAppBar = withTheme(styled(AppBar)`
-  height: 7vh;
   color: #707070;
   padding-top: ${(props) => props.theme.spacing(2)}px;
-  ${(props) => props.theme.breakpoints.up('sm')} {
-    height: 10vh;
-  }
   MuiPopover-paper {
     top: 0;
   }

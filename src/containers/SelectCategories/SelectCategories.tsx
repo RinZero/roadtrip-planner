@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import logo from '../../assets/roadabout_transparent.gif'
 import CategoryDropdown from '../../components/CategoryDropdown'
 import { roadtripGenerate } from '../../components/StartGoalForm/raoadtripGenerate'
 import {
@@ -114,6 +115,14 @@ const AddText = withTheme(styled(Box)`
 const CategoriesFormControl = withTheme(styled(FormControl)`
   margin: ${(props) => props.theme.spacing(1.5)}px;
   min-width: ${(props) => props.theme.spacing(25)}px;
+`)
+
+const ImgBox = withTheme(styled(Box)`
+  padding: ${(props) => props.theme.spacing(10)}px 0;
+  margin: ${(props) => props.theme.spacing(5)}px auto;
+  background-color: #f6f6f6;
+  width: 50vw;
+  height: 50vh;
 `)
 
 const SelectCategories = () => {
@@ -241,13 +250,9 @@ const SelectCategories = () => {
     <>
       <div>
         {loading ? (
-          <div>
-            <img
-              src="https://cdn.dribbble.com/users/1215152/screenshots/6958100/media/39ff624c788547951d1b383d724a05b7.gif "
-              alt="loading animation"
-              height="300"
-            />
-          </div>
+          <ImgBox>
+            <img src={logo} alt="loading animation" height="100%" />
+          </ImgBox>
         ) : (
           <div>
             <Box>

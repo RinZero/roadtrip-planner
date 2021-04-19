@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import logo from '../../assets/roadabout_logo.svg'
+import logo from '../../assets/roadabout_transparent.gif'
 import CategoryDropdown from '../../components/CategoryDropdown'
 import { roadtripGenerate } from '../../components/StartGoalForm/raoadtripGenerate'
 import {
@@ -120,7 +120,7 @@ const CategoriesFormControl = withTheme(styled(FormControl)`
 const ImgBox = withTheme(styled(Box)`
   padding: ${(props) => props.theme.spacing(10)}px 0;
   margin: ${(props) => props.theme.spacing(5)}px auto;
-  background-color: #71b255;
+  background-color: #f6f6f6;
   width: 50vw;
   height: 50vh;
 `)

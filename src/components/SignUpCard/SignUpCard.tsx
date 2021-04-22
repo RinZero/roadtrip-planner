@@ -1,6 +1,6 @@
 import React, { memo, ReactNode } from 'react'
 
-import { withTheme, Paper, Avatar, Typography, Box } from '@material-ui/core'
+import { withTheme, Paper, Avatar, Typography } from '@material-ui/core'
 import styled from 'styled-components'
 
 const ImageCircle = withTheme(styled(Avatar)<{ size: number; isLeft: boolean }>`

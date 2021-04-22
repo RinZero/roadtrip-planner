@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 
-import { Typography, withTheme } from '@material-ui/core'
+import { Typography, withTheme, Box } from '@material-ui/core'
 import { useDropzone } from 'react-dropzone'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -26,7 +26,8 @@ const Container = withTheme(styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${(props) => props.theme.spacing(5)}px;
+  padding: ${(props) => props.theme.spacing(1)}px;
+  margin-right: ${(props) => props.theme.spacing(1)}px;
   border-width: 2px;
   border-radius: 2px;
   border-color: ${(props) => getColor(props)};
@@ -110,20 +111,18 @@ const ImageDropzone = (props: ImageDropzoneProps) => {
   // }, [files])
 
   return (
-    <>
+    <Box display="flex" alignItems="center">
       <Container
         {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
       >
         <input {...getInputProps()} />
-        <Typography variant="body1">
-          Bilder für den Upload auswählen, oder Bildateien ziehen und ablegen
-        </Typography>
+        <Typography variant="body1">Bilder für den Upload auswählen</Typography>
         <Typography variant="body2">
-          (Nur *.jpg, *.png und *.gif Bilder sind erlaubt)
+          (Nur *.jpg, *.png und *.gif sind erlaubt)
         </Typography>
       </Container>
       <ThumbsContainer>{thumbs}</ThumbsContainer>
-    </>
+    </Box>
   )
 }
 

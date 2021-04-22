@@ -41,7 +41,7 @@ const LoginButton = withTheme(styled(Button)`
 const SignupCard = withTheme(styled(Card)`
   max-width: ${(props) => props.theme.spacing(50)}px;
   padding: ${(props) => props.theme.spacing(3.125)}px;
-  margin: ${(props) => props.theme.spacing(10)}px;
+  margin: ${(props) => props.theme.spacing(7)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 `)
@@ -82,8 +82,8 @@ const SignUpForm = () => {
     <SignupCard variant="outlined" square>
       <form onSubmit={handleSubmit(onFormSubmit)}>
         <Box display="grid" justifyContent="center">
-          <Typography variant="h1">Account erstellen</Typography>
-          <Box margin={3}>
+          <Typography variant="h1">Steig ein!</Typography>
+          <Box>
             <StyledInput
               type="text"
               name="username"

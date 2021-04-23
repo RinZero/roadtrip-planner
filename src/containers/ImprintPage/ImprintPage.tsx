@@ -19,7 +19,7 @@ const ImprintPage = () => {
           Unternehmensgesetzbuch, §63 Gewerbeordnung und Offenlegungspflicht
           laut §25 Mediengesetz.
         </Typography>
-        <Typography variant="body1">MMP3 Projekt an der FH-Salzburg</Typography>
+        <Typography variant="h6">MMP3 Projekt an der FH-Salzburg</Typography>
         <Typography variant="body1">
           Maria Edlinger, Jonathan Lex und Julia Wiesbauer
         </Typography>

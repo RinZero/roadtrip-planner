@@ -13,7 +13,8 @@ import {
   Avatar,
   MenuItem,
   Menu,
-  Paper,
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -22,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
+import logoMobile from '../../assets/roadabout_logo.svg'
 import logo from '../../assets/roadabout_textlogo.svg'
 import { logOutSuccess } from '../../store/actions'
 import {
@@ -71,14 +73,20 @@ const StyledPopover = withTheme(styled(Popover)`
 
 const HeaderHight = withTheme(styled(Box)`
   height: ${(props) => props.theme.spacing(5)}px;
-  overflow: visible;
 `)
+
 const HeaderAppBar = withTheme(styled(AppBar)`
   color: #707070;
   padding-top: ${(props) => props.theme.spacing(2)}px;
   MuiPopover-paper {
     top: 0;
   }
+`)
+
+const ToolbarContainer = withTheme(styled(Toolbar)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `)
 
 const HeaderIconButton = withTheme(styled(IconButton)`
@@ -93,7 +101,7 @@ const LogoBox = withTheme(styled(Box)`
   margin-left: 0;
   margin-right: auto;
   img {
-    width: ${(props) => props.theme.spacing(18)}px;
+    width: ${(props) => props.theme.spacing(5)}px;
     ${(props) => props.theme.breakpoints.up('md')} {
       width: ${(props) => props.theme.spacing(30)}px;
     }
@@ -105,6 +113,8 @@ const Header = () => {
   const history = useHistory()
   const userName = useSelector(selectUserName())
   const profilePic = useSelector(selectUserPicture())
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const dispatch = useDispatch()
 
   const handleClick = (event: any) => {
@@ -117,25 +127,9 @@ const Header = () => {
   return (
     <HeaderHight>
       <HeaderAppBar>
-        <Toolbar>
-          <HeaderIconButton onClick={handleClick}>
-            <MenuIcon />
-          </HeaderIconButton>
-          <Menu
-            autoFocus={false}
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem component={RouterLink} to={`/`}>
-              Neuer Roadtrip
-            </MenuItem>
-            <MenuItem component={RouterLink} to={`/neuer_ort`}>
-              Ort hinzufügen
-            </MenuItem>
-          </Menu>
+        <ToolbarContainer>
           <LogoBox>
-            <img src={logo} alt="loading animation" />
+            <img src={isMobile ? logoMobile : logo} alt="Roadabout Logo" />
           </LogoBox>
           <HeaderLink component={RouterLink} to={`/`} variant="h6">
             Neuer Roadtrip
@@ -191,7 +185,7 @@ const Header = () => {
                   </>
                 )}
               </PopupState>
-              <Typography variant="body1">or</Typography>
+              {!isMobile && <Typography variant="body1">or</Typography>}
               <Link component={RouterLink} to={`/sign_up`} variant="h6">
                 SignUp
               </Link>
@@ -203,18 +197,47 @@ const Header = () => {
                 Hallo {userName}, tuastn????
               </Typography>
 
-              <LogoutButton
+              {!isMobile && (
+                <LogoutButton
+                  onClick={() => {
+                    dispatch(logOutSuccess())
+                  }}
+                  component={RouterLink}
+                  to={`/`}
+                >
+                  Log out
+                </LogoutButton>
+              )}
+            </>
+          )}
+          <HeaderIconButton onClick={handleClick}>
+            <MenuIcon />
+          </HeaderIconButton>
+          <Menu
+            autoFocus={false}
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem component={RouterLink} to={`/`}>
+              Neuer Roadtrip
+            </MenuItem>
+            <MenuItem component={RouterLink} to={`/neuer_ort`}>
+              Ort hinzufügen
+            </MenuItem>
+            {userName !== 'Guest' && (
+              <MenuItem
                 onClick={() => {
                   dispatch(logOutSuccess())
                 }}
                 component={RouterLink}
                 to={`/`}
               >
-                Log out
-              </LogoutButton>
-            </>
-          )}
-        </Toolbar>
+                <LogoutButton>Log out</LogoutButton>
+              </MenuItem>
+            )}
+          </Menu>
+        </ToolbarContainer>
       </HeaderAppBar>
     </HeaderHight>
   )

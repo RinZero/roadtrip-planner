@@ -19,10 +19,15 @@ const ImprintPage = () => {
           Unternehmensgesetzbuch, §63 Gewerbeordnung und Offenlegungspflicht
           laut §25 Mediengesetz.
         </p>
-        <p>MMP3 Projekt an der FH-Salzburg</p>
-        <p>Maria Edlinger, Jonathan Lex und Julia Wiesbauer</p>
-        <p> Urstein Süd 1, 5412 Puch</p>
-        <p>Österreich</p>
+        <p>
+          MMP3 Projekt an der FH-Salzburg
+          <br />
+          Maria Edlinger, Jonathan Lex und Julia Wiesbauer
+          <br />
+          Urstein Süd 1, 5412 Puch
+          <br />
+          Österreich
+        </p>
         <Typography variant="h3">EU-Streitschlichtung</Typography>
         <p>
           Gemäß Verordnung über Online-Streitbeilegung in

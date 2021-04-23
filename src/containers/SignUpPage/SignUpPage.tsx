@@ -3,9 +3,9 @@ import React, { memo } from 'react'
 import { Box, withTheme, Typography } from '@material-ui/core'
 import styled from 'styled-components'
 
+import bild from '../../assets/bild.jpg'
 import bus from '../../assets/bus.jpg'
 import frauenInAuto from '../../assets/frauenInAuto.jpg'
-import jonathan from '../../assets/jonathan.jpeg'
 import SignUpCard from '../../components/SignUpCard/SignUpCard'
 import SignUpForm from './SignUpForm'
 
@@ -14,23 +14,34 @@ const SignUpPageContainer = withTheme(styled.div`
   align-items: center;
   justify-content: space-evenly;
   margin-top: ${(props) => props.theme.spacing(5)}px;
-  height: calc(
-    100vh - ${(props) => props.theme.spacing(13)}px
-  ); //100vh - (header(5) +footer(4))
+  flex-direction: column;
+  margin-bottom: ${(props) => props.theme.spacing(7)}px;
+  ${(props) => props.theme.breakpoints.up(1100)} {
+    flex-direction: row;
+    height: calc(
+      100vh - ${(props) => props.theme.spacing(18)}px
+    ); //100vh - (header(10) +footer(8))
+    margin-bottom: 0;
+  }
+`)
+
+const SignUpBox = withTheme(styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  heigh: 100%;
+  margin-left: ${(props) => props.theme.spacing(7)}px;
+  ${(props) => props.theme.breakpoints.down(1100)} {
+    margin-right: ${(props) => props.theme.spacing(7)}px;
+    margin-top: ${(props) => props.theme.spacing(1.5)}px;
+  }
 `)
 
 const SignUpPage = () => {
   return (
     <SignUpPageContainer>
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="space-evenly"
-        height="100%"
-        ml={7}
-      >
-        {/* WAS */}
+      <SignUpBox>
         <SignUpCard
           text={
             <Typography variant="body1">
@@ -38,13 +49,12 @@ const SignUpPage = () => {
               Roadtrip durch Österreich planen.
             </Typography>
           }
-          title={'Leb auf der Straße'}
+          title={'Entdecke Österreich'}
           isLeft={false}
           size={20}
           image={bus}
           color={'darkseagreen'}
         />
-        {/* Features */}
         <SignUpCard
           text={
             <>
@@ -67,7 +77,6 @@ const SignUpPage = () => {
           image={frauenInAuto}
           color={'lightblue'}
         />
-        {/* Beta & signUp*/}
         <SignUpCard
           text={
             <Typography variant="body1">
@@ -82,24 +91,10 @@ const SignUpPage = () => {
           title={'Jetzt ganz NEU'}
           isLeft={false}
           size={25}
-          image={jonathan}
+          image={bild}
           color={'orange'}
         />
-        {/*  oder über uns reden*/}
-        {/* <SignUpCard
-          text={
-            <Typography variant="body1">
-              Wir - Julia, Maria und Jonathan - sind ein junges und engagiertes
-              Entwicklerteam, das es sich zur Aufgabe gemacht hat eine Website
-              zu bauen. Juhu.
-            </Typography>
-          }
-          title={'Team ROADABOUT'}
-          isLeft={true}
-          size={10}
-          image="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-        /> */}
-      </Box>
+      </SignUpBox>
       <SignUpForm />
     </SignUpPageContainer>
   )

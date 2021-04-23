@@ -101,10 +101,6 @@ const ImprintPage = () => {
           Die Bilder, Fotos und Grafiken auf dieser Webseite sind
           urheberrechtlich geschützt.
         </p>
-        <p>
-          Die Bilderrechte liegen bei den folgenden Fotografen und Unternehmen:
-        </p>
-        <p> Lukas??? </p>
         <Typography variant="h3">Datenschutzerklärung</Typography>
         <Typography variant="h3">Datenschutz</Typography>
         <p>

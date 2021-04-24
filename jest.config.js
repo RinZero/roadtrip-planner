@@ -12,7 +12,7 @@ module.exports = {
     '^.+\\.tsx?$': '<rootDir>/node_modules/ts-jest/preprocessor.js',
     //'node_modules/variables/.+\\.(j|t)sx?$': 'ts-jest',
   },
-  modulePaths: ['/node_modules'],
+  modulePaths: ['/node_modules', 'src'],
   //transformIgnorePatterns: ['node_modules/(?!variables/.*)'],
 
   /*transformIgnorePatterns: [
@@ -41,4 +41,10 @@ module.exports = {
 
   // Module file extensions for importing
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+
+  moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/src/__mocks__/fileMocks.ts',
+    '\\.(css|less)$': '<rootDir>/src/__mocks__/fileMocks.ts',
+  },
 }

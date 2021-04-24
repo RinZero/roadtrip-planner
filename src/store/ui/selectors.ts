@@ -63,3 +63,8 @@ export const selectDropzoneFiles = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.dropzoneFiles
   })
+
+export const selectIsTest = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.isTest
+  })

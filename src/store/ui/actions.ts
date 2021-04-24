@@ -48,7 +48,10 @@ export const setDropzoneFiles = createAction('ui/SET_DROPZONE_FILES')<{
   dropzoneFiles: (File & { preview: string })[]
 }>()
 
+export const setIsTest = createAction('ui/SET_IS_TEST')()
+
 export const UiActions = {
+  setIsTest,
   setProgressStep,
   setRoadtripStops,
   setMaxRoadtripStops,

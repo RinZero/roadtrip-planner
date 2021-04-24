@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import {
+  selectIsTest,
   selectMapRoute,
   selectUiSelectedCategories,
   selectUserToken,
@@ -100,6 +101,8 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   }
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
   const token = useSelector(selectUserToken())
+
+  const isTest = useSelector(selectIsTest())
   // const testRoadtripInfo: {
   //   address: string
   //   categories: {
@@ -285,7 +288,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
         </CreateButton>
       </Box>
       <ContentBox>
-        <DisplayMapClass allLocations={mapRoute} />
+        {!isTest && <DisplayMapClass allLocations={mapRoute} />}
         <StyledBox>
           <List component="nav" aria-label="contacts">
             {list.map((item, index) => {

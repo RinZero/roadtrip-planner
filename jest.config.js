@@ -46,5 +46,11 @@ module.exports = {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/src/__mocks__/fileMocks.ts',
     '\\.(css|less)$': '<rootDir>/src/__mocks__/fileMocks.ts',
+    '<rootDir>/src/utils/*.js': '<rootDir>/src/__mocks__/fileMocks.ts',
   },
+
+  testPathIgnorePatterns: [
+    '<rootDir>/src/components/EditRoadtripTemplate',
+    '<rootDir>/src/utils/*.js',
+  ],
 }

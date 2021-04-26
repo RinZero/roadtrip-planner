@@ -30,5 +30,6 @@
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
-  ]
+  ],
+  "types": ["cypress", "@testing-library/cypress"]
 }

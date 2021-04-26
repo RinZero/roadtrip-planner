@@ -1,7 +1,7 @@
 describe('create, edit and delete own Places as User', () => {
   //   *********** Login, click on Link in Header and render New Place Page ***********
   it('Login and visit Neuer Ort Page', () => {
-    cy.visit('http://localhost:3000')
+    cy.visit('/')
 
     cy.findByText('LogIn').click()
     cy.findByRole('button').click()
@@ -10,6 +10,7 @@ describe('create, edit and delete own Places as User', () => {
     cy.get('input[name="password"]').type('maria123')
 
     cy.findByRole('button', { name: 'LogIn' }).click()
+    cy.findByText('SignUp', { timeout: 10000000000 }).should('not.exist')
 
     cy.findByText('Ort hinzufügen').click()
 

@@ -208,7 +208,12 @@ const ProfileComponent = () => {
         <ProfileAvatar alt="Profilbild" src={profilePic} />
         <Typography variant="h3">{name}</Typography>
         <Typography variant="h3">{email}</Typography>
-        <EditButton aria-describedby={id} type="button" onClick={handleClick}>
+        <EditButton
+          aria-describedby={id}
+          aria-label="edit"
+          type="button"
+          onClick={handleClick}
+        >
           <EditIcon />
         </EditButton>
         <Popper

@@ -44,7 +44,7 @@ const MyRoadtripCardMedia = withTheme(styled(CardMedia)`
 const Roadtripcard = (props: RoadtripcardProps) => {
   const { roadtrip } = props
   const name = roadtrip.name
-  const stopsnumber = roadtrip.stops.length || 0
+  const stopsnumber = roadtrip.stops ? roadtrip.stops.length : 0
   const history = useHistory()
   const dispatch = useDispatch()
   const token = useSelector(selectUserToken())

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { ChangeEvent, memo, useEffect, useState } from 'react'
 
 import {
@@ -17,11 +16,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import {
-  selectUserId,
-  selectUserLocations,
-  selectUserToken,
-} from '../../store/selectors'
+import { selectUserLocations, selectUserToken } from '../../store/selectors'
 import { FormInputUserEntry } from '../../utils/additionalTypes'
 import { createPlace, editPlace, placeType } from '../../utils/CreateNewPlace'
 import {
@@ -58,7 +53,6 @@ type PropsForForm = {
 const NewPlaceForm = (props: PropsForForm) => {
   const isAddMode = !props.match.params.id
   const locations = useSelector(selectUserLocations())
-  const userID = useSelector(selectUserId())
   const token = useSelector(selectUserToken())
   const dispatch = useDispatch()
 
@@ -105,7 +99,6 @@ const NewPlaceForm = (props: PropsForForm) => {
     const categoryData = getAllSelectedCategories(currentCategories)
     const place: placeType = {
       type: 'user_entry',
-      userId: userID,
       attributes: {
         public: currentRadio === 'privat' ? false : true,
         name: data.name,
@@ -115,36 +108,31 @@ const NewPlaceForm = (props: PropsForForm) => {
         category: categoryData.length === 0 ? '' : JSON.stringify(categoryData),
       },
     }
-    if (!isAddMode) {
-      place.attributes.id = props.match.params.id.substring(1) as number
-      const response = await editPlace(
-        place,
-        props.match.params.id.substring(1),
-        token
-      )
-      // Get response messages
-      if (response.includes('bearbeitet')) {
-        setResponseMessage(response)
-        await initUserData(token, dispatch)
-      } else {
-        setResponseMessage('Hat leider nicht funktioniert')
-      }
+
+    place.attributes.id = !isAddMode
+      ? (props.match.params.id.substring(1) as number)
+      : undefined
+    const response = !isAddMode
+      ? await editPlace(place, props.match.params.id.substring(1), token)
+      : await createPlace(place, token)
+
+    if (
+      response.status &&
+      (response.status === 'ok' || response.status === 'created')
+    )
+      await initUserData(token, dispatch)
+    // Get response
+    if (typeof response.message === 'string') {
+      setResponseMessage(response.message)
     } else {
-      const response = await createPlace(place)
-      // Get response messages
-      if (response.includes('erstellt')) {
-        setResponseMessage(response)
-        await initUserData(token, dispatch)
-      } else {
-        const arr: Array<Record<string, any>> = []
-        response.forEach(function (item: Record<string, any>) {
-          if (item[1]) {
-            arr.push(item[1].pop())
-          }
-        })
-        const str = arr.join(' ')
-        setResponseMessage(str)
-      }
+      const arr: Array<Record<string, any>> = []
+      response.forEach(function (item: Record<string, any>) {
+        if (item[1]) {
+          arr.push(item[1].pop())
+        }
+      })
+      const str = arr.join(' ')
+      setResponseMessage(str)
     }
   }
 
@@ -282,8 +270,9 @@ const NewPlaceForm = (props: PropsForForm) => {
               <TextField {...params} variant="outlined" label="Kategorien" />
             )}
           />
-
-          <StyledButton type="submit">Neuen Ort erstellen</StyledButton>
+          <StyledButton type="submit">
+            {!isAddMode ? 'Ort bearbeiten' : 'Neuen Ort erstellen'}
+          </StyledButton>
         </StyledForm>
       </Box>
     </>

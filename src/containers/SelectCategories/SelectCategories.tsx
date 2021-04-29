@@ -176,7 +176,7 @@ const SelectCategories = () => {
             latitude: place.latitude,
             longitude: place.longitude,
             category: place.category,
-            user_id: place.user.id,
+            user_id: place.user_id,
             is_allowed: place.is_allowed,
           }
 

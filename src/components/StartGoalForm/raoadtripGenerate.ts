@@ -1,7 +1,6 @@
-/* eslint-disable prettier/prettier */
 import { userEntry } from '../../store/ui/types'
+import { fetchUserEntries } from '../../utils/AuthService'
 import { fetchHereData } from '../../utils/fetchHereData'
-import { fetchPublicPlaces } from '../../utils/getPublicPlaces'
 
 type info = {
   address: string
@@ -164,7 +163,7 @@ const getAdditionalPlaces = async (
 }
 
 const getPlaces = async (possibleCategories: string[]) => {
-  const places = await fetchPublicPlaces()
+  const places = await fetchUserEntries('')
   const additionalPlaces = new Array<info>()
   for (let i = 0; i < places.length; i++) {
     const categories = JSON.parse(places[i].category)

@@ -1,13 +1,13 @@
 import { LocationState } from '../store/user/types'
 import { PublicPlaceType } from './additionalTypes'
-import { fetchPublicPlaces } from './getPublicPlaces'
+import { fetchUserEntries } from './AuthService'
 
 export const autocomplete = async (
   place: string,
   userLocations?: LocationState[]
 ) => {
   // get public locations
-  const publicLocations = await fetchPublicPlaces()
+  const publicLocations = await fetchUserEntries('')
   // all locations
   const locations = userLocations
     ? userLocations.concat(publicLocations)
@@ -77,7 +77,7 @@ export const iterateStops = async (
         const lon = data.Location.DisplayPosition.Longitude
         newArr[j] = [lat, lon]
       } else {
-        const publicPlaces = await fetchPublicPlaces()
+        const publicPlaces = await fetchUserEntries('')
 
         const getLatLon = await findLocation(
           stops[i],

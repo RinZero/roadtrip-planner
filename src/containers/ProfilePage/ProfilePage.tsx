@@ -68,24 +68,23 @@ const ProfilePage = () => {
               </Link>
             </>
           ) : (
-            <>
-              <Typography variant="h4">Meine Orte:</Typography>
-              <Suspense fallback={<div>Loading...</div>}>
-                {!locations || locations?.length === 0 ? (
-                  <>
-                    Wie's aussieht hast du noch keine eigenen Orte. Klick auf
-                    den Link um einen{' '}
-                    <Link component={RouterLink} to={`/neuer_ort`} variant="h6">
-                      Neuen Ort
-                    </Link>{' '}
-                    zu erstellen.
-                  </>
-                ) : (
-                  <LocationList />
-                )}
-              </Suspense>
-            </>
+            ''
           )}
+          <Typography variant="h4">Meine Orte:</Typography>
+          <Suspense fallback={<div>Loading...</div>}>
+            {!locations || locations?.length === 0 ? (
+              <>
+                Wie's aussieht hast du noch keine eigenen Orte. Klick auf den
+                Link um einen{' '}
+                <Link component={RouterLink} to={`/neuer_ort`} variant="h6">
+                  Neuen Ort
+                </Link>{' '}
+                zu erstellen.
+              </>
+            ) : (
+              <LocationList />
+            )}
+          </Suspense>
         </Box>
       </Grid>
       <Grid item xs={12} sm={7}>

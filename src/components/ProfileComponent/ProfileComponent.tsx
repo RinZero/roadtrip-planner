@@ -19,12 +19,13 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
+  Link,
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { logOutSuccess, updateUser } from '../../store/actions'
@@ -34,6 +35,7 @@ import {
   selectUserName,
   selectUserToken,
   selectUserId,
+  selectUserIsAdmin,
 } from '../../store/selectors'
 import { editUser, deleteUser } from '../../utils/AuthService'
 
@@ -99,6 +101,7 @@ const ProfileComponent = () => {
   const name = useSelector(selectUserName())
   const email = useSelector(selectUserEmail())
   const profilePic = useSelector(selectUserPicture())
+  const isAdmin = useSelector(selectUserIsAdmin())
 
   const history = useHistory()
   const [anchorEl, setAnchorEl] = useState<
@@ -218,6 +221,15 @@ const ProfileComponent = () => {
         >
           <EditIcon />
         </EditButton>
+        {isAdmin ? (
+          <>
+            <Link component={RouterLink} to={`/admin`} variant="h6">
+              Admin
+            </Link>
+          </>
+        ) : (
+          ''
+        )}
         <Popper
           id={id}
           open={values.open}

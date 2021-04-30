@@ -3,14 +3,13 @@ import React, { memo, Suspense } from 'react'
 import { Box, Grid, Typography, Link, withTheme } from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 import { useSelector } from 'react-redux'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 import ProfileComponent from '../../components/ProfileComponent'
 import Roadtripcard from '../../components/Roadtripcard'
 import {
   selectRoadtrips,
-  selectUserIsAdmin,
   selectUserLocations,
 } from '../../store/user/selectors'
 import { RoadtripState } from '../../store/user/types'
@@ -47,7 +46,6 @@ const RoadtripSlide = (props: RoadtripSlideProps) => {
 
 const ProfilePage = () => {
   const roadtrips = useSelector(selectRoadtrips())
-  const isAdmin = useSelector(selectUserIsAdmin())
   const locations = useSelector(selectUserLocations())
   const slideRoadtrips = []
   if (roadtrips) {
@@ -61,15 +59,6 @@ const ProfilePage = () => {
       <Grid item xs={12} sm={5}>
         <ProfileComponent />
         <Box m="auto" width="60%">
-          {isAdmin ? (
-            <>
-              <Link component={RouterLink} to={`/admin`} variant="h6">
-                Admin
-              </Link>
-            </>
-          ) : (
-            ''
-          )}
           <Typography variant="h4">Meine Orte:</Typography>
           <Suspense fallback={<div>Loading...</div>}>
             {!locations || locations?.length === 0 ? (

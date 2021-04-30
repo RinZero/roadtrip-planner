@@ -91,11 +91,22 @@ const ProfilePage = () => {
       <Grid item xs={12} sm={7}>
         <RoadtripsBox>
           <Typography variant="h4">Meine Roadtrips: </Typography>
-          <Carousel autoPlay={false} animation="slide" timeout={600}>
-            {slideRoadtrips.map((chunk) => (
-              <RoadtripSlide roadtrips={chunk} />
-            ))}
-          </Carousel>
+          {slideRoadtrips.length === 0 ? (
+            <>
+              Wie's aussieht hast du noch keine Roadtrips gespeichert. Klick auf
+              den Link um einen{' '}
+              <Link component={RouterLink} to={`/`} variant="h6">
+                Neuen Roadtrip
+              </Link>{' '}
+              zu erstellen.
+            </>
+          ) : (
+            <Carousel autoPlay={false} animation="slide" timeout={600}>
+              {slideRoadtrips.map((chunk) => (
+                <RoadtripSlide roadtrips={chunk} />
+              ))}
+            </Carousel>
+          )}
         </RoadtripsBox>
       </Grid>
     </Grid>

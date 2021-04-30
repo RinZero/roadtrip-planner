@@ -166,29 +166,36 @@ const getPlaces = async (possibleCategories: string[]) => {
   const places = await fetchUserEntries('')
   const additionalPlaces = new Array<info>()
   for (let i = 0; i < places.length; i++) {
-    const categories = JSON.parse(places[i].category)
-    categories.forEach(function (arrayItem: { name: string; number: string }) {
-      if (possibleCategories.includes(arrayItem.number)) {
-        const userEntry = {
-          public: places[i].public,
-          name: places[i].name,
-          description: places[i].description,
-          latitude: places[i].latitude,
-          longitude: places[i].longitude,
-          category: places[i].category,
-          user_id: places[i].user_id,
-          is_allowed: places[i].is_allowed,
+    const categories = places[i].category
+      ? await JSON.parse(places[i].category)
+      : ''
+    if (categories !== '') {
+      categories.forEach(function (arrayItem: {
+        name: string
+        number: string
+      }) {
+        if (possibleCategories.includes(arrayItem.number)) {
+          const userEntry = {
+            public: places[i].public,
+            name: places[i].name,
+            description: places[i].description,
+            latitude: places[i].latitude,
+            longitude: places[i].longitude,
+            category: places[i].category,
+            user_id: places[i].user_id,
+            is_allowed: places[i].is_allowed,
+          }
+          const addEntry = {
+            address: places[i].name,
+            categories: categories,
+            coordinates: [places[i].latitude, places[i].longitude],
+            api_key: places[i].api_key,
+            entry: userEntry,
+          }
+          additionalPlaces.push(addEntry)
         }
-        const addEntry = {
-          address: places[i].name,
-          categories: categories,
-          coordinates: [places[i].latitude, places[i].longitude],
-          api_key: places[i].api_key,
-          entry: userEntry,
-        }
-        additionalPlaces.push(addEntry)
-      }
-    })
+      })
+    }
   }
   return additionalPlaces
 }

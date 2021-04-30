@@ -138,9 +138,10 @@ const NewPlaceForm = (props: PropsForForm) => {
 
   useEffect(() => {
     if (!isAddMode) {
+      const idNumber: number = +props.match.params.id.substring(1)
       const place = locations
         ? locations.find((location) => {
-            return location.id === props.match.params.id.substring(1)
+            return ((location.id as unknown) as number) === idNumber
           })
         : undefined
       if (place) {

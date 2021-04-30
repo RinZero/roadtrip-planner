@@ -3,8 +3,9 @@ import { Dispatch } from 'redux'
 import {
   getRoadtripsByUserSuccess,
   getLocationsByUserSuccess,
+  getUsersByAdminSuccess,
 } from '../store/actions'
-import { LocationState } from '../store/user/types'
+import { LocationState, UserState } from '../store/user/types'
 import { fetchUser } from './admin'
 import { fetchRoadtrips, fetchUserEntries } from './AuthService'
 import { convertToRoadtrip } from './convertToRoadtrip'
@@ -27,4 +28,12 @@ export const initUserData = async (token: string, dispatch: Dispatch<any>) => {
     obj.locations.push(entry)
   })
   dispatch(getLocationsByUserSuccess(obj))
+  const users = await fetchUser(token)
+  if (users !== '') {
+    const userObj: { users: UserState[] } = { users: [] }
+    await users.map((user: UserState) => {
+      userObj.users.push(user)
+    })
+    dispatch(getUsersByAdminSuccess(userObj))
+  }
 }

@@ -29,7 +29,7 @@ export const initUserData = async (token: string, dispatch: Dispatch<any>) => {
   })
   dispatch(getLocationsByUserSuccess(obj))
   const users = await fetchUser(token)
-  if (users !== 422 && users.length > 0) {
+  if ((users.length && users.length > 0) || users !== 422) {
     const userObj: { users: UserState[] } = { users: [] }
     await users.map((user: UserState) => {
       userObj.users.push(user)

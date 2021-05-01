@@ -2,7 +2,6 @@ import axios from 'axios'
 
 import { userEntry } from '../store/ui/types'
 import { RoadtripState } from '../store/user/types'
-import { initUserData } from './initUserData'
 
 export type logInType = {
   email: string
@@ -25,8 +24,8 @@ export type createRoadtripType = {
   }
 }
 const fetch = axios.create({
-  // baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
-  baseURL: 'http://localhost:3000/api/v1/',
+  baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
+  // baseURL: 'http://localhost:3000/api/v1/',
 })
 
 export const logIn = (logInData: logInType) => {
@@ -174,7 +173,7 @@ type userUpdateState = {
   password: string
   password_confirmation: string
   is_admin: boolean
-  image?: string
+  image?: any
   picture?: string
   id: number
 }

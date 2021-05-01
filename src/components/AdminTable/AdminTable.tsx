@@ -45,7 +45,6 @@ const AdminTable = (props: {
   obj?: LocationState[] | UserState[]
   title: string
 }) => {
-  // TODO fix error in console "props.obj is undefined"
   const { ...attributes } = props.obj
   const title = props.title
   const columnTitles = Object.keys(attributes[0])

@@ -14,7 +14,7 @@ export const fetchUser = (token: string) => {
       return response.data
     })
     .catch((error) => {
-      return error.response.status
+      return error.response.data
     })
 }
 

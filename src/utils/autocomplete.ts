@@ -60,6 +60,7 @@ export const iterateStops = async (
 ) => {
   const newArr = new Array<number[]>()
   let j = 0
+  const publicPlaces = await fetchUserEntries('')
   for (let i = 0; i < stops.length; i++) {
     if (stops[i] && stops[i] !== '') {
       const data = await getCoordinates(stops[i])
@@ -70,15 +71,19 @@ export const iterateStops = async (
           data.Location.Address.Country &&
           data.Location.Address.Country !== 'AUT'
         ) {
-          return [[-1, -1]]
+          const getLatLon = await findLocation(
+            stops[i],
+            publicPlaces,
+            userLocations
+          )
+          if (getLatLon) newArr[j] = getLatLon
+          else return [[-1, -1]]
         }
 
         const lat = data.Location.DisplayPosition.Latitude
         const lon = data.Location.DisplayPosition.Longitude
         newArr[j] = [lat, lon]
       } else {
-        const publicPlaces = await fetchUserEntries('')
-
         const getLatLon = await findLocation(
           stops[i],
           publicPlaces,

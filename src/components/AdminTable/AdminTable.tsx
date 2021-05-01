@@ -53,7 +53,6 @@ const AdminTable = (props: {
   const dispatch = useDispatch()
 
   const handleDelete = async (id: number) => {
-    // const response = await deleteUser(token, id)
     const response =
       title === 'Orte'
         ? await deletePlace(token, id.toString())

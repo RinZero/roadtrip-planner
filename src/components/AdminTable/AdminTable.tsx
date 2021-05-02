@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 
 import {
   TableCell,
@@ -10,6 +10,7 @@ import {
   TableContainer,
   IconButton,
   Switch,
+  Typography,
 } from '@material-ui/core'
 import { withTheme } from '@material-ui/core/styles'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -35,10 +36,11 @@ const StyledTableContainer = withTheme(styled(TableContainer)`
   border: black 2px solid;
   margin-bottom: ${(props) => props.theme.spacing(4)}px;
 `)
-const StyledTableCell = withTheme(styled(TableCell)`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: ${(props) => props.theme.spacing(20)}px;
+const StyledTableCell = withTheme(styled(TableCell)<{
+  isShort: boolean
+}>`
+  max-width: ${(props) =>
+    props.isShort ? props.theme.spacing(25) : props.theme.spacing(80)}px;
 `)
 
 const AdminTable = (props: {
@@ -51,6 +53,7 @@ const AdminTable = (props: {
   const columnContent = props.obj
   const token = useSelector(selectUserToken())
   const dispatch = useDispatch()
+  const [shortString, setShortString] = useState(true)
 
   const handleDelete = async (id: number) => {
     const response =
@@ -70,7 +73,7 @@ const AdminTable = (props: {
 
   return (
     <>
-      <h4>{title}</h4>
+      <Typography variant="h3">{title}</Typography>
       <StyledTableContainer component={Paper}>
         <Table aria-label="customized table">
           <StyledTableHead>
@@ -85,15 +88,19 @@ const AdminTable = (props: {
           <TableBody>
             {columnContent?.map((row: LocationState | UserState) => (
               <StyledTableRow key={row.id}>
-                {Object.values(row).map((attribute) => {
-                  return attribute?.toString().length > 20 ? (
-                    <StyledTableCell align="right">
+                {Object.values(row).map((attribute) => (
+                  <StyledTableCell
+                    align="right"
+                    isShort={shortString}
+                    onClick={() => {
+                      setShortString(!shortString)
+                    }}
+                  >
+                    <Typography noWrap={shortString}>
                       {attribute?.toString()}
-                    </StyledTableCell>
-                  ) : (
-                    <TableCell align="right">{attribute?.toString()}</TableCell>
-                  )
-                })}
+                    </Typography>
+                  </StyledTableCell>
+                ))}
                 <TableCell align="right">
                   <IconButton
                     onClick={() => {

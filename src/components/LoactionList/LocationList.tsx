@@ -32,8 +32,7 @@ const LoactionListItem = withTheme(styled(ListItem)`
 export const LocationList = () => {
   const locations = useSelector(selectUserLocations())
   const token = useSelector(selectUserToken())
-  const userIDstring = useSelector(selectUserId())
-  const userID: number = +userIDstring
+  const userID = (useSelector(selectUserId()) as unknown) as number
   const dispatch = useDispatch()
 
   return (

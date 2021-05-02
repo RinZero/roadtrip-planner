@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 
-import { Box, withTheme } from '@material-ui/core'
+import { Box, Typography, withTheme } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
@@ -31,7 +31,7 @@ const AdminPage = () => {
     <StyledBox>
       {users && users?.length > 0 ? (
         <>
-          <h2>Hallo Admin</h2>
+          <Typography variant="h2">Hallo Admin</Typography>
           <p>
             Hier kannst du NutzerInnen zum Admin machen oder löschen und Orte
             veröffentlichen oder löschen.

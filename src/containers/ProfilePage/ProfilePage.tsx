@@ -62,14 +62,14 @@ const ProfilePage = () => {
           <Typography variant="h4">Meine Orte:</Typography>
           <Suspense fallback={<div>Loading...</div>}>
             {!locations || locations?.length === 0 ? (
-              <>
+              <Typography>
                 Wie's aussieht hast du noch keine eigenen Orte. Klick auf den
                 Link um einen{' '}
                 <Link component={RouterLink} to={`/neuer_ort`} variant="h6">
                   Neuen Ort
                 </Link>{' '}
                 zu erstellen.
-              </>
+              </Typography>
             ) : (
               <LocationList />
             )}
@@ -80,14 +80,14 @@ const ProfilePage = () => {
         <RoadtripsBox>
           <Typography variant="h4">Meine Roadtrips: </Typography>
           {slideRoadtrips.length === 0 ? (
-            <>
+            <Typography>
               Wie's aussieht hast du noch keine Roadtrips gespeichert. Klick auf
               den Link um einen{' '}
               <Link component={RouterLink} to={`/`} variant="h6">
                 Neuen Roadtrip
               </Link>{' '}
               zu erstellen.
-            </>
+            </Typography>
           ) : (
             <Carousel autoPlay={false} animation="slide" timeout={600}>
               {slideRoadtrips.map((chunk) => (

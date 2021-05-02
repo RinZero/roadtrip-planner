@@ -26,6 +26,10 @@ type IFormInput = {
 
 const StyledButton = styled(Button)`
   color: #ffffff;
+  &:hover,
+  &:active {
+    background-color: #355727;
+  }
 `
 const StyledForm = styled.form`
   display: flex;

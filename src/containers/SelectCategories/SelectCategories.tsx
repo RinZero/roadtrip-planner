@@ -123,6 +123,9 @@ const ImgBox = withTheme(styled(Box)`
   background-color: #f6f6f6;
   width: 50vw;
   height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-item: center;
 `)
 
 const SelectCategories = () => {

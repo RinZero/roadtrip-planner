@@ -4,7 +4,7 @@ import { Box, withTheme, Typography } from '@material-ui/core'
 import styled from 'styled-components'
 
 const ImprintBox = withTheme(styled(Box)`
-  padding: ${(props) => props.theme.spacing(3)}px
+  padding: ${(props) => props.theme.spacing(12)}px
     ${(props) => props.theme.spacing(3)}px;
   text-align: left;
 `)

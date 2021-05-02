@@ -1,11 +1,7 @@
-import { LocationSearching } from '@material-ui/icons'
 import axios from 'axios'
-
-import { LocationState } from '../store/user/types'
 
 export type placeType = {
   type: string
-  userId: string
   attributes: {
     public: boolean
     name: string
@@ -22,13 +18,21 @@ const fetch = axios.create({
   // baseURL: 'http://localhost:3000/api/v1/',
 })
 
-export const createPlace = (data: placeType) => {
+export const createPlace = (data: placeType, token: string) => {
   return fetch
-    .post('user_entries', {
-      data,
-    })
+    .post(
+      'user_entries',
+      {
+        data,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    )
     .then((response) => {
-      return response.data.status
+      return response.data
     })
     .catch((error) => {
       return Object.entries(error.response.data)
@@ -49,10 +53,10 @@ export const editPlace = (data: placeType, id: string, token: string) => {
       }
     )
     .then((response) => {
-      return response.data.status
+      return response.data
     })
     .catch((error) => {
-      return [error]
+      return Object.entries(error.response.data)
     })
 }
 

@@ -37,3 +37,13 @@ export const selectUserLocations = () =>
   createSelector(selectUser, (user: UserState) => {
     return user.locations
   })
+
+export const selectAdminUsers = () =>
+  createSelector(selectUser, (user: UserState) => {
+    return user.users
+  })
+
+export const selectUserIsAdmin = () =>
+  createSelector(selectUser, (user: UserState) => {
+    return user.isAdmin
+  })

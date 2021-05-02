@@ -1,13 +1,17 @@
 import React, { memo, Suspense } from 'react'
 
-import { Box, Grid, Typography, withTheme } from '@material-ui/core'
+import { Box, Grid, Typography, Link, withTheme } from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 import { useSelector } from 'react-redux'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 import ProfileComponent from '../../components/ProfileComponent'
 import Roadtripcard from '../../components/Roadtripcard'
-import { selectRoadtrips } from '../../store/user/selectors'
+import {
+  selectRoadtrips,
+  selectUserLocations,
+} from '../../store/user/selectors'
 import { RoadtripState } from '../../store/user/types'
 
 const LocationList = React.lazy(() => import('../../components/LoactionList'))
@@ -42,6 +46,7 @@ const RoadtripSlide = (props: RoadtripSlideProps) => {
 
 const ProfilePage = () => {
   const roadtrips = useSelector(selectRoadtrips())
+  const locations = useSelector(selectUserLocations())
   const slideRoadtrips = []
   if (roadtrips) {
     for (let i = 0; i < roadtrips.length; i += 4) {
@@ -56,18 +61,40 @@ const ProfilePage = () => {
         <Box m="auto" width="60%">
           <Typography variant="h4">Meine Orte:</Typography>
           <Suspense fallback={<div>Loading...</div>}>
-            <LocationList />
+            {!locations || locations?.length === 0 ? (
+              <Typography>
+                Wie's aussieht hast du noch keine eigenen Orte. Klick auf den
+                Link um einen{' '}
+                <Link component={RouterLink} to={`/neuer_ort`} variant="h6">
+                  Neuen Ort
+                </Link>{' '}
+                zu erstellen.
+              </Typography>
+            ) : (
+              <LocationList />
+            )}
           </Suspense>
         </Box>
       </Grid>
       <Grid item xs={12} sm={7}>
         <RoadtripsBox>
           <Typography variant="h4">Meine Roadtrips: </Typography>
-          <Carousel autoPlay={false} animation="slide" timeout={600}>
-            {slideRoadtrips.map((chunk) => (
-              <RoadtripSlide roadtrips={chunk} />
-            ))}
-          </Carousel>
+          {slideRoadtrips.length === 0 ? (
+            <Typography>
+              Wie's aussieht hast du noch keine Roadtrips gespeichert. Klick auf
+              den Link um einen{' '}
+              <Link component={RouterLink} to={`/`} variant="h6">
+                Neuen Roadtrip
+              </Link>{' '}
+              zu erstellen.
+            </Typography>
+          ) : (
+            <Carousel autoPlay={false} animation="slide" timeout={600}>
+              {slideRoadtrips.map((chunk) => (
+                <RoadtripSlide roadtrips={chunk} />
+              ))}
+            </Carousel>
+          )}
         </RoadtripsBox>
       </Grid>
     </Grid>

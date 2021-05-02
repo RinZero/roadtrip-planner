@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
+import AdminPage from '../AdminPage'
 import EditPlacePage from '../EditPlacePage'
 import EditRoadtripPage from '../EditRoadtripPage'
 import ImprintPage from '../ImprintPage'
@@ -22,6 +23,7 @@ const Router = () => {
       <Route exact path="/profile" component={ProfilePage} />
       <Route exact path="/edit_roadtrip" component={EditRoadtripPage} />
       <Route exact path="/impressum" component={ImprintPage} />
+      <Route exact path="/admin" component={AdminPage} />
       <Redirect to="/" />
     </Switch>
   )

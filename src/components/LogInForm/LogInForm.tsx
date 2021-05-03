@@ -1,22 +1,12 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 
 import { Button, Input, Typography, withTheme } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
-import {
-  logInSuccess,
-  getRoadtripsByUserSuccess,
-  getLocationsByUserSuccess,
-} from '../../store/actions'
-import { LocationState } from '../../store/user/types'
-import {
-  logIn,
-  fetchRoadtrips,
-  fetchUserEntries,
-} from '../../utils/AuthService'
-import { convertToRoadtrip } from '../../utils/convertToRoadtrip'
+import { logInSuccess } from '../../store/actions'
+import { logIn } from '../../utils/AuthService'
 import { initUserData } from '../../utils/initUserData'
 
 type IFormInput = {
@@ -45,13 +35,18 @@ const StyledInput = withTheme(styled(Input)`
 const LogInForm = () => {
   const dispatch = useDispatch()
   const { register, handleSubmit } = useForm()
+  const [error, setError] = useState('')
+
   const onFormSubmit = async (data: IFormInput) => {
     const user = await logIn({
       email: data.email,
       password: data.password,
       password_confirmation: data.password,
     })
-    if (user) {
+    if (typeof user === 'string') {
+      setError(user)
+    } else if (typeof user === 'object' && user.email) {
+      setError('')
       dispatch(logInSuccess(user))
       initUserData(user.token, dispatch)
     }
@@ -59,6 +54,7 @@ const LogInForm = () => {
   return (
     <StyledForm onSubmit={handleSubmit(onFormSubmit)}>
       <Typography variant="h5">LogIn</Typography>
+      {error !== '' ? <Typography color="error">{error}</Typography> : ' '}
       <StyledInput
         type="text"
         name="email"

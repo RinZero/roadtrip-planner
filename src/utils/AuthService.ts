@@ -29,11 +29,9 @@ const fetch = axios.create({
 })
 
 export const logIn = (logInData: logInType) => {
-  return fetch.post('sessions', logInData).then((response) => {
-    if (response.data.status === 'unprocessable_entity') {
-      // eslint-disable-next-line no-console
-      console.log(response.data.status)
-    } else {
+  return fetch
+    .post('sessions', logInData)
+    .then((response) => {
       const { id, email, username, is_admin, picture } = response.data.user
       const jwtToken = response.data.token
       return {
@@ -44,8 +42,10 @@ export const logIn = (logInData: logInType) => {
         picture: picture,
         token: jwtToken,
       }
-    }
-  })
+    })
+    .catch((error) => {
+      return error.response.data.error
+    })
 }
 
 export const signUp = (signUpData: FormData) => {
@@ -66,6 +66,9 @@ export const createRoadtrip = (
     })
     .then((response) => {
       return response.data.data
+    })
+    .catch((error) => {
+      return error.response.data.message
     })
 }
 
@@ -137,8 +140,10 @@ export const updateRoadtrip = (roadtrip: RoadtripState, token: string) => {
       }
     )
     .then((response) => {
-      // eslint-disable-next-line no-console
-      console.log(response)
+      return response.status
+    })
+    .catch((error) => {
+      return error.response.data.message
     })
 }
 

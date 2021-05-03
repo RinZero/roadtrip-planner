@@ -1,15 +1,16 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 
+import { Typography } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setProgressStep, setRoadtripInfos } from '../../store/actions'
 import { selectRoadtripInfos, selectUserToken } from '../../store/selectors'
 import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
-import { initUserData } from '../../utils/initUserData'
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
 
 const EditRoadtripCreation = () => {
   const dispatch = useDispatch()
+  const [error, setError] = useState('')
   const roadtripInfo = useSelector(selectRoadtripInfos())
   const dndStateOrder = [
     {
@@ -51,6 +52,11 @@ const EditRoadtripCreation = () => {
     })
 
     const result = await createRoadtrip(roadtripData, token)
+    if (typeof result === 'string') {
+      setError(result)
+    } else if (typeof result === 'object' && result.type) {
+      setError('')
+    }
     dispatch(setProgressStep({ progressStep: '4' }))
   }, [roadtripInfo, token, dispatch])
 
@@ -71,12 +77,15 @@ const EditRoadtripCreation = () => {
     )
   }
   return (
-    <EditRoadtripTemplate
-      dndStateOrder={dndStateOrder}
-      onChange={onChange}
-      onSave={submitRoadtrip}
-      listInfo={roadtripInfo}
-    />
+    <>
+      <Typography color="error">{error}</Typography>
+      <EditRoadtripTemplate
+        dndStateOrder={dndStateOrder}
+        onChange={onChange}
+        onSave={submitRoadtrip}
+        listInfo={roadtripInfo}
+      />
+    </>
   )
 }
 export default memo(EditRoadtripCreation)

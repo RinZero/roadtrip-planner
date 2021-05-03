@@ -113,7 +113,6 @@ const AddText = withTheme(styled(Box)`
   padding: ${(props) => props.theme.spacing(1)}px;
   margin: 0 ${(props) => props.theme.spacing(4)}px
     ${(props) => props.theme.spacing(2)}px;
-  margin-bottom: ;
 `)
 
 const CategoriesFormControl = withTheme(styled(FormControl)`

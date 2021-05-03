@@ -87,12 +87,14 @@ export type EditRoadtripComponentProps = {
   onSave: () => void
   listInfo: Array<Record<string, any>>
   onChange: (r: Array<Record<string, any>>) => void
+  usage?: 'create' | 'update'
 }
 const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   dndStateOrder,
   onSave,
   listInfo,
   onChange,
+  usage = 'create',
 }) => {
   const dispatch = useDispatch()
   const [list, setList] = useState(listInfo)
@@ -279,18 +281,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
 
   return (
-    <>
-      <Box>
-        <CreateButton
-          color="primary"
-          onClick={async () => {
-            await onSave()
-            await initUserData(token, dispatch)
-          }}
-        >
-          Erstellen
-        </CreateButton>
-      </Box>
+    <Box display="flex" flexDirection="column" alignItems="center">
       <ContentBox>
         {!isTest && <DisplayMapClass allLocations={mapRoute} />}
         <StyledBox>
@@ -329,7 +320,16 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
           </List>
         </StyledBox>
       </ContentBox>
-    </>
+      <CreateButton
+        color="primary"
+        onClick={async () => {
+          await onSave()
+          await initUserData(token, dispatch)
+        }}
+      >
+        {usage === 'update' ? 'Roadtrip bearbeiten' : 'Roadtrip erstellen'}
+      </CreateButton>
+    </Box>
   )
 }
 

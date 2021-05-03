@@ -28,7 +28,7 @@ const StyledBox = withTheme(styled(Box)`
   margin-top: ${(props) => props.theme.spacing(1.5)}px;
   min-width: ${(props) => props.theme.spacing(25)}px;
   overflow: auto;
-  max-height: ${(props) => props.theme.spacing(3.4)}vh;
+  max-height: ${(props) => props.theme.spacing(6.2)}vh;
   .MuiList-root {
     display: inline;
   }

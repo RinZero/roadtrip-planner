@@ -136,7 +136,6 @@ export const StartGoalForm = () => {
 
   const [inputValue, setInputValue] = useState(namedStops)
   const [value, setValue] = useState<Array<string | null>>(namedStops)
-  const extendedPadding = theme.spacing(9) * roadtripStopNames.length
   const defaultProps = {
     options: array,
     forcePopupIcon: false,

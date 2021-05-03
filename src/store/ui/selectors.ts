@@ -68,3 +68,7 @@ export const selectIsTest = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.isTest
   })
+export const selectMessage = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.message
+  })

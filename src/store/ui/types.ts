@@ -31,4 +31,5 @@ export type UiState = {
   editRoadtrip: RoadtripState
   dropzoneFiles: (File & { preview: string })[]
   isTest: boolean
+  message: string
 }

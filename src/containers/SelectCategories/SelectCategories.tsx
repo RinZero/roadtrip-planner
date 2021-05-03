@@ -54,6 +54,7 @@ const AddButton = withTheme(styled(Button)`
   box-shadow: 0px 3px 6px 0px #b1b1b1;
   color: white;
   height: ${(props) => props.theme.spacing(5)}px;
+  margin-bottom: ${(props) => props.theme.spacing(2)}px;
   &:hover,
   &:active {
     background-color: #355727;
@@ -101,6 +102,7 @@ const Dropdownbox = withTheme(styled(Box)`
 const AddSection = withTheme(styled(Box)`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   width: 100%;
   margin-top: ${(props) => props.theme.spacing(2)}px;
 `)
@@ -109,7 +111,9 @@ const AddText = withTheme(styled(Box)`
   border: 1px solid black;
   border-radius: 15px;
   padding: ${(props) => props.theme.spacing(1)}px;
-  margin-right: ${(props) => props.theme.spacing(4)}px;
+  margin: 0 ${(props) => props.theme.spacing(4)}px
+    ${(props) => props.theme.spacing(2)}px;
+  margin-bottom: ;
 `)
 
 const CategoriesFormControl = withTheme(styled(FormControl)`
@@ -258,7 +262,7 @@ const SelectCategories = () => {
           </ImgBox>
         ) : (
           <div>
-            <Box>
+            <Box textAlign="center">
               <TagBox component="ul">
                 {Array.from(chips).map((data) => {
                   let icon

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const ImprintBox = withTheme(styled(Box)`
   padding: ${(props) => props.theme.spacing(12)}px
-    ${(props) => props.theme.spacing(3)}px;
+    ${(props) => props.theme.spacing(2)}px;
   text-align: left;
 `)
 
@@ -146,13 +146,13 @@ const ImprintPage = () => {
         <ul>
           <li>
             die komplette Internetadresse (URL) der aufgerufenen Webseite (z. B.
-            https://www.beispielwebsite.de/beispielunterseite.html/)
+            https://www.site.de/hier.html/)
           </li>
           <li>Browser und Browserversion (z. B. Chrome 87)</li>
           <li>das verwendete Betriebssystem (z. B. Windows 10)</li>
           <li>
             die Adresse (URL) der zuvor besuchten Seite (Referrer URL) (z. B.
-            https://www.beispielquellsite.de/vondabinichgekommen.html/)
+            https://www.site.de/vorher.html/)
           </li>
           <li>
             den Hostname und die IP-Adresse des Geräts von welchem aus
@@ -338,7 +338,7 @@ const ImprintPage = () => {
           niemals unverschlüsselt per E-Mail zu übermitteln.
         </p>
         <Typography variant="h3">
-          Rechte laut Datenschutzgrundverordnung
+          Rechte laut Datenschutz&shy;grundverordnung
         </Typography>
         <p>
           Ihnen stehen laut den Bestimmungen der DSGVO grundsätzlich die
@@ -526,127 +526,8 @@ const ImprintPage = () => {
             https://legal.here.com/de-de/privacy/here-wego-here-application-or-here-maps-privacy-supplement-updated
           </a>
           .
-          <Typography variant="h3">
-            Amazon-Partnerprogramm Datenschutzerklärung
-          </Typography>
-          <p>
-            Wir verwenden auf unserer Website das Amazon-Partnerprogramm des
-            Unternehmens Amazon.com, Inc. Die verantwortlichen Stellen im Sinne
-            der Datenschutzerklärung sind die Amazon Europe Core S.à.r.l., die
-            Amazon EU S.à.r.l, die Amazon Services Europe S.à.r.l. und die
-            Amazon Media EU S.à.r.l., alle vier ansässig 5, Rue Plaetis, L-2338
-            Luxemburg sowie Amazon Instant Video Germany GmbH, Domagkstr. 28,
-            80807 München. Als Datenverarbeiter wird die Amazon Deutschland
-            Services GmbH, Marcel-Breuer-Str. 12, 80807 München, tätig. Durch
-            die Verwendung dieses Amazon-Partnerprogramms können Daten von Ihnen
-            an Amazon übertragen, gespeichert und verarbeitet werden.
-          </p>
-          <p>
-            In dieser Datenschutzerklärung informieren wir Sie um welche Daten
-            es sich handelt, warum wir das Programm verwenden und wie Sie die
-            Datenübertragung verwalten bzw. unterbinden können.
-          </p>
-          <Typography variant="h3">
-            Was ist das Amazon-Partnerprogramm?
-          </Typography>
-          <p>
-            Das Amazon-Partnerprogramm ist ein Affiliate-Marketing-Programm des
-            Online-Versandunternehmens Amazon.de. Wie jedes Affiliate-Programm
-            basiert auch das Amazon-Partnerprogramm auf dem Prinzip der
-            Vermittlungsprovision. Amazon bzw. wir platzieren auf unserer
-            Website Werbung oder Partnerlinks und wenn Sie darauf klicken und
-            ein Produkt über Amazon kaufen, erhalten wir eine
-            Werbekostenerstattung (Provision).
-          </p>
-          <Typography variant="h3">
-            Warum verwenden wir das Amazon-Partnerprogramm auf unserer Webseite?
-          </Typography>
-          <p>
-            Unser Ziel ist es Ihnen eine angenehme Zeit mit vielen hilfreichen
-            Inhalten zu liefern. Dafür stecken wir sehr viel Arbeit und Energie
-            in die Entwicklung unserer Website. Mit Hilfe des
-            Amazon-Partnerprogramms haben wir die Möglichkeit, für unsere Arbeit
-            auch ein bisschen entlohnt zu werden. Jeder Partnerlink zu Amazon
-            hat selbstverständlich immer mit unserem Thema zu tun und zeigt
-            Angebote, die Sie interessieren könnten.
-          </p>
-          <Typography variant="h3">
-            Welche Daten werden durch das Amazon-Partnerprogramm gespeichert?
-          </Typography>
-          <p>
-            Sobald Sie mit den Produkten und Dienstleistungen von Amazon
-            interagieren, erhebt Amazon Daten von Ihnen. Amazon unterscheidet
-            zwischen Informationen, die Sie aktiv dem Unternehmen geben und
-            Informationen, die automatisch gesammelt und gespeichert werden. Zu
-            den “aktiven Informationen” zählen zum Beispiel Name,
-            E-Mail-Adresse, Telefonnummer, Alter, Zahlungsinformationen oder
-            Standortinformationen. Sogenannte „automatische Informationen“
-            werden in erster Linie über Cookies gespeichert. Dazu zählen
-            Informationen zum Userverhalten, IP-Adresse, Gerätinformationen
-            (Browsertyp, Standort, Betriebssysteme) oder die URL. Amazon
-            speichert weiters auch den Clickstream. Damit ist der Weg
-            (Reihenfolge der Seiten) gemeint, den Sie als User zurücklegen, um
-            zu einem Produkt zu kommen. Auch um die Herkunft einer Bestellung
-            nachvollziehen zu können, speichert Amazon Cookies in Ihrem Browser.
-            So erkennt das Unternehmen, dass Sie über unsere Website eine
-            Amazon-Werbeanzeige oder einen Partnerlink angeklickt haben.
-          </p>
-          <p>
-            Wenn Sie ein Amazon-Konto haben und angemeldet sind, während Sie auf
-            unserer Webseite surfen, können die erhobenen Daten Ihrem Account
-            zugewiesen werden. Das verhindern Sie, indem Sie sich bei Amazon
-            abmelden, bevor Sie auf unserer Website surfen.
-          </p>
-          <p>
-            Amazon nutzt diese erhaltenen Informationen, um Werbeanzeigen
-            genauer an die Interessen der User abzustimmen.
-          </p>
-          <Typography variant="h3">
-            Wie lange und wo werden die Daten gespeichert?
-          </Typography>
-          <p>
-            Persönliche Daten werden von Amazon so lange gespeichert, wie es für
-            die geschäftlichen Dienste von Amazon erforderlich ist oder aus
-            rechtlichen Gründen notwendig ist. Da das Unternehmen Amazon seinen
-            Hauptsitz in den USA hat, werden die gesammelten Daten auch auf
-            amerikanischen Servern gespeichert.
-          </p>
-          <Typography variant="h3">
-            Wie kann ich meine Daten löschen bzw. die Datenspeicherung
-            verhindern?
-          </Typography>
-          <p>
-            Sie haben jederzeit das Recht auf Ihre personenbezogenen Daten
-            zuzugreifen und sie auch zu löschen. Wenn Sie einen Amazon-Account
-            besitzen, können Sie in Ihrem Account viele der erhobenen Daten
-            verwalten oder löschen.
-          </p>
-          <p>
-            Eine weitere Option, die Datenverarbeitung und -speicherung durch
-            Amazon nach Ihren Vorlieben zu verwalten, bietet Ihr Browser. Dort
-            können Sie Cookies verwalten, deaktivieren oder löschen.
-          </p>
-          <p>
-            Bitte beachten Sie, dass bei der Verwendung dieses Tools Daten von
-            Ihnen auch außerhalb der EU gespeichert und verarbeitet werden
-            können. Die meisten Drittstaaten (darunter auch die USA) gelten nach
-            derzeitigem europäischen Datenschutzrecht als nicht sicher. Daten an
-            unsichere Drittstaaten dürfen also nicht einfach übertragen, dort
-            gespeichert und verarbeitet werden, sofern es keine passenden
-            Garantien (wie etwa EU-Standardvertragsklauseln) zwischen uns und
-            dem außereuropäischen Dienstleister gibt.
-          </p>
-          <p>
-            Wir hoffen wir haben Ihnen die wichtigsten Informationen über die
-            Datenübertragung durch die Verwendung von dem Amazon-Partnerprogramm
-            nähergebracht. Mehr Informationen finden Sie unter{' '}
-            <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010">
-              https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010
-            </a>
-            . Alle Texte sind urheberrechtlich geschützt.
-          </p>
-          Quelle: Erstellt mit dem Datenschutz Generator von AdSimple{' '}
         </p>
+        <p>Quelle: Erstellt mit dem Datenschutz Generator von AdSimple </p>
       </ImprintBox>
     </>
   )

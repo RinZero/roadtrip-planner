@@ -1,6 +1,14 @@
 import React, { memo, Suspense } from 'react'
 
-import { Box, Grid, Typography, Link, withTheme } from '@material-ui/core'
+import {
+  Box,
+  Grid,
+  Typography,
+  Link,
+  useMediaQuery,
+  withTheme,
+  useTheme,
+} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 import { useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
@@ -14,17 +22,28 @@ import {
 } from '../../store/user/selectors'
 import { RoadtripState } from '../../store/user/types'
 
-const LocationList = React.lazy(() => import('../../components/LoactionList'))
+const LocationList = React.lazy(() => import('../../components/LocationList'))
 
 const RoadtripsBox = withTheme(styled(Box)`
-  margin-top: ${(props) => props.theme.spacing(10)}px;
+  margin: ${(props) => props.theme.spacing(10)}px auto;
 `)
+
+const CarouselBox = withTheme(styled(Box)`
+  overflow: scroll;
+  max-height: 75vh;
+`)
+
+const RoadtripsCarousel = withTheme(styled(Carousel)``)
 
 type RoadtripSlideProps = {
   roadtrips: RoadtripState[]
 }
 const RoadtripSlide = (props: RoadtripSlideProps) => {
   const { roadtrips } = props
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'))
   return (
     <Box
       display="flex"
@@ -32,14 +51,29 @@ const RoadtripSlide = (props: RoadtripSlideProps) => {
       alignItems="center"
       justifyContent="center"
     >
-      <Box display="flex">
-        {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
-        {roadtrips[1] && <Roadtripcard roadtrip={roadtrips[1]} />}
-      </Box>
-      <Box display="flex">
-        {roadtrips[2] && <Roadtripcard roadtrip={roadtrips[2]} />}
-        {roadtrips[3] && <Roadtripcard roadtrip={roadtrips[3]} />}
-      </Box>
+      {isMobile && (
+        <CarouselBox display="flex" flexWrap="wrap" justifyContent="center">
+          {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
+        </CarouselBox>
+      )}
+      {isTablet && (
+        <CarouselBox display="flex" flexWrap="wrap" justifyContent="center">
+          {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
+          {roadtrips[1] && <Roadtripcard roadtrip={roadtrips[1]} />}
+        </CarouselBox>
+      )}
+      {isDesktop && (
+        <>
+          <CarouselBox display="flex">
+            {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
+            {roadtrips[1] && <Roadtripcard roadtrip={roadtrips[1]} />}
+          </CarouselBox>
+          <CarouselBox display="flex">
+            {roadtrips[2] && <Roadtripcard roadtrip={roadtrips[2]} />}
+            {roadtrips[3] && <Roadtripcard roadtrip={roadtrips[3]} />}
+          </CarouselBox>
+        </>
+      )}
     </Box>
   )
 }
@@ -47,10 +81,26 @@ const RoadtripSlide = (props: RoadtripSlideProps) => {
 const ProfilePage = () => {
   const roadtrips = useSelector(selectRoadtrips())
   const locations = useSelector(selectUserLocations())
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'))
   const slideRoadtrips = []
-  if (roadtrips) {
+  if (roadtrips && isDesktop) {
     for (let i = 0; i < roadtrips.length; i += 4) {
       const chunk = roadtrips.slice(i, i + 4)
+      slideRoadtrips.push(chunk)
+    }
+  }
+  if (roadtrips && isTablet) {
+    for (let i = 0; i < roadtrips.length; i += 2) {
+      const chunk = roadtrips.slice(i, i + 2)
+      slideRoadtrips.push(chunk)
+    }
+  }
+  if (roadtrips && isMobile) {
+    for (let i = 0; i < roadtrips.length; i += 1) {
+      const chunk = roadtrips.slice(i, i + 1)
       slideRoadtrips.push(chunk)
     }
   }
@@ -58,8 +108,10 @@ const ProfilePage = () => {
     <Grid container spacing={3}>
       <Grid item xs={12} sm={5}>
         <ProfileComponent />
-        <Box m="auto" width="60%">
-          <Typography variant="h4">Meine Orte:</Typography>
+        <Box m="auto" width="60%" textAlign="center">
+          <Typography variant="h4" paragraph={true}>
+            Meine Orte:
+          </Typography>
           <Suspense fallback={<div>Loading...</div>}>
             {!locations || locations?.length === 0 ? (
               <Typography>
@@ -77,23 +129,39 @@ const ProfilePage = () => {
         </Box>
       </Grid>
       <Grid item xs={12} sm={7}>
-        <RoadtripsBox>
-          <Typography variant="h4">Meine Roadtrips: </Typography>
+        <RoadtripsBox textAlign="center">
+          <Typography variant="h4" paragraph={true}>
+            Meine Roadtrips:{' '}
+          </Typography>
           {slideRoadtrips.length === 0 ? (
-            <Typography>
-              Wie's aussieht hast du noch keine Roadtrips gespeichert. Klick auf
-              den Link um einen{' '}
-              <Link component={RouterLink} to={`/`} variant="h6">
-                Neuen Roadtrip
-              </Link>{' '}
-              zu erstellen.
-            </Typography>
+            <Box m="auto" width="60%">
+              <Typography>
+                Wie's aussieht hast du noch keine Roadtrips gespeichert. Klick
+                auf den Link um einen{' '}
+                <Link component={RouterLink} to={`/`} variant="h6">
+                  Neuen Roadtrip
+                </Link>{' '}
+                zu erstellen.
+              </Typography>
+            </Box>
           ) : (
-            <Carousel autoPlay={false} animation="slide" timeout={600}>
+            <RoadtripsCarousel
+              fullHeightHover
+              autoPlay={false}
+              navButtonsAlwaysVisible={true}
+              animation="slide"
+              timeout={600}
+              navButtonsProps={{
+                // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+                style: {
+                  backgroundColor: '#71b255',
+                },
+              }}
+            >
               {slideRoadtrips.map((chunk) => (
                 <RoadtripSlide roadtrips={chunk} />
               ))}
-            </Carousel>
+            </RoadtripsCarousel>
           )}
         </RoadtripsBox>
       </Grid>

@@ -41,7 +41,7 @@ import { editUser, deleteUser } from '../../utils/AuthService'
 
 const ProfileBox = withTheme(styled(Box)`
   margin-top: ${(props) => props.theme.spacing(10)}px;
-  margin-bottom: ${(props) => props.theme.spacing(7)}px;
+  margin-bottom: ${(props) => props.theme.spacing(4)}px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,8 +63,8 @@ const IconBox = withTheme(styled(Box)`
 `)
 
 const ProfileAvatar = withTheme(styled(Avatar)`
-  width: ${(props) => props.theme.spacing(36)}px;
-  height: ${(props) => props.theme.spacing(36)}px;
+  width: ${(props) => props.theme.spacing(25)}px;
+  height: ${(props) => props.theme.spacing(25)}px;
   margin: 0 auto;
 `)
 

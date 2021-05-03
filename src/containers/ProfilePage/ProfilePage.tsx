@@ -22,7 +22,7 @@ import {
 } from '../../store/user/selectors'
 import { RoadtripState } from '../../store/user/types'
 
-const LocationList = React.lazy(() => import('../../components/LoactionList'))
+const LocationList = React.lazy(() => import('../../components/LocationList'))
 
 const RoadtripsBox = withTheme(styled(Box)`
   margin: ${(props) => props.theme.spacing(10)}px auto;
@@ -30,7 +30,7 @@ const RoadtripsBox = withTheme(styled(Box)`
 
 const CarouselBox = withTheme(styled(Box)`
   overflow: scroll;
-  max-height: 70vh;
+  max-height: 75vh;
 `)
 
 const RoadtripsCarousel = withTheme(styled(Carousel)``)
@@ -41,7 +41,9 @@ type RoadtripSlideProps = {
 const RoadtripSlide = (props: RoadtripSlideProps) => {
   const { roadtrips } = props
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'))
   return (
     <Box
       display="flex"
@@ -52,10 +54,15 @@ const RoadtripSlide = (props: RoadtripSlideProps) => {
       {isMobile && (
         <CarouselBox display="flex" flexWrap="wrap" justifyContent="center">
           {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
+        </CarouselBox>
+      )}
+      {isTablet && (
+        <CarouselBox display="flex" flexWrap="wrap" justifyContent="center">
+          {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
           {roadtrips[1] && <Roadtripcard roadtrip={roadtrips[1]} />}
         </CarouselBox>
       )}
-      {!isMobile && (
+      {isDesktop && (
         <>
           <CarouselBox display="flex">
             {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
@@ -75,17 +82,25 @@ const ProfilePage = () => {
   const roadtrips = useSelector(selectRoadtrips())
   const locations = useSelector(selectUserLocations())
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'))
   const slideRoadtrips = []
-  if (roadtrips && !isMobile) {
+  if (roadtrips && isDesktop) {
     for (let i = 0; i < roadtrips.length; i += 4) {
       const chunk = roadtrips.slice(i, i + 4)
       slideRoadtrips.push(chunk)
     }
   }
-  if (roadtrips && isMobile) {
+  if (roadtrips && isTablet) {
     for (let i = 0; i < roadtrips.length; i += 2) {
       const chunk = roadtrips.slice(i, i + 2)
+      slideRoadtrips.push(chunk)
+    }
+  }
+  if (roadtrips && isMobile) {
+    for (let i = 0; i < roadtrips.length; i += 1) {
+      const chunk = roadtrips.slice(i, i + 1)
       slideRoadtrips.push(chunk)
     }
   }

@@ -1,6 +1,14 @@
 import React, { memo, Suspense } from 'react'
 
-import { Box, Grid, Typography, Link, withTheme } from '@material-ui/core'
+import {
+  Box,
+  Grid,
+  Typography,
+  Link,
+  useMediaQuery,
+  withTheme,
+  useTheme,
+} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 import { useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
@@ -17,14 +25,23 @@ import { RoadtripState } from '../../store/user/types'
 const LocationList = React.lazy(() => import('../../components/LoactionList'))
 
 const RoadtripsBox = withTheme(styled(Box)`
-  margin-top: ${(props) => props.theme.spacing(10)}px;
+  margin: ${(props) => props.theme.spacing(10)}px auto;
 `)
+
+const CarouselBox = withTheme(styled(Box)`
+  overflow: scroll;
+  max-height: 70vh;
+`)
+
+const RoadtripsCarousel = withTheme(styled(Carousel)``)
 
 type RoadtripSlideProps = {
   roadtrips: RoadtripState[]
 }
 const RoadtripSlide = (props: RoadtripSlideProps) => {
   const { roadtrips } = props
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   return (
     <Box
       display="flex"
@@ -32,14 +49,24 @@ const RoadtripSlide = (props: RoadtripSlideProps) => {
       alignItems="center"
       justifyContent="center"
     >
-      <Box display="flex">
-        {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
-        {roadtrips[1] && <Roadtripcard roadtrip={roadtrips[1]} />}
-      </Box>
-      <Box display="flex">
-        {roadtrips[2] && <Roadtripcard roadtrip={roadtrips[2]} />}
-        {roadtrips[3] && <Roadtripcard roadtrip={roadtrips[3]} />}
-      </Box>
+      {isMobile && (
+        <CarouselBox display="flex" flexWrap="wrap" justifyContent="center">
+          {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
+          {roadtrips[1] && <Roadtripcard roadtrip={roadtrips[1]} />}
+        </CarouselBox>
+      )}
+      {!isMobile && (
+        <>
+          <CarouselBox display="flex">
+            {roadtrips[0] && <Roadtripcard roadtrip={roadtrips[0]} />}
+            {roadtrips[1] && <Roadtripcard roadtrip={roadtrips[1]} />}
+          </CarouselBox>
+          <CarouselBox display="flex">
+            {roadtrips[2] && <Roadtripcard roadtrip={roadtrips[2]} />}
+            {roadtrips[3] && <Roadtripcard roadtrip={roadtrips[3]} />}
+          </CarouselBox>
+        </>
+      )}
     </Box>
   )
 }
@@ -47,10 +74,18 @@ const RoadtripSlide = (props: RoadtripSlideProps) => {
 const ProfilePage = () => {
   const roadtrips = useSelector(selectRoadtrips())
   const locations = useSelector(selectUserLocations())
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const slideRoadtrips = []
-  if (roadtrips) {
+  if (roadtrips && !isMobile) {
     for (let i = 0; i < roadtrips.length; i += 4) {
       const chunk = roadtrips.slice(i, i + 4)
+      slideRoadtrips.push(chunk)
+    }
+  }
+  if (roadtrips && isMobile) {
+    for (let i = 0; i < roadtrips.length; i += 2) {
+      const chunk = roadtrips.slice(i, i + 2)
       slideRoadtrips.push(chunk)
     }
   }
@@ -89,11 +124,23 @@ const ProfilePage = () => {
               zu erstellen.
             </Typography>
           ) : (
-            <Carousel autoPlay={false} animation="slide" timeout={600}>
+            <RoadtripsCarousel
+              fullHeightHover
+              autoPlay={false}
+              navButtonsAlwaysVisible={true}
+              animation="slide"
+              timeout={600}
+              navButtonsProps={{
+                // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+                style: {
+                  backgroundColor: '#71b255',
+                },
+              }}
+            >
               {slideRoadtrips.map((chunk) => (
                 <RoadtripSlide roadtrips={chunk} />
               ))}
-            </Carousel>
+            </RoadtripsCarousel>
           )}
         </RoadtripsBox>
       </Grid>

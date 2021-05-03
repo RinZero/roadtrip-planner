@@ -18,6 +18,7 @@ const FooterLink = withTheme(styled(Link)`
 
 const FooterNavigation = withTheme(styled(BottomNavigation)`
   height: ${(props) => props.theme.spacing(8)}px;
+  z-index: 1;
   color: #707070;
   width: 100%;
   position: fixed;

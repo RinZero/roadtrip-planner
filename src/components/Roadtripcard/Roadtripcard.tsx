@@ -26,13 +26,11 @@ type RoadtripcardProps = {
   roadtrip: RoadtripState
 }
 const MyRoadtripCard = withTheme(styled(Card)`
+  margin: ${(props) => props.theme.spacing(1)}px;
   min-width: ${(props) => props.theme.spacing(35)}px;
   max-width: ${(props) => props.theme.spacing(68.5)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-  ${(props) => props.theme.breakpoints.up('sm')} {
-    margin: ${(props) => props.theme.spacing(1)}px;
-  }
 `)
 
 const MyRoadtripCardActionArea = withTheme(styled(CardActionArea)`

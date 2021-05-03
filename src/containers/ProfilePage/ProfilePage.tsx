@@ -93,8 +93,10 @@ const ProfilePage = () => {
     <Grid container spacing={3}>
       <Grid item xs={12} sm={5}>
         <ProfileComponent />
-        <Box m="auto" width="60%">
-          <Typography variant="h4">Meine Orte:</Typography>
+        <Box m="auto" width="60%" textAlign="center">
+          <Typography variant="h4" paragraph={true}>
+            Meine Orte:
+          </Typography>
           <Suspense fallback={<div>Loading...</div>}>
             {!locations || locations?.length === 0 ? (
               <Typography>
@@ -112,17 +114,21 @@ const ProfilePage = () => {
         </Box>
       </Grid>
       <Grid item xs={12} sm={7}>
-        <RoadtripsBox>
-          <Typography variant="h4">Meine Roadtrips: </Typography>
+        <RoadtripsBox textAlign="center">
+          <Typography variant="h4" paragraph={true}>
+            Meine Roadtrips:{' '}
+          </Typography>
           {slideRoadtrips.length === 0 ? (
-            <Typography>
-              Wie's aussieht hast du noch keine Roadtrips gespeichert. Klick auf
-              den Link um einen{' '}
-              <Link component={RouterLink} to={`/`} variant="h6">
-                Neuen Roadtrip
-              </Link>{' '}
-              zu erstellen.
-            </Typography>
+            <Box m="auto" width="60%">
+              <Typography>
+                Wie's aussieht hast du noch keine Roadtrips gespeichert. Klick
+                auf den Link um einen{' '}
+                <Link component={RouterLink} to={`/`} variant="h6">
+                  Neuen Roadtrip
+                </Link>{' '}
+                zu erstellen.
+              </Typography>
+            </Box>
           ) : (
             <RoadtripsCarousel
               fullHeightHover

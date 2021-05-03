@@ -2,7 +2,6 @@ import axios from 'axios'
 
 import { userEntry } from '../store/ui/types'
 import { RoadtripState } from '../store/user/types'
-import { initUserData } from './initUserData'
 
 export type logInType = {
   email: string
@@ -151,7 +150,7 @@ export const fetchUserEntries = (token: string) => {
       },
     })
     .then((response) => {
-      return response.data.data
+      return response.data
     })
 }
 
@@ -174,7 +173,7 @@ type userUpdateState = {
   password: string
   password_confirmation: string
   is_admin: boolean
-  image?: string
+  image?: any
   picture?: string
   id: number
 }

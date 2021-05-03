@@ -19,12 +19,13 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
+  Link,
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { logOutSuccess, updateUser } from '../../store/actions'
@@ -34,12 +35,16 @@ import {
   selectUserName,
   selectUserToken,
   selectUserId,
+  selectUserIsAdmin,
 } from '../../store/selectors'
 import { editUser, deleteUser } from '../../utils/AuthService'
 
 const ProfileBox = withTheme(styled(Box)`
   margin-top: ${(props) => props.theme.spacing(10)}px;
   margin-bottom: ${(props) => props.theme.spacing(7)}px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `)
 
 const PopperBox = withTheme(styled.form`
@@ -60,7 +65,6 @@ const IconBox = withTheme(styled(Box)`
 const ProfileAvatar = withTheme(styled(Avatar)`
   width: ${(props) => props.theme.spacing(36)}px;
   height: ${(props) => props.theme.spacing(36)}px;
-  display: block;
   margin: 0 auto;
 `)
 
@@ -77,6 +81,10 @@ const EditButton = withTheme(styled(Button)`
   color: white;
   height: ${(props) => props.theme.spacing(5)}px;
   min-width: ${(props) => props.theme.spacing(5)}px;
+  &:hover,
+  &:active {
+    background-color: #355727;
+  }
 `)
 
 const ConfirmButton = withTheme(styled(Button)`
@@ -85,6 +93,10 @@ const ConfirmButton = withTheme(styled(Button)`
   color: white;
   height: ${(props) => props.theme.spacing(5)}px;
   min-width: ${(props) => props.theme.spacing(5)}px;
+  &:hover,
+  &:active {
+    background-color: #355727;
+  }
 `)
 
 const InputLink = withTheme(styled(Input)`
@@ -97,6 +109,7 @@ const ProfileComponent = () => {
   const name = useSelector(selectUserName())
   const email = useSelector(selectUserEmail())
   const profilePic = useSelector(selectUserPicture())
+  const isAdmin = useSelector(selectUserIsAdmin())
 
   const history = useHistory()
   const [anchorEl, setAnchorEl] = useState<
@@ -216,6 +229,15 @@ const ProfileComponent = () => {
         >
           <EditIcon />
         </EditButton>
+        {isAdmin ? (
+          <>
+            <Link component={RouterLink} to={`/admin`} variant="h6">
+              Admin
+            </Link>
+          </>
+        ) : (
+          ''
+        )}
         <Popper
           id={id}
           open={values.open}

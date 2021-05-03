@@ -8,6 +8,9 @@ export type UserState = {
   roadtrips?: RoadtripState[]
   locations?: LocationState[]
   token: string
+  created_at?: string
+  updated_at?: string
+  users?: UserState[]
 }
 
 export type RoadtripState = {
@@ -25,11 +28,10 @@ export type LocationState = {
   latitude?: number
   category?: string
   description?: string
-  date?: string
-  isReturning?: 'daily' | 'weekly' | 'monthly' | 'yearly' | undefined
-  fotos?: string[]
   user_id?: number
   public?: boolean
   is_allowed?: boolean
   api_entry_key?: string
+  created_at?: string
+  updated_at?: string
 }

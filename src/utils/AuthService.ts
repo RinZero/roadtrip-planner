@@ -67,6 +67,9 @@ export const createRoadtrip = (
     .then((response) => {
       return response.data.data
     })
+    .catch((error) => {
+      return error.response.data.message
+    })
 }
 
 //unused for now
@@ -137,8 +140,10 @@ export const updateRoadtrip = (roadtrip: RoadtripState, token: string) => {
       }
     )
     .then((response) => {
-      // eslint-disable-next-line no-console
-      console.log(response)
+      return response.status
+    })
+    .catch((error) => {
+      return error.response.data.message
     })
 }
 

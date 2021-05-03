@@ -28,7 +28,13 @@ const StepsMenu = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
   return (
-    <Box display="flex" m={2} width="100%" justifyContent="space-evenly">
+    <Box
+      display="flex"
+      my={2}
+      mx={0}
+      width="100%"
+      justifyContent="space-evenly"
+    >
       <StyledFab
         size={isMobile ? 'small' : 'large'}
         onClick={() => dispatch(setProgressStep({ progressStep: '1' }))}

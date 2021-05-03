@@ -15,6 +15,7 @@ import {
   setDropzoneFiles,
   setIsTest,
   setMessage,
+  setRoadtripStopNames,
 } from './actions'
 import { UiState } from './types'
 
@@ -33,6 +34,7 @@ export const initialState: UiState = {
   dropzoneFiles: [],
   isTest: false,
   message: '',
+  roadtripStopNames: [],
 }
 
 export const uiReducer = produce(
@@ -95,6 +97,11 @@ export const uiReducer = produce(
       case getType(setMessage): {
         const { message } = action.payload
         draft.message = message
+        return draft
+      }
+      case getType(setRoadtripStopNames): {
+        const { roadtripStopNames } = action.payload
+        draft.roadtripStopNames = roadtripStopNames
         return draft
       }
       default:

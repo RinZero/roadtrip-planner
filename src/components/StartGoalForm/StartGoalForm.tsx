@@ -6,6 +6,7 @@ import {
   Grid,
   TextField,
   Typography,
+  useTheme,
   withTheme,
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
@@ -101,6 +102,7 @@ const FormBox = withTheme(styled(Box)`
 
 export const StartGoalForm = () => {
   const dispatch = useDispatch()
+  const theme = useTheme()
   const [active, setActive] = useState(false)
   const { register, getValues } = useForm()
   // Array with the options of autocomplete
@@ -253,7 +255,11 @@ export const StartGoalForm = () => {
                     return (
                       <Box
                         mx={1}
-                        minWidth={activeStop === index ? '360px' : '70px'}
+                        minWidth={
+                          activeStop === index
+                            ? theme.spacing(45) + 'px'
+                            : theme.spacing(9) + 'px'
+                        }
                       >
                         <Box display={activeStop !== index ? 'none' : 'inline'}>
                           <Autocomplete

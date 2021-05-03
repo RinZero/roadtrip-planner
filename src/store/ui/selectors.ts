@@ -68,3 +68,8 @@ export const selectIsTest = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.isTest
   })
+
+export const selectRoadtripStopNames = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.roadtripStopNames
+  })

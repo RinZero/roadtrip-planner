@@ -60,6 +60,7 @@ const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
       listInfo={editRoadtrip.stops}
       onSave={onUpdate || submitUpdate}
       dndStateOrder={dndStateOrder}
+      usage={'update'}
     />
   ) : (
     <h1>...loading</h1>

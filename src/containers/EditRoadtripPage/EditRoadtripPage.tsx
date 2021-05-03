@@ -7,11 +7,12 @@ import {
   TextField,
   withTheme,
 } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import EditRoadtripUpdate from '../../components/EditRoadtripUpdate'
+import { setMessage } from '../../store/actions'
 import { selectEditRoadtrip, selectUserToken } from '../../store/selectors'
 import { updateRoadtrip } from '../../utils/AuthService'
 
@@ -27,21 +28,18 @@ const EditRoadtripPage = () => {
   const editRoadtrip = useSelector(selectEditRoadtrip())
   const [isPublic, setIsPublic] = useState(editRoadtrip.public || false)
   const [name, setName] = useState(editRoadtrip.name)
-  const [error, setError] = useState('')
   const token = useSelector(selectUserToken())
   const history = useHistory()
+  const dispatch = useDispatch()
+
   const onUpdate = async () => {
     if (editRoadtrip) {
       const updatedRoadtrip = { ...editRoadtrip, public: isPublic, name: name }
 
       const result = await updateRoadtrip(updatedRoadtrip, token)
-      //TODO ERROR MESSAGE STYLEN - console.log löschen & vlt. history push dann wieder aus else if rausnehmen
       if (typeof result === 'string') {
-        setError(result)
-        // eslint-disable-next-line no-console
-        console.log(result)
+        dispatch(setMessage({ message: result }))
       } else if (result === 200) {
-        setError('')
         history.push('/profile')
       }
     }

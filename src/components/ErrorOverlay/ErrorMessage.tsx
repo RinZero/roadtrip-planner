@@ -1,9 +1,11 @@
 import React, { memo, useEffect, useState } from 'react'
 
 import { withTheme, Slide, Paper, Typography, Box } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import bus from '../../assets/jpgBus.jpg'
+import { setMessage } from '../../store/actions'
 
 const StyledSlide = withTheme(styled(Slide)`
   width: 100%;
@@ -33,6 +35,7 @@ type ErrorMessageProps = {
 const ErrorMessage = (props: ErrorMessageProps) => {
   const { message = '' } = props
   const [inBool, setInBool] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setInBool(message !== '')
@@ -50,6 +53,7 @@ const ErrorMessage = (props: ErrorMessageProps) => {
       timeout={{ enter: 2500, exit: 2500 }}
       onExited={() => {
         setInBool(false)
+        dispatch(setMessage({ message: '' }))
       }}
     >
       <StyledPaper elevation={4}>

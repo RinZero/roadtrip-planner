@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import { setMessage } from '../../store/actions'
 import { selectUserLocations, selectUserToken } from '../../store/selectors'
 import { FormInputUserEntry } from '../../utils/additionalTypes'
 import { createPlace, editPlace, placeType } from '../../utils/CreateNewPlace'
@@ -65,8 +66,6 @@ const NewPlaceForm = (props: PropsForForm) => {
   const [currentCategories, setCurrentCategories] = useState(
     new Array<{ name: string }>()
   )
-  const [responseMessage, setResponseMessage] = useState('')
-
   //for frontend validation numbers
   const [lngError, setLngError] = useState(false)
   const [latError, setLatError] = useState(false)
@@ -127,7 +126,7 @@ const NewPlaceForm = (props: PropsForForm) => {
       await initUserData(token, dispatch)
     // Get response
     if (typeof response.message === 'string') {
-      setResponseMessage(response.message)
+      dispatch(setMessage({ message: response.message }))
     } else {
       const arr: Array<Record<string, any>> = []
       response.forEach(function (item: Record<string, any>) {
@@ -136,7 +135,7 @@ const NewPlaceForm = (props: PropsForForm) => {
         }
       })
       const str = arr.join(' ')
-      setResponseMessage(str)
+      dispatch(setMessage({ message: str }))
     }
   }
 
@@ -173,13 +172,6 @@ const NewPlaceForm = (props: PropsForForm) => {
 
   return (
     <>
-      {responseMessage !== '' ? (
-        <Box>
-          <h4>{responseMessage}</h4>
-        </Box>
-      ) : (
-        ''
-      )}
       <Box>
         <StyledForm onSubmit={handleSubmit(onFormSubmit)}>
           <TextField

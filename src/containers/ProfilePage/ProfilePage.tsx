@@ -24,6 +24,7 @@ import { RoadtripState } from '../../store/user/types'
 
 const LocationList = React.lazy(() => import('../../components/LocationList'))
 const ProfilePageStyles = withTheme(styled.div`
+  overflow-x: hidden;
   padding: ${(props) => props.theme.spacing(12)}px 0
     ${(props) => props.theme.spacing(10)}px 0;
 
@@ -34,12 +35,12 @@ const ProfilePageStyles = withTheme(styled.div`
 `)
 
 const RoadtripsBox = withTheme(styled(Box)`
-  margin: ${(props) => props.theme.spacing(10)}px auto;
+  margin: ${(props) => props.theme.spacing(1)}px auto;
 `)
 
 const CarouselBox = withTheme(styled(Box)`
   overflow: scroll;
-  max-height: 75vh;
+  max-height: 70vh;
 `)
 
 const RoadtripsCarousel = withTheme(styled(Carousel)``)
@@ -116,7 +117,7 @@ const ProfilePage = () => {
   return (
     <ProfilePageStyles>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={5}>
+        <Grid item xs={11} sm={5}>
           <ProfileComponent />
           <Box m="auto" width="60%" textAlign="center">
             <Typography variant="h4" paragraph={true}>

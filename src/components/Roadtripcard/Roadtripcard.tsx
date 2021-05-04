@@ -27,7 +27,7 @@ type RoadtripcardProps = {
 }
 const MyRoadtripCard = withTheme(styled(Card)`
   margin: ${(props) => props.theme.spacing(1)}px;
-  width: ${(props) => props.theme.spacing(35)}px;
+  width: ${(props) => props.theme.spacing(34)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
 `)
@@ -70,7 +70,7 @@ const Roadtripcard = (props: RoadtripcardProps) => {
           title="Your Roadtrip"
         />
         <RoadtripCardContent>
-          <Typography align="left" variant="h5" component="h2" noWrap>
+          <Typography align="left" variant="h5" component="h2">
             {name}
           </Typography>
           <Typography align="left" color="textSecondary">

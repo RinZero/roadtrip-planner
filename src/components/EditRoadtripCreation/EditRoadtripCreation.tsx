@@ -20,9 +20,8 @@ import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
 
 const CreateRoadtripPageStyles = withTheme(styled.div`
-  max-width: 90%;
+  max-width: 100%;
   margin: auto;
-  padding: ${(props) => props.theme.spacing(10)}px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -99,7 +98,12 @@ const EditRoadtripCreation = () => {
   return (
     <>
       <CreateRoadtripPageStyles>
-        <Box display="flex" justifyContent="space-between" my={2}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          flexWrap="wrap"
+          my={2}
+        >
           <Box width="80%">
             <TextField
               value={name}

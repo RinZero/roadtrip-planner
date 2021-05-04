@@ -9,6 +9,7 @@ import {
   ListItemSecondaryAction,
   withTheme,
   Button,
+  useTheme,
 } from '@material-ui/core'
 // Import BoardItem component
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -35,7 +36,7 @@ const StyledBox = withTheme(styled(Box)`
   ${(props) => props.theme.breakpoints.up('md')} {
     width: 25%;
     margin-top: 0px;
-    max-height: ${(props) => props.theme.spacing(6.5)}vh;
+    max-height: ${(props) => props.theme.spacing(5)}vh;
     margin-left: ${(props) => props.theme.spacing(2)}px;
     .MuiListItemSecondaryAction-root {
       top: 28%;
@@ -56,6 +57,7 @@ const ContentBox = withTheme(styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin: ${(props) => props.theme.spacing(1)}px;
   ${(props) => props.theme.breakpoints.up('md')} {
     display: flex;
     flex-direction: row;
@@ -273,11 +275,12 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   const selectedCategoriesMap = useSelector(selectUiSelectedCategories())
   // für die Zusammenfassung welche Kategorien für den Roadtrip verwendet wurden
   const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
+  const theme = useTheme()
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ContentBox>
-        {!isTest && <DisplayMapClass allLocations={mapRoute} />}
+        {!isTest && <DisplayMapClass allLocations={mapRoute} isSmall={true} />}
         <StyledBox>
           <List component="nav" aria-label="contacts">
             {list.map((item, index) => {

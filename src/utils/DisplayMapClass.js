@@ -61,16 +61,10 @@ export class DisplayMapClass extends React.Component {
       }
     )
 
-    //Add Tilt to map
-    map.getViewModel().setLookAtData({
-      tilt: 20,
-    })
-
     // Add all Markers to Map
     // Create an icon, an object holding the latitude and longitude, and a marker:
     // Location Object should look like this: { lat: 47.79941, lng: 13.04399 }
     const location = this.props.allLocations
-    //const icon = new H.map.Icon(markerSVG)
     const flagIcon = new H.map.Icon(flag)
     for (let i = 0; i < location.length - 1; i++) {
       // Create the parameters for the routing request:
@@ -158,6 +152,8 @@ export class DisplayMapClass extends React.Component {
 
     // Create the default UI components to allow the user to interact with them
     //const ui = H.ui.UI.createDefault(map, defaultLayers)
+    const ui = H.ui.UI.createDefault(map, defaultLayers)
+
     // Now use the map as required...
     changeFeatureStyle(map)
 
@@ -171,7 +167,6 @@ export class DisplayMapClass extends React.Component {
   render() {
     return (
       <div
-        id="map"
         ref={this.mapRef}
         style={{ height: '52vh', width: '70vw', minWidth: '270px' }}
       />

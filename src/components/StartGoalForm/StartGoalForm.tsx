@@ -103,7 +103,7 @@ const FormBox = withTheme(styled(Box)`
 export const StartGoalForm = () => {
   const dispatch = useDispatch()
   const theme = useTheme()
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'))
+  const isTablet = useMediaQuery(theme.breakpoints.down(960))
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [active, setActive] = useState(false)
   const { register, getValues } = useForm()
@@ -239,8 +239,8 @@ export const StartGoalForm = () => {
         <Typography variant="h6" align="left">
           Stops (optional):
         </Typography>
-        <Grid container spacing={1} alignItems="center">
-          <Grid item xs={12} lg={8}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12} md={8}>
             <Box
               component="div"
               overflow="auto"
@@ -311,7 +311,7 @@ export const StartGoalForm = () => {
               }
             </Box>
           </Grid>
-          <Grid item xs={12} lg={1}>
+          <Grid item xs={12} md={1}>
             <Box display="flex" justifyContent="center">
               <AddButton
                 onClick={() => {
@@ -323,7 +323,7 @@ export const StartGoalForm = () => {
               </AddButton>
             </Box>
           </Grid>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={12} md={3}>
             <StyledButton onClick={() => SubmitForm()}>Start</StyledButton>
           </Grid>
         </Grid>

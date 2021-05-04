@@ -71,10 +71,6 @@ const StyledPopover = withTheme(styled(Popover)`
   padding: ${(props) => props.theme.spacing(3)}px;
 `)
 
-const HeaderHight = withTheme(styled(Box)`
-  height: ${(props) => props.theme.spacing(5)}px;
-`)
-
 const HeaderAppBar = withTheme(styled(AppBar)`
   color: #707070;
   padding-top: ${(props) => props.theme.spacing(2)}px;
@@ -126,121 +122,119 @@ const Header = () => {
     setAnchorEl(null)
   }
   return (
-    <HeaderHight>
-      <HeaderAppBar>
-        <ToolbarContainer>
-          <LogoBox>
-            <img src={isTablet ? logoMobile : logo} alt="Roadabout Logo" />
-          </LogoBox>
-          <HeaderLink component={RouterLink} to={`/`} variant="h6">
-            Neuer Roadtrip
-          </HeaderLink>
-          <HeaderLink
-            HeaderLink
-            component={RouterLink}
-            to={`/neuer_ort`}
-            variant="h6"
-          >
-            Ort hinzufügen
-          </HeaderLink>
+    <HeaderAppBar>
+      <ToolbarContainer>
+        <LogoBox>
+          <img src={isTablet ? logoMobile : logo} alt="Roadabout Logo" />
+        </LogoBox>
+        <HeaderLink component={RouterLink} to={`/`} variant="h6">
+          Neuer Roadtrip
+        </HeaderLink>
+        <HeaderLink
+          HeaderLink
+          component={RouterLink}
+          to={`/neuer_ort`}
+          variant="h6"
+        >
+          Ort hinzufügen
+        </HeaderLink>
 
-          <AccountButton
-            aria-label="profile"
-            onClick={() =>
-              history.push(userName === 'Guest' ? '/sign_up' : '/profile')
-            }
-          >
-            {userName ? (
-              <Avatar alt={userName + 's Profilbild'} src={profilePic} />
-            ) : (
-              <AccountCircleIcon />
-            )}
-          </AccountButton>
-          {userName === 'Guest' && (
-            <>
-              <PopupState variant="popover" popupId="login-popup-popover">
-                {(popupState) => (
-                  <>
-                    <div {...bindTrigger(popupState)}>
-                      <Link variant="h6" color="primary">
-                        LogIn
-                      </Link>
-                    </div>
-                    <StyledPopover
-                      {...bindPopover(popupState)}
-                      anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                      }}
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                    >
-                      <Box m={3}>
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <LogInForm />
-                        </Suspense>
-                      </Box>
-                    </StyledPopover>
-                  </>
-                )}
-              </PopupState>
-              {!isMobile && <Typography variant="body1">or</Typography>}
-              <Link component={RouterLink} to={`/sign_up`} variant="h6">
-                SignUp
-              </Link>
-            </>
+        <AccountButton
+          aria-label="profile"
+          onClick={() =>
+            history.push(userName === 'Guest' ? '/sign_up' : '/profile')
+          }
+        >
+          {userName ? (
+            <Avatar alt={userName + 's Profilbild'} src={profilePic} />
+          ) : (
+            <AccountCircleIcon />
           )}
-          {userName !== 'Guest' && (
-            <>
-              <Typography variant="body1" color="textPrimary">
-                Hallo {userName}, tuastn????
-              </Typography>
-
-              {!isMobile && (
-                <LogoutButton
-                  onClick={() => {
-                    dispatch(logOutSuccess())
-                  }}
-                  component={RouterLink}
-                  to={`/`}
-                >
-                  Log out
-                </LogoutButton>
+        </AccountButton>
+        {userName === 'Guest' && (
+          <>
+            <PopupState variant="popover" popupId="login-popup-popover">
+              {(popupState) => (
+                <>
+                  <div {...bindTrigger(popupState)}>
+                    <Link variant="h6" color="primary">
+                      LogIn
+                    </Link>
+                  </div>
+                  <StyledPopover
+                    {...bindPopover(popupState)}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                  >
+                    <Box m={3}>
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <LogInForm />
+                      </Suspense>
+                    </Box>
+                  </StyledPopover>
+                </>
               )}
-            </>
-          )}
-          <HeaderIconButton onClick={handleClick}>
-            <MenuIcon />
-          </HeaderIconButton>
-          <Menu
-            autoFocus={false}
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem component={RouterLink} to={`/`}>
-              Neuer Roadtrip
-            </MenuItem>
-            <MenuItem component={RouterLink} to={`/neuer_ort`}>
-              Ort hinzufügen
-            </MenuItem>
-            {userName !== 'Guest' && (
-              <MenuItem
+            </PopupState>
+            {!isMobile && <Typography variant="body1">or</Typography>}
+            <Link component={RouterLink} to={`/sign_up`} variant="h6">
+              SignUp
+            </Link>
+          </>
+        )}
+        {userName !== 'Guest' && (
+          <>
+            <Typography variant="body1" color="textPrimary">
+              Hallo {userName}, tuastn????
+            </Typography>
+
+            {!isMobile && (
+              <LogoutButton
                 onClick={() => {
                   dispatch(logOutSuccess())
                 }}
                 component={RouterLink}
                 to={`/`}
               >
-                <LogoutButton>Log out</LogoutButton>
-              </MenuItem>
+                Log out
+              </LogoutButton>
             )}
-          </Menu>
-        </ToolbarContainer>
-      </HeaderAppBar>
-    </HeaderHight>
+          </>
+        )}
+        <HeaderIconButton onClick={handleClick}>
+          <MenuIcon />
+        </HeaderIconButton>
+        <Menu
+          autoFocus={false}
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem component={RouterLink} to={`/`}>
+            Neuer Roadtrip
+          </MenuItem>
+          <MenuItem component={RouterLink} to={`/neuer_ort`}>
+            Ort hinzufügen
+          </MenuItem>
+          {userName !== 'Guest' && (
+            <MenuItem
+              onClick={() => {
+                dispatch(logOutSuccess())
+              }}
+              component={RouterLink}
+              to={`/`}
+            >
+              <LogoutButton>Log out</LogoutButton>
+            </MenuItem>
+          )}
+        </Menu>
+      </ToolbarContainer>
+    </HeaderAppBar>
   )
 }
 

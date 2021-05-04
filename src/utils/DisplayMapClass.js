@@ -35,41 +35,6 @@ function changeFeatureStyle(map) {
   streetStyle.addEventListener('change', changeListener)
 }
 
-//Restrict map to area
-function restrictMap(map) {
-  var bounds = new window.H.geo.Rect(47.16, 9.32, 48.0, 17.08)
-
-  map.getViewModel().addEventListener('sync', function () {
-    var center = map.getCenter()
-
-    if (!bounds.containsPoint(center)) {
-      if (center.lat > bounds.getTop()) {
-        center.lat = bounds.getTop()
-      } else if (center.lat < bounds.getBottom()) {
-        center.lat = bounds.getBottom()
-      }
-      if (center.lng < bounds.getLeft()) {
-        center.lng = bounds.getLeft()
-      } else if (center.lng > bounds.getRight()) {
-        center.lng = bounds.getRight()
-      }
-      map.setCenter(center)
-    }
-  })
-  /*
-  //Debug code to visualize where your restriction is
-  map.addObject(
-    new window.H.map.Rect(bounds, {
-      style: {
-        fillColor: 'rgba(55, 85, 170, 0.1)',
-        strokeColor: 'rgba(55, 85, 170, 0.6)',
-        lineWidth: 8,
-      },
-    })
-  )
-  */
-}
-
 export class DisplayMapClass extends React.Component {
   mapRef = React.createRef()
   state = {
@@ -98,7 +63,7 @@ export class DisplayMapClass extends React.Component {
 
     //Add Tilt to map
     map.getViewModel().setLookAtData({
-      tilt: 40,
+      tilt: 20,
     })
 
     // Add all Markers to Map
@@ -195,8 +160,6 @@ export class DisplayMapClass extends React.Component {
     //const ui = H.ui.UI.createDefault(map, defaultLayers)
     // Now use the map as required...
     changeFeatureStyle(map)
-    //setMapViewBounds(map)
-    restrictMap(map)
 
     this.setState({ map })
   }

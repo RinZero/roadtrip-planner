@@ -13,9 +13,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-// import ImageDropzone from '../../components/ImageDropzone'
 import ImageDropzone from '../../components/ImageDropzone'
-import { logInSuccess } from '../../store/actions'
+import { logInSuccess, setMessage } from '../../store/actions'
 import { selectDropzoneFiles } from '../../store/selectors'
 import { logIn, signUp } from '../../utils/AuthService'
 
@@ -24,7 +23,6 @@ type IFormInput = {
   password: string
   password_confirmation: string
   username: string
-  picture?: string
 }
 const StyledInput = withTheme(styled(Input)`
   margin: ${(props) => props.theme.spacing(1.5)}px 0;
@@ -57,12 +55,11 @@ const SignUpForm = () => {
     inputData.append('[user]password', data.password)
     inputData.append('[user]email', data.email)
     inputData.append('[user]password_confirmation', data.password_confirmation)
-    if (data.picture) inputData.append('[user]picture', data.picture)
     inputData.append('[user]image', image[0])
-    const user = await signUp(inputData)
-    if (user) {
+    const response = await signUp(inputData)
+    if (response.status === 200) {
       const loggedInUser = await logIn({
-        email: user.email,
+        email: data.email,
         password: data.password,
         password_confirmation: data.password,
       })
@@ -70,13 +67,21 @@ const SignUpForm = () => {
         dispatch(
           logInSuccess(
             Object.assign(loggedInUser, {
-              image: user.image === null ? undefined : user.image.url,
+              image:
+                response.user.image === null
+                  ? undefined
+                  : response.user.image.url,
             })
           )
         )
+      dispatch(setMessage({ message: 'Dein Profil wurde erstellt.' }))
+      history.push('/')
+    } else {
+      // TODO JULIA: Fehlermeldungen aus dem Backend
+      dispatch(
+        setMessage({ message: 'Das Erstellen hat leider nicht funktioniert.' })
+      )
     }
-    history.push('/')
-    // if (user) dispatch(logInSuccess(user))
   }
   return (
     <SignupCard variant="outlined" square>
@@ -121,13 +126,6 @@ const SignUpForm = () => {
                 <Typography variant="h6">Profilbild:</Typography>
               </Box>
               <ImageDropzone />
-              <StyledInput
-                type="text"
-                name="picture"
-                inputRef={register}
-                placeholder="oder hier Image-Link einfügen"
-                variant="outlined"
-              />
             </Box>
           </Box>
           <LoginButton type="submit" color="primary">

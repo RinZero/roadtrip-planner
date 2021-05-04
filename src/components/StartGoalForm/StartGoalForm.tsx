@@ -6,6 +6,7 @@ import {
   Grid,
   TextField,
   Typography,
+  useMediaQuery,
   useTheme,
   withTheme,
 } from '@material-ui/core'
@@ -29,7 +30,6 @@ const StyledForm = withTheme(styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: ${(props) => props.theme.spacing(1)}px;
   .expand {
     display: block;
@@ -103,6 +103,8 @@ const FormBox = withTheme(styled(Box)`
 export const StartGoalForm = () => {
   const dispatch = useDispatch()
   const theme = useTheme()
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [active, setActive] = useState(false)
   const { register, getValues } = useForm()
   // Array with the options of autocomplete
@@ -170,7 +172,7 @@ export const StartGoalForm = () => {
     }
   }
   return (
-    <>
+    <Box my="auto">
       <StyledForm>
         <FormBox>
           <Autocomplete
@@ -238,14 +240,14 @@ export const StartGoalForm = () => {
           Stops (optional):
         </Typography>
         <Grid container spacing={1} alignItems="center">
-          {message ? <h5>{message}</h5> : null}
-
           <Grid item xs={12} lg={8}>
             <Box
               component="div"
               overflow="auto"
               display="flex"
               alignItems="center"
+              flexWrap={isTablet ? 'wrap' : 'nowrap'}
+              justifyContent="center"
             >
               {
                 // eslint-disable-next-line array-callback-return
@@ -254,9 +256,12 @@ export const StartGoalForm = () => {
                     return (
                       <Box
                         mx={1}
+                        my={0.5}
                         minWidth={
                           activeStop === index
-                            ? theme.spacing(45) + 'px'
+                            ? isMobile
+                              ? theme.spacing(25) + 'px'
+                              : theme.spacing(45) + 'px'
                             : theme.spacing(9) + 'px'
                         }
                       >
@@ -283,7 +288,11 @@ export const StartGoalForm = () => {
                                 {...params}
                                 className={active ? 'collapse' : 'expand'}
                                 onKeyDown={toggleClass}
-                                label="Zwischenstopp"
+                                label={
+                                  (isMobile ? 'Stopp' : 'Zwischenstopp') +
+                                  ' ' +
+                                  (index - 1)
+                                }
                                 name={'stops[' + index + ']'}
                                 inputRef={register}
                               />
@@ -302,22 +311,24 @@ export const StartGoalForm = () => {
               }
             </Box>
           </Grid>
-          <Grid item xs={4} lg={1}>
-            <AddButton
-              onClick={() => {
-                setNamedStops(namedStops.concat(['']))
-                setActiveStop(namedStops.length)
-              }}
-            >
-              +
-            </AddButton>
+          <Grid item xs={12} lg={1}>
+            <Box display="flex" justifyContent="center">
+              <AddButton
+                onClick={() => {
+                  setNamedStops(namedStops.concat(['']))
+                  setActiveStop(namedStops.length)
+                }}
+              >
+                {isTablet ? 'Stopp hinzufügen' : '+'}
+              </AddButton>
+            </Box>
           </Grid>
           <Grid item xs={12} lg={3}>
             <StyledButton onClick={() => SubmitForm()}>Start</StyledButton>
           </Grid>
         </Grid>
       </StyledForm>
-    </>
+    </Box>
   )
 }
 

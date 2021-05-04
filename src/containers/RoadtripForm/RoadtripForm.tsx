@@ -1,4 +1,4 @@
-import React, { memo, Suspense, lazy } from 'react'
+import React, { memo } from 'react'
 
 import { Typography } from '@material-ui/core'
 import { useSelector } from 'react-redux'

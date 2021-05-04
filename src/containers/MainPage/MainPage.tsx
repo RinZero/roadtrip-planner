@@ -11,7 +11,10 @@ const MainPageStyles = withTheme(styled.div`
   padding: ${(props) => props.theme.spacing(10)}px 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  ${(props) => props.theme.breakpoints.up('sm')} {
+    height: calc(100vh - 40px);
+    //40px come from LogoImg in App.css (maybe remove it??)
+  }
 `)
 
 const MainPage = () => {

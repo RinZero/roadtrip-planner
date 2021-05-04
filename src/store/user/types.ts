@@ -34,4 +34,5 @@ export type LocationState = {
   api_entry_key?: string
   created_at?: string
   updated_at?: string
+  order: number
 }

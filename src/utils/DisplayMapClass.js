@@ -112,7 +112,12 @@ export class DisplayMapClass extends React.Component {
     return (
       <div
         ref={this.mapRef}
-        style={{ height: '52vh', width: '70vw', minWidth: '270px' }}
+        style={{
+          height: this.props.isSmall ? '35vh' : '45vh',
+          width: this.props.isSmall ? '46vw' : '64vw',
+          minWidth: '270px',
+          margin: 'auto',
+        }}
       />
     )
   }

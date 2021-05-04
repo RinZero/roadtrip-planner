@@ -1,6 +1,14 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 
+import {
+  Box,
+  FormControlLabel,
+  Switch,
+  TextField,
+  withTheme,
+} from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 
 import {
   setMessage,
@@ -10,6 +18,14 @@ import {
 import { selectRoadtripInfos, selectUserToken } from '../../store/selectors'
 import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
+
+const CreateRoadtripPageStyles = withTheme(styled.div`
+  max-width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`)
 
 const EditRoadtripCreation = () => {
   const dispatch = useDispatch()
@@ -23,6 +39,8 @@ const EditRoadtripCreation = () => {
     },
   ]
   const token = useSelector(selectUserToken())
+  const [isPublic, setIsPublic] = useState(false)
+  const [name, setName] = useState('Mein Roadtrip')
 
   const submitRoadtrip = useCallback(async () => {
     const roadtripData: createRoadtripType = {
@@ -30,8 +48,8 @@ const EditRoadtripCreation = () => {
         type: 'roadtrip',
         locations: [],
         attributes: {
-          name: 'Ein Roadtrip',
-          public: false,
+          name: name,
+          public: isPublic,
           distance: 1,
         },
       },
@@ -59,7 +77,7 @@ const EditRoadtripCreation = () => {
     } else if (typeof result === 'object' && result.type) {
       dispatch(setProgressStep({ progressStep: '4' }))
     }
-  }, [roadtripInfo, token, dispatch])
+  }, [roadtripInfo, token, dispatch, isPublic, name])
 
   const onChange = (r: Array<Record<string, any>>) => {
     dispatch(
@@ -77,14 +95,44 @@ const EditRoadtripCreation = () => {
       })
     )
   }
+
   return (
     <>
-      <EditRoadtripTemplate
-        dndStateOrder={dndStateOrder}
-        onChange={onChange}
-        onSave={submitRoadtrip}
-        listInfo={roadtripInfo}
-      />
+      <CreateRoadtripPageStyles>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          flexWrap="wrap"
+          my={2}
+        >
+          <Box width="80%">
+            <TextField
+              value={name}
+              variant="outlined"
+              label="Roadtrip-Name"
+              fullWidth
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Box>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isPublic}
+                onChange={() => setIsPublic(!isPublic)}
+                name="isPublic"
+                color="primary"
+              />
+            }
+            label="öffentlich"
+          />
+        </Box>
+        <EditRoadtripTemplate
+          dndStateOrder={dndStateOrder}
+          onChange={onChange}
+          onSave={submitRoadtrip}
+          listInfo={roadtripInfo}
+        />
+      </CreateRoadtripPageStyles>
     </>
   )
 }

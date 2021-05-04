@@ -52,8 +52,6 @@ export const signUp = (signUpData: FormData) => {
   return fetch
     .post('users', signUpData)
     .then((response) => {
-      // eslint-disable-next-line no-console
-      console.log(response)
       return { status: response.status, user: response.data.data.attributes }
     })
     .catch((error) => {

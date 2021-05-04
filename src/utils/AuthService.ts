@@ -24,8 +24,7 @@ export type createRoadtripType = {
   }
 }
 const fetch = axios.create({
-  baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
-  // baseURL: 'http://localhost:3000/api/v1/',
+  baseURL: process.env.REACT_APP_BASE_URL,
 })
 
 export const logIn = (logInData: logInType) => {

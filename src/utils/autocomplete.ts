@@ -13,8 +13,7 @@ export const autocomplete = async (
     ? userLocations.concat(publicLocations)
     : publicLocations
   const additionalData = checkPlaces(place, locations)
-  const apiKey = 'E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
-  const url = `https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json&country=AUT?apiKey=${apiKey}&query=${place}`
+  const url = `https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json&country=AUT?apiKey=${process.env.REACT_APP_HERE_API_KEY}&query=${place}`
   const response = await fetch(url)
   const data = await response.json()
   if (!data.suggestions) {
@@ -45,9 +44,8 @@ const getOnlyImportantInfo = (
 }
 
 const getCoordinates = async (loactaionId: string) => {
-  const apiKey = 'E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
   const searchName = loactaionId.replace(', ', '+')
-  const url = `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${apiKey}&searchtext=${searchName}`
+  const url = `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${process.env.REACT_APP_HERE_API_KEY}&searchtext=${searchName}`
   const response = await fetch(url)
   const data = await response.json()
   if (data.Response.View[0]) return data.Response.View[0].Result[0]

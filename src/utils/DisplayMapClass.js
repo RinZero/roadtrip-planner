@@ -46,7 +46,7 @@ export class DisplayMapClass extends React.Component {
   componentDidMount() {
     const H = window.H
     const platform = new H.service.Platform({
-      apikey: 'E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE',
+      apikey: process.env.REACT_APP_HERE_API_KEY,
     })
 
     const defaultLayers = platform.createDefaultLayers()

@@ -121,6 +121,26 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  const spruchArray = [
+    `Hallo ${userName}, tuastn?`,
+    `It's me, ${userName}!`,
+    `Moin ${userName}, wat loyft?!`,
+    `Whats up ${userName}?`,
+    `Hey ${userName}, alles fit?`,
+    `Ahoy, ${userName}!`,
+    `Was macht die Kunst, ${userName}?`,
+    `Habedere, ${userName}!`,
+    `Tach auch, ${userName}!`,
+    `High Five, ${userName}!`,
+    `Sers, ${userName}!`,
+    `Aloha, ${userName}!`,
+    `Peace, ${userName}!`,
+    `Na, ${userName}! Auch hier?`,
+    `Ave, ${userName}!`,
+    `Howdy, ${userName}!`,
+  ]
+  const randomNumber = Math.floor(Math.random() * spruchArray.length)
   return (
     <HeaderAppBar>
       <ToolbarContainer>
@@ -190,7 +210,7 @@ const Header = () => {
         {userName !== 'Guest' && (
           <>
             <Typography variant="body1" color="textPrimary">
-              Hallo {userName}, tuastn????
+              {spruchArray[randomNumber]}
             </Typography>
 
             {!isMobile && (

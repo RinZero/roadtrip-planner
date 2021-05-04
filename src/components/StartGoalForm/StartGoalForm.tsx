@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import {
+  setMessage,
   setProgressStep,
   setRoadtripStops,
   setRoadtripStopNames,
@@ -109,8 +110,6 @@ export const StartGoalForm = () => {
   const { register, getValues } = useForm()
   // Array with the options of autocomplete
   const [array, setArray] = useState([])
-  // user messages - wenn zum Beispiel Ort nicht in Österreich oder ungültig
-  const [message, setMessage] = useState('')
 
   //get Location of User
   const userLocations = useSelector(selectUserLocations())
@@ -159,13 +158,13 @@ export const StartGoalForm = () => {
     const nameArray = values.stops
 
     if (!stopArray[0] || stopArray[0][0] === -1) {
-      setMessage(
-        `Anscheinend stimmt was bei deiner Eingabe nicht.
-          Start und Ziel müssen ausgefüllt sein und die Orte müssen in Österreich existieren. 
-          Thx.`
+      dispatch(
+        setMessage({
+          message: `Fehlerhafte Eingabe. 
+          Die Orte müssen in Österreich sein.`,
+        })
       )
     } else {
-      setMessage('')
       dispatch(setRoadtripStops({ roadtripStops: stopArray }))
       dispatch(setRoadtripStopNames({ roadtripStopNames: nameArray }))
       dispatch(setProgressStep({ progressStep: '2' }))
@@ -247,7 +246,7 @@ export const StartGoalForm = () => {
               display="flex"
               alignItems="center"
               flexWrap={isTablet ? 'wrap' : 'nowrap'}
-              justifyContent="center"
+              justifyContent="flex-start"
             >
               {
                 // eslint-disable-next-line array-callback-return
@@ -315,8 +314,15 @@ export const StartGoalForm = () => {
             <Box display="flex" justifyContent="center">
               <AddButton
                 onClick={() => {
-                  setNamedStops(namedStops.concat(['']))
-                  setActiveStop(namedStops.length)
+                  if (activeStop + 1 < 10) {
+                    setNamedStops(namedStops.concat(['']))
+                    setActiveStop(namedStops.length)
+                  } else
+                    dispatch(
+                      setMessage({
+                        message: 'Es sind nicht mehr als 10 Stopps möglich.',
+                      })
+                    )
                 }}
               >
                 {isTablet ? 'Stopp hinzufügen' : '+'}

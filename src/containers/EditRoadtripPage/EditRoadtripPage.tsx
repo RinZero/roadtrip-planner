@@ -19,11 +19,17 @@ import { updateRoadtrip } from '../../utils/AuthService'
 const EditRoadtripPageStyles = withTheme(styled.div`
   max-width: 70%;
   margin: auto;
-  padding: ${(props) => props.theme.spacing(10)}px 0;
+  padding: ${(props) => props.theme.spacing(12)}px 0
+    ${(props) => props.theme.spacing(10)}px 0;
+
+  ${(props) => props.theme.breakpoints.up('md')} {
+    height: calc(100vh - 40px);
+  }
   display: flex;
   flex-direction: column;
   justify-content: center;
 `)
+
 const EditRoadtripPage = () => {
   const editRoadtrip = useSelector(selectEditRoadtrip())
   const [isPublic, setIsPublic] = useState(editRoadtrip.public || false)

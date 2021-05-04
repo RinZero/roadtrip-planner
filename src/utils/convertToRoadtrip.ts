@@ -12,10 +12,6 @@ export const convertToRoadtrip = (
 ) => {
   const locations: LocationState[] = []
   roadtripData.forEach((item, index) => {
-    // eslint-disable-next-line no-console
-    console.log(item)
-    // eslint-disable-next-line no-console
-    console.log(roadtripData)
     if (item.attributes.user_entry !== null) {
       locations.push({
         ...item.attributes.user_entry,

@@ -151,7 +151,6 @@ export class DisplayMapClass extends React.Component {
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
 
     // Create the default UI components to allow the user to interact with them
-    //const ui = H.ui.UI.createDefault(map, defaultLayers)
     const ui = H.ui.UI.createDefault(map, defaultLayers)
 
     // Now use the map as required...

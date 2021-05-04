@@ -34,7 +34,7 @@ const TestPage = () => {
   //   '47.416,15.2617',
   // ]
 
-  //https://discover.search.hereapi.com/v1/discover?at=52.8173086,12.2368342&limit=5&lang=en&q=Obi+Hamburg&apiKey=E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
+  //https://discover.search.hereapi.com/v1/discover?at=52.8173086,12.2368342&limit=5&lang=en&q=Obi+Hamburg&apiKey={process.env.REACT_APP_HERE_API_KEY}'
   useEffect(() => {
     // fetchHereData({
     //   object: { endpoint: 'browse', query: 'zoo' },

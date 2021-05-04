@@ -25,24 +25,18 @@ import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { initUserData } from '../../utils/initUserData'
 
 const StyledBox = withTheme(styled(Box)`
-  width: 100%;
+  margin-top: ${(props) => props.theme.spacing(1.5)}px;
   min-width: ${(props) => props.theme.spacing(25)}px;
   overflow: auto;
-  max-width: ${(props) => props.theme.spacing(8.75)}vw;
-  max-height: ${(props) => props.theme.spacing(4)}vh;
-  margin-top: ${(props) => props.theme.spacing(1)}px;
+  max-height: ${(props) => props.theme.spacing(6.2)}vh;
   .MuiList-root {
-    display: flex;
+    display: inline;
   }
   ${(props) => props.theme.breakpoints.up('md')} {
     width: 25%;
-    min-width: ${(props) => props.theme.spacing(25)}px;
-    overflow: auto;
+    margin-top: 0px;
     max-height: ${(props) => props.theme.spacing(6.5)}vh;
     margin-left: ${(props) => props.theme.spacing(2)}px;
-    .MuiList-root {
-      display: inline;
-    }
     .MuiListItemSecondaryAction-root {
       top: 28%;
       ${(props) => props.theme.breakpoints.up('md')} {

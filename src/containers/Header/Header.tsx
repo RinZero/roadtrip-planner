@@ -60,7 +60,7 @@ const AccountButton = withTheme(styled(IconButton)`
 `)
 const HeaderLink = withTheme(styled(Link)`
   display: none;
-  ${(props) => props.theme.breakpoints.up('sm')} {
+  ${(props) => props.theme.breakpoints.up('md')} {
     display: inline;
     color: #707070;
     font-size: ${(props) => props.theme.spacing(2.5)}px;
@@ -87,22 +87,22 @@ const ToolbarContainer = withTheme(styled(Toolbar)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: ${(props) => props.theme.spacing(1.1)}px;
 `)
 
 const HeaderIconButton = withTheme(styled(IconButton)`
-  margin: 0 auto 0 0;
-  ${(props) => props.theme.breakpoints.up('sm')} {
+  ${(props) => props.theme.breakpoints.up('md')} {
     display: none;
   }
 `)
 
 const LogoBox = withTheme(styled(Box)`
   display: block;
-  margin-left: 0;
+  margin-left: ${(props) => props.theme.spacing(2)}px;
   margin-right: auto;
   img {
     width: ${(props) => props.theme.spacing(5)}px;
-    ${(props) => props.theme.breakpoints.up('md')} {
+    ${(props) => props.theme.breakpoints.up('lg')} {
       width: ${(props) => props.theme.spacing(30)}px;
     }
   }
@@ -115,6 +115,7 @@ const Header = () => {
   const profilePic = useSelector(selectUserPicture())
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'))
   const dispatch = useDispatch()
 
   const handleClick = (event: any) => {
@@ -129,7 +130,7 @@ const Header = () => {
       <HeaderAppBar>
         <ToolbarContainer>
           <LogoBox>
-            <img src={isMobile ? logoMobile : logo} alt="Roadabout Logo" />
+            <img src={isTablet ? logoMobile : logo} alt="Roadabout Logo" />
           </LogoBox>
           <HeaderLink component={RouterLink} to={`/`} variant="h6">
             Neuer Roadtrip

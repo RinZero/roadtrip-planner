@@ -28,7 +28,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { logOutSuccess, updateUser } from '../../store/actions'
+import { logOutSuccess, updateUser, setMessage } from '../../store/actions'
 import {
   selectUserPicture,
   selectUserEmail,
@@ -36,8 +36,10 @@ import {
   selectUserToken,
   selectUserId,
   selectUserIsAdmin,
+  selectDropzoneFiles,
 } from '../../store/selectors'
 import { editUser, deleteUser } from '../../utils/AuthService'
+import ImageDropzone from '../ImageDropzone'
 
 const ProfileBox = withTheme(styled(Box)`
   margin-top: ${(props) => props.theme.spacing(10)}px;
@@ -97,10 +99,6 @@ const ConfirmButton = withTheme(styled(Button)`
   &:active {
     background-color: #355727;
   }
-`)
-
-const InputLink = withTheme(styled(Input)`
-  width: 100%;
 `)
 
 const ProfileComponent = () => {
@@ -181,33 +179,43 @@ const ProfileComponent = () => {
     email: string
     password: string
     password_confirmation: string
-    picture: string
+    image: (File & {
+      preview: string
+    })[]
   }
 
   const dispatch = useDispatch()
+  const image = useSelector(selectDropzoneFiles())
+
   const { register, handleSubmit } = useForm()
   const onFormSubmit = async (data: IFormInput) => {
-    const user = {
-      username: data.userName,
-      email: data.email,
-      password: data.password,
-      password_confirmation: data.password_confirmation,
-      is_admin: false,
-      picture: data.picture,
-      // image: '',
-      id: (userId as unknown) as number,
-    }
+    const inputData = new FormData()
+    inputData.append('[user]username', data.userName)
+    inputData.append('[user]password', data.password)
+    inputData.append('[user]email', data.email)
+    inputData.append('[user]password_confirmation', data.password_confirmation)
+    inputData.append('[user]image', image[0])
+    inputData.append('[user]id', userId)
 
-    const response = await editUser(user, token)
-    if (response === 'Dein Profil wurde bearbeitet!') {
+    const response = await editUser(inputData, token, userId)
+    if (response.status === 200) {
       dispatch(
         updateUser({
           userName: data.userName,
           email: data.email,
           password: data.password,
-          // TODO: image upload, image link should be possible in edit
-          picture: data.picture,
-          // image: data.image,
+          picture:
+            response.data.data.attributes.image === null
+              ? undefined
+              : response.data.data.attributes.image?.url,
+        })
+      )
+      dispatch(setMessage({ message: 'Dein Profil wurde bearbeitet.' }))
+    } else {
+      // TODO JULIA: Fehlermeldungen aus dem Backend
+      dispatch(
+        setMessage({
+          message: 'Dein Profil konnte leider nicht bearbeitet werden.',
         })
       )
     }
@@ -317,16 +325,17 @@ const ProfileComponent = () => {
                 />
               </FormControl>
               <Divider />
-              <FormControl>
-                <InputLabel>Bild Link</InputLabel>
-                <InputLink
-                  type="text"
-                  name="picture"
-                  inputRef={register}
-                  placeholder="hier Bild-Link einfügen"
-                  defaultValue={profilePic}
-                />
-              </FormControl>
+              <Box
+                display="flex"
+                alignItems="flex-start"
+                flexDirection="column"
+              >
+                <Box mb={1}>
+                  <Typography variant="h6">Profilbild:</Typography>
+                </Box>
+                <ImageDropzone />
+              </Box>
+
               <Divider />
 
               <IconBox>

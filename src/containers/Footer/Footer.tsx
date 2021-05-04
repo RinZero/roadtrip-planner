@@ -1,14 +1,12 @@
 import React, { memo, Suspense } from 'react'
 
-import {
-  Toolbar,
-  Link,
-  withTheme,
-  Box,
-  BottomNavigation,
-} from '@material-ui/core'
+import { Link, withTheme, BottomNavigation } from '@material-ui/core'
+import { useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
+
+import ErrorOverlay from '../../components/ErrorOverlay'
+import { selectMessage } from '../../store/selectors'
 
 const FooterLink = withTheme(styled(Link)`
   display: inline;
@@ -28,8 +26,10 @@ const FooterNavigation = withTheme(styled(BottomNavigation)`
 `)
 
 const Footer = () => {
+  const message = useSelector(selectMessage())
   return (
     <FooterNavigation>
+      <ErrorOverlay message={message} />
       <FooterLink component={RouterLink} to={`/impressum`} variant="h6">
         Impressum
       </FooterLink>

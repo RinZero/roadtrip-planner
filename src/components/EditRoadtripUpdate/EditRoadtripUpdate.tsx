@@ -1,8 +1,8 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setEditRoadtripStops } from '../../store/actions'
+import { setEditRoadtripStops, setMessage } from '../../store/actions'
 import { selectEditRoadtrip, selectUserToken } from '../../store/selectors'
 import { LocationState } from '../../store/user/types'
 import { updateRoadtrip } from '../../utils/AuthService'
@@ -15,7 +15,6 @@ type EditRoadtripUpdateProps = {
 const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
   const { onUpdate } = props
   const dispatch = useDispatch()
-  const [error, setError] = useState('')
   const editRoadtrip = useSelector(selectEditRoadtrip())
 
   const addHereDataToStops = useCallback(() => {
@@ -44,13 +43,8 @@ const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
   const submitUpdate = async () => {
     if (editRoadtrip) {
       const result = await updateRoadtrip(editRoadtrip, token)
-      //TODO ERROR MESSAGE STYLEN - console.log kann dann gelöscht werden
       if (typeof result === 'string') {
-        setError(result)
-        // eslint-disable-next-line no-console
-        console.log(result)
-      } else if (result === 200) {
-        setError('')
+        dispatch(setMessage({ message: result }))
       }
     }
   }

@@ -13,16 +13,16 @@ const SignUpPageContainer = withTheme(styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: ${(props) => props.theme.spacing(5)}px;
   flex-direction: column;
-  margin-bottom: ${(props) => props.theme.spacing(7)}px;
   ${(props) => props.theme.breakpoints.up(1100)} {
     flex-direction: row;
     height: calc(
       100vh - ${(props) => props.theme.spacing(18)}px
     ); //100vh - (header(10) +footer(8))
-    margin-bottom: 0;
   }
+  margin-bottom: 0;
+  margin: ${(props) => props.theme.spacing(10)}px 0
+    ${(props) => props.theme.spacing(8)}px 0;
 `)
 
 const SignUpBox = withTheme(styled(Box)`

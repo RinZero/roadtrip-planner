@@ -14,6 +14,8 @@ import {
   setEditRoadtrip,
   setDropzoneFiles,
   setIsTest,
+  setMessage,
+  setRoadtripStopNames,
 } from './actions'
 import { UiState } from './types'
 
@@ -31,6 +33,8 @@ export const initialState: UiState = {
   editRoadtrip: { name: '', stops: [], id: -1, public: false },
   dropzoneFiles: [],
   isTest: false,
+  message: '',
+  roadtripStopNames: [],
 }
 
 export const uiReducer = produce(
@@ -88,6 +92,16 @@ export const uiReducer = produce(
       }
       case getType(setIsTest): {
         draft.isTest = !draft.isTest
+        return draft
+      }
+      case getType(setMessage): {
+        const { message } = action.payload
+        draft.message = message
+        return draft
+      }
+      case getType(setRoadtripStopNames): {
+        const { roadtripStopNames } = action.payload
+        draft.roadtripStopNames = roadtripStopNames
         return draft
       }
       default:

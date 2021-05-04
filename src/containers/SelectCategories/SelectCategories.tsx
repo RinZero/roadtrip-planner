@@ -253,7 +253,7 @@ const SelectCategories = () => {
   }
 
   return (
-    <>
+    <Box my="auto">
       <div>
         {loading ? (
           <ImgBox>
@@ -381,7 +381,7 @@ const SelectCategories = () => {
           </div>
         )}
       </div>
-    </>
+    </Box>
   )
 }
 

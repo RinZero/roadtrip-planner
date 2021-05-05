@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 import flag from '../assets/flag.svg'
 
@@ -48,15 +48,24 @@ export class DisplayMapClass extends React.Component {
     const platform = new H.service.Platform({
       apikey: 'E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE',
     })
-
     const defaultLayers = platform.createDefaultLayers()
+    const zoom = (() => {
+      if (Screen.width < 400) {
+        return 5
+      }
+      if (Screen.width < 900) {
+        return 6
+      } else {
+        return 7
+      }
+    })()
 
     const map = new H.Map(
       this.mapRef.current,
       defaultLayers.vector.normal.map,
       {
-        center: { lat: 47.36, lng: 13.27 },
-        zoom: 8,
+        center: { lat: 47.7, lng: 13.2 },
+        zoom: zoom,
         pixelRatio: window.devicePixelRatio || 1,
       }
     )

@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 import {
   Box,
@@ -25,6 +25,7 @@ import {
   selectUserLocations,
   selectRoadtripStopNames,
 } from '../../store/selectors'
+import { fetchUserEntries } from '../../utils/AuthService'
 import { autocomplete, iterateStops } from '../../utils/autocomplete'
 
 const StyledForm = withTheme(styled.form`
@@ -110,13 +111,24 @@ export const StartGoalForm = () => {
   const { register, getValues } = useForm()
   // Array with the options of autocomplete
   const [array, setArray] = useState([])
-
   //get Location of User
   const userLocations = useSelector(selectUserLocations())
+  const [allLocationsArray, setAllLocationsArray] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const publicLocations = await fetchUserEntries('')
+      const locations = userLocations
+        ? userLocations.concat(publicLocations)
+        : publicLocations
+      setAllLocationsArray(locations)
+    }
+    fetchData()
+  }, [userLocations])
 
   const getItems = async (inputNew: string, eventType: string) => {
     if (inputNew.length > 2 && eventType !== 'click') {
-      const newSet = await autocomplete(inputNew, userLocations)
+      const newSet = await autocomplete(inputNew, allLocationsArray)
       setArray(Array.from(newSet))
     } else {
       setArray([])
@@ -151,7 +163,10 @@ export const StartGoalForm = () => {
     // get name array with choosen stops
     const values = getValues()
     // get coordinates array of the stops
-    const stopArrayUnorderd = await iterateStops(values.stops, userLocations)
+    const stopArrayUnorderd = await iterateStops(
+      values.stops,
+      allLocationsArray
+    )
     //set last Element to goal field
     const lastStop = stopArrayUnorderd.splice(1, 1)
     const stopArray = stopArrayUnorderd.concat(lastStop)

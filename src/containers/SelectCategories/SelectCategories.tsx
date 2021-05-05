@@ -345,7 +345,6 @@ const SelectCategories = () => {
                       Fertig ausgewählt? Generiere jetzt deinen Roadtrip!
                     </Typography>
                     <StartButton
-                      id="generiere_button"
                       onClick={async () => {
                         setLoading(true)
                         dispatch(

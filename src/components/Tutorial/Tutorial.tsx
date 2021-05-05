@@ -48,18 +48,18 @@ const stepsFoo = [
     //Steps
     {
       selector: '#step_menu',
-      content: 'Hier kannst du zwischen den Schritten Navigieren.',
+      content: 'Hier kannst du zwischen den Schritten navigieren.',
     },
     // Form
     {
       selector: '#start_stop',
       content:
-        'In den Feldern kannst du deinen Start und Zielpunkt für deinen Roadtrip eingeben.',
+        'In den Feldern kannst du deinen Start- und Zielpunkt für deinen Roadtrip eingeben.',
       position: 'top' as ReactourStepPosition,
     },
     {
       selector: '#zwischenstopp',
-      content: 'Zusätzlich kannst du auch noch einen Zwischenstopps eingeben.',
+      content: 'Zusätzlich kannst du auch noch Zwischenstopps eingeben.',
     },
     {
       selector: '#more_stops',
@@ -69,7 +69,7 @@ const stepsFoo = [
     {
       selector: '#start_button',
       content:
-        'Hier Klicken wenn du fertig bist um zum nächsten Schritt (Kategorien) zu kommen.',
+        'Hier Klicken wenn du fertig bist, um zum nächsten Schritt (Kategorien) zu kommen.',
     },
   ],
   [
@@ -94,13 +94,8 @@ const stepsFoo = [
     },
     {
       selector: '#category_add',
-      content: '... die ausgewählte Kategorie hinzufügen',
+      content: '... die ausgewählte Kategorie hinzufügen.',
       position: 'right' as ReactourStepPosition,
-    },
-    {
-      selector: '#generiere_button',
-      content:
-        'Hast du dich schon für Kategorien entschieden? Wenn ja, kannst du deinen Roadtrip generieren lassen.',
     },
   ],
   [
@@ -116,7 +111,7 @@ const stepsFoo = [
     {
       selector: '#dnd_list',
       content:
-        '... und deinen Roadtrip noch bearbeiten durch verschieben oder löschen der Orte.',
+        '... und deinen Roadtrip noch bearbeiten durch Verschieben oder Löschen der Orte.',
     },
     {
       selector: '#roadtrip_erstellen_button',

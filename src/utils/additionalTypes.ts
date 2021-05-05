@@ -9,6 +9,7 @@ export type PublicPlaceType = {
   longitude: number
   is_allowed: boolean
   public: boolean
+  order: number
 }
 
 export type FormInputUserEntry = {

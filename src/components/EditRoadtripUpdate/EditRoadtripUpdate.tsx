@@ -2,7 +2,11 @@ import React, { memo, useCallback, useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setEditRoadtripStops, setMessage } from '../../store/actions'
+import {
+  setEditRoadtripStops,
+  setMapRoute,
+  setMessage,
+} from '../../store/actions'
 import { selectEditRoadtrip, selectUserToken } from '../../store/selectors'
 import { LocationState } from '../../store/user/types'
 import { updateRoadtrip } from '../../utils/AuthService'
@@ -49,7 +53,11 @@ const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
     }
   }
   const onChange = (r: Array<Record<string, any>>) => {
-    dispatch(setEditRoadtripStops({ editRoadtripStops: r as LocationState[] }))
+    const updatedStops = r.map((item, index) => ({
+      ...item,
+      order: index,
+    })) as LocationState[]
+    dispatch(setEditRoadtripStops({ editRoadtripStops: updatedStops }))
   }
   const dndStateOrder = [
     {

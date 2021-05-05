@@ -105,6 +105,7 @@ export const updateRoadtrip = (roadtrip: RoadtripState, token: string) => {
       formatedLocations.push({
         user_entry: undefined,
         api_entry: { api_entry_key: stop.api_entry_key },
+        order: stop.order,
       })
     } else {
       formatedLocations.push({
@@ -118,6 +119,7 @@ export const updateRoadtrip = (roadtrip: RoadtripState, token: string) => {
           is_allowed: stop.is_allowed,
           user_id: stop.user_id,
         },
+        order: stop.order,
         api_entry: undefined,
       })
     }

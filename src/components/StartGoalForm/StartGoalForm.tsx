@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import Tutorial from '../../components/Tutorial'
 import {
   setMessage,
   setProgressStep,
@@ -24,6 +25,7 @@ import {
 import {
   selectUserLocations,
   selectRoadtripStopNames,
+  selectUserHasTutorial,
 } from '../../store/selectors'
 import { fetchUserEntries } from '../../utils/AuthService'
 import { autocomplete, iterateStops } from '../../utils/autocomplete'
@@ -114,6 +116,7 @@ export const StartGoalForm = () => {
   //get Location of User
   const userLocations = useSelector(selectUserLocations())
   const [allLocationsArray, setAllLocationsArray] = useState([])
+  const tutorial = useSelector(selectUserHasTutorial())
 
   useEffect(() => {
     const fetchData = async () => {
@@ -187,8 +190,9 @@ export const StartGoalForm = () => {
   }
   return (
     <Box my="auto">
+      {tutorial[0] ? <Tutorial openBool={tutorial} /> : ''}
       <StyledForm>
-        <FormBox>
+        <FormBox id="start_stop">
           <Autocomplete
             {...defaultProps}
             id="stops[0]"
@@ -279,7 +283,10 @@ export const StartGoalForm = () => {
                             : theme.spacing(9) + 'px'
                         }
                       >
-                        <Box display={activeStop !== index ? 'none' : 'inline'}>
+                        <Box
+                          display={activeStop !== index ? 'none' : 'inline'}
+                          id="zwischenstopp"
+                        >
                           <Autocomplete
                             {...defaultProps}
                             id={'stops[' + index + ']'}
@@ -328,6 +335,7 @@ export const StartGoalForm = () => {
           <Grid item xs={12} md={1}>
             <Box display="flex" justifyContent="center">
               <AddButton
+                id="more_stops"
                 onClick={() => {
                   if (activeStop + 1 < 10) {
                     setNamedStops(namedStops.concat(['']))
@@ -345,7 +353,9 @@ export const StartGoalForm = () => {
             </Box>
           </Grid>
           <Grid item xs={12} md={3}>
-            <StyledButton onClick={() => SubmitForm()}>Start</StyledButton>
+            <StyledButton id="start_button" onClick={() => SubmitForm()}>
+              Start
+            </StyledButton>
           </Grid>
         </Grid>
       </StyledForm>

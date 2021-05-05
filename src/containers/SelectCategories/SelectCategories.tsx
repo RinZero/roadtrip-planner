@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import logo from '../../assets/roadabout_transparent.gif'
 import CategoryDropdown from '../../components/CategoryDropdown'
 import { roadtripGenerate } from '../../components/StartGoalForm/raoadtripGenerate'
+import Tutorial from '../../components/Tutorial'
 import {
   setMapRoute,
   setMaxRoadtripStops,
@@ -27,9 +28,9 @@ import {
   selectRoadtripStops,
   selectUiSelectedCategories,
   selectUserLocations,
+  selectUserHasTutorial,
 } from '../../store/selectors'
 import { userEntry } from '../../store/ui/types'
-import { LocationState } from '../../store/user/types'
 import {
   getFirstCategories,
   getSecondCategories,
@@ -140,6 +141,7 @@ const SelectCategories = () => {
   dispatch(setMaxRoadtripStops({ maxRoadtripStops: 10 }))
   const maxStops = useSelector(selectMaxRoadtripStops())
   const stops = useSelector(selectRoadtripStops())
+  const tutorial = useSelector(selectUserHasTutorial())
 
   const [numberCategory, setNumberCategory] = useState(0)
   const [categories, setCategories] = useState(['', '', ''])
@@ -254,6 +256,7 @@ const SelectCategories = () => {
 
   return (
     <Box my="auto">
+      {tutorial[1] ? <Tutorial openBool={tutorial} /> : ''}
       <div>
         {loading ? (
           <ImgBox>
@@ -261,7 +264,7 @@ const SelectCategories = () => {
           </ImgBox>
         ) : (
           <div>
-            <Box textAlign="center">
+            <Box textAlign="center" id="category_observe">
               <TagBox component="ul">
                 {Array.from(chips).map((data) => {
                   let icon
@@ -328,7 +331,7 @@ const SelectCategories = () => {
                   <br></br>
                 </AllDropdowns>
                 {currentChip.name ? (
-                  <AddSection>
+                  <AddSection id="category_add">
                     <AddText>{currentChip.name}</AddText>
                     <AddButton onClick={addChip}>Hinzufügen</AddButton>
                   </AddSection>
@@ -342,6 +345,7 @@ const SelectCategories = () => {
                       Fertig ausgewählt? Generiere jetzt deinen Roadtrip!
                     </Typography>
                     <StartButton
+                      id="generiere_button"
                       onClick={async () => {
                         setLoading(true)
                         dispatch(

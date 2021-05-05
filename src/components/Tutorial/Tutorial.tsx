@@ -48,8 +48,7 @@ const stepsFoo = [
     //Steps
     {
       selector: '#step_menu',
-      content:
-        'Hier kannst du zwischen den Schritten Navigieren. Wenn dir also später einfällt, dass du noch einen Zwischenstop einfügen möchstest, ist das kein Problem',
+      content: 'Hier kannst du zwischen den Schritten Navigieren.',
     },
     // Form
     {
@@ -60,17 +59,17 @@ const stepsFoo = [
     },
     {
       selector: '#zwischenstopp',
-      content: 'Da kannst du zusätzlich auch noch einen Zwischenstop eingeben.',
+      content: 'Zusätzlich kannst du auch noch einen Zwischenstopps eingeben.',
     },
     {
       selector: '#more_stops',
       content:
-        'Wenn du noch mehr Stops brauchst einfach hier klicken. Maximum: 10',
+        'Wenn du noch mehr Stops brauchst einfach hier klicken. Das Maximum ist 10.',
     },
     {
       selector: '#start_button',
       content:
-        'Hier Klicken wenn du fertig bist um zu den Kategorien zu kommen',
+        'Hier Klicken wenn du fertig bist um zum nächsten Schritt (Kategorien) zu kommen.',
     },
   ],
   [
@@ -101,7 +100,7 @@ const stepsFoo = [
     {
       selector: '#generiere_button',
       content:
-        'Jetzt kannst du deinen Roadtrip generieren lassen, falls du mit deiner Kategorien Auswahl schon zufrieden bist.',
+        'Hast du dich schon für Kategorien entschieden? Wenn ja, kannst du deinen Roadtrip generieren lassen.',
     },
   ],
   [

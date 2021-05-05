@@ -9,6 +9,8 @@ import {
   ListItemSecondaryAction,
   withTheme,
   Button,
+  useTheme,
+  useMediaQuery,
 } from '@material-ui/core'
 // Import BoardItem component
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -24,7 +26,7 @@ import {
 import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import { initUserData } from '../../utils/initUserData'
 
-const StyledBox = withTheme(styled(Box)`
+const StyledBox = withTheme(styled(Box)<{ isLaptop: boolean }>`
   margin-top: ${(props) => props.theme.spacing(1.5)}px;
   min-width: ${(props) => props.theme.spacing(25)}px;
   overflow: auto;
@@ -35,7 +37,7 @@ const StyledBox = withTheme(styled(Box)`
   ${(props) => props.theme.breakpoints.up('md')} {
     width: 25%;
     margin-top: 0px;
-    max-height: ${(props) => props.theme.spacing(6.5)}vh;
+    max-height: ${(props) => (props.isLaptop ? '35vh' : '45vh')};
     margin-left: ${(props) => props.theme.spacing(2)}px;
     .MuiListItemSecondaryAction-root {
       top: 28%;
@@ -43,6 +45,9 @@ const StyledBox = withTheme(styled(Box)`
         top: 50%;
       }
     }
+  }
+  ${(props) => props.theme.breakpoints.between('md', 'lg')} {
+    width: 40%;
   }
 `)
 const DragListItem = withTheme(styled(ListItem)`
@@ -56,6 +61,7 @@ const ContentBox = withTheme(styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin: ${(props) => props.theme.spacing(1)}px;
   ${(props) => props.theme.breakpoints.up('md')} {
     display: flex;
     flex-direction: row;
@@ -69,7 +75,7 @@ const CreateButton = withTheme(styled(Button)`
   padding: ${(props) => props.theme.spacing(2)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-  margin: ${(props) => props.theme.spacing(3.75)}px 0;
+  margin-top: ${(props) => props.theme.spacing(2)}px;
   &:hover,
   &:active {
     background-color: #355727;
@@ -273,12 +279,18 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   const selectedCategoriesMap = useSelector(selectUiSelectedCategories())
   // für die Zusammenfassung welche Kategorien für den Roadtrip verwendet wurden
   const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
-
+  const theme = useTheme()
+  const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'lg'))
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ContentBox>
-        {!isTest && <DisplayMapClass allLocations={mapRoute} />}
-        <StyledBox>
+        {!isTest && (
+          <DisplayMapClass
+            allLocations={mapRoute}
+            isSmall={usage === 'create' && isLaptop}
+          />
+        )}
+        <StyledBox isLaptop={isLaptop}>
           <List component="nav" aria-label="contacts">
             {list.map((item, index) => {
               return (

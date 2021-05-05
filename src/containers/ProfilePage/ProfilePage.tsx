@@ -23,6 +23,15 @@ import {
 import { RoadtripState } from '../../store/user/types'
 
 const LocationList = React.lazy(() => import('../../components/LocationList'))
+const ProfilePageStyles = withTheme(styled.div`
+  padding: ${(props) => props.theme.spacing(12)}px 0
+    ${(props) => props.theme.spacing(10)}px 0;
+
+  ${(props) => props.theme.breakpoints.up('md')} {
+    height: calc(100vh - 40px);
+    //40px come from LogoImg in App.css (maybe remove it??)
+  }
+`)
 
 const RoadtripsBox = withTheme(styled(Box)`
   margin: ${(props) => props.theme.spacing(10)}px auto;
@@ -105,67 +114,69 @@ const ProfilePage = () => {
     }
   }
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} sm={5}>
-        <ProfileComponent />
-        <Box m="auto" width="60%" textAlign="center">
-          <Typography variant="h4" paragraph={true}>
-            Meine Orte:
-          </Typography>
-          <Suspense fallback={<div>Loading...</div>}>
-            {!locations || locations?.length === 0 ? (
-              <Typography>
-                Wie's aussieht hast du noch keine eigenen Orte. Klick auf den
-                Link um einen{' '}
-                <Link component={RouterLink} to={`/neuer_ort`} variant="h6">
-                  Neuen Ort
-                </Link>{' '}
-                zu erstellen.
-              </Typography>
+    <ProfilePageStyles>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={5}>
+          <ProfileComponent />
+          <Box m="auto" width="60%" textAlign="center">
+            <Typography variant="h4" paragraph={true}>
+              Meine Orte:
+            </Typography>
+            <Suspense fallback={<div>Loading...</div>}>
+              {!locations || locations?.length === 0 ? (
+                <Typography>
+                  Wie's aussieht hast du noch keine eigenen Orte. Klick auf den
+                  Link um einen{' '}
+                  <Link component={RouterLink} to={`/neuer_ort`} variant="h6">
+                    Neuen Ort
+                  </Link>{' '}
+                  zu erstellen.
+                </Typography>
+              ) : (
+                <LocationList />
+              )}
+            </Suspense>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={7}>
+          <RoadtripsBox textAlign="center">
+            <Typography variant="h4" paragraph={true}>
+              Meine Roadtrips:{' '}
+            </Typography>
+            {slideRoadtrips.length === 0 ? (
+              <Box m="auto" width="60%">
+                <Typography>
+                  Wie's aussieht hast du noch keine Roadtrips gespeichert. Klick
+                  auf den Link um einen{' '}
+                  <Link component={RouterLink} to={`/`} variant="h6">
+                    Neuen Roadtrip
+                  </Link>{' '}
+                  zu erstellen.
+                </Typography>
+              </Box>
             ) : (
-              <LocationList />
+              <RoadtripsCarousel
+                fullHeightHover
+                autoPlay={false}
+                navButtonsAlwaysVisible={true}
+                animation="slide"
+                timeout={600}
+                navButtonsProps={{
+                  // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+                  style: {
+                    backgroundColor: '#71b255',
+                  },
+                }}
+              >
+                {slideRoadtrips.map((chunk) => (
+                  <RoadtripSlide roadtrips={chunk} />
+                ))}
+              </RoadtripsCarousel>
             )}
-          </Suspense>
-        </Box>
+          </RoadtripsBox>
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={7}>
-        <RoadtripsBox textAlign="center">
-          <Typography variant="h4" paragraph={true}>
-            Meine Roadtrips:{' '}
-          </Typography>
-          {slideRoadtrips.length === 0 ? (
-            <Box m="auto" width="60%">
-              <Typography>
-                Wie's aussieht hast du noch keine Roadtrips gespeichert. Klick
-                auf den Link um einen{' '}
-                <Link component={RouterLink} to={`/`} variant="h6">
-                  Neuen Roadtrip
-                </Link>{' '}
-                zu erstellen.
-              </Typography>
-            </Box>
-          ) : (
-            <RoadtripsCarousel
-              fullHeightHover
-              autoPlay={false}
-              navButtonsAlwaysVisible={true}
-              animation="slide"
-              timeout={600}
-              navButtonsProps={{
-                // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
-                style: {
-                  backgroundColor: '#71b255',
-                },
-              }}
-            >
-              {slideRoadtrips.map((chunk) => (
-                <RoadtripSlide roadtrips={chunk} />
-              ))}
-            </RoadtripsCarousel>
-          )}
-        </RoadtripsBox>
-      </Grid>
-    </Grid>
+    </ProfilePageStyles>
   )
 }
 

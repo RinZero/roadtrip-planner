@@ -24,8 +24,7 @@ export type createRoadtripType = {
   }
 }
 const fetch = axios.create({
-  baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
-  // baseURL: 'http://localhost:3000/api/v1/',
+  baseURL: process.env.REACT_APP_BASE_URL,
 })
 
 export const logIn = (logInData: logInType) => {
@@ -49,9 +48,14 @@ export const logIn = (logInData: logInType) => {
 }
 
 export const signUp = (signUpData: FormData) => {
-  return fetch.post('users', signUpData).then((response) => {
-    return response.data.data.attributes
-  })
+  return fetch
+    .post('users', signUpData)
+    .then((response) => {
+      return { status: response.status, user: response.data.data.attributes }
+    })
+    .catch((error) => {
+      return error
+    })
 }
 
 export const createRoadtrip = (
@@ -172,32 +176,15 @@ export const deleteRoadtrip = (token: string, id: number) => {
     })
 }
 
-type userUpdateState = {
-  username: string
-  email: string
-  password: string
-  password_confirmation: string
-  is_admin: boolean
-  image?: any
-  picture?: string
-  id: number
-}
-
-export const editUser = (data: userUpdateState, token: string) => {
+export const editUser = (data: FormData, token: string, id: string) => {
   return fetch
-    .patch(
-      `users/${data.id}`,
-      {
-        data,
+    .patch(`users/${id}`, data, {
+      headers: {
+        Authorization: token,
       },
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    )
+    })
     .then((response) => {
-      return response.data.status
+      return response.data
     })
     .catch((error) => {
       return error

@@ -1,7 +1,6 @@
 import axios from 'axios'
 const fetch = axios.create({
-  // baseURL: 'http://localhost:3000/api/v1/',
-  baseURL: 'https://roadtripplaner-backend-develop.herokuapp.com/api/v1/',
+  baseURL: process.env.REACT_APP_BASE_URL,
 })
 export const fetchUser = (token: string) => {
   return fetch

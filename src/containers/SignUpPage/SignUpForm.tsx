@@ -71,6 +71,7 @@ const SignUpForm = () => {
                 response.user.image === null
                   ? undefined
                   : response.user.image.url,
+              tutorial: [true, true, true],
             })
           )
         )

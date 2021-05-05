@@ -19,7 +19,7 @@ const Tutorial = (props: TutorialProps) => {
   return (
     <>
       <Tour
-        steps={stepsFoo[index]}
+        steps={steps[index]}
         isOpen={open}
         onRequestClose={() => setOpen(false)}
         accentColor="#71b255"
@@ -38,7 +38,7 @@ const Tutorial = (props: TutorialProps) => {
     </>
   )
 }
-const stepsFoo = [
+const steps = [
   [
     // Header
     {

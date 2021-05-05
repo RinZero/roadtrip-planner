@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 import {
   Box,
@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import {
+  setMessage,
   setProgressStep,
   setRoadtripStops,
   setRoadtripStopNames,
@@ -24,6 +25,7 @@ import {
   selectUserLocations,
   selectRoadtripStopNames,
 } from '../../store/selectors'
+import { fetchUserEntries } from '../../utils/AuthService'
 import { autocomplete, iterateStops } from '../../utils/autocomplete'
 
 const StyledForm = withTheme(styled.form`
@@ -109,15 +111,24 @@ export const StartGoalForm = () => {
   const { register, getValues } = useForm()
   // Array with the options of autocomplete
   const [array, setArray] = useState([])
-  // user messages - wenn zum Beispiel Ort nicht in Österreich oder ungültig
-  const [message, setMessage] = useState('')
-
   //get Location of User
   const userLocations = useSelector(selectUserLocations())
+  const [allLocationsArray, setAllLocationsArray] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const publicLocations = await fetchUserEntries('')
+      const locations = userLocations
+        ? userLocations.concat(publicLocations)
+        : publicLocations
+      setAllLocationsArray(locations)
+    }
+    fetchData()
+  }, [userLocations])
 
   const getItems = async (inputNew: string, eventType: string) => {
     if (inputNew.length > 2 && eventType !== 'click') {
-      const newSet = await autocomplete(inputNew, userLocations)
+      const newSet = await autocomplete(inputNew, allLocationsArray)
       setArray(Array.from(newSet))
     } else {
       setArray([])
@@ -152,20 +163,23 @@ export const StartGoalForm = () => {
     // get name array with choosen stops
     const values = getValues()
     // get coordinates array of the stops
-    const stopArrayUnorderd = await iterateStops(values.stops, userLocations)
+    const stopArrayUnorderd = await iterateStops(
+      values.stops,
+      allLocationsArray
+    )
     //set last Element to goal field
     const lastStop = stopArrayUnorderd.splice(1, 1)
     const stopArray = stopArrayUnorderd.concat(lastStop)
     const nameArray = values.stops
 
     if (!stopArray[0] || stopArray[0][0] === -1) {
-      setMessage(
-        `Anscheinend stimmt was bei deiner Eingabe nicht.
-          Start und Ziel müssen ausgefüllt sein und die Orte müssen in Österreich existieren. 
-          Thx.`
+      dispatch(
+        setMessage({
+          message: `Fehlerhafte Eingabe. 
+          Die Orte müssen in Österreich sein.`,
+        })
       )
     } else {
-      setMessage('')
       dispatch(setRoadtripStops({ roadtripStops: stopArray }))
       dispatch(setRoadtripStopNames({ roadtripStopNames: nameArray }))
       dispatch(setProgressStep({ progressStep: '2' }))
@@ -247,7 +261,7 @@ export const StartGoalForm = () => {
               display="flex"
               alignItems="center"
               flexWrap={isTablet ? 'wrap' : 'nowrap'}
-              justifyContent="center"
+              justifyContent="flex-start"
             >
               {
                 // eslint-disable-next-line array-callback-return
@@ -315,8 +329,15 @@ export const StartGoalForm = () => {
             <Box display="flex" justifyContent="center">
               <AddButton
                 onClick={() => {
-                  setNamedStops(namedStops.concat(['']))
-                  setActiveStop(namedStops.length)
+                  if (activeStop + 1 < 10) {
+                    setNamedStops(namedStops.concat(['']))
+                    setActiveStop(namedStops.length)
+                  } else
+                    dispatch(
+                      setMessage({
+                        message: 'Es sind nicht mehr als 10 Stopps möglich.',
+                      })
+                    )
                 }}
               >
                 {isTablet ? 'Stopp hinzufügen' : '+'}

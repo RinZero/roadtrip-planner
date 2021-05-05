@@ -1,17 +1,9 @@
 import { LocationState } from '../store/user/types'
-import { PublicPlaceType } from './additionalTypes'
-import { fetchUserEntries } from './AuthService'
 
 export const autocomplete = async (
   place: string,
-  userLocations?: LocationState[]
+  locations: LocationState[]
 ) => {
-  // get public locations
-  const publicLocations = await fetchUserEntries('')
-  // all locations
-  const locations = userLocations
-    ? userLocations.concat(publicLocations)
-    : publicLocations
   const additionalData = checkPlaces(place, locations)
   const url = `https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json&country=AUT?apiKey=${process.env.REACT_APP_HERE_API_KEY}&query=${place}`
   const response = await fetch(url)
@@ -35,16 +27,18 @@ const getOnlyImportantInfo = (
   suggestions.forEach(function (place) {
     const strArr = place.label.split(', ')
     // Remove the first item of an array because it is 'Österreich'
-    strArr.shift()
-    const placeName =
-      strArr[0] === strArr[1] ? strArr[0] : strArr.slice(0, 2).join(', ')
-    newSet.add(placeName)
+    if (strArr.length > 1) {
+      strArr.shift()
+      const placeName =
+        strArr[0] === strArr[1] ? strArr[0] : strArr.slice(0, 2).join(', ')
+      newSet.add(placeName)
+    }
   })
   return newSet
 }
 
 const getCoordinates = async (loactaionId: string) => {
-  const searchName = loactaionId.replace(', ', '+')
+  const searchName = 'Austria+' + loactaionId.replace(', ', '+')
   const url = `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${process.env.REACT_APP_HERE_API_KEY}&searchtext=${searchName}`
   const response = await fetch(url)
   const data = await response.json()
@@ -54,11 +48,10 @@ const getCoordinates = async (loactaionId: string) => {
 
 export const iterateStops = async (
   stops: string[],
-  userLocations?: LocationState[]
+  locations: LocationState[]
 ) => {
   const newArr = new Array<number[]>()
   let j = 0
-  const publicPlaces = await fetchUserEntries('')
   for (let i = 0; i < stops.length; i++) {
     if (stops[i] && stops[i] !== '') {
       const data = await getCoordinates(stops[i])
@@ -69,11 +62,7 @@ export const iterateStops = async (
           data.Location.Address.Country &&
           data.Location.Address.Country !== 'AUT'
         ) {
-          const getLatLon = await findLocation(
-            stops[i],
-            publicPlaces,
-            userLocations
-          )
+          const getLatLon = await findLocation(stops[i], locations)
           if (getLatLon) newArr[j] = getLatLon
           else return [[-1, -1]]
         }
@@ -82,11 +71,7 @@ export const iterateStops = async (
         const lon = data.Location.DisplayPosition.Longitude
         newArr[j] = [lat, lon]
       } else {
-        const getLatLon = await findLocation(
-          stops[i],
-          publicPlaces,
-          userLocations
-        )
+        const getLatLon = await findLocation(stops[i], locations)
         if (getLatLon) newArr[j] = getLatLon
       }
       j++
@@ -98,13 +83,8 @@ export const iterateStops = async (
 // find public or own Place by name
 export const findLocation = async (
   name: string,
-  publicPlaces: PublicPlaceType[],
-  userLocations?: LocationState[]
+  allPlaces: LocationState[]
 ) => {
-  const allPlaces = userLocations
-    ? userLocations.concat(publicPlaces as LocationState[])
-    : publicPlaces
-
   const result = await getResult(name, allPlaces)
   return result
 }

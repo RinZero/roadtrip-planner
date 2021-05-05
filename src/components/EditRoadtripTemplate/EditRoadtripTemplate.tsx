@@ -290,7 +290,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
             isSmall={usage === 'create' && isLaptop}
           />
         )}
-        <StyledBox isLaptop={isLaptop}>
+        <StyledBox isLaptop={isLaptop} id="dnd_list">
           <List component="nav" aria-label="contacts">
             {list.map((item, index) => {
               return (
@@ -327,6 +327,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
         </StyledBox>
       </ContentBox>
       <CreateButton
+        id="roadtrip_erstellen_button"
         color="primary"
         onClick={async () => {
           await onSave()

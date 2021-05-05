@@ -65,7 +65,7 @@ export class DisplayMapClass extends React.Component {
       defaultLayers.vector.normal.map,
       {
         center: { lat: 47.7, lng: 13.2 },
-        zoom: zoom,
+        zoom: Screen.width < 900 ? 6 : 7,
         pixelRatio: window.devicePixelRatio || 1,
       }
     )

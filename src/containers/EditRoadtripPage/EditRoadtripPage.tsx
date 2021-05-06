@@ -12,6 +12,7 @@ import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import EditRoadtripUpdate from '../../components/EditRoadtripUpdate'
+import { LocationAutocomplete } from '../../components/LocationAutocomplete'
 import { setMessage } from '../../store/actions'
 import { selectEditRoadtrip, selectUserToken } from '../../store/selectors'
 import { updateRoadtrip } from '../../utils/AuthService'
@@ -73,6 +74,7 @@ const EditRoadtripPage = () => {
           }
           label="öffentlich"
         />
+        <LocationAutocomplete usage="update" />
       </Box>
       <EditRoadtripUpdate onUpdate={onUpdate} />
     </EditRoadtripPageStyles>

@@ -1,11 +1,4 @@
-import React, {
-  memo,
-  useState,
-  DragEvent,
-  FC,
-  useCallback,
-  useEffect,
-} from 'react'
+import { memo, useState, DragEvent, FC, useEffect } from 'react'
 
 import {
   Box,
@@ -30,7 +23,6 @@ import {
   selectUiSelectedCategories,
   selectUserToken,
 } from '../../store/selectors'
-import { DisplayMapClass } from '../../utils/DisplayMapClass'
 import DisplayMapFC from '../../utils/DisplayMapFC'
 import { initUserData } from '../../utils/initUserData'
 
@@ -106,7 +98,6 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
 }) => {
   const dispatch = useDispatch()
   const [list, setList] = useState(listInfo)
-  const [toggleFlag, setToggleFlag] = useState(false)
   const initialDnDState = {
     draggedFrom: 0,
     draggedTo: 0,
@@ -116,6 +107,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   }
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
   const token = useSelector(selectUserToken())
+
   useEffect(() => {
     setList(listInfo)
   }, [listInfo])
@@ -303,79 +295,42 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
             isSmall={usage === 'create' && isLaptop}
           />
         )}
-        {toggleFlag ? (
-          <StyledBox isLaptop={isLaptop} id="dnd_list">
-            <List component="nav" aria-label="contacts">
-              {list.map((item, index) => {
-                return (
-                  <DragListItem
-                    button
-                    key={index}
-                    data-position={index}
-                    draggable
-                    onDragStart={onDragStart}
-                    onDragOver={onDragOver}
-                    onDrop={onDrop}
-                    onDragLeave={onDragLeave}
-                    className={
-                      dragAndDrop && dragAndDrop.draggedTo === Number(index)
-                        ? 'dropArea'
-                        : ''
-                    }
-                  >
-                    <ListItemText primary={item.address || item.name} />
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        onClick={() => {
-                          setList(list.filter((listitem) => listitem !== item))
-                          onChange(list.filter((listitem) => listitem !== item))
-                        }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </DragListItem>
-                )
-              })}
-            </List>
-          </StyledBox>
-        ) : (
-          <StyledBox isLaptop={isLaptop} id="dnd_list_2">
-            <List component="nav" aria-label="contacts">
-              {list.map((item, index) => {
-                return (
-                  <DragListItem
-                    button
-                    key={index}
-                    data-position={index}
-                    draggable
-                    onDragStart={onDragStart}
-                    onDragOver={onDragOver}
-                    onDrop={onDrop}
-                    onDragLeave={onDragLeave}
-                    className={
-                      dragAndDrop && dragAndDrop.draggedTo === Number(index)
-                        ? 'dropArea'
-                        : ''
-                    }
-                  >
-                    <ListItemText primary={item.address || item.name} />
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        onClick={() => {
-                          setList(list.filter((listitem) => listitem !== item))
-                          onChange(list.filter((listitem) => listitem !== item))
-                        }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </DragListItem>
-                )
-              })}
-            </List>
-          </StyledBox>
-        )}
+        <StyledBox isLaptop={isLaptop} id="dnd_list">
+          <List component="nav" aria-label="contacts">
+            {list.map((item, index) => {
+              return (
+                <DragListItem
+                  button
+                  key={index}
+                  data-position={index}
+                  draggable
+                  onDragStart={onDragStart}
+                  onDragOver={onDragOver}
+                  onDrop={onDrop}
+                  onDragLeave={onDragLeave}
+                  className={
+                    dragAndDrop && dragAndDrop.draggedTo === Number(index)
+                      ? 'dropArea'
+                      : ''
+                  }
+                >
+                  <ListItemText primary={item.address || item.name} />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      onClick={() => {
+                        setList(list.filter((listitem) => listitem !== item))
+                        onChange(list.filter((listitem) => listitem !== item))
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </DragListItem>
+              )
+            })}
+          </List>
+        </StyledBox>
+        )
       </ContentBox>
       <CreateButton
         id="roadtrip_erstellen_button"

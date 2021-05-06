@@ -29,7 +29,7 @@ const StyledPopover = withTheme(styled(Popover)`
 export type LocationAutocompleteProps = {
   usage: 'update' | 'create'
 }
-const LocationAutocomplete = (props: LocationAutocompleteProps) => {
+export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
   const { usage } = props
   const [inputValue, setInputValue] = useState('')
   const userLocations = useSelector(selectUserLocations())
@@ -155,11 +155,19 @@ const LocationAutocomplete = (props: LocationAutocompleteProps) => {
                       order: mapRoute.length,
                       latitude: newStopItem.position.lat,
                       longitude: newStopItem.position.lng,
+                      name: newStopItem.address.label || newStopItem.title,
                     }
                     dispatch(
                       setEditRoadtripStops({
                         editRoadtripStops: editRoadtrip.stops.concat([
                           updateObj,
+                        ]),
+                      })
+                    )
+                    dispatch(
+                      setMapRoute({
+                        mapRoute: mapRoute.concat([
+                          updateObj.latitude + ',' + updateObj.longitude,
                         ]),
                       })
                     )

@@ -25,7 +25,7 @@ import styled from 'styled-components'
 
 import logoMobile from '../../assets/roadabout_logo.svg'
 import logo from '../../assets/roadabout_textlogo.svg'
-import { logOutSuccess } from '../../store/actions'
+import { setProgressStep, logOutSuccess } from '../../store/actions'
 import {
   selectUserId,
   selectUserName,
@@ -145,7 +145,13 @@ const Header = () => {
     <HeaderAppBar>
       <ToolbarContainer>
         <LogoBox>
-          <img src={isTablet ? logoMobile : logo} alt="Roadabout Logo" />
+          <HeaderLink
+            onClick={() => dispatch(setProgressStep({ progressStep: '1' }))}
+            component={RouterLink}
+            to={`/`}
+          >
+            <img src={isTablet ? logoMobile : logo} alt="Roadabout Logo" />
+          </HeaderLink>
         </LogoBox>
         <HeaderLink component={RouterLink} to={`/`} variant="h6">
           Neuer Roadtrip

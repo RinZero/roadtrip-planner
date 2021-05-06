@@ -38,10 +38,15 @@ type RoadtripcardProps = {
 }
 const MyRoadtripCard = withTheme(styled(Card)`
   margin: ${(props) => props.theme.spacing(1)}px;
-  min-width: ${(props) => props.theme.spacing(35)}px;
-  max-width: ${(props) => props.theme.spacing(68.5)}px;
+  width: ${(props) => props.theme.spacing(34)}px;
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  ${(props) => props.theme.breakpoints.up(1025)} {
+    width: ${(props) => props.theme.spacing(29)}px;
+  }
+  ${(props) => props.theme.breakpoints.up(1400)} {
+    width: ${(props) => props.theme.spacing(32)}px;
+  }
 `)
 
 const MyRoadtripCardActionArea = withTheme(styled(CardActionArea)`
@@ -57,6 +62,12 @@ const MyRoadtripCardMedia = withTheme(styled(CardMedia)`
   height: ${(props) => props.theme.spacing(20)}px;
   background-color: lightblue;
   border-radius: 15px;
+  ${(props) => props.theme.breakpoints.up(1025)} {
+    height: ${(props) => props.theme.spacing(15)}px;
+  }
+  ${(props) => props.theme.breakpoints.up(1400)} {
+    height: ${(props) => props.theme.spacing(20)}px;
+  }
 `)
 
 const Roadtripcard = (props: RoadtripcardProps) => {
@@ -124,8 +135,8 @@ const Roadtripcard = (props: RoadtripcardProps) => {
 
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <div>
-            <IconButton>⛷️</IconButton>
-            <IconButton>🍺</IconButton>
+            <IconButton size="small">⛷️</IconButton>
+            <IconButton size="small">🍺</IconButton>
           </div>
           <IconButton
             onClick={async (e: MouseEvent) => {

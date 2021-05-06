@@ -34,7 +34,7 @@ const CreateRoadtripPageStyles = withTheme(styled.div`
   justify-content: center;
 `)
 
-const StyledOptionContainer = withTheme(styled.div`
+export const StyledOptionContainer = withTheme(styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;

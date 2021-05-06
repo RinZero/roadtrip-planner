@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { StyledOptionContainer } from '../../components/EditRoadtripCreation'
 import EditRoadtripUpdate from '../../components/EditRoadtripUpdate'
 import { LocationAutocomplete } from '../../components/LocationAutocomplete'
 import { setMessage } from '../../store/actions'
@@ -53,7 +54,7 @@ const EditRoadtripPage = () => {
   }
   return (
     <EditRoadtripPageStyles>
-      <Box display="flex" justifyContent="space-between" flexWrap="wrap" my={2}>
+      <StyledOptionContainer>
         <Box width="65%">
           <TextField
             value={name}
@@ -75,7 +76,7 @@ const EditRoadtripPage = () => {
           label="öffentlich"
         />
         <LocationAutocomplete usage="update" />
-      </Box>
+      </StyledOptionContainer>
       <EditRoadtripUpdate onUpdate={onUpdate} />
     </EditRoadtripPageStyles>
   )

@@ -240,7 +240,6 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
             })}
           </List>
         </StyledBox>
-        )
       </ContentBox>
       <CreateButton
         id="roadtrip_erstellen_button"

@@ -13,12 +13,12 @@ import {
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Tutorial from '../../components/Tutorial'
 import {
   setMessage,
-  setProgressStep,
   setRoadtripStops,
   setRoadtripStopNames,
 } from '../../store/actions'
@@ -106,6 +106,7 @@ const FormBox = withTheme(styled(Box)`
 
 export const StartGoalForm = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const theme = useTheme()
   const isTablet = useMediaQuery(theme.breakpoints.down(960))
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -185,7 +186,7 @@ export const StartGoalForm = () => {
     } else {
       dispatch(setRoadtripStops({ roadtripStops: stopArray }))
       dispatch(setRoadtripStopNames({ roadtripStopNames: nameArray }))
-      dispatch(setProgressStep({ progressStep: '2' }))
+      history.push('/step/:2')
     }
   }
   return (

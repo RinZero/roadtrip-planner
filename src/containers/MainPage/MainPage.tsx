@@ -17,14 +17,17 @@ const MainPageStyles = withTheme(styled.div`
     //40px come from LogoImg in App.css (maybe remove it??)
   }
 `)
+type PropsForForm = {
+  match: Record<string, any>
+}
 
-const MainPage = () => {
+const MainPage = (props: PropsForForm) => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <MainPageStyles>
         <TitleSection />
         <Suspense fallback={<div>Loading...</div>}>
-          <RoadtripForm />
+          <RoadtripForm id={props.match.params.id} />
         </Suspense>
       </MainPageStyles>
     </Box>

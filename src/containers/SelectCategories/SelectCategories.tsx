@@ -10,6 +10,7 @@ import {
   FormControl,
 } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import logo from '../../assets/roadabout_transparent.gif'
@@ -19,7 +20,6 @@ import Tutorial from '../../components/Tutorial'
 import {
   setMapRoute,
   setMaxRoadtripStops,
-  setProgressStep,
   setRoadtripInfos,
   setUiSelectedCategories,
 } from '../../store/actions'
@@ -133,6 +133,7 @@ const ImgBox = withTheme(styled(Box)`
 `)
 
 const SelectCategories = () => {
+  const history = useHistory()
   //Loading Animation
   const [loading, setLoading] = useState(false)
 
@@ -369,7 +370,7 @@ const SelectCategories = () => {
                               roadtripInfos: response.infoArr,
                             })
                           )
-                          dispatch(setProgressStep({ progressStep: '3' }))
+                          history.push('/step/:3')
                         }
                       }}
                     >

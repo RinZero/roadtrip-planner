@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from 'react'
+import React, { memo, Suspense, useState, useEffect } from 'react'
 
 import {
   Button,
@@ -103,6 +103,7 @@ const LogoBox = withTheme(styled(Box)`
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null)
+  const [value, setValue] = useState(1)
   const history = useHistory()
   const userName = useSelector(selectUserName())
   const profilePic = useSelector(selectUserPicture())
@@ -137,7 +138,11 @@ const Header = () => {
     `Ave, ${userName}!`,
     `Howdy, ${userName}!`,
   ]
-  const randomNumber = Math.floor(Math.random() * spruchArray.length)
+
+  useEffect(() => {
+    setValue(Math.floor(Math.random() * spruchArray.length))
+  }, [spruchArray.length])
+
   return (
     <HeaderAppBar>
       <ToolbarContainer>
@@ -219,7 +224,7 @@ const Header = () => {
         {userName !== 'Guest' && (
           <>
             <Typography variant="body1" color="textPrimary">
-              {spruchArray[randomNumber]}
+              {spruchArray[value]}
             </Typography>
 
             {!isMobile && (
@@ -247,19 +252,21 @@ const Header = () => {
           <MenuItem component={RouterLink} to={`/`}>
             Neuer Roadtrip
           </MenuItem>
-          <MenuItem component={RouterLink} to={`/neuer_ort`}>
-            Ort hinzufügen
-          </MenuItem>
           {userName !== 'Guest' && (
-            <MenuItem
-              onClick={() => {
-                dispatch(logOutSuccess())
-              }}
-              component={RouterLink}
-              to={`/`}
-            >
-              <LogoutButton>Log out</LogoutButton>
-            </MenuItem>
+            <>
+              <MenuItem component={RouterLink} to={`/neuer_ort`}>
+                Ort hinzufügen
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  dispatch(logOutSuccess())
+                }}
+                component={RouterLink}
+                to={`/`}
+              >
+                <LogoutButton>Log out</LogoutButton>
+              </MenuItem>
+            </>
           )}
         </Menu>
       </ToolbarContainer>

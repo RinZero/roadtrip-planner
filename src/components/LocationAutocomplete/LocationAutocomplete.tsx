@@ -115,6 +115,68 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
     freeSolo: true,
     disableClearable: true,
   }
+
+  const insertNewStop = async () => {
+    const newStopArray = await iterateStops([inputValue], allLocationsArray)
+    if (newStopArray.length === 0) {
+      dispatch(
+        setMessage({
+          message: 'Das ist leider kein gültiger Ort!',
+        })
+      )
+      return
+    }
+    const newStopCoords = newStopArray[0]
+    const newStop = await reverseGeocodeHereData(newStopCoords, 'de')
+    const newStopItem = newStop.items[0]
+    if (usage === 'create') {
+      const createobj = {
+        address: newStopItem.address.label || newStopItem.title,
+        coordinates: [newStopItem.position.lat, newStopItem.position.lng],
+        categories: newStopItem.categories,
+        api_key: newStopItem.id,
+        entry: newStopItem.entry,
+      }
+      dispatch(
+        setRoadtripInfos({
+          roadtripInfos: tripInfos.concat([createobj]),
+        })
+      )
+      dispatch(
+        setMapRoute({
+          mapRoute: mapRoute.concat(createobj.coordinates.toString()),
+        })
+      )
+    } else {
+      const updateObj: LocationState = {
+        id: 'new',
+        api_entry_key: newStopItem.id,
+        order: mapRoute.length,
+        latitude: newStopItem.position.lat,
+        longitude: newStopItem.position.lng,
+        name: newStopItem.address.label || newStopItem.title,
+      }
+
+      dispatch(
+        setEditRoadtripStops({
+          editRoadtripStops: editRoadtrip.stops.concat([updateObj]),
+        })
+      )
+      dispatch(
+        setMapRoute({
+          mapRoute: mapRoute.concat([
+            updateObj.latitude + ',' + updateObj.longitude,
+          ]),
+        })
+      )
+    }
+    dispatch(
+      setMessage({
+        message: 'Der Ort wurde als letzter Stop zu dem Roadtrip hinzugefügt',
+      })
+    )
+    setInputValue('')
+  }
   return (
     <PopupState variant="popover" popupId="create-roadtrip-popup-popover">
       {(popupState) => (
@@ -165,83 +227,7 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
                   />
                 )}
               />
-
-              <StyledSubmitButton
-                onClick={async () => {
-                  const newStopArray = await iterateStops(
-                    [inputValue],
-                    allLocationsArray
-                  )
-                  if (newStopArray.length === 0) {
-                    dispatch(
-                      setMessage({
-                        message: 'Das ist leider kein gültiger Ort!',
-                      })
-                    )
-                    return
-                  }
-                  const newStopCoords = newStopArray[0]
-                  const newStop = await reverseGeocodeHereData(
-                    newStopCoords,
-                    'de'
-                  )
-                  const newStopItem = newStop.items[0]
-                  if (usage === 'create') {
-                    const createobj = {
-                      address: newStopItem.address.label || newStopItem.title,
-                      coordinates: [
-                        newStopItem.position.lat,
-                        newStopItem.position.lng,
-                      ],
-                      categories: newStopItem.categories,
-                      api_key: newStopItem.id,
-                      entry: newStopItem.entry,
-                    }
-                    dispatch(
-                      setRoadtripInfos({
-                        roadtripInfos: tripInfos.concat([createobj]),
-                      })
-                    )
-                    dispatch(
-                      setMapRoute({
-                        mapRoute: mapRoute.concat(
-                          createobj.coordinates.toString()
-                        ),
-                      })
-                    )
-                  } else {
-                    const updateObj: LocationState = {
-                      id: 'new',
-                      api_entry_key: newStopItem.id,
-                      order: mapRoute.length,
-                      latitude: newStopItem.position.lat,
-                      longitude: newStopItem.position.lng,
-                      name: newStopItem.address.label || newStopItem.title,
-                    }
-
-                    dispatch(
-                      setEditRoadtripStops({
-                        editRoadtripStops: editRoadtrip.stops.concat([
-                          updateObj,
-                        ]),
-                      })
-                    )
-                    dispatch(
-                      setMapRoute({
-                        mapRoute: mapRoute.concat([
-                          updateObj.latitude + ',' + updateObj.longitude,
-                        ]),
-                      })
-                    )
-                  }
-                  dispatch(
-                    setMessage({
-                      message:
-                        'Der Ort wurde als letzter Stop zu dem Roadtrip hinzugefügt',
-                    })
-                  )
-                }}
-              >
+              <StyledSubmitButton onClick={insertNewStop}>
                 Submit
               </StyledSubmitButton>
             </Box>

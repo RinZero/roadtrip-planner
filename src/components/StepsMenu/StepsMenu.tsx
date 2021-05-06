@@ -7,11 +7,12 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
+  Link,
 } from '@material-ui/core'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { setProgressStep } from '../../store/actions'
 import { selectProgessStep } from '../../store/selectors'
 
 const StyledFab = styled(Fab)`
@@ -23,7 +24,6 @@ const StyledFab = styled(Fab)`
 `
 
 const StepsMenu = () => {
-  const dispatch = useDispatch()
   const progressStep = useSelector(selectProgessStep())
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
@@ -36,34 +36,41 @@ const StepsMenu = () => {
       width="100%"
       justifyContent="space-evenly"
     >
-      <StyledFab
-        size={isMobile ? 'small' : 'large'}
-        onClick={() => dispatch(setProgressStep({ progressStep: '1' }))}
-        className={progressStep.toString() === '1' ? 'active' : ''}
-      >
-        <Typography variant="h5">1</Typography>
-      </StyledFab>
-      <StyledFab
-        size={isMobile ? 'small' : 'large'}
-        onClick={() => dispatch(setProgressStep({ progressStep: '2' }))}
-        className={progressStep.toString() === '2' ? 'active' : ''}
-      >
-        <Typography variant="h5">2</Typography>
-      </StyledFab>
-      <StyledFab
-        size={isMobile ? 'small' : 'large'}
-        onClick={() => dispatch(setProgressStep({ progressStep: '3' }))}
-        className={progressStep.toString() === '3' ? 'active' : ''}
-      >
-        <Typography variant="h5">3</Typography>
-      </StyledFab>
-      <StyledFab
-        size={isMobile ? 'small' : 'large'}
-        onClick={() => dispatch(setProgressStep({ progressStep: '4' }))}
-        className={progressStep.toString() === '4' ? 'active' : ''}
-      >
-        <Typography variant="h5">4</Typography>
-      </StyledFab>
+      <Link component={RouterLink} to={`/step/:1`}>
+        <StyledFab
+          size={isMobile ? 'small' : 'large'}
+          className={progressStep.toString() === '1' ? 'active' : ''}
+        >
+          <Typography variant="h5">1</Typography>
+        </StyledFab>
+      </Link>
+
+      <Link component={RouterLink} to={`/step/:2`}>
+        <StyledFab
+          size={isMobile ? 'small' : 'large'}
+          className={progressStep.toString() === '2' ? 'active' : ''}
+        >
+          <Typography variant="h5">2</Typography>
+        </StyledFab>
+      </Link>
+
+      <Link component={RouterLink} to={`/step/:3`}>
+        <StyledFab
+          size={isMobile ? 'small' : 'large'}
+          className={progressStep.toString() === '3' ? 'active' : ''}
+        >
+          <Typography variant="h5">3</Typography>
+        </StyledFab>
+      </Link>
+
+      <Link component={RouterLink} to={`/step/:4`}>
+        <StyledFab
+          size={isMobile ? 'small' : 'large'}
+          className={progressStep.toString() === '4' ? 'active' : ''}
+        >
+          <Typography variant="h5">4</Typography>
+        </StyledFab>
+      </Link>
     </Box>
   )
 }

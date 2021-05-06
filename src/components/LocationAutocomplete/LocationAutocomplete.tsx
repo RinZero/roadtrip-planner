@@ -228,7 +228,7 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
                 )}
               />
               <StyledSubmitButton onClick={insertNewStop}>
-                Submit
+                Hinzufügen
               </StyledSubmitButton>
             </Box>
           </StyledPopover>

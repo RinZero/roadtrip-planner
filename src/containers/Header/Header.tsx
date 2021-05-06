@@ -25,12 +25,8 @@ import styled from 'styled-components'
 
 import logoMobile from '../../assets/roadabout_logo.svg'
 import logo from '../../assets/roadabout_textlogo.svg'
-import { setProgressStep, logOutSuccess } from '../../store/actions'
-import {
-  selectUserId,
-  selectUserName,
-  selectUserPicture,
-} from '../../store/selectors'
+import { logOutSuccess } from '../../store/actions'
+import { selectUserName, selectUserPicture } from '../../store/selectors'
 
 const LogInForm = React.lazy(() => import('../../components/LogInForm'))
 
@@ -147,17 +143,13 @@ const Header = () => {
     <HeaderAppBar>
       <ToolbarContainer>
         <LogoBox>
-          <HeaderLink
-            onClick={() => dispatch(setProgressStep({ progressStep: '1' }))}
-            component={RouterLink}
-            to={`/`}
-          >
+          <HeaderLink component={RouterLink} to={`/`}>
             <img src={isTablet ? logoMobile : logo} alt="Roadabout Logo" />
           </HeaderLink>
         </LogoBox>
         {!isMobile && (
           <>
-            <HeaderLink component={RouterLink} to={`/`} variant="h6">
+            <HeaderLink component={RouterLink} to={`/step/:1`} variant="h6">
               Neuer Roadtrip
             </HeaderLink>
             {userName !== 'Guest' && (
@@ -250,7 +242,7 @@ const Header = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem component={RouterLink} to={`/`}>
+          <MenuItem component={RouterLink} to={`/step/:1`}>
             Neuer Roadtrip
           </MenuItem>
           {userName !== 'Guest' && (

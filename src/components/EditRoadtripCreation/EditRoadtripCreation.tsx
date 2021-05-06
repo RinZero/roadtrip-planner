@@ -239,14 +239,15 @@ const EditRoadtripCreation = () => {
                           [inputValue],
                           allLocationsArray
                         )
+                        // eslint-disable-next-line no-console
+                        console.log(newStopArray)
                         const newStopCoords = newStopArray[0]
                         const newStop = await reverseGeocodeHereData(
                           newStopCoords,
                           'de'
                         )
                         const newStopItem = newStop.items[0]
-                        // eslint-disable-next-line no-console
-                        console.log(newStopItem)
+
                         const obj = {
                           address:
                             newStopItem.address.label || newStopItem.title,

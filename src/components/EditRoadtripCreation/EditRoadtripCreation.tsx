@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 
 import {
   Box,
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import {
+  setMapRoute,
   setMessage,
   setProgressStep,
   setRoadtripInfos,
@@ -92,6 +93,13 @@ const EditRoadtripCreation = () => {
           coordinates: number[]
           api_key: string
         }[],
+      })
+    )
+    dispatch(
+      setMapRoute({
+        mapRoute: r.map(
+          (stop) => stop.coordinates[0] + ',' + stop.coordinates[1]
+        ),
       })
     )
   }

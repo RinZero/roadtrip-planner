@@ -41,8 +41,6 @@ const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
       )
     }
     test().then((data) => {
-      // eslint-disable-next-line no-console
-      console.log(data)
       dispatch(setEditRoadtripStops({ editRoadtripStops: data }))
       dispatch(
         setMapRoute({

@@ -1,4 +1,4 @@
-import { memo, FC, useRef, useLayoutEffect, useState, useEffect } from 'react'
+import { memo, FC, useRef, useEffect } from 'react'
 
 import flag from '../assets/flag.svg'
 
@@ -57,16 +57,13 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
       apikey: process.env.REACT_APP_HERE_API_KEY,
     })
     const defaultLayers = platform.createDefaultLayers()
-    // eslint-disable-next-line no-console
-    console.log(mapRef.current)
 
     const hMap = new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
       center: { lat: 47.7, lng: 13.2 },
       zoom: 7,
       pixelRatio: window.devicePixelRatio || 1,
     })
-    // eslint-disable-next-line no-console
-    console.log(hMap)
+
     // Add all Markers to Map
     // Create an icon, an object holding the latitude and longitude, and a marker:
     // Location Object should look like this: { lat: 47.79941, lng: 13.04399 }
@@ -87,8 +84,7 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
       // Define a callback function to process the routing response:
       const onResult = function (result: any) {
         // ensure that at least one route was found
-        // eslint-disable-next-line no-console
-        console.log(result)
+
         if (result.routes.length) {
           result.routes[0].sections.forEach((section: any) => {
             // Create a linestring to use as a point source for the route line
@@ -132,8 +128,6 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
 
             // Add the route polyline and the two markers to the map:
             hMap.addObjects([routeLine, routeArrows, startMarker, endMarker])
-            // eslint-disable-next-line no-console
-            console.log(hMap)
           })
         }
       }

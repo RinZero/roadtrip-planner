@@ -28,14 +28,27 @@ const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
           if (stop.api_entry_key) {
             const data = await reverseLookupHereData(stop.api_entry_key)
 
-            return { ...stop, name: data.address.label }
+            return {
+              ...stop,
+              name: data.address.label,
+              latitude: data.position.lat,
+              longitude: data.position.lng,
+            }
           }
+
           return stop
         })
       )
     }
     test().then((data) => {
+      // eslint-disable-next-line no-console
+      console.log(data)
       dispatch(setEditRoadtripStops({ editRoadtripStops: data }))
+      dispatch(
+        setMapRoute({
+          mapRoute: data.map((stop) => stop.latitude + ',' + stop.longitude),
+        })
+      )
     })
   }, [editRoadtrip.stops, dispatch])
 
@@ -58,6 +71,13 @@ const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
       order: index,
     })) as LocationState[]
     dispatch(setEditRoadtripStops({ editRoadtripStops: updatedStops }))
+    dispatch(
+      setMapRoute({
+        mapRoute: updatedStops.map(
+          (stop) => stop.latitude + ',' + stop.longitude
+        ),
+      })
+    )
   }
   const dndStateOrder = [
     {

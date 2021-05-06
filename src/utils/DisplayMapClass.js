@@ -165,6 +165,7 @@ export class DisplayMapClass extends React.Component {
   render() {
     return (
       <div
+        id="map"
         ref={this.mapRef}
         style={{
           height: this.props.isSmall ? '35vh' : '45vh',

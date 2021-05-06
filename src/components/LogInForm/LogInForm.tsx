@@ -47,6 +47,7 @@ const LogInForm = () => {
       setError(user)
     } else if (typeof user === 'object' && user.email) {
       setError('')
+      user.tutorial = [false, false, false]
       dispatch(logInSuccess(user))
       initUserData(user.token, dispatch)
     }

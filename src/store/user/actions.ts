@@ -15,6 +15,7 @@ export const logInSuccess = createAction('user/LOG_IN_SUCCESS')<{
   updated_at?: string
   created_at?: string
   users?: UserState[]
+  tutorial: boolean[]
 }>()
 
 export const getRoadtripsByUserSuccess = createAction(
@@ -42,6 +43,10 @@ export const updateUser = createAction('user/UPDATE_USER')<{
   picture: string | undefined
 }>()
 
+export const updateTutorial = createAction('user/UPDATE_TUTORIAL')<{
+  tutorial: boolean[]
+}>()
+
 export const logOutSuccess = createAction('user/LOG_OUT_SUCCESS')()
 
 export const UserActions = {
@@ -51,6 +56,7 @@ export const UserActions = {
   getRoadtripsByUserSuccess,
   getLocationsByUserSuccess,
   getUsersByAdminSuccess,
+  updateTutorial,
 }
 
 export type UserActionsType = ActionType<typeof UserActions>

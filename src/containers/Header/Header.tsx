@@ -174,6 +174,7 @@ const Header = () => {
         )}
 
         <AccountButton
+          id={'header_profil_button'}
           aria-label="profile"
           onClick={() =>
             history.push(userName === 'Guest' ? '/sign_up' : '/profile')

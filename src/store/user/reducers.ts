@@ -9,6 +9,7 @@ import {
   getRoadtripsByUserSuccess,
   getLocationsByUserSuccess,
   getUsersByAdminSuccess,
+  updateTutorial,
 } from './actions'
 import { UserState } from './types'
 
@@ -25,6 +26,7 @@ export const initialState: UserState = {
   created_at: '',
   updated_at: '',
   users: [],
+  tutorial: [false, false, false],
 }
 
 export const userReducer = produce(
@@ -44,6 +46,7 @@ export const userReducer = produce(
           created_at,
           updated_at,
           users,
+          tutorial,
         } = action.payload
         draft.id = id
         draft.userName = userName
@@ -56,6 +59,7 @@ export const userReducer = produce(
         draft.token = token
         draft.created_at = created_at
         draft.updated_at = updated_at
+        draft.tutorial = tutorial
         return draft
       }
       case getType(getRoadtripsByUserSuccess): {
@@ -79,6 +83,11 @@ export const userReducer = produce(
         draft.email = email
         draft.password = password
         draft.picture = picture
+        return draft
+      }
+      case getType(updateTutorial): {
+        const { tutorial } = action.payload
+        draft.tutorial = tutorial
         return draft
       }
       case getType(logOutSuccess): {

@@ -4,6 +4,7 @@ export type UserState = {
   email: string
   password: string
   isAdmin: boolean
+  tutorial: boolean[]
   picture?: string
   roadtrips?: RoadtripState[]
   locations?: LocationState[]

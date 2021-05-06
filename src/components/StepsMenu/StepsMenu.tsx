@@ -29,6 +29,7 @@ const StepsMenu = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
   return (
     <Box
+      id="step_menu"
       display="flex"
       my={2}
       mx={0}

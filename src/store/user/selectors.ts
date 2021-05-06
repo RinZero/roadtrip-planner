@@ -47,3 +47,8 @@ export const selectUserIsAdmin = () =>
   createSelector(selectUser, (user: UserState) => {
     return user.isAdmin
   })
+
+export const selectUserHasTutorial = () =>
+  createSelector(selectUser, (user: UserState) => {
+    return user.tutorial
+  })

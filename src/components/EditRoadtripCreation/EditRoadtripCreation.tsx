@@ -10,12 +10,17 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import Tutorial from '../../components/Tutorial'
 import {
   setMessage,
   setProgressStep,
   setRoadtripInfos,
 } from '../../store/actions'
-import { selectRoadtripInfos, selectUserToken } from '../../store/selectors'
+import {
+  selectRoadtripInfos,
+  selectUserToken,
+  selectUserHasTutorial,
+} from '../../store/selectors'
 import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
 
@@ -39,6 +44,7 @@ const EditRoadtripCreation = () => {
     },
   ]
   const token = useSelector(selectUserToken())
+  const tutorial = useSelector(selectUserHasTutorial())
   const [isPublic, setIsPublic] = useState(false)
   const [name, setName] = useState('Mein Roadtrip')
 
@@ -98,6 +104,7 @@ const EditRoadtripCreation = () => {
 
   return (
     <>
+      {tutorial[2] ? <Tutorial openBool={tutorial} /> : ''}
       <CreateRoadtripPageStyles>
         <Box
           display="flex"
@@ -107,6 +114,7 @@ const EditRoadtripCreation = () => {
         >
           <Box width="80%">
             <TextField
+              id="input_name_roadtrip"
               value={name}
               variant="outlined"
               label="Roadtrip-Name"

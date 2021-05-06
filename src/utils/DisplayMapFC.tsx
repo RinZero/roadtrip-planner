@@ -170,6 +170,7 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
 
   return (
     <div
+      id="map"
       ref={mapRef}
       style={{
         height: isSmall ? '35vh' : '45vh',

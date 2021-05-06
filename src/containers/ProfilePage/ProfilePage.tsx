@@ -39,7 +39,6 @@ const RoadtripsBox = withTheme(styled(Box)`
 `)
 
 const CarouselBox = withTheme(styled(Box)`
-  overflow: scroll;
   max-height: 70vh;
 `)
 

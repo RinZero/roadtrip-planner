@@ -59,12 +59,9 @@ const AccountButton = withTheme(styled(IconButton)`
   padding: 0px;
 `)
 const HeaderLink = withTheme(styled(Link)`
-  display: none;
-  ${(props) => props.theme.breakpoints.up('md')} {
-    display: inline;
-    color: #707070;
-    font-size: ${(props) => props.theme.spacing(2.5)}px;
-  }
+  display: inline;
+  color: #707070;
+  font-size: ${(props) => props.theme.spacing(2.5)}px;
 `)
 
 const StyledPopover = withTheme(styled(Popover)`
@@ -153,17 +150,23 @@ const Header = () => {
             <img src={isTablet ? logoMobile : logo} alt="Roadabout Logo" />
           </HeaderLink>
         </LogoBox>
-        <HeaderLink component={RouterLink} to={`/`} variant="h6">
-          Neuer Roadtrip
-        </HeaderLink>
-        <HeaderLink
-          HeaderLink
-          component={RouterLink}
-          to={`/neuer_ort`}
-          variant="h6"
-        >
-          Ort hinzufügen
-        </HeaderLink>
+        {!isMobile && (
+          <>
+            <HeaderLink component={RouterLink} to={`/`} variant="h6">
+              Neuer Roadtrip
+            </HeaderLink>
+            {userName !== 'Guest' && (
+              <HeaderLink
+                HeaderLink
+                component={RouterLink}
+                to={`/neuer_ort`}
+                variant="h6"
+              >
+                Ort hinzufügen
+              </HeaderLink>
+            )}
+          </>
+        )}
 
         <AccountButton
           aria-label="profile"

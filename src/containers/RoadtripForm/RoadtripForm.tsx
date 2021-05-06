@@ -31,10 +31,10 @@ const RoadtripForm = (props: PropsForForm) => {
   return (
     <>
       <StepsMenu />
-      {progressStep.toString() === '1' && <StartGoalForm />}
-      {progressStep.toString() === '2' && <SelectCategories />}
-      {progressStep.toString() === '3' && <EditRoadtripCreation />}
-      {progressStep.toString() === '4' && <ShareRoadtrip />}
+      {progressString === '1' && <StartGoalForm />}
+      {progressString === '2' && <SelectCategories />}
+      {progressString === '3' && <EditRoadtripCreation />}
+      {progressString === '4' && <ShareRoadtrip />}
     </>
   )
 }

@@ -12,7 +12,7 @@ const StyledTypography = withTheme(styled(Typography)`
 const TitleSection = () => {
   return (
     <Box display="flex" alignItems="center">
-      <StyledTypography variant="h1" align="center">
+      <StyledTypography variant="h1" align="center" id="quote">
         "Roads were made for journeys, not destinations"
       </StyledTypography>
       {/* <Typography variant="body1">Explanation here</Typography> */}

@@ -1,7 +1,6 @@
 import React, { memo, MouseEvent, useEffect, useState } from 'react'
 
 import {
-  Button,
   Card,
   CardActionArea,
   CardMedia,
@@ -16,22 +15,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import austria from '../../assets/roadtrips/austria.jpg'
-import burgenland from '../../assets/roadtrips/burgenland.jpg'
-import kärnten from '../../assets/roadtrips/kärnten.jpg'
-import niederösterreich from '../../assets/roadtrips/niederösterreich.jpg'
-import oberösterreich from '../../assets/roadtrips/oberösterreich.jpg'
-import salzburg from '../../assets/roadtrips/salzburg.jpg'
-import steiermark from '../../assets/roadtrips/steiermark.jpg'
-import tirol from '../../assets/roadtrips/tirol.jpg'
-import wien from '../../assets/roadtrips/wien.jpg'
 import { setEditRoadtrip } from '../../store/actions'
 import { selectUserToken } from '../../store/selectors'
 import { RoadtripState } from '../../store/user/types'
 import { deleteRoadtrip } from '../../utils/AuthService'
 import { initUserData } from '../../utils/initUserData'
 import { reverseLookupHereData } from '../../utils/reverseLookupHereData'
-import { getRoadtripImageLink } from './getRoadtripImageLink'
+import { getRoadtripImageLink, getImageByKey } from './getRoadtripImageLink'
 
 type RoadtripcardProps = {
   roadtrip: RoadtripState
@@ -52,7 +42,6 @@ const RoadtripCardContent = withTheme(styled(CardContent)`
   padding: ${(props) => props.theme.spacing(0.2)}px;
 `)
 
-// später kommt hier ein Bild von der Karte oderso hin
 const MyRoadtripCardMedia = withTheme(styled(CardMedia)`
   height: ${(props) => props.theme.spacing(20)}px;
   background-color: lightblue;
@@ -82,21 +71,6 @@ const Roadtripcard = (props: RoadtripcardProps) => {
 
     fetchData()
   }, [postalCodeFirst, props.roadtrip.stops, roadtrip.stops])
-
-  const images: Record<string, string> = {
-    wien,
-    niederösterreich,
-    oberösterreich,
-    burgenland,
-    salzburg,
-    tirol,
-    steiermark,
-    kärnten,
-    austria,
-  }
-  const getImageByKey = (key: string) => {
-    return images[key]
-  }
 
   return (
     <MyRoadtripCard

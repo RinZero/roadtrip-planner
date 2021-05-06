@@ -36,14 +36,22 @@ const StepsMenu = () => {
       width="100%"
       justifyContent="space-evenly"
     >
-      <Link component={RouterLink} to={`/step/:1`}>
-        <StyledFab
-          size={isMobile ? 'small' : 'large'}
-          className={progressStep.toString() === '1' ? 'active' : ''}
-        >
-          <Typography variant="h5">1</Typography>
-        </StyledFab>
-      </Link>
+      <Box
+        display="flex"
+        flex-direction="collumn"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Link component={RouterLink} to={`/step/:1`}>
+          <StyledFab
+            size={isMobile ? 'small' : 'large'}
+            className={progressStep.toString() === '1' ? 'active' : ''}
+          >
+            <Typography variant="h5">1</Typography>
+          </StyledFab>
+        </Link>
+        <Typography variant="subtitle2">Stopps</Typography>
+      </Box>
 
       <Link component={RouterLink} to={`/step/:2`}>
         <StyledFab
@@ -53,6 +61,7 @@ const StepsMenu = () => {
           <Typography variant="h5">2</Typography>
         </StyledFab>
       </Link>
+      <Typography variant="subtitle2">Kategorien</Typography>
 
       <Link component={RouterLink} to={`/step/:3`}>
         <StyledFab
@@ -62,7 +71,8 @@ const StepsMenu = () => {
           <Typography variant="h5">3</Typography>
         </StyledFab>
       </Link>
-
+      <Typography variant="subtitle2">Route</Typography>
+      <Typography variant="subtitle2">bearbeiten</Typography>
       <Link component={RouterLink} to={`/step/:4`}>
         <StyledFab
           size={isMobile ? 'small' : 'large'}
@@ -71,6 +81,7 @@ const StepsMenu = () => {
           <Typography variant="h5">4</Typography>
         </StyledFab>
       </Link>
+      <Typography variant="subtitle2">Roadtrip</Typography>
     </Box>
   )
 }

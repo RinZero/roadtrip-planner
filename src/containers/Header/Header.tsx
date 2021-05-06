@@ -247,19 +247,21 @@ const Header = () => {
           <MenuItem component={RouterLink} to={`/`}>
             Neuer Roadtrip
           </MenuItem>
-          <MenuItem component={RouterLink} to={`/neuer_ort`}>
-            Ort hinzufügen
-          </MenuItem>
           {userName !== 'Guest' && (
-            <MenuItem
-              onClick={() => {
-                dispatch(logOutSuccess())
-              }}
-              component={RouterLink}
-              to={`/`}
-            >
-              <LogoutButton>Log out</LogoutButton>
-            </MenuItem>
+            <>
+              <MenuItem component={RouterLink} to={`/neuer_ort`}>
+                Ort hinzufügen
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  dispatch(logOutSuccess())
+                }}
+                component={RouterLink}
+                to={`/`}
+              >
+                <LogoutButton>Log out</LogoutButton>
+              </MenuItem>
+            </>
           )}
         </Menu>
       </ToolbarContainer>

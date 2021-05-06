@@ -42,11 +42,15 @@ import { editUser, deleteUser } from '../../utils/AuthService'
 import ImageDropzone from '../ImageDropzone'
 
 const ProfileBox = withTheme(styled(Box)`
-  margin-top: ${(props) => props.theme.spacing(10)}px;
-  margin-bottom: ${(props) => props.theme.spacing(4)}px;
+  margin-top: ${(props) => props.theme.spacing(4)}px;
+  margin-bottom: ${(props) => props.theme.spacing(2)}px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  ${(props) => props.theme.breakpoints.up('lg')} {
+    margin-top: ${(props) => props.theme.spacing(6)}px;
+    margin-bottom: ${(props) => props.theme.spacing(4)}px;
+  }
 `)
 
 const PopperBox = withTheme(styled.form`
@@ -68,6 +72,10 @@ const ProfileAvatar = withTheme(styled(Avatar)`
   width: ${(props) => props.theme.spacing(25)}px;
   height: ${(props) => props.theme.spacing(25)}px;
   margin: 0 auto;
+`)
+
+const TypographyMarginSmall = withTheme(styled(Typography)`
+  margin-top: ${(props) => props.theme.spacing(1)}px;
 `)
 
 const InfoButton = withTheme(styled(Button)`
@@ -228,7 +236,7 @@ const ProfileComponent = () => {
       <ProfileBox>
         <ProfileAvatar alt="Profilbild" src={profilePic} />
         <Typography variant="h3">{name}</Typography>
-        <Typography variant="h3">{email}</Typography>
+        <TypographyMarginSmall variant="h3">{email}</TypographyMarginSmall>
         <EditButton
           aria-describedby={id}
           aria-label="edit"

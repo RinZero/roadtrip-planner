@@ -35,7 +35,7 @@ const ProfilePageStyles = withTheme(styled.div`
 `)
 
 const RoadtripsBox = withTheme(styled(Box)`
-  margin: ${(props) => props.theme.spacing(1)}px auto;
+  margin: 0 auto;
 `)
 
 const CarouselBox = withTheme(styled(Box)`
@@ -44,6 +44,14 @@ const CarouselBox = withTheme(styled(Box)`
 
 const RoadtripsCarousel = withTheme(styled(Carousel)``)
 
+const MeineOrteTypography = withTheme(styled(Typography)`
+  border-top: 1px solid rgb(0 0 0 / 16%);
+  padding: ${(props) => props.theme.spacing(1)}px 0;
+  ${(props) => props.theme.breakpoints.down('md')} {
+    margin: 0;
+  }
+`)
+
 type RoadtripSlideProps = {
   roadtrips: RoadtripState[]
 }
@@ -51,8 +59,8 @@ const RoadtripSlide = (props: RoadtripSlideProps) => {
   const { roadtrips } = props
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
-  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'))
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 1025))
+  const isDesktop = useMediaQuery(theme.breakpoints.up(1025))
   return (
     <Box
       display="flex"
@@ -92,8 +100,8 @@ const ProfilePage = () => {
   const locations = useSelector(selectUserLocations())
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
-  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'))
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 1025))
+  const isDesktop = useMediaQuery(theme.breakpoints.up(1025))
   const slideRoadtrips = []
   if (roadtrips && isDesktop) {
     for (let i = 0; i < roadtrips.length; i += 4) {
@@ -119,9 +127,9 @@ const ProfilePage = () => {
         <Grid item xs={11} sm={5}>
           <ProfileComponent />
           <Box m="auto" width="60%" textAlign="center">
-            <Typography variant="h4" paragraph={true}>
+            <MeineOrteTypography variant="h4" paragraph={true}>
               Meine Orte:
-            </Typography>
+            </MeineOrteTypography>
             <Suspense fallback={<div>Loading...</div>}>
               {!locations || locations?.length === 0 ? (
                 <Typography>

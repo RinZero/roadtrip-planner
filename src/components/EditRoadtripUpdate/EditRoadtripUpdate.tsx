@@ -2,7 +2,11 @@ import React, { memo, useCallback, useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setEditRoadtripStops, setMessage } from '../../store/actions'
+import {
+  setEditRoadtripStops,
+  setMapRoute,
+  setMessage,
+} from '../../store/actions'
 import { selectEditRoadtrip, selectUserToken } from '../../store/selectors'
 import { LocationState } from '../../store/user/types'
 import { updateRoadtrip } from '../../utils/AuthService'
@@ -24,14 +28,25 @@ const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
           if (stop.api_entry_key) {
             const data = await reverseLookupHereData(stop.api_entry_key)
 
-            return { ...stop, name: data.address.label }
+            return {
+              ...stop,
+              name: data.address.label,
+              latitude: data.position.lat,
+              longitude: data.position.lng,
+            }
           }
+
           return stop
         })
       )
     }
     test().then((data) => {
       dispatch(setEditRoadtripStops({ editRoadtripStops: data }))
+      dispatch(
+        setMapRoute({
+          mapRoute: data.map((stop) => stop.latitude + ',' + stop.longitude),
+        })
+      )
     })
   }, [editRoadtrip.stops, dispatch])
 
@@ -49,7 +64,18 @@ const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
     }
   }
   const onChange = (r: Array<Record<string, any>>) => {
-    dispatch(setEditRoadtripStops({ editRoadtripStops: r as LocationState[] }))
+    const updatedStops = r.map((item, index) => ({
+      ...item,
+      order: index,
+    })) as LocationState[]
+    dispatch(setEditRoadtripStops({ editRoadtripStops: updatedStops }))
+    dispatch(
+      setMapRoute({
+        mapRoute: updatedStops.map(
+          (stop) => stop.latitude + ',' + stop.longitude
+        ),
+      })
+    )
   }
   const dndStateOrder = [
     {

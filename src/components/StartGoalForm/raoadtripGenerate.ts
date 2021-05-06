@@ -1,6 +1,7 @@
 import { userEntry } from '../../store/ui/types'
 import { fetchUserEntries } from '../../utils/AuthService'
 import { fetchHereData } from '../../utils/fetchHereData'
+import { reverseGeocodeHereData } from '../../utils/reverseGeocodeHereData'
 
 type info = {
   address: string
@@ -25,7 +26,7 @@ export const roadtripGenerate = async (
   ownLocations: info2[] | undefined
 ) => {
   // const center = createCenter(stops[0], stops[stops.length - 1])
-
+  const infoArr: Array<info> = []
   const additionalStops = await getAdditionalPlaces(categories, ownLocations)
   const query =
     '' +
@@ -37,10 +38,22 @@ export const roadtripGenerate = async (
       }
       return category
     })
-  const list = new Set<info>()
+
   const route: number[][] = new Array(maxStops)
   for (let i = 0; i < route.length; i++) {
     if (i < stops.length) {
+      const userStop = await reverseGeocodeHereData(stops[i], 'de')
+      const userStopInfo = {
+        address: userStop.items[0].address.label,
+        categories: userStop.items[0].categories,
+        coordinates: [
+          userStop.items[0].position.lat,
+          userStop.items[0].position.lng,
+        ],
+        api_key: userStop.items[0].id,
+      }
+
+      infoArr.push(userStopInfo)
       route[i] = stops[i]
     } else {
       const random1 = Math.floor(Math.random() * Math.floor(stops.length))
@@ -86,27 +99,40 @@ export const roadtripGenerate = async (
             }
           : possibleStops.items[random2]
 
-        list.add(obj)
-
-        route.sort(
-          (a, b) => calcDistance(stops[0], a) - calcDistance(stops[0], b)
-        )
-        route.sort((a, b) => {
-          if (calcDistance(stops[stops.length - 1], a) <= 0) {
-            return (
-              calcDistance(stops[stops.length - 1], b) -
-              calcDistance(stops[stops.length - 1], a)
-            )
-          }
-          return -1
-        })
+        infoArr.push(obj)
       }
     }
+
+    route.sort((a, b) => calcDistance(stops[0], a) - calcDistance(stops[0], b))
+    route.sort((a, b) => {
+      if (calcDistance(stops[stops.length - 1], a) <= 0) {
+        return (
+          calcDistance(stops[stops.length - 1], b) -
+          calcDistance(stops[stops.length - 1], a)
+        )
+      }
+      return -1
+    })
+
+    infoArr.sort(
+      (a, b) =>
+        calcDistance(stops[0], a.coordinates) -
+        calcDistance(stops[0], b.coordinates)
+    )
+    infoArr.sort((a, b) => {
+      if (calcDistance(stops[stops.length - 1], a.coordinates) <= 0) {
+        return (
+          calcDistance(stops[stops.length - 1], b.coordinates) -
+          calcDistance(stops[stops.length - 1], a.coordinates)
+        )
+      }
+      return -1
+    })
   }
 
   return {
     coorArr: route.map((data) => data[0].toString() + ',' + data[1].toString()),
-    infoArr: Array.from(list),
+    infoArr: infoArr,
   }
 }
 

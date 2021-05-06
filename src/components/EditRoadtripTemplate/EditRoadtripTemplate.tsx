@@ -1,4 +1,11 @@
-import React, { memo, useState, DragEvent, FC } from 'react'
+import React, {
+  memo,
+  useState,
+  DragEvent,
+  FC,
+  useCallback,
+  useEffect,
+} from 'react'
 
 import {
   Box,
@@ -24,6 +31,7 @@ import {
   selectUserToken,
 } from '../../store/selectors'
 import { DisplayMapClass } from '../../utils/DisplayMapClass'
+import DisplayMapFC from '../../utils/DisplayMapFC'
 import { initUserData } from '../../utils/initUserData'
 
 const StyledBox = withTheme(styled(Box)<{ isLaptop: boolean }>`
@@ -279,13 +287,14 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   const selectedCategoriesMap = useSelector(selectUiSelectedCategories())
   // für die Zusammenfassung welche Kategorien für den Roadtrip verwendet wurden
   const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
+
   const theme = useTheme()
   const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'lg'))
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ContentBox>
         {!isTest && (
-          <DisplayMapClass
+          <DisplayMapFC
             allLocations={mapRoute}
             isSmall={usage === 'create' && isLaptop}
           />

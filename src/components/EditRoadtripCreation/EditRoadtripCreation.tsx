@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 
 import {
   Box,
@@ -12,6 +12,7 @@ import styled from 'styled-components'
 
 import Tutorial from '../../components/Tutorial'
 import {
+  setMapRoute,
   setMessage,
   setProgressStep,
   setRoadtripInfos,
@@ -98,6 +99,13 @@ const EditRoadtripCreation = () => {
           coordinates: number[]
           api_key: string
         }[],
+      })
+    )
+    dispatch(
+      setMapRoute({
+        mapRoute: r.map(
+          (stop) => stop.coordinates[0] + ',' + stop.coordinates[1]
+        ),
       })
     )
   }

@@ -70,7 +70,6 @@ justify-content: space-between;
 ${(props) => props.theme.breakpoints.up('md')} {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
   }
 `)
@@ -89,7 +88,7 @@ ${(props) => props.theme.breakpoints.up('md')} {
 
 const BottomOptionBox = withTheme(styled(Box)`
   ${(props) => props.theme.breakpoints.up('md')} {
-    margin: ${(props) => props.theme.spacing(5)}px;
+    margin: ${(props) => props.theme.spacing(2)}px;
   }
 `)
 
@@ -98,7 +97,6 @@ const TagBox = withTheme(styled(Box)`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    flex: 0 0 100%;
     gap: ${(props) => props.theme.spacing(2)}px;
     list-style: none;
     padding: 0;

@@ -7,11 +7,9 @@ import {
   ListItemText,
   Typography,
   Box,
-  Button,
   useTheme,
   useMediaQuery,
   Chip,
-  Grid,
 } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'

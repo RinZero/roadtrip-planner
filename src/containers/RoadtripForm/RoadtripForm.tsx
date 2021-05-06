@@ -1,12 +1,12 @@
 import React, { memo } from 'react'
 
-import { Typography } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 
 import { setProgressStep } from '../../store/actions'
 const EditRoadtripCreation = React.lazy(
   () => import('../../components/EditRoadtripCreation')
 )
+const ShareRoadtrip = React.lazy(() => import('../../containers/ShareRoadtrip'))
 const StepsMenu = React.lazy(() => import('../../components/StepsMenu'))
 const StartGoalForm = React.lazy(() => import('../../components/StartGoalForm'))
 const SelectCategories = React.lazy(
@@ -34,9 +34,7 @@ const RoadtripForm = (props: PropsForForm) => {
       {progressString === '1' && <StartGoalForm />}
       {progressString === '2' && <SelectCategories />}
       {progressString === '3' && <EditRoadtripCreation />}
-      {progressString === '4' && (
-        <Typography variant="h3">Der Roadtrip wurde erstellt ^^</Typography>
-      )}
+      {progressString === '4' && <ShareRoadtrip />}
     </>
   )
 }

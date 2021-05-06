@@ -8,15 +8,11 @@ import {
   withTheme,
 } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Tutorial from '../../components/Tutorial'
-import {
-  setMapRoute,
-  setMessage,
-  setProgressStep,
-  setRoadtripInfos,
-} from '../../store/actions'
+import { setMapRoute, setMessage, setRoadtripInfos } from '../../store/actions'
 import {
   selectRoadtripInfos,
   selectUserToken,
@@ -35,6 +31,7 @@ const CreateRoadtripPageStyles = withTheme(styled.div`
 
 const EditRoadtripCreation = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const roadtripInfo = useSelector(selectRoadtripInfos())
   const dndStateOrder = [
     {
@@ -82,9 +79,9 @@ const EditRoadtripCreation = () => {
     if (typeof result === 'string') {
       dispatch(setMessage({ message: result }))
     } else if (typeof result === 'object' && result.type) {
-      dispatch(setProgressStep({ progressStep: '4' }))
+      history.push('/step/:4')
     }
-  }, [roadtripInfo, token, dispatch, isPublic, name])
+  }, [name, isPublic, roadtripInfo, token, dispatch, history])
 
   const onChange = (r: Array<Record<string, any>>) => {
     dispatch(

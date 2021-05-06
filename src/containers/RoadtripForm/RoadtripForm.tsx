@@ -1,8 +1,8 @@
 import React, { memo } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { selectProgessStep } from '../../store/selectors'
+import { setProgressStep } from '../../store/actions'
 const EditRoadtripCreation = React.lazy(
   () => import('../../components/EditRoadtripCreation')
 )
@@ -13,8 +13,21 @@ const SelectCategories = React.lazy(
   () => import('../../containers/SelectCategories')
 )
 
-const RoadtripForm = () => {
-  const progressStep = useSelector(selectProgessStep())
+type PropsForForm = {
+  id: string
+}
+
+const RoadtripForm = (props: PropsForForm) => {
+  const dispatch = useDispatch()
+  const progressString = props.id ? props.id[1] : '1'
+  if (progressString === '1') dispatch(setProgressStep({ progressStep: '1' }))
+  else if (progressString === '2')
+    dispatch(setProgressStep({ progressStep: '2' }))
+  else if (progressString === '3')
+    dispatch(setProgressStep({ progressStep: '3' }))
+  else if (progressString === '4')
+    dispatch(setProgressStep({ progressStep: '4' }))
+
   return (
     <>
       <StepsMenu />

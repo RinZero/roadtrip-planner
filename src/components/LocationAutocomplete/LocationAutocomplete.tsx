@@ -1,6 +1,14 @@
 import React, { memo, useState, useEffect } from 'react'
 
-import { Box, TextField, withTheme, Button, Popover } from '@material-ui/core'
+import {
+  Box,
+  TextField,
+  withTheme,
+  Button,
+  Popover,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,6 +17,7 @@ import styled from 'styled-components'
 import {
   setEditRoadtripStops,
   setMapRoute,
+  setMessage,
   setRoadtripInfos,
 } from '../../store/actions'
 import {
@@ -26,6 +35,43 @@ const StyledPopover = withTheme(styled(Popover)`
   padding: ${(props) => props.theme.spacing(3)}px;
 `)
 
+const StyledPopoverButton = withTheme(styled(Button)`
+  border-radius: 15px;
+  padding: ${(props) => props.theme.spacing(1)}px
+    ${(props) => props.theme.spacing(2)}px;
+  background-color: #fff;
+`)
+
+const StyledSubmitButton = withTheme(styled(StyledPopoverButton)`
+  color: #fff;
+  background-color: #71b255;
+  width: 40%;
+  &:hover,
+  &:active {
+    background-color: #355727;
+  }
+`)
+
+const StyledNewStoppTextField = withTheme(styled(TextField)`
+  margin: ${(props) => props.theme.spacing(2)}px 0;
+  input,
+  label {
+    font-size: ${(props) => props.theme.spacing(3)}px;
+    margin-left: ${(props) => props.theme.spacing(3.7)}px;
+  }
+  padding-bottom: ${(props) => props.theme.spacing(1.25)}px;
+  border-radius: 15px;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  .MuiInput-underline {
+    :after {
+      content: none;
+    }
+    :before {
+      content: none;
+    }
+  }
+`)
+
 export type LocationAutocompleteProps = {
   usage: 'update' | 'create'
 }
@@ -39,7 +85,8 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
   const mapRoute = useSelector(selectMapRoute())
   const tripInfos = useSelector(selectRoadtripInfos())
   const dispatch = useDispatch()
-
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   useEffect(() => {
     const fetchData = async () => {
       const publicLocations = await fetchUserEntries('')
@@ -71,22 +118,29 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
   return (
     <PopupState variant="popover" popupId="create-roadtrip-popup-popover">
       {(popupState) => (
-        <div>
+        <Box display="flex" alignItems="center" justifyContent="center">
           <div {...bindTrigger(popupState)}>
-            <Button>Ort hinzufügen</Button>
+            <StyledPopoverButton>Ort hinzufügen</StyledPopoverButton>
           </div>
           <StyledPopover
             {...bindPopover(popupState)}
             anchorOrigin={{
-              vertical: 'bottom',
+              vertical: 'center',
               horizontal: 'center',
             }}
             transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: 'center',
+              horizontal: 'center',
             }}
           >
-            <Box m={3} width="30vw">
+            <Box
+              m={3}
+              minWidth={isMobile ? '40vw' : '20vw'}
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
               <Autocomplete
                 {...defaultProps}
                 id="stop"
@@ -102,23 +156,30 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
                   setArray([])
                 }}
                 renderInput={(params) => (
-                  <TextField
+                  <StyledNewStoppTextField
                     {...params}
-                    label="Neuer Stopp"
+                    label={isMobile ? 'Stopp' : 'Neuer Stopp'}
                     name="stop"
                     fullWidth
                     placeholder="Wien"
                   />
                 )}
               />
-              <Button
+
+              <StyledSubmitButton
                 onClick={async () => {
                   const newStopArray = await iterateStops(
                     [inputValue],
                     allLocationsArray
                   )
-                  // eslint-disable-next-line no-console
-                  console.log(newStopArray)
+                  if (newStopArray.length === 0) {
+                    dispatch(
+                      setMessage({
+                        message: 'Das ist leider kein gültiger Ort!',
+                      })
+                    )
+                    return
+                  }
                   const newStopCoords = newStopArray[0]
                   const newStop = await reverseGeocodeHereData(
                     newStopCoords,
@@ -157,6 +218,7 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
                       longitude: newStopItem.position.lng,
                       name: newStopItem.address.label || newStopItem.title,
                     }
+
                     dispatch(
                       setEditRoadtripStops({
                         editRoadtripStops: editRoadtrip.stops.concat([
@@ -172,13 +234,19 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
                       })
                     )
                   }
+                  dispatch(
+                    setMessage({
+                      message:
+                        'Der Ort wurde als letzter Stop zu dem Roadtrip hinzugefügt',
+                    })
+                  )
                 }}
               >
                 Submit
-              </Button>
+              </StyledSubmitButton>
             </Box>
           </StyledPopover>
-        </div>
+        </Box>
       )}
     </PopupState>
   )

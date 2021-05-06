@@ -54,7 +54,7 @@ const EditRoadtripPage = () => {
   return (
     <EditRoadtripPageStyles>
       <Box display="flex" justifyContent="space-between" flexWrap="wrap" my={2}>
-        <Box width="80%">
+        <Box width="65%">
           <TextField
             value={name}
             variant="outlined"

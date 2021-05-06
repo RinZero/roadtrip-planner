@@ -34,6 +34,19 @@ const CreateRoadtripPageStyles = withTheme(styled.div`
   justify-content: center;
 `)
 
+const StyledOptionContainer = withTheme(styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  margin: 0 ${(props) => props.theme.spacing(2)}px;
+  flex-direction: row;
+  ${(props) => props.theme.breakpoints.down('sm')} {
+    flex-direction: column;
+    align-items: center;
+    margin-top: ${(props) => props.theme.spacing(3)}px;
+  }
+`)
+
 const EditRoadtripCreation = () => {
   const dispatch = useDispatch()
   const roadtripInfo = useSelector(selectRoadtripInfos())
@@ -113,13 +126,8 @@ const EditRoadtripCreation = () => {
     <>
       {tutorial[2] ? <Tutorial openBool={tutorial} /> : ''}
       <CreateRoadtripPageStyles>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          flexWrap="wrap"
-          my={2}
-        >
-          <Box width="80%">
+        <StyledOptionContainer>
+          <Box width="65%">
             <TextField
               id="input_name_roadtrip"
               value={name}
@@ -141,7 +149,7 @@ const EditRoadtripCreation = () => {
             label="öffentlich"
           />
           <LocationAutocomplete usage="create" />
-        </Box>
+        </StyledOptionContainer>
         <EditRoadtripTemplate
           dndStateOrder={dndStateOrder}
           onChange={onChange}

@@ -111,7 +111,7 @@ export const StartGoalForm = () => {
   const isTablet = useMediaQuery(theme.breakpoints.down(960))
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [active, setActive] = useState(false)
-  const { register, getValues } = useForm()
+  const { register, getValues, setValue } = useForm()
   // Array with the options of autocomplete
   const [array, setArray] = useState([])
   //get Location of User
@@ -152,7 +152,7 @@ export const StartGoalForm = () => {
   const [activeStop, setActiveStop] = useState(2)
 
   const [inputValue, setInputValue] = useState(namedStops)
-  const [value, setValue] = useState<Array<string | null>>(namedStops)
+  const [value, setValue1] = useState<Array<string | null>>(namedStops)
   const defaultProps = {
     options: array,
     forcePopupIcon: false,
@@ -198,18 +198,12 @@ export const StartGoalForm = () => {
             {...defaultProps}
             id="stops[0]"
             getOptionLabel={(option) => option}
-            value={value[0]}
             inputValue={inputValue[0]}
             onInputChange={(event, newInputValue) => {
+              if (event === null) return
               getItems(newInputValue, event.type)
-              const newInputValueArray = inputValue
-              newInputValueArray[0] = newInputValue
-              setInputValue(newInputValueArray)
-            }}
-            onChange={(event, newValue) => {
-              const newValueArray = value
-              newValueArray[0] = newValue
-              setValue(newValueArray)
+
+              setInputValue([newInputValue].concat(inputValue.slice(1)))
             }}
             onClose={() => {
               setArray([])
@@ -229,18 +223,16 @@ export const StartGoalForm = () => {
             {...defaultProps}
             id={'stops[' + 1 + ']'}
             getOptionLabel={(option) => option}
-            value={value[1]}
             inputValue={inputValue[1]}
             onInputChange={(event, newInputValue) => {
+              if (event === null) return
               getItems(newInputValue, event.type)
-              const newInputValueArray = inputValue
-              newInputValueArray[1] = newInputValue
-              setInputValue(newInputValueArray)
-            }}
-            onChange={(event, newValue) => {
-              const newValueArray = value
-              newValueArray[1] = newValue
-              setValue(newValueArray)
+              setInputValue(
+                inputValue
+                  .slice(0, 1)
+                  .concat([newInputValue])
+                  .concat(inputValue.slice(2, inputValue.length))
+              )
             }}
             renderInput={(params) => (
               <StartGoalTextField
@@ -292,18 +284,21 @@ export const StartGoalForm = () => {
                             {...defaultProps}
                             id={'stops[' + index + ']'}
                             getOptionLabel={(option) => option}
-                            value={value[index] || stop}
                             inputValue={inputValue[index]}
                             onInputChange={(event, newInputValue) => {
+                              if (event === null) return
                               getItems(newInputValue, event.type)
-                              const newInputValueArray = inputValue
-                              newInputValueArray[index] = newInputValue
-                              setInputValue(newInputValueArray)
-                            }}
-                            onChange={(event, newValue) => {
-                              const newValueArray = value
-                              newValueArray[index] = newValue
-                              setValue(newValueArray)
+                              setInputValue(
+                                inputValue
+                                  .slice(0, index)
+                                  .concat([newInputValue])
+                                  .concat(
+                                    inputValue.slice(
+                                      index + 1,
+                                      inputValue.length
+                                    )
+                                  )
+                              )
                             }}
                             renderInput={(params) => (
                               <StartGoalTextField

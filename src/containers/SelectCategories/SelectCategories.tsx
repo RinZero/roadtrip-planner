@@ -20,6 +20,7 @@ import Tutorial from '../../components/Tutorial'
 import {
   setMapRoute,
   setMaxRoadtripStops,
+  setMessage,
   setRoadtripInfos,
   setUiSelectedCategories,
 } from '../../store/actions'
@@ -370,7 +371,13 @@ const SelectCategories = () => {
                               roadtripInfos: response.infoArr,
                             })
                           )
-                          history.push('/step/:3')
+                          if (dataArray.length > 0) history.push('/step/:3')
+                          else
+                            dispatch(
+                              setMessage({
+                                message: `Vervollständige bitte zuerst den zweiten Schritt. Du brauchst min. eine Kategorie.`,
+                              })
+                            )
                         }
                       }}
                     >

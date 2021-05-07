@@ -176,7 +176,13 @@ export const StartGoalForm = () => {
     const stopArray = stopArrayUnorderd.concat(lastStop)
     const nameArray = values.stops
 
-    if (!stopArray[0] || stopArray[0][0] === -1) {
+    if (stopArray.length <= 1) {
+      dispatch(
+        setMessage({
+          message: `Du brauchst mindestens 2 Stopps.`,
+        })
+      )
+    } else if (!stopArray[0] || stopArray[0][0] === -1) {
       dispatch(
         setMessage({
           message: `Fehlerhafte Eingabe. 

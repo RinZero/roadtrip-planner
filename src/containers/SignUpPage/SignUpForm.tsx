@@ -57,7 +57,8 @@ const SignUpForm = () => {
     inputData.append('[user]password_confirmation', data.password_confirmation)
     inputData.append('[user]image', image[0])
     const response = await signUp(inputData)
-    if (response.status === 200) {
+
+    if ((response.status as number) === 200) {
       const loggedInUser = await logIn({
         email: data.email,
         password: data.password,
@@ -68,9 +69,9 @@ const SignUpForm = () => {
           logInSuccess(
             Object.assign(loggedInUser, {
               image:
-                response.user.image === null
+                response.data.image === null
                   ? undefined
-                  : response.user.image.url,
+                  : response.data.image.url,
               tutorial: [true, true, true],
             })
           )
@@ -78,10 +79,14 @@ const SignUpForm = () => {
       dispatch(setMessage({ message: 'Dein Profil wurde erstellt.' }))
       history.push('/')
     } else {
-      // TODO JULIA: Fehlermeldungen aus dem Backend
-      dispatch(
-        setMessage({ message: 'Das Erstellen hat leider nicht funktioniert.' })
-      )
+      const arr: Array<Record<string, any>> = []
+      response.data.forEach(function (item: Record<string, any>) {
+        if (item[1]) {
+          arr.push(item[1].pop())
+        }
+      })
+      const str = arr.join(' ')
+      dispatch(setMessage({ message: str }))
     }
   }
   return (
@@ -112,7 +117,7 @@ const SignUpForm = () => {
               inputRef={register}
               placeholder="Passwort"
               variant="outlined"
-              inputProps={{ minlength: 6, required: true }}
+              inputProps={{ minlength: 8, required: true }}
             />
             <StyledInput
               type="password"

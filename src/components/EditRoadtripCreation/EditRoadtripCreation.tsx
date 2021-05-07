@@ -115,7 +115,7 @@ const EditRoadtripCreation = () => {
           display="flex"
           justifyContent="space-between"
           flexWrap="wrap"
-          my={2}
+          mt={2}
         >
           <Box width="80%">
             <TextField

@@ -1,12 +1,12 @@
-import austria from '../../assets/roadtrips/austria.jpg'
-import burgenland from '../../assets/roadtrips/burgenland.jpg'
-import kärnten from '../../assets/roadtrips/kärnten.jpg'
-import niederösterreich from '../../assets/roadtrips/niederösterreich.jpg'
-import oberösterreich from '../../assets/roadtrips/oberösterreich.jpg'
-import salzburg from '../../assets/roadtrips/salzburg.jpg'
-import steiermark from '../../assets/roadtrips/steiermark.jpg'
-import tirol from '../../assets/roadtrips/tirol.jpg'
-import wien from '../../assets/roadtrips/wien.jpg'
+import austria from '../../assets/roadtrips/austria-small.jpg'
+import burgenland from '../../assets/roadtrips/burgenland-small.jpg'
+import kärnten from '../../assets/roadtrips/kaernten-small.jpg'
+import niederösterreich from '../../assets/roadtrips/niederoesterreich-small.jpg'
+import oberösterreich from '../../assets/roadtrips/oberoesterreich-small.jpg'
+import salzburg from '../../assets/roadtrips/salzburg-small.jpg'
+import steiermark from '../../assets/roadtrips/steiermark-small.jpg'
+import tirol from '../../assets/roadtrips/tirol-small.jpg'
+import wien from '../../assets/roadtrips/wien-small.jpg'
 
 export const getRoadtripImageLink = (firstNumberPostal: string) => {
   switch (firstNumberPostal) {

@@ -3,9 +3,9 @@ import React, { memo } from 'react'
 import { Box, withTheme, Typography } from '@material-ui/core'
 import styled from 'styled-components'
 
-import bild from '../../assets/bild.jpg'
-import bus from '../../assets/bus.jpg'
-import frauenInAuto from '../../assets/frauenInAuto.jpg'
+import bild from '../../assets/bild-small.jpg'
+import bus from '../../assets/bus-small.jpg'
+import frauenInAuto from '../../assets/frauenInAuto-small.jpg'
 import SignUpCard from '../../components/SignUpCard/SignUpCard'
 import SignUpForm from './SignUpForm'
 

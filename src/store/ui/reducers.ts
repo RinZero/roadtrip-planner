@@ -16,11 +16,13 @@ import {
   setIsTest,
   setMessage,
   setRoadtripStopNames,
+  setPreviousStep,
 } from './actions'
 import { UiState } from './types'
 
 export const initialState: UiState = {
   progressStep: '1',
+  previousStep: '1',
   roadtripStops: [],
   maxRoadtripStops: 5,
   isEditOpen: false,
@@ -43,6 +45,11 @@ export const uiReducer = produce(
       case getType(setProgressStep): {
         const { progressStep } = action.payload
         draft.progressStep = progressStep
+        return draft
+      }
+      case getType(setPreviousStep): {
+        const { previousStep } = action.payload
+        draft.previousStep = previousStep
         return draft
       }
       case getType(setRoadtripStops): {

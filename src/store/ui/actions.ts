@@ -6,6 +6,10 @@ export const setProgressStep = createAction('ui/SET_PROGRESS_STEP')<{
   progressStep: '1' | '2' | '3' | '4'
 }>()
 
+export const setPreviousStep = createAction('ui/SET_PREVIOUS_STEP')<{
+  previousStep: '1' | '2' | '3' | '4'
+}>()
+
 export const setRoadtripStops = createAction('ui/SET_ROADTRIP_STOPS')<{
   roadtripStops: number[][]
 }>()
@@ -61,6 +65,7 @@ export const setRoadtripStopNames = createAction('ui/SET_ROADTRIP_STOP_NAMES')<{
 export const UiActions = {
   setIsTest,
   setProgressStep,
+  setPreviousStep,
   setRoadtripStops,
   setMaxRoadtripStops,
   setUiSelectedCategories,

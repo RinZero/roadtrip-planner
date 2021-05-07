@@ -13,6 +13,7 @@ export type userEntry = {
 
 export type UiState = {
   progressStep: '1' | '2' | '3' | '4'
+  previousStep: '1' | '2' | '3' | '4'
   roadtripStops: number[][]
   roadtripStopNames: string[]
   maxRoadtripStops: number

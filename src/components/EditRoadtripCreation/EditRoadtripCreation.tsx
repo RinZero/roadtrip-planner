@@ -39,7 +39,7 @@ export const StyledOptionContainer = withTheme(styled.div`
   ${(props) => props.theme.breakpoints.down('sm')} {
     flex-direction: column;
     align-items: center;
-    margin-top: ${(props) => props.theme.spacing(3)}px;
+    margin-top: ${(props) => props.theme.spacing(2)}px;
   }
 `)
 

@@ -1,76 +1,55 @@
-/* eslint-disable no-console */
-import React, { memo } from 'react'
+import { memo } from 'react'
 
-import {
-  Box,
-  Fab,
-  Typography,
-  useTheme,
-  useMediaQuery,
-  Link,
-} from '@material-ui/core'
+import { Box, useTheme, useMediaQuery } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-import { Link as RouterLink } from 'react-router-dom'
-import styled from 'styled-components'
 
-import { selectProgessStep } from '../../store/selectors'
-
-const StyledFab = styled(Fab)`
-  background-color: #fff;
-  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-  &.active {
-    box-shadow: 0 0 0 3px #71b255;
-  }
-`
+import { selectPreviousStep, selectProgessStep } from '../../store/selectors'
+import { StepIndicator } from './StepIndicator'
 
 const StepsMenu = () => {
   const progressStep = useSelector(selectProgessStep())
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const prevStep = useSelector(selectPreviousStep())
+
   return (
     <Box
       id="step_menu"
       display="flex"
-      my={2}
+      mt={2}
       mx={0}
       width="100%"
       justifyContent="space-evenly"
+      minWidth="70vw"
     >
-      <Link component={RouterLink} to={`/step/:1`}>
-        <StyledFab
-          size={isMobile ? 'small' : 'large'}
-          className={progressStep.toString() === '1' ? 'active' : ''}
-        >
-          <Typography variant="h5">1</Typography>
-        </StyledFab>
-      </Link>
-
-      <Link component={RouterLink} to={`/step/:2`}>
-        <StyledFab
-          size={isMobile ? 'small' : 'large'}
-          className={progressStep.toString() === '2' ? 'active' : ''}
-        >
-          <Typography variant="h5">2</Typography>
-        </StyledFab>
-      </Link>
-
-      <Link component={RouterLink} to={`/step/:3`}>
-        <StyledFab
-          size={isMobile ? 'small' : 'large'}
-          className={progressStep.toString() === '3' ? 'active' : ''}
-        >
-          <Typography variant="h5">3</Typography>
-        </StyledFab>
-      </Link>
-
-      <Link component={RouterLink} to={`/step/:4`}>
-        <StyledFab
-          size={isMobile ? 'small' : 'large'}
-          className={progressStep.toString() === '4' ? 'active' : ''}
-        >
-          <Typography variant="h5">4</Typography>
-        </StyledFab>
-      </Link>
+      <StepIndicator
+        number={1}
+        isMobile={isMobile}
+        isActive={progressStep.toString() === '1'}
+        text="Stopps"
+        isGoingBack={+prevStep > 1}
+      />
+      <StepIndicator
+        number={2}
+        isMobile={isMobile}
+        isActive={progressStep.toString() === '2'}
+        text="Kategorien"
+        isGoingBack={+prevStep > 2}
+      />
+      <StepIndicator
+        number={3}
+        isMobile={isMobile}
+        isActive={progressStep.toString() === '3'}
+        text="Route"
+        isGoingBack={+prevStep > 3}
+      />
+      <StepIndicator
+        number={4}
+        isMobile={isMobile}
+        isActive={progressStep.toString() === '4'}
+        text="Roadtrip"
+        isGoingBack={+prevStep > 4}
+      />
     </Box>
   )
 }

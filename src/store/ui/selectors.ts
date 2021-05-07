@@ -9,6 +9,11 @@ export const selectProgessStep = () =>
     return ui.progressStep
   })
 
+export const selectPreviousStep = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.previousStep
+  })
+
 export const selectRoadtripStops = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.roadtripStops

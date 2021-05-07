@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import {
   Box,
@@ -111,7 +111,7 @@ export const StartGoalForm = () => {
   const isTablet = useMediaQuery(theme.breakpoints.down(960))
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [active, setActive] = useState(false)
-  const { register, getValues, setValue } = useForm()
+  const { register, getValues } = useForm()
   // Array with the options of autocomplete
   const [array, setArray] = useState([])
   //get Location of User
@@ -152,7 +152,6 @@ export const StartGoalForm = () => {
   const [activeStop, setActiveStop] = useState(2)
 
   const [inputValue, setInputValue] = useState(namedStops)
-  const [value, setValue1] = useState<Array<string | null>>(namedStops)
   const defaultProps = {
     options: array,
     forcePopupIcon: false,

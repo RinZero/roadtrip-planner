@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { LocationAutocomplete } from '../../components/LocationAutocomplete'
 import Tutorial from '../../components/Tutorial'
 import { setMapRoute, setMessage, setRoadtripInfos } from '../../store/actions'
 import {
@@ -29,6 +30,19 @@ const CreateRoadtripPageStyles = withTheme(styled.div`
   justify-content: center;
 `)
 
+export const StyledOptionContainer = withTheme(styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  margin: 0 ${(props) => props.theme.spacing(2)}px;
+  flex-direction: row;
+  ${(props) => props.theme.breakpoints.down('sm')} {
+    flex-direction: column;
+    align-items: center;
+    margin-top: ${(props) => props.theme.spacing(2)}px;
+  }
+`)
+
 const EditRoadtripCreation = () => {
   const dispatch = useDispatch()
   const history = useHistory()
@@ -45,7 +59,6 @@ const EditRoadtripCreation = () => {
   const tutorial = useSelector(selectUserHasTutorial())
   const [isPublic, setIsPublic] = useState(false)
   const [name, setName] = useState('Mein Roadtrip')
-
   const submitRoadtrip = useCallback(async () => {
     const roadtripData: createRoadtripType = {
       data: {
@@ -106,18 +119,12 @@ const EditRoadtripCreation = () => {
       })
     )
   }
-
   return (
     <>
       {tutorial[2] ? <Tutorial openBool={tutorial} /> : ''}
       <CreateRoadtripPageStyles>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          flexWrap="wrap"
-          mt={2}
-        >
-          <Box width="80%">
+        <StyledOptionContainer>
+          <Box width="65%">
             <TextField
               id="input_name_roadtrip"
               value={name}
@@ -138,7 +145,8 @@ const EditRoadtripCreation = () => {
             }
             label="öffentlich"
           />
-        </Box>
+          <LocationAutocomplete usage="create" />
+        </StyledOptionContainer>
         <EditRoadtripTemplate
           dndStateOrder={dndStateOrder}
           onChange={onChange}

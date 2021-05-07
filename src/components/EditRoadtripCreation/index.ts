@@ -1,1 +1,1 @@
-export { default } from './EditRoadtripCreation'
+export { default, StyledOptionContainer } from './EditRoadtripCreation'

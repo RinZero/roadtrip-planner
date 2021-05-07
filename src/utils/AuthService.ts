@@ -51,10 +51,10 @@ export const signUp = (signUpData: FormData) => {
   return fetch
     .post('users', signUpData)
     .then((response) => {
-      return { status: response.status, user: response.data.data.attributes }
+      return { status: response.status, data: response.data.data.attributes }
     })
     .catch((error) => {
-      return error
+      return { status: '400', data: Object.entries(error.response.data) }
     })
 }
 

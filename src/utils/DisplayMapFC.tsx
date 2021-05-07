@@ -59,8 +59,8 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
     const defaultLayers = platform.createDefaultLayers()
 
     const hMap = new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
-      center: { lat: 47.7, lng: 13.2 },
-      zoom: 7,
+      center: { lat: 47.5, lng: 13.5 },
+      zoom: 6.5,
       pixelRatio: window.devicePixelRatio || 1,
     })
 

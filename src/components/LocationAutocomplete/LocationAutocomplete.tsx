@@ -45,7 +45,7 @@ const StyledPopoverButton = withTheme(styled(Button)`
 const StyledSubmitButton = withTheme(styled(StyledPopoverButton)`
   color: #fff;
   background-color: #71b255;
-  width: 40%;
+  max-width: 80%;
   &:hover,
   &:active {
     background-color: #355727;

@@ -1,8 +1,17 @@
 import React, { memo } from 'react'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
-import { setProgressStep } from '../../store/actions'
+import { setMessage, setProgressStep } from '../../store/actions'
+import {
+  selectProgessStep,
+  selectRoadtripInfos,
+  selectRoadtrips,
+  selectRoadtripStops,
+  selectUiSelectedCategories,
+  selectUserToken,
+} from '../../store/selectors'
 const EditRoadtripCreation = React.lazy(
   () => import('../../components/EditRoadtripCreation')
 )
@@ -19,14 +28,34 @@ type PropsForForm = {
 
 const RoadtripForm = (props: PropsForForm) => {
   const dispatch = useDispatch()
+  const history = useHistory()
+  // get necessary stuff from store to check if progressStep is valid
+  const dataStep1 = useSelector(selectRoadtripStops())
+  const dataStep2 = useSelector(selectUiSelectedCategories())
+  const dataStep3 = useSelector(selectRoadtripInfos())
+  const token = useSelector(selectUserToken())
   const progressString = props.id ? props.id[1] : '1'
   if (progressString === '1') dispatch(setProgressStep({ progressStep: '1' }))
-  else if (progressString === '2')
+  else if (progressString === '2' && dataStep1.length > 1)
     dispatch(setProgressStep({ progressStep: '2' }))
-  else if (progressString === '3')
+  else if (progressString === '3' && dataStep1.length > 1 && dataStep2.size > 0)
     dispatch(setProgressStep({ progressStep: '3' }))
-  else if (progressString === '4')
+  else if (
+    progressString === '4' &&
+    dataStep1.length > 0 &&
+    dataStep2.size > 0 &&
+    dataStep3.length > 0 &&
+    token
+  )
     dispatch(setProgressStep({ progressStep: '4' }))
+  else {
+    history.goBack()
+    dispatch(
+      setMessage({
+        message: `Mach bitte zuerst die Schritte davor fertig.`,
+      })
+    )
+  }
 
   return (
     <>

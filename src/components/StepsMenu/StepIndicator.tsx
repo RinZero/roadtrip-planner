@@ -1,8 +1,12 @@
 import React from 'react'
 
 import { Box, Fab, Typography, Link, withTheme } from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
+
+import { setPreviousStep } from '../../store/actions'
+import { selectProgessStep } from '../../store/selectors'
 const slideInLeft = keyframes`
 0% {
   transform: translateX(calc(70vw / 4));
@@ -13,7 +17,7 @@ const slideInLeft = keyframes`
 `
 const slideInRight = keyframes`
 0% {
-  transform: translateX(calc(70vw / 4));
+  transform: translateX(calc(-70vw / 4));
 }
 100% {
   transform: translateX(0);
@@ -22,7 +26,7 @@ const slideInRight = keyframes`
 
 const slideInRightLarge = keyframes`
 0% {
-  transform: translateX(calc(70vw / 4 - 30px));
+  transform: translateX(calc(-70vw / 4 + 30px));
 }
 100% {
   transform: translateX(0);
@@ -65,6 +69,7 @@ const ColorBall = withTheme(styled.div<{ isGoingBack: boolean }>`
   width: ${(props) => props.theme.spacing(4)}px;
   background-color: #71b255;
   position: absolute;
+  z-index: -1;
   &.active {
     animation: ${(props) => (props.isGoingBack ? slideInLeft : slideInRight)}
       0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -85,6 +90,8 @@ export type StepIndicatorProps = {
 }
 export const StepIndicator = (props: StepIndicatorProps) => {
   const { number, isMobile, isActive, text, isGoingBack } = props
+  const dispatch = useDispatch()
+  const currentStep = useSelector(selectProgessStep())
   return (
     <Box
       display="flex"
@@ -93,7 +100,13 @@ export const StepIndicator = (props: StepIndicatorProps) => {
       alignItems="center"
       flexWrap="wrap"
     >
-      <Box display="flex" alignItems="center">
+      <Box
+        display="flex"
+        alignItems="center"
+        onClick={() => {
+          dispatch(setPreviousStep({ previousStep: currentStep }))
+        }}
+      >
         <ColorBall
           className={isActive ? 'active' : ''}
           isGoingBack={isGoingBack}

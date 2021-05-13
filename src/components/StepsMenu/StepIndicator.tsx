@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import { setPreviousStep } from '../../store/actions'
 import { selectProgessStep } from '../../store/selectors'
-import { StyledFab, StyledUnderline, ColorBall } from './style'
+import { StyledFab, StyledUnderline, ColorBall, FabLink } from './style'
 
 export type StepIndicatorProps = {
   number: number
@@ -38,14 +38,14 @@ export const StepIndicator = (props: StepIndicatorProps) => {
           className={isActive ? 'active' : ''}
           isGoingBack={isGoingBack}
         />
-        <Link component={RouterLink} to={`/step/:${number}`}>
+        <FabLink component={RouterLink} to={`/step/:${number}`}>
           <StyledFab
             size={isMobile ? 'small' : 'large'}
             className={isActive ? 'active' : ''}
           >
             <Typography variant="h5">{number}</Typography>
           </StyledFab>
-        </Link>
+        </FabLink>
       </Box>
       <StyledUnderline variant="subtitle2" className={isActive ? 'active' : ''}>
         {text}

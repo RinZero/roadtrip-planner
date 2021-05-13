@@ -1,4 +1,4 @@
-import { Fab, Typography, withTheme } from '@material-ui/core'
+import { Fab, Link, Typography, withTheme } from '@material-ui/core'
 import styled, { keyframes } from 'styled-components'
 
 //StepIndicator
@@ -48,6 +48,9 @@ export const StyledFab = styled(Fab)`
     transition-delay: 0.9s;
   }
 `
+export const FabLink = withTheme(styled(Link)`
+  text-decoration: none;
+`)
 
 export const StyledUnderline = withTheme(styled(Typography)`
   margin-top: ${(props) => props.theme.spacing(1)}px;

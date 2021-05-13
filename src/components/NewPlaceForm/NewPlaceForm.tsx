@@ -66,13 +66,6 @@ const NewPlaceForm = (props: PropsForForm) => {
       ? await editPlace(place, props.match.params.id.substring(1), token)
       : await createPlace(place, token)
 
-    if (
-      response.status &&
-      (response.status === 'ok' || response.status === 'created')
-    ) {
-      await initUserData(token, dispatch)
-      history.push('/profile')
-    }
     // Get response
     if (typeof response.message === 'string') {
       dispatch(setMessage({ message: response.message }))
@@ -85,6 +78,13 @@ const NewPlaceForm = (props: PropsForForm) => {
       })
       const str = arr.join(' ')
       dispatch(setMessage({ message: str }))
+    }
+    if (
+      response.status &&
+      (response.status === 'ok' || response.status === 'created')
+    ) {
+      await initUserData(token, dispatch)
+      history.push('/profile')
     }
   }
 

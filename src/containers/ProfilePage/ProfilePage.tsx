@@ -6,13 +6,10 @@ import {
   Typography,
   Link,
   useMediaQuery,
-  withTheme,
   useTheme,
 } from '@material-ui/core'
-import Carousel from 'react-material-ui-carousel'
 import { useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
-import styled from 'styled-components'
 
 import ProfileComponent from '../../components/ProfileComponent'
 import Roadtripcard from '../../components/Roadtripcard'
@@ -21,36 +18,15 @@ import {
   selectUserLocations,
 } from '../../store/user/selectors'
 import { RoadtripState } from '../../store/user/types'
+import {
+  RoadtripsBox,
+  CarouselBox,
+  MeineOrteTypography,
+  ProfilePageStyles,
+  RoadtripsCarousel,
+} from './style'
 
 const LocationList = React.lazy(() => import('../../components/LocationList'))
-const ProfilePageStyles = withTheme(styled.div`
-  overflow-x: hidden;
-  padding: ${(props) => props.theme.spacing(12)}px 0
-    ${(props) => props.theme.spacing(10)}px 0;
-
-  ${(props) => props.theme.breakpoints.up('md')} {
-    height: calc(100vh - 40px);
-    //40px come from LogoImg in App.css (maybe remove it??)
-  }
-`)
-
-const RoadtripsBox = withTheme(styled(Box)`
-  margin: 0 auto;
-`)
-
-const CarouselBox = withTheme(styled(Box)`
-  max-height: 70vh;
-`)
-
-const RoadtripsCarousel = withTheme(styled(Carousel)``)
-
-const MeineOrteTypography = withTheme(styled(Typography)`
-  border-top: 1px solid rgb(0 0 0 / 16%);
-  padding: ${(props) => props.theme.spacing(1)}px 0;
-  ${(props) => props.theme.breakpoints.down('md')} {
-    margin: 0;
-  }
-`)
 
 type RoadtripSlideProps = {
   roadtrips: RoadtripState[]

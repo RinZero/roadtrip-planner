@@ -1,18 +1,9 @@
 import React, { memo, useState, useEffect } from 'react'
 
-import {
-  Box,
-  TextField,
-  withTheme,
-  Button,
-  Popover,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core'
+import { Box, useMediaQuery, useTheme } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 
 import {
   setEditRoadtripStops,
@@ -30,47 +21,12 @@ import { LocationState } from '../../store/user/types'
 import { fetchUserEntries } from '../../utils/AuthService'
 import { autocomplete, iterateStops } from '../../utils/autocomplete'
 import { reverseGeocodeHereData } from '../../utils/reverseGeocodeHereData'
-
-const StyledPopover = withTheme(styled(Popover)`
-  padding: ${(props) => props.theme.spacing(3)}px;
-`)
-
-const StyledPopoverButton = withTheme(styled(Button)`
-  border-radius: 15px;
-  padding: ${(props) => props.theme.spacing(1)}px
-    ${(props) => props.theme.spacing(2)}px;
-  background-color: #fff;
-`)
-
-const StyledSubmitButton = withTheme(styled(StyledPopoverButton)`
-  color: #fff;
-  background-color: #71b255;
-  max-width: 80%;
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
-`)
-
-const StyledNewStoppTextField = withTheme(styled(TextField)`
-  margin: ${(props) => props.theme.spacing(2)}px 0;
-  input,
-  label {
-    font-size: ${(props) => props.theme.spacing(3)}px;
-    margin-left: ${(props) => props.theme.spacing(3.7)}px;
-  }
-  padding-bottom: ${(props) => props.theme.spacing(1.25)}px;
-  border-radius: 15px;
-  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-  .MuiInput-underline {
-    :after {
-      content: none;
-    }
-    :before {
-      content: none;
-    }
-  }
-`)
+import {
+  StyledNewStoppTextField,
+  StyledPopover,
+  StyledPopoverButton,
+  StyledSubmitButton,
+} from './style'
 
 export type LocationAutocompleteProps = {
   usage: 'update' | 'create'

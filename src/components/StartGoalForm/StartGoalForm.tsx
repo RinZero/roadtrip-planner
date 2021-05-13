@@ -2,19 +2,15 @@ import { memo, useEffect, useState } from 'react'
 
 import {
   Box,
-  Button,
   Grid,
-  TextField,
   Typography,
   useMediaQuery,
   useTheme,
-  withTheme,
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
 
 import Tutorial from '../../components/Tutorial'
 import {
@@ -29,80 +25,13 @@ import {
 } from '../../store/selectors'
 import { fetchUserEntries } from '../../utils/AuthService'
 import { autocomplete, iterateStops } from '../../utils/autocomplete'
-
-const StyledForm = withTheme(styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: ${(props) => props.theme.spacing(1)}px;
-  .expand {
-    display: block;
-  }
-  .collapse {
-    width: ${(props) => props.theme.spacing(10)}px;
-    padding-top: 0px;
-    label {
-      display: none;
-    }
-    input {
-      font-size: ${(props) => props.theme.spacing(2)}px;
-    }
-  }
-`)
-
-const StyledButton = withTheme(styled(Button)`
-  width: 100%;
-  color: #ffffff;
-  background-color: #71b255;
-  padding: ${(props) => props.theme.spacing(2)}px;
-  border-radius: 15px;
-  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
-`)
-
-const AddButton = withTheme(styled(Button)`
-  border-radius: 15px;
-  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-  background-color: #ffffff;
-  padding: ${(props) => props.theme.spacing(2)}px;
-`)
-
-const StyledTextField = withTheme(styled(TextField)`
-  padding-bottom: ${(props) => props.theme.spacing(1.25)}px;
-  border-radius: 15px;
-  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-
-  .MuiInput-underline {
-    :after {
-      content: none;
-    }
-    :before {
-      content: none;
-    }
-  }
-`)
-
-const StartGoalTextField = withTheme(styled(StyledTextField)`
-  margin: ${(props) => props.theme.spacing(2)}px 0;
-  input,
-  label {
-    font-size: ${(props) => props.theme.spacing(3)}px;
-    margin-left: ${(props) => props.theme.spacing(3.7)}px;
-  }
-`)
-
-const FormBox = withTheme(styled(Box)`
-  display: block;
-  width: 100%;
-  ${(props) => props.theme.breakpoints.up('md')} {
-    display: flex;
-    justify-content: center;
-    gap: ${(props) => props.theme.spacing(5)}px;
-  }
-`)
+import {
+  StyledButton,
+  StyledForm,
+  AddButton,
+  FormBox,
+  StartGoalTextField,
+} from './style'
 
 export const StartGoalForm = () => {
   const dispatch = useDispatch()

@@ -1,22 +1,15 @@
 import React, { memo } from 'react'
 
-import {
-  Box,
-  Button,
-  Card,
-  Input,
-  Typography,
-  withTheme,
-} from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
 
 import ImageDropzone from '../../components/ImageDropzone'
 import { logInSuccess, setMessage } from '../../store/actions'
 import { selectDropzoneFiles } from '../../store/selectors'
 import { logIn, signUp } from '../../utils/AuthService'
+import { StyledInput, LoginButton, SignupCard } from './style'
 
 type IFormInput = {
   email: string
@@ -24,25 +17,6 @@ type IFormInput = {
   password_confirmation: string
   username: string
 }
-const StyledInput = withTheme(styled(Input)`
-  margin: ${(props) => props.theme.spacing(1.5)}px 0;
-  min-width: ${(props) => props.theme.spacing(31)}px;
-`)
-const LoginButton = withTheme(styled(Button)`
-  color: #ffffff;
-  margin: auto;
-  width: ${(props) => props.theme.spacing(28)}px;
-  &:hover {
-    background-color: #50803c;
-  }
-`)
-const SignupCard = withTheme(styled(Card)`
-  max-width: ${(props) => props.theme.spacing(50)}px;
-  padding: ${(props) => props.theme.spacing(3.125)}px;
-  margin: ${(props) => props.theme.spacing(7)}px;
-  border-radius: 15px;
-  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-`)
 
 const SignUpForm = () => {
   const { register, handleSubmit } = useForm()

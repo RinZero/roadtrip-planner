@@ -1,11 +1,8 @@
 import React, { MouseEvent, useState, memo } from 'react'
 
 import {
-  Button,
-  Avatar,
   Box,
   Popper,
-  withTheme,
   Typography,
   FormControl,
   InputLabel,
@@ -26,7 +23,6 @@ import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { logOutSuccess, updateUser, setMessage } from '../../store/actions'
 import {
@@ -40,74 +36,16 @@ import {
 } from '../../store/selectors'
 import { editUser, deleteUser } from '../../utils/AuthService'
 import ImageDropzone from '../ImageDropzone'
-
-const ProfileBox = withTheme(styled(Box)`
-  margin-top: ${(props) => props.theme.spacing(4)}px;
-  margin-bottom: ${(props) => props.theme.spacing(2)}px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  ${(props) => props.theme.breakpoints.up('lg')} {
-    margin-top: ${(props) => props.theme.spacing(6)}px;
-    margin-bottom: ${(props) => props.theme.spacing(4)}px;
-  }
-`)
-
-const PopperBox = withTheme(styled.form`
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  padding: ${(props) => props.theme.spacing(2)}px;
-  background-color: white;
-  border-radius: 15px;
-`)
-
-const IconBox = withTheme(styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  margin: ${(props) => props.theme.spacing(2.5)}px
-    ${(props) => props.theme.spacing(1)}px
-    ${(props) => props.theme.spacing(1)}px;
-`)
-
-const ProfileAvatar = withTheme(styled(Avatar)`
-  width: ${(props) => props.theme.spacing(25)}px;
-  height: ${(props) => props.theme.spacing(25)}px;
-  margin: 0 auto;
-`)
-
-const TypographyMarginSmall = withTheme(styled(Typography)`
-  margin-top: ${(props) => props.theme.spacing(1)}px;
-`)
-
-const InfoButton = withTheme(styled(Button)`
-  background-color: white;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  height: ${(props) => props.theme.spacing(5)}px;
-  margin-right: ${(props) => props.theme.spacing(0.5)}px;
-`)
-
-const EditButton = withTheme(styled(Button)`
-  background-color: #71b255;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  color: white;
-  height: ${(props) => props.theme.spacing(5)}px;
-  min-width: ${(props) => props.theme.spacing(5)}px;
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
-`)
-
-const ConfirmButton = withTheme(styled(Button)`
-  background-color: #71b255;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  color: white;
-  height: ${(props) => props.theme.spacing(5)}px;
-  min-width: ${(props) => props.theme.spacing(5)}px;
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
-`)
+import {
+  ProfileBox,
+  PopperBox,
+  IconBox,
+  ProfileAvatar,
+  TypographyMarginSmall,
+  InfoButton,
+  EditButton,
+  ConfirmButton,
+} from './style'
 
 const ProfileComponent = () => {
   const token = useSelector(selectUserToken())

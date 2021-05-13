@@ -1,13 +1,8 @@
 import React, { memo } from 'react'
 
-import { Box, withTheme, Typography } from '@material-ui/core'
-import styled from 'styled-components'
+import { Typography } from '@material-ui/core'
 
-const ImprintBox = withTheme(styled(Box)`
-  padding: ${(props) => props.theme.spacing(12)}px
-    ${(props) => props.theme.spacing(2)}px;
-  text-align: left;
-`)
+import { ImprintBox } from './style'
 
 const ImprintPage = () => {
   return (

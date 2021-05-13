@@ -1,15 +1,8 @@
 import React, { memo, useState } from 'react'
 
-import {
-  Box,
-  FormControlLabel,
-  Switch,
-  TextField,
-  withTheme,
-} from '@material-ui/core'
+import { Box, FormControlLabel, Switch, TextField } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { StyledOptionContainer } from '../../components/EditRoadtripCreation'
 import EditRoadtripUpdate from '../../components/EditRoadtripUpdate'
@@ -17,20 +10,7 @@ import { LocationAutocomplete } from '../../components/LocationAutocomplete'
 import { setMessage } from '../../store/actions'
 import { selectEditRoadtrip, selectUserToken } from '../../store/selectors'
 import { updateRoadtrip } from '../../utils/AuthService'
-
-const EditRoadtripPageStyles = withTheme(styled.div`
-  max-width: 70%;
-  margin: auto;
-  padding: ${(props) => props.theme.spacing(12)}px 0
-    ${(props) => props.theme.spacing(10)}px 0;
-
-  ${(props) => props.theme.breakpoints.up('md')} {
-    height: calc(100vh - 40px);
-  }
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`)
+import { EditRoadtripPageStyles } from './style'
 
 const EditRoadtripPage = () => {
   const editRoadtrip = useSelector(selectEditRoadtrip())

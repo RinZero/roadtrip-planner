@@ -1,32 +1,11 @@
 import React, { memo, useEffect, useState } from 'react'
 
-import { withTheme, Slide, Paper, Typography, Box } from '@material-ui/core'
+import { Typography, Box } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import styled from 'styled-components'
 
 import bus from '../../assets/jpgBus.jpg'
 import { setMessage } from '../../store/actions'
-
-const StyledSlide = withTheme(styled(Slide)`
-  width: 100%;
-  background-color: white;
-`)
-
-const ImageBox = withTheme(styled(Box)`
-  img {
-    height: ${(props) => props.theme.spacing(10)}px;
-    padding-right: ${(props) => props.theme.spacing(1)}px;
-  }
-`)
-
-const StyledPaper = withTheme(styled(Paper)`
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: ${(props) => props.theme.spacing(1)}px;
-`)
+import { ImageBox, StyledPaper, StyledSlide } from './style'
 
 type ErrorMessageProps = {
   message: string

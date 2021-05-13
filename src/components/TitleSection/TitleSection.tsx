@@ -1,13 +1,8 @@
 import React, { memo } from 'react'
 
-import { Box, Typography, withTheme } from '@material-ui/core'
-import styled from 'styled-components'
+import { Box } from '@material-ui/core'
 
-const StyledTypography = withTheme(styled(Typography)`
-  ${(props) => props.theme.breakpoints.between('md', 'lg')} {
-    font-size: 1.9rem;
-  }
-`)
+import { StyledTypography } from './style'
 
 const TitleSection = () => {
   return (

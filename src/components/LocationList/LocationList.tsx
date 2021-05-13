@@ -1,18 +1,10 @@
 import React, { memo } from 'react'
 
-import {
-  List,
-  ListItemText,
-  IconButton,
-  ListItem,
-  withTheme,
-  Box,
-} from '@material-ui/core'
+import { List, ListItemText, IconButton, Box } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
-import styled from 'styled-components'
 
 import {
   selectUserLocations,
@@ -21,19 +13,7 @@ import {
 } from '../../store/selectors'
 import { deletePlace } from '../../utils/CreateNewPlace'
 import { initUserData } from '../../utils/initUserData'
-
-const LocationListItem = withTheme(styled(ListItem)`
-  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-  border-radius: 15px;
-  border: 1px solid rgb(0 0 0 / 16%);
-  overflow: auto;
-  margin-bottom: ${(props) => props.theme.spacing(1.2)}px;
-`)
-
-const LocationBox = withTheme(styled(Box)`
-  max-height: ${(props) => props.theme.spacing(16)}px;
-  overflow: auto;
-`)
+import { LocationBox, LocationListItem } from './style'
 
 export const LocationList = () => {
   const locations = useSelector(selectUserLocations())

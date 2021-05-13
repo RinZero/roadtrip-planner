@@ -16,7 +16,7 @@ const windowH = window as any
 const PlaceMap = (props: PlaceMapProps) => {
   const { register, setValue } = props
   const theme = useTheme()
-  const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'lg'))
+  const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'xl'))
 
   // Create a reference to the HTML element we want to put the map on
   const mapRef = useRef<HTMLDivElement>(null)
@@ -83,7 +83,7 @@ const PlaceMap = (props: PlaceMapProps) => {
           id="mapPlace"
           ref={mapRef}
           style={{
-            height: isLaptop ? '30vh' : '20vh',
+            height: isLaptop ? '25vh' : '20vh',
             maxWidth: '70vw',
             minWidth: isLaptop ? '40vw' : '270px',
             margin: 'auto',

@@ -1,6 +1,20 @@
 import { Box, Button, ListItem, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
 
+export const CreateButton = withTheme(styled(Button)`
+  width: ${(props) => props.theme.spacing(35)}px;
+  color: #ffffff;
+  background-color: #71b255;
+  padding: ${(props) => props.theme.spacing(2)}px;
+  border-radius: 15px;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  margin-top: ${(props) => props.theme.spacing(2)}px;
+  &:hover,
+  &:active {
+    background-color: #355727;
+  }
+`)
+
 export const StyledBox = withTheme(styled(Box)<{ isLaptop: boolean }>`
   margin-top: ${(props) => props.theme.spacing(1.5)}px;
   min-width: ${(props) => props.theme.spacing(25)}px;

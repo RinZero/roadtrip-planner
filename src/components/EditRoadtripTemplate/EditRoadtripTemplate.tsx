@@ -3,7 +3,6 @@ import { memo, useState, DragEvent, FC, useEffect } from 'react'
 import {
   Box,
   List,
-  Button,
   ListItemText,
   IconButton,
   ListItemSecondaryAction,
@@ -22,7 +21,7 @@ import {
 } from '../../store/selectors'
 import DisplayMapFC from '../../utils/DisplayMapFC'
 import { initUserData } from '../../utils/initUserData'
-import { StyledBox, DragListItem, ContentBox } from './style'
+import { StyledBox, DragListItem, ContentBox, CreateButton } from './style'
 
 export type EditRoadtripComponentProps = {
   dndStateOrder: Array<Record<string, any>>
@@ -183,7 +182,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
           </List>
         </StyledBox>
       </ContentBox>
-      <Button
+      <CreateButton
         id="roadtrip_erstellen_button"
         color="primary"
         onClick={async () => {
@@ -192,7 +191,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
         }}
       >
         {usage === 'update' ? 'Roadtrip bearbeiten' : 'Roadtrip erstellen'}
-      </Button>
+      </CreateButton>
     </Box>
   )
 }

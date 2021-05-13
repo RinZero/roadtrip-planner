@@ -4,7 +4,7 @@ import { Box, FormControlLabel, Switch, TextField } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import { StyledOptionContainer } from '../../components/EditRoadtripCreation'
+import { StyledOptionContainer } from '../../components/EditRoadtripCreation/style'
 import EditRoadtripUpdate from '../../components/EditRoadtripUpdate'
 import { LocationAutocomplete } from '../../components/LocationAutocomplete'
 import { setMessage } from '../../store/actions'

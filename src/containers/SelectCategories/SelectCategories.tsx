@@ -30,6 +30,7 @@ import {
 } from '../../utils/getCategoriesArray'
 import {
   AddButton,
+  StartButton,
   TagBox,
   TagChip,
   CategoryInputLabel,
@@ -254,7 +255,7 @@ const SelectCategories = () => {
                     <Typography variant="h6">
                       Fertig ausgewählt? Generiere jetzt deinen Roadtrip!
                     </Typography>
-                    <Button
+                    <StartButton
                       onClick={async () => {
                         setLoading(true)
                         dispatch(
@@ -290,7 +291,7 @@ const SelectCategories = () => {
                       }}
                     >
                       Generiere
-                    </Button>
+                    </StartButton>
                   </div>
                 ) : (
                   ''

@@ -1,6 +1,6 @@
 import { useRef, useEffect, memo } from 'react'
 
-import { Box, useMediaQuery, useTheme } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 
 import flag from '../../assets/flag.svg'
 import { StyledNumberInput } from './style'
@@ -15,8 +15,6 @@ const windowH = window as any
 
 const PlaceMap = (props: PlaceMapProps) => {
   const { register, setValue } = props
-  const theme = useTheme()
-  const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'xl'))
 
   // Create a reference to the HTML element we want to put the map on
   const mapRef = useRef<HTMLDivElement>(null)
@@ -78,15 +76,14 @@ const PlaceMap = (props: PlaceMapProps) => {
 
   return (
     <>
-      <Box display="flex" flexWrap="wrap" justifyContent="center">
+      <Box display="flex" flexWrap="wrap" justifyContent="center" height="25vh">
         <div
           id="mapPlace"
           ref={mapRef}
           style={{
-            height: isLaptop ? '25vh' : '20vh',
+            height: '25vh',
             maxWidth: '70vw',
-            minWidth: isLaptop ? '40vw' : '270px',
-            margin: 'auto',
+            minWidth: '270px',
           }}
         />
         <Box

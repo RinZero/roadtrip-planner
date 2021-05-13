@@ -1,42 +1,13 @@
 import React, { memo } from 'react'
 
-import { Box, withTheme, Typography } from '@material-ui/core'
-import styled from 'styled-components'
+import { Typography } from '@material-ui/core'
 
 import bild from '../../assets/bild-small.jpg'
 import bus from '../../assets/bus-small.jpg'
 import frauenInAuto from '../../assets/frauenInAuto-small.jpg'
 import SignUpCard from '../../components/SignUpCard/SignUpCard'
 import SignUpForm from './SignUpForm'
-
-const SignUpPageContainer = withTheme(styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
-  ${(props) => props.theme.breakpoints.up(1100)} {
-    flex-direction: row;
-    height: calc(
-      100vh - ${(props) => props.theme.spacing(18)}px
-    ); //100vh - (header(10) +footer(8))
-  }
-  margin-bottom: 0;
-  margin: ${(props) => props.theme.spacing(10)}px 0
-    ${(props) => props.theme.spacing(8)}px 0;
-`)
-
-const SignUpBox = withTheme(styled(Box)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  heigh: 100%;
-  margin-left: ${(props) => props.theme.spacing(7)}px;
-  ${(props) => props.theme.breakpoints.down(1100)} {
-    margin-right: ${(props) => props.theme.spacing(7)}px;
-    margin-top: ${(props) => props.theme.spacing(1.5)}px;
-  }
-`)
+import { SignUpPageContainer, SignUpBox } from './style'
 
 const SignUpPage = () => {
   return (

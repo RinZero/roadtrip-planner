@@ -1,15 +1,8 @@
 import { memo, useCallback, useState } from 'react'
 
-import {
-  Box,
-  FormControlLabel,
-  Switch,
-  TextField,
-  withTheme,
-} from '@material-ui/core'
+import { Box, FormControlLabel, Switch, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { LocationAutocomplete } from '../../components/LocationAutocomplete'
 import Tutorial from '../../components/Tutorial'
@@ -21,27 +14,7 @@ import {
 } from '../../store/selectors'
 import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
-
-const CreateRoadtripPageStyles = withTheme(styled.div`
-  max-width: 100%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`)
-
-export const StyledOptionContainer = withTheme(styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  margin: 0 ${(props) => props.theme.spacing(2)}px;
-  flex-direction: row;
-  ${(props) => props.theme.breakpoints.down('sm')} {
-    flex-direction: column;
-    align-items: center;
-    margin-top: ${(props) => props.theme.spacing(2)}px;
-  }
-`)
+import { CreateRoadtripPageStyles, StyledOptionContainer } from './style'
 
 const EditRoadtripCreation = () => {
   const dispatch = useDispatch()

@@ -1,9 +1,8 @@
 import React, { memo } from 'react'
 
-import { Box, Typography, withTheme } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
 
 import AdminTable from '../../components/AdminTable'
 import {
@@ -11,13 +10,7 @@ import {
   selectUserLocations,
   selectUserIsAdmin,
 } from '../../store/selectors'
-
-const StyledBox = withTheme(styled(Box)`
-  display: flex;
-  flex-direction: column;
-  padding: ${(props) => props.theme.spacing(12)}px;
-  align-items: center;
-`)
+import { StyledBox } from './style'
 
 const AdminPage = () => {
   const history = useHistory()

@@ -64,7 +64,10 @@ export default () => {
       MuiInput: {
         underline: {
           '&::before': {
-            borderBottom: 0,
+            content: 'none',
+          },
+          '&::after': {
+            content: 'none',
           },
         },
       },

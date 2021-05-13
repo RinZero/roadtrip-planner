@@ -1,15 +1,7 @@
 import React, { memo } from 'react'
 
-import { withTheme, Box } from '@material-ui/core'
-import styled from 'styled-components'
-
 import ErrorMessage from './ErrorMessage'
-
-const OverlayBox = withTheme(styled(Box)`
-  z-index: 3;
-  position: fixed;
-  bottom: 0;
-`)
+import { OverlayBox } from './style'
 
 type ErrorMessageProps = {
   message: string

@@ -4,18 +4,14 @@ import {
   TableCell,
   Paper,
   TableBody,
-  TableHead,
   TableRow,
   Table,
-  TableContainer,
   IconButton,
   Switch,
   Typography,
 } from '@material-ui/core'
-import { withTheme } from '@material-ui/core/styles'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 
 import { selectUserToken } from '../../store/selectors'
 import { LocationState, UserState } from '../../store/user/types'
@@ -23,25 +19,12 @@ import { adminEditPlace, adminEditUser } from '../../utils/admin'
 import { deleteUser } from '../../utils/AuthService'
 import { deletePlace } from '../../utils/CreateNewPlace'
 import { initUserData } from '../../utils/initUserData'
-
-const StyledTableRow = withTheme(styled(TableRow)`
-  &:nth-child(odd) {
-    background-color: lightgrey;
-  }
-`)
-const StyledTableHead = withTheme(styled(TableHead)`
-  background-color: lightblue;
-`)
-const StyledTableContainer = withTheme(styled(TableContainer)`
-  border: black 2px solid;
-  margin-bottom: ${(props) => props.theme.spacing(4)}px;
-`)
-const StyledTableCell = withTheme(styled(TableCell)<{
-  isShort: boolean
-}>`
-  max-width: ${(props) =>
-    props.isShort ? props.theme.spacing(25) : props.theme.spacing(80)}px;
-`)
+import {
+  StyledTableContainer,
+  StyledTableCell,
+  StyledTableHead,
+  StyledTableRow,
+} from './style'
 
 const AdminTable = (props: {
   obj?: LocationState[] | UserState[]

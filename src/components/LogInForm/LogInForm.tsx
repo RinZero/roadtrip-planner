@@ -1,36 +1,18 @@
 import React, { memo, useState } from 'react'
 
-import { Button, Input, Typography, withTheme } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import styled from 'styled-components'
 
 import { logInSuccess } from '../../store/actions'
 import { logIn } from '../../utils/AuthService'
 import { initUserData } from '../../utils/initUserData'
+import { StyledButton, StyledInput, StyledForm } from './style'
 
 type IFormInput = {
   email: string
   password: string
 }
-
-const StyledButton = styled(Button)`
-  color: #ffffff;
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
-`
-const StyledForm = styled.form`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`
-
-const StyledInput = withTheme(styled(Input)`
-  margin-bottom: ${(props) => props.theme.spacing(2)}px;
-`)
 
 const LogInForm = () => {
   const dispatch = useDispatch()

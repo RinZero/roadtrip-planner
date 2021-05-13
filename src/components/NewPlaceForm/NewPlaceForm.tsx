@@ -69,12 +69,13 @@ const NewPlaceForm = (props: PropsForForm) => {
     if (
       response.status &&
       (response.status === 'ok' || response.status === 'created')
-    )
+    ) {
       await initUserData(token, dispatch)
+      history.push('/profile')
+    }
     // Get response
     if (typeof response.message === 'string') {
       dispatch(setMessage({ message: response.message }))
-      history.push('/profile')
     } else {
       const arr: Array<Record<string, any>> = []
       response.forEach(function (item: Record<string, any>) {

@@ -165,7 +165,7 @@ export const fetchUserEntries = (token: string) => {
     })
 }
 
-export const deleteRoadtrip = (token: string, id: number) => {
+export const deleteRoadtrip = (token: string, id: string) => {
   return fetch
     .delete('roadtrips/' + id, {
       headers: {
@@ -173,8 +173,7 @@ export const deleteRoadtrip = (token: string, id: number) => {
       },
     })
     .then((response) => {
-      // eslint-disable-next-line no-console
-      console.log(response)
+      return response
     })
 }
 
@@ -193,7 +192,7 @@ export const editUser = (data: FormData, token: string, id: string) => {
     })
 }
 
-export const deleteUser = (token: string, id: number) => {
+export const deleteUser = (token: string, id: string) => {
   return fetch
     .delete(`users/${id}`, {
       headers: {

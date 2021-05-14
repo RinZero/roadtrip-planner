@@ -70,43 +70,49 @@ const SignUpForm = () => {
           <Typography variant="h1">Steig ein!</Typography>
           <Box>
             <StyledInput
+              label="Username *"
               type="text"
               name="username"
               inputRef={register}
-              placeholder="Username"
-              variant="outlined"
               inputProps={{ minlength: 3, maxlength: 50, required: true }}
             />
             <StyledInput
+              label="Email *"
               type="email"
               name="email"
               inputRef={register}
-              placeholder="Email"
-              variant="outlined"
               inputProps={{ type: 'email', required: true }}
             />
             <StyledInput
+              label="Passwort *"
               type="password"
               name="password"
               inputRef={register}
-              placeholder="Passwort"
-              variant="outlined"
               inputProps={{ minlength: 8, required: true }}
             />
             <StyledInput
+              label="Passwort wiederholen *"
               type="password"
               name="password_confirmation"
               inputRef={register}
-              placeholder="Passwort wiederholen"
-              variant="outlined"
               inputProps={{ minlength: 6, required: true }}
             />
-            <Box display="flex" alignItems="flex-start" flexDirection="column">
+            <Box
+              mt={2}
+              display="flex"
+              alignItems="flex-start"
+              flexDirection="column"
+            >
               <Box mb={1}>
                 <Typography variant="h6">Profilbild:</Typography>
               </Box>
               <ImageDropzone />
             </Box>
+          </Box>
+          <Box marginY={2}>
+            <Typography color="secondary" variant="body1">
+              Felder mit * sind Pflichtfelder
+            </Typography>
           </Box>
           <LoginButton type="submit" color="primary">
             Registrieren

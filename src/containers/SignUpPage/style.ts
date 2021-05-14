@@ -1,9 +1,9 @@
-import { Box, Button, Card, Input, withTheme } from '@material-ui/core'
+import { Box, Button, Card, TextField, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
 
 //SignUpForm Styles
 
-export const StyledInput = withTheme(styled(Input)`
+export const StyledInput = withTheme(styled(TextField)`
   margin: ${(props) => props.theme.spacing(1.5)}px 0;
   min-width: ${(props) => props.theme.spacing(31)}px;
 `)

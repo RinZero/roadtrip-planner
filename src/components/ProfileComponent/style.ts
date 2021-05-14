@@ -38,13 +38,6 @@ export const TypographyMarginSmall = withTheme(styled(Typography)`
   margin-top: ${(props) => props.theme.spacing(1)}px;
 `)
 
-export const InfoButton = withTheme(styled(Button)`
-  background-color: white;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  height: ${(props) => props.theme.spacing(5)}px;
-  margin-right: ${(props) => props.theme.spacing(0.5)}px;
-`)
-
 export const EditButton = withTheme(styled(Button)`
   background-color: #71b255;
   box-shadow: 0px 3px 6px 0px #b1b1b1;

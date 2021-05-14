@@ -10,14 +10,14 @@ import {
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
-import { setMessage } from '../../store/actions'
+import { logOutSuccess, setMessage, updateUser } from '../../store/actions'
 import { selectUserToken } from '../../store/selectors'
-import { deleteRoadtrip } from '../../utils/AuthService'
+import { deleteRoadtrip, deleteUser } from '../../utils/AuthService'
 import { deletePlace } from '../../utils/CreateNewPlace'
 import { initUserData } from '../../utils/initUserData'
-import { InfoButton } from '../ProfileComponent/style'
-
+import { InfoButton } from './style'
 type DialogProps = {
   objectType: string
   id: string
@@ -29,6 +29,7 @@ export const DialogDelete = (props: DialogProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const token = useSelector(selectUserToken())
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const handleClickOpenDelete = () => {
     setIsOpen(true)
@@ -48,19 +49,38 @@ export const DialogDelete = (props: DialogProps) => {
         await initUserData(token, dispatch)
         dispatch(setMessage({ message: `Dein ${objectType} wurde gelöscht` }))
       }
+    } else if (objectType === 'Profil') {
+      const response = await deleteUser(token, (id as unknown) as number)
+      if (response.status && response.status === 204) {
+        dispatch(
+          updateUser({
+            userName: '',
+            email: '',
+            password: '',
+            picture: '',
+          })
+        )
+        handleCloseDelete()
+        dispatch(logOutSuccess())
+        history.push('/')
+      }
+      setIsOpen(false)
     }
-    setIsOpen(false)
   }
 
   return (
     <>
-      <IconButton
-        onClick={async () => {
-          handleClickOpenDelete()
-        }}
-      >
-        <DeleteIcon />
-      </IconButton>
+      {objectType === 'Profil' ? (
+        <InfoButton onClick={handleClickOpenDelete}>Profil löschen</InfoButton>
+      ) : (
+        <IconButton
+          onClick={async () => {
+            handleClickOpenDelete()
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      )}
       <Dialog
         open={isOpen}
         onClose={handleCloseDelete}

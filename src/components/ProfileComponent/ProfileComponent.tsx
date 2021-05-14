@@ -11,20 +11,16 @@ import {
   InputAdornment,
   Divider,
   ClickAwayListener,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
   Link,
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 
-import { logOutSuccess, updateUser, setMessage } from '../../store/actions'
+import { DialogDelete } from '../../components/DialogDelete'
+import { updateUser, setMessage } from '../../store/actions'
 import {
   selectUserPicture,
   selectUserEmail,
@@ -34,7 +30,7 @@ import {
   selectUserIsAdmin,
   selectDropzoneFiles,
 } from '../../store/selectors'
-import { editUser, deleteUser } from '../../utils/AuthService'
+import { editUser } from '../../utils/AuthService'
 import ImageDropzone from '../ImageDropzone'
 import {
   ProfileBox,
@@ -42,7 +38,6 @@ import {
   IconBox,
   ProfileAvatar,
   TypographyMarginSmall,
-  InfoButton,
   EditButton,
   ConfirmButton,
 } from './style'
@@ -55,7 +50,6 @@ const ProfileComponent = () => {
   const profilePic = useSelector(selectUserPicture())
   const isAdmin = useSelector(selectUserIsAdmin())
 
-  const history = useHistory()
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null)
@@ -64,7 +58,6 @@ const ProfileComponent = () => {
     showPassword: false,
     showPassword2: false,
     open: false,
-    openDelete: false,
   })
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -77,31 +70,6 @@ const ProfileComponent = () => {
     setValues({ ...values, open: false })
     setAnchorEl(null)
     setId(values.open ? 'simple-popper' : undefined)
-  }
-
-  const handleClickOpenDelete = () => {
-    setValues({ ...values, openDelete: true })
-  }
-
-  const handleCloseDelete = () => {
-    setValues({ ...values, openDelete: false })
-  }
-
-  const handleDelete = async () => {
-    const response = await deleteUser(token, (userId as unknown) as number)
-    if (response.status && response.status === 204) {
-      dispatch(
-        updateUser({
-          userName: '',
-          email: '',
-          password: '',
-          picture: '',
-        })
-      )
-      handleCloseDelete()
-      dispatch(logOutSuccess())
-      history.push('/')
-    }
   }
 
   const handleClickShowPassword = () => {
@@ -285,35 +253,15 @@ const ProfileComponent = () => {
               <Divider />
 
               <IconBox>
-                <InfoButton onClick={handleClickOpenDelete}>
-                  Profil löschen
-                </InfoButton>
+                <DialogDelete
+                  objectType="Profil"
+                  id={userId}
+                  text="Bist du dir wirklich sicher? Das Löschen deines Profils kann nicht mehr rückgängig
+                    gemacht werden. Damit gehen auch deine erstellten Roadtrips
+                    und Orte verloren."
+                />
                 <ConfirmButton type="submit">Speichern</ConfirmButton>
               </IconBox>
-
-              <Dialog
-                open={values.openDelete}
-                onClose={handleCloseDelete}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  Willst du dein Profil wirklich löschen?
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    Das Löschen deines Profils kann nicht mehr rückgängig
-                    gemacht werden. Damit gehen auch deine erstellten Roadtrips
-                    und Orte verloren.
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <InfoButton onClick={handleCloseDelete}>Abbrechen</InfoButton>
-                  <InfoButton onClick={handleDelete} color="secondary">
-                    Löschen
-                  </InfoButton>
-                </DialogActions>
-              </Dialog>
             </PopperBox>
           </ClickAwayListener>
         </Popper>

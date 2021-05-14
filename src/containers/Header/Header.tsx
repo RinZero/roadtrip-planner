@@ -80,7 +80,11 @@ const Header = () => {
       <ToolbarContainer>
         <LogoBox>
           <HeaderLink component={RouterLink} to={`/`}>
-            <img src={isTablet ? logoMobile : logo} alt="Roadabout Logo" />
+            <img
+              aria-label="Roadabout"
+              src={isTablet ? logoMobile : logo}
+              alt="Roadabout Logo"
+            />
           </HeaderLink>
         </LogoBox>
         {!isMobile && (
@@ -104,6 +108,7 @@ const Header = () => {
         <AccountButton
           id={'header_profil_button'}
           aria-label="profile"
+          title="Hier geht es zum Profil"
           onClick={() =>
             history.push(userName === 'Guest' ? '/sign_up' : '/profile')
           }
@@ -169,7 +174,7 @@ const Header = () => {
             )}
           </>
         )}
-        <HeaderIconButton onClick={handleClick}>
+        <HeaderIconButton aria-label="Burgermenu" onClick={handleClick}>
           <MenuIcon />
         </HeaderIconButton>
         <Menu

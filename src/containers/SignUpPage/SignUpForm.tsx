@@ -88,7 +88,7 @@ const SignUpForm = () => {
               type="password"
               name="password"
               inputRef={register}
-              inputProps={{ minlength: 8, required: true }}
+              inputProps={{ minlength: 6, required: true }}
             />
             <StyledInput
               label="Passwort wiederholen *"

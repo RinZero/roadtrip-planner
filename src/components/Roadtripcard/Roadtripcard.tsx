@@ -1,15 +1,12 @@
-import React, { memo, MouseEvent, useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
-import { Box, IconButton, Typography } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
-import { useDispatch, useSelector } from 'react-redux'
+import { Box, Typography } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
+import { DialogDelete } from '../../components/DialogDelete'
 import { setEditRoadtrip } from '../../store/actions'
-import { selectUserToken } from '../../store/selectors'
 import { RoadtripState } from '../../store/user/types'
-import { deleteRoadtrip } from '../../utils/AuthService'
-import { initUserData } from '../../utils/initUserData'
 import { reverseLookupHereData } from '../../utils/reverseLookupHereData'
 import { getRoadtripImageLink, getImageByKey } from './getRoadtripImageLink'
 import {
@@ -31,7 +28,6 @@ const Roadtripcard = (props: RoadtripcardProps) => {
   const stopsnumber = roadtrip.stops ? roadtrip.stops.length : 0
   const history = useHistory()
   const dispatch = useDispatch()
-  const token = useSelector(selectUserToken())
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,15 +44,13 @@ const Roadtripcard = (props: RoadtripcardProps) => {
   }, [postalCodeFirst, props.roadtrip.stops, roadtrip.stops])
 
   return (
-    <MyRoadtripCard
-      variant="outlined"
-      square
-      onClick={() => {
-        dispatch(setEditRoadtrip({ editRoadtrip: roadtrip }))
-        history.push('/edit_roadtrip')
-      }}
-    >
-      <MyRoadtripCardActionArea>
+    <MyRoadtripCard variant="outlined" square>
+      <MyRoadtripCardActionArea
+        onClick={() => {
+          dispatch(setEditRoadtrip({ editRoadtrip: roadtrip }))
+          history.push('/edit_roadtrip')
+        }}
+      >
         <MyRoadtripCardMedia
           image={getImageByKey(imageName)}
           src={getImageByKey(imageName)}
@@ -70,24 +64,10 @@ const Roadtripcard = (props: RoadtripcardProps) => {
             {stopsnumber} Stops
           </Typography>
         </RoadtripCardContent>
-
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <div>
-            <IconButton size="small">⛷️</IconButton>
-            <IconButton size="small">🍺</IconButton>
-          </div>
-          <IconButton
-            onClick={async (e: MouseEvent) => {
-              e.preventDefault()
-              e.stopPropagation()
-              await deleteRoadtrip(token, roadtrip.id)
-              initUserData(token, dispatch)
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Box>
       </MyRoadtripCardActionArea>
+      <Box display="flex" justifyContent="flex-end">
+        <DialogDelete objectType="Roadtrip" id={roadtrip.id + ''} />
+      </Box>
     </MyRoadtripCard>
   )
 }

@@ -1,25 +1,16 @@
 import React, { memo } from 'react'
 
 import { List, ListItemText, IconButton, Box } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
 
-import {
-  selectUserLocations,
-  selectUserToken,
-  selectUserId,
-} from '../../store/selectors'
-import { deletePlace } from '../../utils/CreateNewPlace'
-import { initUserData } from '../../utils/initUserData'
+import { DialogDelete } from '../../components/DialogDelete'
+import { selectUserLocations, selectUserId } from '../../store/selectors'
 import { LocationBox, LocationListItem } from './style'
-
 export const LocationList = () => {
   const locations = useSelector(selectUserLocations())
-  const token = useSelector(selectUserToken())
   const userID = (useSelector(selectUserId()) as unknown) as number
-  const dispatch = useDispatch()
 
   return (
     <LocationBox>
@@ -40,15 +31,7 @@ export const LocationList = () => {
                     >
                       <EditIcon />
                     </IconButton>
-                    <IconButton
-                      onClick={async () => {
-                        const response = await deletePlace(token, location.id)
-                        if (response.status && response.status === 204)
-                          await initUserData(token, dispatch)
-                      }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
+                    <DialogDelete objectType="Ort" id={location.id} />
                   </Box>
                 </Box>
               </LocationListItem>

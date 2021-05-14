@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { DialogDelete } from '../../components/DialogDelete'
 import { setEditRoadtrip } from '../../store/actions'
 import { RoadtripState } from '../../store/user/types'
+import { deleteRoadtrip } from '../../utils/AuthService'
 import { reverseLookupHereData } from '../../utils/reverseLookupHereData'
 import { getRoadtripImageLink, getImageByKey } from './getRoadtripImageLink'
 import {
@@ -66,7 +67,11 @@ const Roadtripcard = (props: RoadtripcardProps) => {
         </RoadtripCardContent>
       </MyRoadtripCardActionArea>
       <Box display="flex" justifyContent="flex-end">
-        <DialogDelete objectType="Roadtrip" id={roadtrip.id + ''} />
+        <DialogDelete
+          objectType="Roadtrip"
+          id={roadtrip.id + ''}
+          onDelete={deleteRoadtrip}
+        />
       </Box>
     </MyRoadtripCard>
   )

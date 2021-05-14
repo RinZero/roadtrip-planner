@@ -38,7 +38,7 @@ const AdminTable = (props: {
   const dispatch = useDispatch()
   const [shortString, setShortString] = useState(true)
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     const response =
       title === 'Orte'
         ? await deletePlace(token, id.toString())
@@ -87,8 +87,7 @@ const AdminTable = (props: {
                 <TableCell align="right">
                   <IconButton
                     onClick={() => {
-                      const id: number = +row.id
-                      handleDelete(id)
+                      handleDelete(row.id)
                     }}
                   >
                     <DeleteIcon />

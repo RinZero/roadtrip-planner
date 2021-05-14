@@ -7,6 +7,7 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import { DialogDelete } from '../../components/DialogDelete'
 import { selectUserLocations, selectUserId } from '../../store/selectors'
+import { deletePlace } from '../../utils/CreateNewPlace'
 import { LocationBox, LocationListItem } from './style'
 export const LocationList = () => {
   const locations = useSelector(selectUserLocations())
@@ -31,7 +32,11 @@ export const LocationList = () => {
                     >
                       <EditIcon />
                     </IconButton>
-                    <DialogDelete objectType="Ort" id={location.id} />
+                    <DialogDelete
+                      objectType="Ort"
+                      id={location.id}
+                      onDelete={deletePlace}
+                    />
                   </Box>
                 </Box>
               </LocationListItem>

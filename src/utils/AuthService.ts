@@ -192,7 +192,7 @@ export const editUser = (data: FormData, token: string, id: string) => {
     })
 }
 
-export const deleteUser = (token: string, id: number) => {
+export const deleteUser = (token: string, id: string) => {
   return fetch
     .delete(`users/${id}`, {
       headers: {

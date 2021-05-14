@@ -18,6 +18,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
+import { deleteUser } from '../../utils/AuthService'
 
 import { DialogDelete } from '../../components/DialogDelete'
 import { updateUser, setMessage } from '../../store/actions'
@@ -256,6 +257,7 @@ const ProfileComponent = () => {
                 <DialogDelete
                   objectType="Profil"
                   id={userId}
+                  onDelete={deleteUser}
                   text="Bist du dir wirklich sicher? Das Löschen deines Profils kann nicht mehr rückgängig
                     gemacht werden. Damit gehen auch deine erstellten Roadtrips
                     und Orte verloren."

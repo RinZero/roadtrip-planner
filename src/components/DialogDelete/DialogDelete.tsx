@@ -9,23 +9,23 @@ import {
   DialogTitle,
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import { AxiosResponse } from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { logOutSuccess, setMessage, updateUser } from '../../store/actions'
 import { selectUserToken } from '../../store/selectors'
-import { deleteRoadtrip, deleteUser } from '../../utils/AuthService'
-import { deletePlace } from '../../utils/CreateNewPlace'
 import { initUserData } from '../../utils/initUserData'
 import { InfoButton } from './style'
 type DialogProps = {
   objectType: string
   id: string
+  onDelete(token: string, id: string): Promise<AxiosResponse<unknown>>
   text?: string
 }
 
 export const DialogDelete = (props: DialogProps) => {
-  const { objectType, id, text } = props
+  const { objectType, id, onDelete, text } = props
   const [isOpen, setIsOpen] = useState(false)
   const token = useSelector(selectUserToken())
   const dispatch = useDispatch()
@@ -40,18 +40,12 @@ export const DialogDelete = (props: DialogProps) => {
   }
 
   const handleDelete = async () => {
-    if (objectType === 'Ort' || objectType === 'Roadtrip') {
-      const response =
-        objectType === 'Ort'
-          ? await deletePlace(token, id)
-          : await deleteRoadtrip(token, id)
-      if (response.status && response.status === 204) {
-        await initUserData(token, dispatch)
-        dispatch(setMessage({ message: `Dein ${objectType} wurde gelöscht` }))
-      }
-    } else if (objectType === 'Profil') {
-      const response = await deleteUser(token, (id as unknown) as number)
-      if (response.status && response.status === 204) {
+    const response = await onDelete(token, id)
+    if (response.status && response.status === 204) {
+      await dispatch(
+        setMessage({ message: `Dein ${objectType} wurde gelöscht` })
+      )
+      if (objectType === 'Profil') {
         dispatch(
           updateUser({
             userName: '',
@@ -63,9 +57,11 @@ export const DialogDelete = (props: DialogProps) => {
         handleCloseDelete()
         dispatch(logOutSuccess())
         history.push('/')
+      } else if (objectType === 'Ort' || objectType === 'Roadtrip') {
+        await initUserData(token, dispatch)
       }
-      setIsOpen(false)
     }
+    setIsOpen(false)
   }
 
   return (

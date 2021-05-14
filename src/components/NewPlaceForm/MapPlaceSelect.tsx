@@ -6,23 +6,23 @@ import flag from '../../assets/flag.svg'
 import { StyledNumberInput } from './style'
 
 type PlaceMapProps = {
-  register: any
-  setValue: any
-  lat: number
-  lng: number
+  register: Record<string, any>
+  setValue(name: string, value: number | string): void
+  coor: { lat: number; lng: number }
+  zoom: number
 }
 const windowH = window as any
 
 const PlaceMap = (props: PlaceMapProps) => {
-  const { register, setValue } = props
+  const { register, setValue, zoom } = props
 
   // Create a reference to the HTML element we want to put the map on
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const { lat, lng } = props
-    setValue('latitude', lat)
-    setValue('longitude', lng)
+    const { coor } = props
+    setValue('latitude', coor.lat)
+    setValue('longitude', coor.lng)
 
     if (mapRef.current === null || mapRef === null) return
     const H = windowH.H
@@ -33,15 +33,15 @@ const PlaceMap = (props: PlaceMapProps) => {
 
     // map
     const hMap = new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
-      center: { lat: lat, lng: lng },
-      zoom: 6.5,
+      center: { lat: coor.lat, lng: coor.lng },
+      zoom: zoom,
       pixelRatio: window.devicePixelRatio || 1,
     })
 
     // Create an icon, an object holding the latitude and longitude, and a marker:
     const flagIcon = new H.map.Icon(flag)
     const centerMarker = new H.map.Marker(
-      { lat: lat, lng: lng },
+      { lat: coor.lat, lng: coor.lng },
       {
         icon: flagIcon,
       }

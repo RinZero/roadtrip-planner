@@ -146,21 +146,16 @@ const NewPlaceForm = (props: PropsForForm) => {
             variant="outlined"
             inputProps={{ maxlength: 250 }}
           />
-          {!isAddMode ? (
-            <PlaceMap
-              register={register}
-              setValue={setValue}
-              lat={mapCoor.lat}
-              lng={mapCoor.lng}
-            />
-          ) : (
-            <PlaceMap
-              register={register}
-              setValue={setValue}
-              lat={47.5}
-              lng={13.5}
-            />
-          )}
+          <PlaceMap
+            register={register}
+            setValue={setValue}
+            coor={
+              !isAddMode
+                ? { lat: mapCoor.lat, lng: mapCoor.lng }
+                : { lat: 47.5, lng: 13.5 }
+            }
+            zoom={!isAddMode ? 12 : 6.5}
+          />
           <FormControl component="fieldset">
             <FormLabel component="legend">Sichtbarkeit</FormLabel>
             <StyledRadioGroup
@@ -183,7 +178,6 @@ const NewPlaceForm = (props: PropsForForm) => {
               />
             </StyledRadioGroup>
           </FormControl>
-
           <Autocomplete
             multiple
             fullWidth={true}

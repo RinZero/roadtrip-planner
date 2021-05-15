@@ -70,28 +70,36 @@ const SignUpForm = () => {
           <Typography variant="h1">Steig ein!</Typography>
           <Box>
             <StyledInput
-              label="Username *"
+              required
+              id="standard-required"
+              label="Username"
               type="text"
               name="username"
               inputRef={register}
               inputProps={{ minlength: 3, maxlength: 50, required: true }}
             />
             <StyledInput
-              label="Email *"
+              required
+              id="standard-required"
+              label="Email"
               type="email"
               name="email"
               inputRef={register}
               inputProps={{ type: 'email', required: true }}
             />
             <StyledInput
-              label="Passwort *"
+              required
+              id="standard-required"
+              label="Passwort"
               type="password"
               name="password"
               inputRef={register}
               inputProps={{ minlength: 6, required: true }}
             />
             <StyledInput
-              label="Passwort wiederholen *"
+              required
+              id="standard-required"
+              label="Passwort wiederholen"
               type="password"
               name="password_confirmation"
               inputRef={register}

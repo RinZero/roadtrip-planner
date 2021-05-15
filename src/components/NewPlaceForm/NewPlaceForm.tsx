@@ -12,6 +12,7 @@ import {
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import { setMessage } from '../../store/actions'
 import { selectUserLocations, selectUserToken } from '../../store/selectors'
@@ -22,6 +23,7 @@ import {
   getAllSelectedCategories,
 } from '../../utils/getCategoriesArray'
 import { initUserData } from '../../utils/initUserData'
+import PlaceMap from './MapPlaceSelect'
 import { StyledRadioGroup, StyledForm } from './style'
 
 type PropsForForm = {
@@ -29,6 +31,7 @@ type PropsForForm = {
 }
 
 const NewPlaceForm = (props: PropsForForm) => {
+  const history = useHistory()
   const isAddMode = !props.match.params.id
   const locations = useSelector(selectUserLocations())
   const token = useSelector(selectUserToken())
@@ -39,37 +42,9 @@ const NewPlaceForm = (props: PropsForForm) => {
   const [currentCategories, setCurrentCategories] = useState(
     new Array<{ name: string }>()
   )
-  //for frontend validation numbers
-  const [lngError, setLngError] = useState(false)
-  const [latError, setLatError] = useState(false)
-  const [lngHelperText, setLngHelperText] = useState('')
-  const [latHelperText, setLatHelperText] = useState('')
-
+  const [mapCoor, setMapCoor] = useState({ lat: 47.5, lng: 13.5 })
   //get all categories
   const allCategories = getAllCategories()
-
-  const checkDigetInput = (
-    event: ChangeEvent<HTMLInputElement>,
-    max: number
-  ) => {
-    const type = event.target.id
-    const num: number = +event.target.value
-    const errorMessage1 = num > max ? 'zu groß' : ''
-    const errorMessage2 = num < -max ? 'zu klein' : ''
-    const error = num <= max && num >= -max ? false : true
-    const errorMessage = errorMessage1 !== '' ? errorMessage1 : errorMessage2
-    setError(type, errorMessage, error)
-  }
-
-  const setError = (latLng: string, errorString: string, error: boolean) => {
-    if (latLng === 'latitude') {
-      setLatError(error)
-      setLatHelperText(errorString)
-    } else if (latLng === 'longitude') {
-      setLngError(error)
-      setLngHelperText(errorString)
-    }
-  }
 
   const onFormSubmit = async (data: FormInputUserEntry) => {
     const categoryData = getAllSelectedCategories(currentCategories)
@@ -92,11 +67,6 @@ const NewPlaceForm = (props: PropsForForm) => {
       ? await editPlace(place, props.match.params.id.substring(1), token)
       : await createPlace(place, token)
 
-    if (
-      response.status &&
-      (response.status === 'ok' || response.status === 'created')
-    )
-      await initUserData(token, dispatch)
     // Get response
     if (typeof response.message === 'string') {
       dispatch(setMessage({ message: response.message }))
@@ -109,6 +79,13 @@ const NewPlaceForm = (props: PropsForForm) => {
       })
       const str = arr.join(' ')
       dispatch(setMessage({ message: str }))
+    }
+    if (
+      response.status &&
+      (response.status === 'ok' || response.status === 'created')
+    ) {
+      await initUserData(token, dispatch)
+      history.push('/profile')
     }
   }
 
@@ -125,6 +102,8 @@ const NewPlaceForm = (props: PropsForForm) => {
         setValue('description', place.description)
         setValue('latitude', place.latitude)
         setValue('longitude', place.longitude)
+        if (place.latitude && place.longitude)
+          setMapCoor({ lat: place.latitude, lng: place.longitude })
         const radioValue = place.public ? 'öffentlich' : 'privat'
         setCurrentRadio(radioValue)
         const selectedCategoriesJSON = place.category
@@ -168,40 +147,16 @@ const NewPlaceForm = (props: PropsForForm) => {
             variant="outlined"
             inputProps={{ maxlength: 250 }}
           />
-
-          <TextField
-            fullWidth
-            id="latitude"
-            name="latitude"
-            label="Breitengrad"
-            type="number"
-            placeholder="47.1234"
-            variant="outlined"
-            inputRef={register}
-            error={latError}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              checkDigetInput(e, 180)
-            }}
-            inputProps={{ step: '0.000001', max: 180, min: -180 }}
-            helperText={latHelperText}
+          <PlaceMap
+            register={register}
+            setValue={setValue}
+            coor={
+              !isAddMode
+                ? { lat: mapCoor.lat, lng: mapCoor.lng }
+                : { lat: 47.5, lng: 13.5 }
+            }
+            zoom={!isAddMode ? 12 : 6.5}
           />
-          <TextField
-            fullWidth
-            id="longitude"
-            name="longitude"
-            label="Längengrad"
-            type="number"
-            inputRef={register}
-            placeholder="13.1234"
-            variant="outlined"
-            error={lngError}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              checkDigetInput(e, 90)
-            }}
-            inputProps={{ step: '0.000001', max: 90, min: -90 }}
-            helperText={lngHelperText}
-          />
-
           <FormControl component="fieldset">
             <FormLabel component="legend">Sichtbarkeit</FormLabel>
             <StyledRadioGroup
@@ -224,7 +179,6 @@ const NewPlaceForm = (props: PropsForForm) => {
               />
             </StyledRadioGroup>
           </FormControl>
-
           <Autocomplete
             multiple
             fullWidth={true}

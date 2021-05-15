@@ -57,8 +57,8 @@ const SelectCategories = () => {
   const [numberCategory, setNumberCategory] = useState(0)
   const [categories, setCategories] = useState(['', '', ''])
   //Get Data from ChipMap: ids=Array.from(chips.keys()) text=Array.from(chips.values())
-  const currentChipMap = useSelector(selectUiSelectedCategories())
-  const [chips, setChips] = useState(currentChipMap)
+  const selectedCategories = useSelector(selectUiSelectedCategories())
+  const [chips, setChips] = useState(selectedCategories)
   const [currentChip, setCurrentChip] = useState({ number: '', name: '' })
 
   const [first, setFirst] = useState('')
@@ -148,9 +148,12 @@ const SelectCategories = () => {
 
   const addChip = () => {
     if (currentChip.name !== '') {
-      const newMap = new Map(chips)
-      newMap.set(currentChip.number, currentChip.name)
-      setChips(newMap)
+      const newChips = chips.concat({
+        id: currentChip.number,
+        text: currentChip.name,
+      })
+      setChips(newChips)
+      dispatch(setUiSelectedCategories({ selectedCategories: newChips }))
       setFirst('')
       setFirst('null')
       setCategories(['', '', ''])
@@ -160,9 +163,12 @@ const SelectCategories = () => {
   }
 
   const handleDelete = (chipToDelete: any) => () => {
-    const newMap = new Map(chips)
-    newMap.delete(chipToDelete)
-    setChips(newMap)
+    const deletionIndex = chips.indexOf(chipToDelete)
+    const newChips = chips
+      .slice(0, deletionIndex)
+      .concat(chips.slice(deletionIndex + 1, chips.length))
+    setChips(newChips)
+    dispatch(setUiSelectedCategories({ selectedCategories: newChips }))
   }
 
   return (
@@ -177,16 +183,16 @@ const SelectCategories = () => {
           <div>
             <Box textAlign="center" id="category_observe">
               <TagBox component="ul">
-                {Array.from(chips).map((data) => {
+                {chips.map((data) => {
                   let icon
 
                   return (
                     <li>
                       <TagChip
                         icon={icon}
-                        value={data[0]}
-                        label={data[1]}
-                        onDelete={handleDelete(data[0])}
+                        value={data.id}
+                        label={data.text}
+                        onDelete={handleDelete(data)}
                       />
                     </li>
                   )
@@ -260,13 +266,14 @@ const SelectCategories = () => {
                         setLoading(true)
                         dispatch(
                           setUiSelectedCategories({
-                            selectedCategoriesMap: chips,
+                            selectedCategories: chips,
                           })
                         )
 
                         const userLocationData = getUserLocations()
 
-                        const dataArray: string[] = Array.from(chips.keys())
+                        const dataArray: string[] = []
+                        chips.map((chip) => dataArray.push(chip.id))
                         const response = await roadtripGenerate(
                           stops,
                           maxStops,

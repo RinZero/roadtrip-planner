@@ -1,4 +1,4 @@
-import { RadioGroup, withTheme } from '@material-ui/core'
+import { Button, RadioGroup, TextField, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
 
 export const StyledForm = withTheme(styled.form`
@@ -13,4 +13,7 @@ export const StyledRadioGroup = withTheme(styled(RadioGroup)`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+`)
+export const StyledNumberInput = withTheme(styled(TextField)`
+  display: none;
 `)

@@ -131,9 +131,9 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   }
 
   const mapRoute = useSelector(selectMapRoute())
-  const selectedCategoriesMap = useSelector(selectUiSelectedCategories())
+
   // für die Zusammenfassung welche Kategorien für den Roadtrip verwendet wurden
-  const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
+  const selectedCategories = useSelector(selectUiSelectedCategories())
 
   const theme = useTheme()
   const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'lg'))

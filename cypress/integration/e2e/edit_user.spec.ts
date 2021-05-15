@@ -15,7 +15,7 @@ describe('Edit User Test', () => {
   it('change name, email and add picture', () => {
     cy.findByText('edit@old.at').should('exist')
 
-    cy.get(`[aria-label="edit"]`).click()
+    cy.get(`[aria-label="Profil bearbeiten"]`).click()
     cy.get('input[name="userName"]').clear().type('NewEditName')
     cy.get('input[name="email"]').clear().type('new_edit@email.at')
     cy.get('input[name="password"]').type('edit12345')
@@ -31,7 +31,7 @@ describe('Edit User Test', () => {
   it('deletes user', () => {
     cy.findByText('new_edit@email.at').should('exist')
 
-    cy.get(`[aria-label="edit"]`).click()
+    cy.get(`[aria-label="Profil bearbeiten"]`).click()
     cy.findByText('Profil löschen').click()
     cy.findByText('Löschen').click()
 

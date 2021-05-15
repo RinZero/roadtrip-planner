@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { logInSuccess } from '../../store/actions'
 import { logIn } from '../../utils/AuthService'
 import { initUserData } from '../../utils/initUserData'
-import { StyledInput, StyledForm } from './style'
+import { StyledTextfield, StyledForm } from './style'
 
 type IFormInput = {
   email: string
@@ -38,20 +38,18 @@ const LogInForm = () => {
     <StyledForm onSubmit={handleSubmit(onFormSubmit)}>
       <Typography variant="h5">LogIn</Typography>
       {error !== '' ? <Typography color="error">{error}</Typography> : ' '}
-      <StyledInput
+      <StyledTextfield
+        label="Email"
         type="text"
         name="email"
         inputRef={register}
-        placeholder="Email"
-        variant="outlined"
         inputProps={{ type: 'email', required: true }}
       />
-      <StyledInput
+      <StyledTextfield
+        label="Password"
         type="password"
         name="password"
         inputRef={register}
-        placeholder="Password"
-        variant="outlined"
         inputProps={{ type: 'password', required: true }}
       />
       <Button type="submit">LogIn</Button>

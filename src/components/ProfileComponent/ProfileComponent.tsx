@@ -139,12 +139,17 @@ const ProfileComponent = () => {
   return (
     <>
       <ProfileBox>
-        <ProfileAvatar alt="Profilbild" src={profilePic} />
+        <ProfileAvatar
+          aria-label="Profilbild"
+          alt="Profilbild"
+          src={profilePic}
+        />
         <Typography variant="h3">{name}</Typography>
         <TypographyMarginSmall variant="h3">{email}</TypographyMarginSmall>
         <StyledButton
           aria-describedby={id}
-          aria-label="edit"
+          aria-label="Profil bearbeiten"
+          title="Hier das Profil bearbeiten"
           type="button"
           onClick={handleClick}
         >

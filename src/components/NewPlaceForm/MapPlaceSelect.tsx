@@ -1,6 +1,6 @@
 import { useRef, useEffect, memo } from 'react'
 
-import { Box } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 
 import flag from '../../assets/flag.svg'
 import { StyledNumberInput } from './style'
@@ -76,6 +76,7 @@ const PlaceMap = (props: PlaceMapProps) => {
 
   return (
     <>
+      <Typography variant="body1">Standort auswählen</Typography>
       <Box display="flex" flexWrap="wrap" justifyContent="center" height="25vh">
         <div
           id="mapPlace"

@@ -18,7 +18,6 @@ import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
-import { deleteUser } from '../../utils/AuthService'
 
 import { DialogDelete } from '../../components/DialogDelete'
 import { updateUser, setMessage } from '../../store/actions'
@@ -31,7 +30,7 @@ import {
   selectUserIsAdmin,
   selectDropzoneFiles,
 } from '../../store/selectors'
-import { editUser } from '../../utils/AuthService'
+import { deleteUser, editUser } from '../../utils/AuthService'
 import ImageDropzone from '../ImageDropzone'
 import {
   ProfileBox,
@@ -141,12 +140,17 @@ const ProfileComponent = () => {
   return (
     <>
       <ProfileBox>
-        <ProfileAvatar alt="Profilbild" src={profilePic} />
+        <ProfileAvatar
+          aria-label="Profilbild"
+          alt="Profilbild"
+          src={profilePic}
+        />
         <Typography variant="h3">{name}</Typography>
         <TypographyMarginSmall variant="h3">{email}</TypographyMarginSmall>
         <EditButton
           aria-describedby={id}
-          aria-label="edit"
+          aria-label="Profil bearbeiten"
+          title="Hier das Profil bearbeiten"
           type="button"
           onClick={handleClick}
         >

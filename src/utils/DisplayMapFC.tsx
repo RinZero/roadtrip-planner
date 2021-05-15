@@ -35,6 +35,39 @@ const changeFeatureStyle = (map: any) => {
 
   streetStyle.addEventListener('change', changeListener)
 }
+function addMarkerToGroup(group: any, marker: any, html: any) {
+  // add custom data to the marker
+  marker.setData(html)
+  group.addObject(marker)
+}
+function addInfoBubble(map: any, ui: any, markers: any) {
+  const group = new windowH.H.map.Group()
+  // eslint-disable-next-line no-console
+  console.log(map)
+  map.addObject(group)
+
+  // add 'tap' event listener, that opens info bubble, to the group
+  group.addEventListener(
+    'tap',
+    (evt: any) => {
+      // eslint-disable-next-line no-console
+      console.log('hi')
+      // event target is the marker itself, group is a parent event target
+      // for all objects that it contains
+      const bubble = new windowH.H.ui.InfoBubble(evt.target.getGeometry(), {
+        // read custom data
+        content: evt.target.getData(),
+      })
+      // eslint-disable-next-line no-console
+      console.log(bubble)
+      // show info bubble
+      ui.addBubble(bubble)
+    },
+    false
+  )
+  markers.map((marker: any) => addMarkerToGroup(group, marker, '<h1>h1</h1>'))
+}
+
 export type MapProps = {
   allLocations: string[]
   isSmall: boolean
@@ -63,7 +96,7 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
       zoom: 6.5,
       pixelRatio: window.devicePixelRatio || 1,
     })
-
+    const markerArray: any[] = []
     // Add all Markers to Map
     // Create an icon, an object holding the latitude and longitude, and a marker:
     // Location Object should look like this: { lat: 47.79941, lng: 13.04399 }
@@ -125,7 +158,10 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
             const endMarker = new H.map.Marker(section.arrival.place.location, {
               icon: flagIcon,
             })
-
+            // eslint-disable-next-line no-console
+            console.log(startMarker)
+            markerArray.push(startMarker)
+            markerArray.push(endMarker)
             // Add the route polyline and the two markers to the map:
             hMap.addObjects([routeLine, routeArrows, startMarker, endMarker])
           })
@@ -159,7 +195,10 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
     // Create the default UI components to allow the user to interact with them
     const ui = H.ui.UI.createDefault(hMap, defaultLayers)
     // Now use the map as required...
+    // eslint-disable-next-line no-console
+    console.log(hMap.getObjects())
     changeFeatureStyle(hMap)
+    addInfoBubble(hMap, ui, hMap.getObjects())
 
     // This will act as a cleanup to run once this hook runs again.
     // This includes when the component un-mounts

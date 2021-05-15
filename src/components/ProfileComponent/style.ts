@@ -38,26 +38,7 @@ export const TypographyMarginSmall = withTheme(styled(Typography)`
   margin-top: ${(props) => props.theme.spacing(1)}px;
 `)
 
-export const EditButton = withTheme(styled(Button)`
-  background-color: #71b255;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  color: white;
+export const StyledButton = withTheme(styled(Button)`
   height: ${(props) => props.theme.spacing(5)}px;
   min-width: ${(props) => props.theme.spacing(5)}px;
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
-`)
-
-export const ConfirmButton = withTheme(styled(Button)`
-  background-color: #71b255;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  color: white;
-  height: ${(props) => props.theme.spacing(5)}px;
-  min-width: ${(props) => props.theme.spacing(5)}px;
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
 `)

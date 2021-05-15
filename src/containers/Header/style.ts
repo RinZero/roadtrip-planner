@@ -11,13 +11,9 @@ import {
 import styled from 'styled-components'
 
 export const LogoutButton = withTheme(styled(Button)`
-  color: #ffffff;
   font-size: ${(props) => props.theme.spacing(1.75)}px;
   padding: ${(props) => props.theme.spacing(0.125)}px
     ${(props) => props.theme.spacing(0.5)}px;
-  font-weight: normal;
-  background-color: #e67676;
-  border-radius: 8px;
   ${(props) => props.theme.breakpoints.up('sm')} {
     font-size: ${(props) => props.theme.spacing(2)}px;
     padding: ${(props) => props.theme.spacing(0.125)}px

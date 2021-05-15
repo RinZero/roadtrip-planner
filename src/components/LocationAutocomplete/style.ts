@@ -16,10 +16,6 @@ export const StyledSubmitButton = withTheme(styled(StyledPopoverButton)`
   color: #fff;
   background-color: #71b255;
   max-width: 80%;
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
 `)
 
 export const StyledNewStoppTextField = withTheme(styled(TextField)`

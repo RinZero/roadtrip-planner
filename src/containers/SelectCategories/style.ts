@@ -9,28 +9,14 @@ import {
 import styled from 'styled-components'
 
 export const StartButton = withTheme(styled(Button)`
-  background-color: #71b255;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  color: white;
   margin-top: ${(props) => props.theme.spacing(2)}px;
   padding: ${(props) => props.theme.spacing(2)}px;
   width: 80%;
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
 `)
 
 export const AddButton = withTheme(styled(Button)`
-  background-color: #71b255;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  color: white;
   height: ${(props) => props.theme.spacing(5)}px;
   margin-bottom: ${(props) => props.theme.spacing(2)}px;
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
 `)
 
 export const TagBox = withTheme(styled(Box)`

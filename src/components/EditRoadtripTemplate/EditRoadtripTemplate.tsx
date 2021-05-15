@@ -184,7 +184,6 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
       </ContentBox>
       <CreateButton
         id="roadtrip_erstellen_button"
-        color="primary"
         onClick={async () => {
           await onSave()
           await initUserData(token, dispatch)

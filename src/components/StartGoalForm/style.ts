@@ -25,21 +25,12 @@ export const StyledForm = withTheme(styled.form`
 
 export const StyledButton = withTheme(styled(Button)`
   width: 100%;
-  color: #ffffff;
-  background-color: #71b255;
   padding: ${(props) => props.theme.spacing(2)}px;
-  border-radius: 15px;
-  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
 `)
 
 export const AddButton = withTheme(styled(Button)`
   border-radius: 15px;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-  background-color: #ffffff;
   padding: ${(props) => props.theme.spacing(2)}px;
 `)
 

@@ -67,7 +67,9 @@ export const DialogDelete = (props: DialogProps) => {
   return (
     <>
       {objectType === 'Profil' ? (
-        <InfoButton onClick={handleClickOpenDelete}>Profil löschen</InfoButton>
+        <InfoButton color="primary" onClick={handleClickOpenDelete}>
+          Profil löschen
+        </InfoButton>
       ) : (
         <IconButton
           onClick={async () => {
@@ -92,7 +94,9 @@ export const DialogDelete = (props: DialogProps) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <InfoButton onClick={handleCloseDelete}>Abbrechen</InfoButton>
+          <InfoButton color="primary" onClick={handleCloseDelete}>
+            Abbrechen
+          </InfoButton>
           <InfoButton onClick={handleDelete} color="secondary">
             Löschen
           </InfoButton>

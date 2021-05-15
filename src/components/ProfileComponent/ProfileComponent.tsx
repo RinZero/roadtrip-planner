@@ -38,8 +38,7 @@ import {
   IconBox,
   ProfileAvatar,
   TypographyMarginSmall,
-  EditButton,
-  ConfirmButton,
+  StyledButton,
 } from './style'
 
 const ProfileComponent = () => {
@@ -147,7 +146,7 @@ const ProfileComponent = () => {
         />
         <Typography variant="h3">{name}</Typography>
         <TypographyMarginSmall variant="h3">{email}</TypographyMarginSmall>
-        <EditButton
+        <StyledButton
           aria-describedby={id}
           aria-label="Profil bearbeiten"
           title="Hier das Profil bearbeiten"
@@ -155,7 +154,7 @@ const ProfileComponent = () => {
           onClick={handleClick}
         >
           <EditIcon />
-        </EditButton>
+        </StyledButton>
         {isAdmin ? (
           <>
             <Link component={RouterLink} to={`/admin`} variant="h6">
@@ -266,7 +265,7 @@ const ProfileComponent = () => {
                     gemacht werden. Damit gehen auch deine erstellten Roadtrips
                     und Orte verloren."
                 />
-                <ConfirmButton type="submit">Speichern</ConfirmButton>
+                <StyledButton type="submit">Speichern</StyledButton>
               </IconBox>
             </PopperBox>
           </ClickAwayListener>

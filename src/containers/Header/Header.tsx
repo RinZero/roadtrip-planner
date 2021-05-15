@@ -163,6 +163,7 @@ const Header = () => {
 
             {!isMobile && (
               <LogoutButton
+                color="secondary"
                 onClick={() => {
                   dispatch(logOutSuccess())
                 }}
@@ -198,7 +199,7 @@ const Header = () => {
                 component={RouterLink}
                 to={`/`}
               >
-                <LogoutButton>Log out</LogoutButton>
+                <LogoutButton color="secondary">Log out</LogoutButton>
               </MenuItem>
             </>
           )}

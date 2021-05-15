@@ -1,0 +1,22 @@
+.custom-bubble {
+  background-color: white;
+  width: 150px;
+  height: 100px;
+  border-radius: 15px;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+  position: absolute;
+  top: -130px;
+  left: -60px;
+  padding: 8px;
+}
+.H_ib_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.H_ib_close {
+  max-width: 15px;
+  align-self: flex-end;
+  margin: 8px;
+}

@@ -2,7 +2,7 @@ import React, { memo, Suspense, lazy } from 'react'
 
 import { Box } from '@material-ui/core'
 
-import { NewPlaceStyles } from './style'
+import { NewPlaceStyles } from '../NewPlacePage/style'
 
 const NewPlaceForm = React.lazy(() => import('../../components/NewPlaceForm'))
 

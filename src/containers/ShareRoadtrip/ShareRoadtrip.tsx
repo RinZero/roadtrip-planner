@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from 'react'
+import React, { memo } from 'react'
 
 import {
   List,
@@ -31,9 +31,8 @@ const ShareRoadtrip = () => {
   const mapRoute = useSelector(selectMapRoute())
   const roadtriptInfos = useSelector(selectRoadtripInfos())
   const selectedStops = useSelector(selectRoadtripStopNames())
-  const selectedCategoriesMap = useSelector(selectUiSelectedCategories())
+  const selectedCategories = useSelector(selectUiSelectedCategories())
   // für die Zusammenfassung welche Kategorien für den Roadtrip verwendet wurden
-  const selectedCategoriesNames = Array.from(selectedCategoriesMap.values())
   const theme = useTheme()
   const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'lg'))
   return (
@@ -73,8 +72,8 @@ const ShareRoadtrip = () => {
           <BottomOptionBox>
             <Typography variant="h6">Ausgewählte Kategorien:</Typography>
             <TagBox component="ul">
-              {selectedCategoriesNames.map((item) => {
-                return <TagChip label={item} />
+              {selectedCategories.map((item) => {
+                return <TagChip label={item.text} />
               })}
             </TagBox>
           </BottomOptionBox>

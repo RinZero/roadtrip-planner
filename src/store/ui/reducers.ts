@@ -28,7 +28,7 @@ export const initialState: UiState = {
   isEditOpen: false,
   isAddPlace: false,
   isLoginActive: false,
-  selectedCategories: new Map<string, string>(),
+  selectedCategories: [],
   mapRoute: [],
   isLocked: false,
   roadtripInfos: [],
@@ -63,8 +63,8 @@ export const uiReducer = produce(
         return draft
       }
       case getType(setUiSelectedCategories): {
-        const { selectedCategoriesMap } = action.payload
-        draft.selectedCategories = selectedCategoriesMap
+        const { selectedCategories } = action.payload
+        draft.selectedCategories = selectedCategories
         return draft
       }
       case getType(setMapRoute): {

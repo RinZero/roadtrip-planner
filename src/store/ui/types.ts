@@ -20,7 +20,7 @@ export type UiState = {
   isEditOpen: boolean
   isAddPlace: boolean
   isLoginActive: boolean
-  selectedCategories: Map<string, string>
+  selectedCategories: { id: string; text: string }[]
   mapRoute: string[]
   isLocked: boolean
   roadtripInfos: {

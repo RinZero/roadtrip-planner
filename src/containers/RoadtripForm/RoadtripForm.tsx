@@ -5,9 +5,7 @@ import { useHistory } from 'react-router-dom'
 
 import { setMessage, setProgressStep } from '../../store/actions'
 import {
-  selectProgessStep,
   selectRoadtripInfos,
-  selectRoadtrips,
   selectRoadtripStops,
   selectUiSelectedCategories,
   selectUserToken,
@@ -38,12 +36,16 @@ const RoadtripForm = (props: PropsForForm) => {
   if (progressString === '1') dispatch(setProgressStep({ progressStep: '1' }))
   else if (progressString === '2' && dataStep1.length > 1)
     dispatch(setProgressStep({ progressStep: '2' }))
-  else if (progressString === '3' && dataStep1.length > 1 && dataStep2.size > 0)
+  else if (
+    progressString === '3' &&
+    dataStep1.length > 1 &&
+    dataStep2.length > 0
+  )
     dispatch(setProgressStep({ progressStep: '3' }))
   else if (
     progressString === '4' &&
     dataStep1.length > 0 &&
-    dataStep2.size > 0 &&
+    dataStep2.length > 0 &&
     dataStep3.length > 0 &&
     token
   )

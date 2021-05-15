@@ -4,7 +4,7 @@ import styled from 'styled-components'
 //SignUpForm Styles
 
 export const StyledInput = withTheme(styled(TextField)`
-  margin: ${(props) => props.theme.spacing(1.5)}px 0;
+  margin: ${(props) => props.theme.spacing(0.2)}px 0;
   min-width: ${(props) => props.theme.spacing(31)}px;
 `)
 export const LoginButton = withTheme(styled(Button)`

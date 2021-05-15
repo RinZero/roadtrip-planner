@@ -16,5 +16,5 @@ export const StyledForm = styled.form`
 `
 
 export const StyledTextfield = withTheme(styled(TextField)`
-  margin-bottom: ${(props) => props.theme.spacing(2)}px;
+  margin-bottom: ${(props) => props.theme.spacing(0.4)}px;
 `)

@@ -8,12 +8,8 @@ export const StyledInput = withTheme(styled(Input)`
   min-width: ${(props) => props.theme.spacing(31)}px;
 `)
 export const LoginButton = withTheme(styled(Button)`
-  color: #ffffff;
   margin: auto;
   width: ${(props) => props.theme.spacing(28)}px;
-  &:hover {
-    background-color: #50803c;
-  }
 `)
 export const SignupCard = withTheme(styled(Card)`
   max-width: ${(props) => props.theme.spacing(50)}px;

@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Radio,
   Box,
+  Button,
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
@@ -21,7 +22,7 @@ import {
   getAllSelectedCategories,
 } from '../../utils/getCategoriesArray'
 import { initUserData } from '../../utils/initUserData'
-import { StyledButton, StyledRadioGroup, StyledForm } from './style'
+import { StyledRadioGroup, StyledForm } from './style'
 
 type PropsForForm = {
   match: Record<string, any>
@@ -239,9 +240,9 @@ const NewPlaceForm = (props: PropsForForm) => {
               <TextField {...params} variant="outlined" label="Kategorien" />
             )}
           />
-          <StyledButton type="submit">
+          <Button type="submit">
             {!isAddMode ? 'Ort bearbeiten' : 'Neuen Ort erstellen'}
-          </StyledButton>
+          </Button>
         </StyledForm>
       </Box>
     </>

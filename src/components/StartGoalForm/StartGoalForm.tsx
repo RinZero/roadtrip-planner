@@ -251,7 +251,10 @@ export const StartGoalForm = () => {
                           />
                         </Box>
                         {activeStop !== index && (
-                          <AddButton onClick={() => setActiveStop(index)}>
+                          <AddButton
+                            color="primary"
+                            onClick={() => setActiveStop(index)}
+                          >
                             {index - 1}
                           </AddButton>
                         )}
@@ -265,6 +268,7 @@ export const StartGoalForm = () => {
           <Grid item xs={12} md={1}>
             <Box display="flex" justifyContent="center">
               <AddButton
+                color="primary"
                 id="more_stops"
                 onClick={() => {
                   if (activeStop + 1 < 10) {

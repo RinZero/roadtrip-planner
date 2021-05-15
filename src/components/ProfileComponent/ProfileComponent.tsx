@@ -18,7 +18,6 @@ import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
-import { deleteUser } from '../../utils/AuthService'
 
 import { DialogDelete } from '../../components/DialogDelete'
 import { updateUser, setMessage } from '../../store/actions'
@@ -31,7 +30,7 @@ import {
   selectUserIsAdmin,
   selectDropzoneFiles,
 } from '../../store/selectors'
-import { editUser } from '../../utils/AuthService'
+import { deleteUser, editUser } from '../../utils/AuthService'
 import ImageDropzone from '../ImageDropzone'
 import {
   ProfileBox,
@@ -39,8 +38,7 @@ import {
   IconBox,
   ProfileAvatar,
   TypographyMarginSmall,
-  EditButton,
-  ConfirmButton,
+  StyledButton,
 } from './style'
 
 const ProfileComponent = () => {
@@ -144,14 +142,14 @@ const ProfileComponent = () => {
         <ProfileAvatar alt="Profilbild" src={profilePic} />
         <Typography variant="h3">{name}</Typography>
         <TypographyMarginSmall variant="h3">{email}</TypographyMarginSmall>
-        <EditButton
+        <StyledButton
           aria-describedby={id}
           aria-label="edit"
           type="button"
           onClick={handleClick}
         >
           <EditIcon />
-        </EditButton>
+        </StyledButton>
         {isAdmin ? (
           <>
             <Link component={RouterLink} to={`/admin`} variant="h6">
@@ -262,7 +260,7 @@ const ProfileComponent = () => {
                     gemacht werden. Damit gehen auch deine erstellten Roadtrips
                     und Orte verloren."
                 />
-                <ConfirmButton type="submit">Speichern</ConfirmButton>
+                <StyledButton type="submit">Speichern</StyledButton>
               </IconBox>
             </PopperBox>
           </ClickAwayListener>

@@ -108,9 +108,7 @@ const SignUpForm = () => {
               <ImageDropzone />
             </Box>
           </Box>
-          <LoginButton type="submit" color="primary">
-            Registrieren
-          </LoginButton>
+          <LoginButton type="submit">Registrieren</LoginButton>
         </Box>
       </form>
     </SignupCard>

@@ -138,7 +138,9 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
       {(popupState) => (
         <Box display="flex" alignItems="center" justifyContent="center">
           <div {...bindTrigger(popupState)}>
-            <StyledPopoverButton>Ort hinzufügen</StyledPopoverButton>
+            <StyledPopoverButton color="primary">
+              Ort hinzufügen
+            </StyledPopoverButton>
           </div>
           <StyledPopover
             {...bindPopover(popupState)}

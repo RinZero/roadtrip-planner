@@ -1,13 +1,13 @@
 import React, { memo, useState } from 'react'
 
-import { Typography } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 
 import { logInSuccess } from '../../store/actions'
 import { logIn } from '../../utils/AuthService'
 import { initUserData } from '../../utils/initUserData'
-import { StyledButton, StyledInput, StyledForm } from './style'
+import { StyledInput, StyledForm } from './style'
 
 type IFormInput = {
   email: string
@@ -54,7 +54,7 @@ const LogInForm = () => {
         variant="outlined"
         inputProps={{ type: 'password', required: true }}
       />
-      <StyledButton type="submit">LogIn</StyledButton>
+      <Button type="submit">LogIn</Button>
     </StyledForm>
   )
 }

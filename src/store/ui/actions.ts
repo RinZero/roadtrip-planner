@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { ActionType, createAction } from 'typesafe-actions'
 
 import { LocationState, RoadtripState } from '../user/types'

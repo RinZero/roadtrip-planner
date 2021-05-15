@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { ActionType, createAction } from 'typesafe-actions'
 
 import { LocationState, RoadtripState } from '../user/types'
@@ -21,7 +22,7 @@ export const setMaxRoadtripStops = createAction('ui/SET_MAX_ROADTRIP_STOPS')<{
 export const setUiSelectedCategories = createAction(
   'ui/SET_UI_SELECTED_CATEGORIES'
 )<{
-  selectedCategoriesMap: Map<string, string>
+  selectedCategories: { id: string; text: string }[]
 }>()
 
 export const setMapRoute = createAction('ui/SET_MAP_ROUTE')<{

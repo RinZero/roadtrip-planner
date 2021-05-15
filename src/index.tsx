@@ -5,20 +5,32 @@ import { ConnectedRouter } from 'connected-react-router'
 import ReactDOM from 'react-dom'
 import './index.css'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './App'
+import logo from './assets/roadabout_transparent.gif'
+import { ImgBox } from './containers/SelectCategories/style'
 import reportWebVitals from './reportWebVitals'
-import store, { history } from './store'
+import store, { history, persistor } from './store'
 import { createTheme } from './theme'
 
 const theme = createTheme()
 ReactDOM.render(
   <Provider store={store}>
+    {/* <PersistGate
+      loading={
+        <ImgBox>
+          <img src={logo} alt="loading animation" height="100%" />
+        </ImgBox>
+      }
+      persistor={persistor}
+    > */}
     <ConnectedRouter history={history}>
       <MuiThemeProvider theme={theme}>
         <App />
       </MuiThemeProvider>
     </ConnectedRouter>
+    {/* </PersistGate> */}
   </Provider>,
   document.getElementById('root')
 )

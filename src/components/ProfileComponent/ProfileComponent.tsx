@@ -32,6 +32,7 @@ import {
 } from '../../store/selectors'
 import { deleteUser, editUser } from '../../utils/AuthService'
 import ImageDropzone from '../ImageDropzone'
+// import ChangePasswordDialog from './ChangePasswordDialog'
 import {
   ProfileBox,
   PopperBox,
@@ -90,8 +91,6 @@ const ProfileComponent = () => {
   type IFormInput = {
     userName: string
     email: string
-    password: string
-    password_confirmation: string
     image: (File & {
       preview: string
     })[]
@@ -104,9 +103,7 @@ const ProfileComponent = () => {
   const onFormSubmit = async (data: IFormInput) => {
     const inputData = new FormData()
     inputData.append('[user]username', data.userName)
-    inputData.append('[user]password', data.password)
     inputData.append('[user]email', data.email)
-    inputData.append('[user]password_confirmation', data.password_confirmation)
     inputData.append('[user]image', image[0])
     inputData.append('[user]id', userId)
 
@@ -116,7 +113,6 @@ const ProfileComponent = () => {
         updateUser({
           userName: data.userName,
           email: data.email,
-          password: data.password,
           picture:
             response.data.data.attributes.image === null
               ? undefined
@@ -193,56 +189,6 @@ const ProfileComponent = () => {
                 />
               </FormControl>
               <Divider />
-              <FormControl>
-                <InputLabel>Passwort</InputLabel>
-                <Input
-                  name="password"
-                  inputRef={register}
-                  type={values.showPassword ? 'text' : 'password'}
-                  inputProps={{ minlength: 6, required: true }}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                      >
-                        {values.showPassword ? (
-                          <Visibility />
-                        ) : (
-                          <VisibilityOff />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              <Divider />
-              <FormControl>
-                <InputLabel>Passwort Bestätigung</InputLabel>
-                <Input
-                  name="password_confirmation"
-                  inputRef={register}
-                  type={values.showPassword2 ? 'text' : 'password'}
-                  inputProps={{ minlength: 6, required: true }}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword2}
-                        onMouseDown={handleMouseDownPassword2}
-                      >
-                        {values.showPassword2 ? (
-                          <Visibility />
-                        ) : (
-                          <VisibilityOff />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              <Divider />
               <Box
                 display="flex"
                 alignItems="flex-start"
@@ -255,6 +201,7 @@ const ProfileComponent = () => {
               </Box>
 
               <Divider />
+              {/* <ChangePasswordDialog /> */}
 
               <IconBox>
                 <DialogDelete

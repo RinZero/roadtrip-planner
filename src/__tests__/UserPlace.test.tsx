@@ -68,6 +68,7 @@ test('Login, click on Link in Header and render New Place Page', async () => {
       isAdmin: false,
       picture: '',
       token: 'trstst',
+      tutorial: [false, false, false],
     })
   )
   render(<Header />)
@@ -110,6 +111,7 @@ test('fill in form, submit and check if it worked', async () => {
         latitude: 15,
         category: '',
         description: 'ruhig und schöne Aussicht',
+        order: 1,
       },
     ],
   }
@@ -147,6 +149,7 @@ test('check if new place is in profile, render edit, edit place, check in profil
         latitude: 15,
         category: '',
         description: 'ruhig und schöne Aussicht',
+        order: 1,
       },
     ],
   }

@@ -67,11 +67,6 @@ export const StartGoalForm = () => {
       setArray([])
     }
   }
-  function toggleClass(e: any) {
-    if (e.key === 'Enter') {
-      setActive(!active)
-    }
-  }
 
   const roadtripStopNames = useSelector(selectRoadtripStopNames())
   const [namedStops, setNamedStops] = useState(
@@ -238,7 +233,6 @@ export const StartGoalForm = () => {
                               <StartGoalTextField
                                 {...params}
                                 className={active ? 'collapse' : 'expand'}
-                                onKeyDown={toggleClass}
                                 label={
                                   (isMobile ? 'Stopp' : 'Zwischenstopp') +
                                   ' ' +

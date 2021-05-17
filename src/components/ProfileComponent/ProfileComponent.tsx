@@ -7,13 +7,10 @@ import {
   FormControl,
   InputLabel,
   Input,
-  IconButton,
-  InputAdornment,
   Divider,
   ClickAwayListener,
   Link,
 } from '@material-ui/core'
-import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -55,8 +52,6 @@ const ProfileComponent = () => {
   >(null)
   const [id, setId] = useState<string | undefined>(undefined)
   const [values, setValues] = useState({
-    showPassword: false,
-    showPassword2: false,
     open: false,
   })
 
@@ -104,13 +99,15 @@ const ProfileComponent = () => {
         })
       )
       dispatch(setMessage({ message: 'Dein Profil wurde bearbeitet.' }))
-    } else {
-      // TODO JULIA: Fehlermeldungen aus dem Backend
-      dispatch(
-        setMessage({
-          message: 'Dein Profil konnte leider nicht bearbeitet werden.',
-        })
-      )
+    } else if (response.status === 422) {
+      const arr: Array<Record<string, any>> = []
+      response.data.forEach(function (item: Record<string, any>) {
+        if (item[1]) {
+          arr.push(item[1].pop())
+        }
+      })
+      const str = arr.join(' ')
+      dispatch(setMessage({ message: str }))
     }
     //close popup
     handleClickAway()

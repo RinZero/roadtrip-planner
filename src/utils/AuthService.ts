@@ -178,10 +178,6 @@ export const deleteRoadtrip = (token: string, id: string) => {
 }
 
 export const editUser = (data: FormData, token: string, id: string) => {
-  // eslint-disable-next-line no-console
-  console.log('edit function')
-  // eslint-disable-next-line no-console
-  console.log(FormData)
   return fetch
     .patch(`users/${id}`, data, {
       headers: {
@@ -192,21 +188,14 @@ export const editUser = (data: FormData, token: string, id: string) => {
       return response.data
     })
     .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.log(error.response.data)
-      // eslint-disable-next-line no-console
-      console.log(error.response)
-      // eslint-disable-next-line no-console
-      console.log(error)
-      return { status: '400', data: 'hallo' }
+      return {
+        status: error.response.status,
+        data: Object.entries(error.response.data),
+      }
     })
 }
 
 export const editUserPassword = (data: FormData, token: string, id: string) => {
-  // eslint-disable-next-line no-console
-  console.log('edit password')
-  // eslint-disable-next-line no-console
-  console.log(FormData)
   return fetch
     .patch(`users/${id}`, data, {
       headers: {
@@ -217,11 +206,10 @@ export const editUserPassword = (data: FormData, token: string, id: string) => {
       return response.data
     })
     .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.log(error.response)
-      // eslint-disable-next-line no-console
-      console.log(error)
-      return { status: '400', data: 'hallo' }
+      return {
+        status: error.response.status,
+        data: Object.entries(error.response.data),
+      }
     })
 }
 

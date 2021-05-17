@@ -3,7 +3,6 @@ import { memo, FC, useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import flag from '../assets/flag.svg'
-import PopupContent from '../components/PopupContent'
 import { selectRoadtripInfos } from '../store/selectors'
 import './infoBubble.css'
 const windowH = window as any //window.H hat keinen passende type deklaration von Here
@@ -50,8 +49,9 @@ const formatBubbleTest = (info: {
   coordinates: number[]
 }) => {
   let bubbleString =
-    '<p>' + info.address.slice(0, info.address.lastIndexOf(','))
-  bubbleString += '</p><div class="overflowBox"><div class="categoriesBox">'
+    '<p>' +
+    info.address.slice(0, info.address.lastIndexOf(',')) +
+    '</p><div class="overflowBox"><div class="categoriesBox">'
   ;(info.categories as any).forEach(
     (e: { name: string; primary?: boolean }) => {
       bubbleString +=

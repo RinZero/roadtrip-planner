@@ -152,8 +152,6 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
                 icon: flagIcon,
               }
             )
-            // eslint-disable-next-line no-console
-            console.log(roadtripInfos[i].categories, roadtripInfos)
             startMarker.setData(formatBubbleTest(roadtripInfos[i]))
             startMarker.addEventListener('tap', (event: any) => {
               const bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
@@ -199,14 +197,19 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
     windowH.addEventListener('resize', () => {
       hMap.getViewPort().resize()
     })
-
+    window.addEventListener('customMapEvent', (evt: Record<string, any>) => {
+      // dieser typ, da windwow den CustomEvent Type nicht mag
+      // set the map center to the coordinates
+      hMap.setCenter({ lat: evt.detail.lat, lng: evt.detail.lng })
+      // increase the zoom level by an amount which fits your needs
+      //"true" is to have a smooth transition
+      hMap.setZoom(15, true)
+    })
     // MapEvents enables the event system
     // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(hMap))
 
     // Now use the map as required...
-    // eslint-disable-next-line no-console
-    console.log(hMap.getObjects())
     changeFeatureStyle(hMap)
 
     // This will act as a cleanup to run once this hook runs again.
@@ -214,7 +217,7 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
     return () => {
       hMap.dispose()
     }
-  }, [mapRef, allLocations]) // This will run this hook every time this ref is updated
+  }, [mapRef, allLocations, roadtripInfos]) // This will run this hook every time this ref is updated
 
   return (
     <div

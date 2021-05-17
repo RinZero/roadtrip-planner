@@ -50,7 +50,6 @@ export const DialogDelete = (props: DialogProps) => {
           updateUser({
             userName: '',
             email: '',
-            password: '',
             picture: '',
           })
         )
@@ -67,7 +66,7 @@ export const DialogDelete = (props: DialogProps) => {
   return (
     <>
       {objectType === 'Profil' ? (
-        <InfoButton color="primary" onClick={handleClickOpenDelete}>
+        <InfoButton onClick={handleClickOpenDelete} color="secondary">
           Profil löschen
         </InfoButton>
       ) : (

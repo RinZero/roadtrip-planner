@@ -32,7 +32,7 @@ import {
 } from '../../store/selectors'
 import { deleteUser, editUser } from '../../utils/AuthService'
 import ImageDropzone from '../ImageDropzone'
-// import ChangePasswordDialog from './ChangePasswordDialog'
+import ChangePasswordDialog from './ChangePasswordDialog'
 import {
   ProfileBox,
   PopperBox,
@@ -70,22 +70,6 @@ const ProfileComponent = () => {
     setValues({ ...values, open: false })
     setAnchorEl(null)
     setId(values.open ? 'simple-popper' : undefined)
-  }
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
-  }
-
-  const handleMouseDownPassword = (event: MouseEvent) => {
-    event.preventDefault()
-  }
-
-  const handleClickShowPassword2 = () => {
-    setValues({ ...values, showPassword2: !values.showPassword2 })
-  }
-
-  const handleMouseDownPassword2 = (event: MouseEvent) => {
-    event.preventDefault()
   }
 
   type IFormInput = {
@@ -201,7 +185,6 @@ const ProfileComponent = () => {
               </Box>
 
               <Divider />
-              {/* <ChangePasswordDialog /> */}
 
               <IconBox>
                 <DialogDelete
@@ -212,6 +195,7 @@ const ProfileComponent = () => {
                     gemacht werden. Damit gehen auch deine erstellten Roadtrips
                     und Orte verloren."
                 />
+                <ChangePasswordDialog />
                 <StyledButton type="submit">Speichern</StyledButton>
               </IconBox>
             </PopperBox>

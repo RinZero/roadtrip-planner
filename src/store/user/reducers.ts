@@ -78,10 +78,9 @@ export const userReducer = produce(
         return draft
       }
       case getType(updateUser): {
-        const { userName, email, password, picture } = action.payload
+        const { userName, email, picture } = action.payload
         draft.userName = userName
         draft.email = email
-        draft.password = password
         draft.picture = picture
         return draft
       }

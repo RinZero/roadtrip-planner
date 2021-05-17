@@ -1,6 +1,9 @@
 import { memo, FC, useRef, useEffect } from 'react'
 
+import { useSelector } from 'react-redux'
+
 import flag from '../assets/flag.svg'
+import { selectRoadtripInfos } from '../store/selectors'
 import './infoBubble.css'
 
 const windowH = window as any //window.H hat keinen passende type deklaration von Here
@@ -50,7 +53,7 @@ export type MapProps = {
 const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
   // Create a reference to the HTML element we want to put the map on
   const mapRef = useRef<HTMLDivElement>(null)
-
+  const roadtripInfos = useSelector(selectRoadtripInfos())
   /**
    * Create the map instance
    * While `useEffect` could also be used here, `useLayoutEffect` will render
@@ -128,7 +131,8 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
                 icon: flagIcon,
               }
             )
-            startMarker.setData('<p>Seas</p>')
+
+            startMarker.setData(`<p>${roadtripInfos[i]?.address}</p>`)
             startMarker.addEventListener('tap', (event: any) => {
               const bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
                 content: event.target.getData(),
@@ -140,7 +144,14 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
             const endMarker = new H.map.Marker(section.arrival.place.location, {
               icon: flagIcon,
             })
-
+            endMarker.setData(`<p>${roadtripInfos[i + 1]?.address}</p>`)
+            endMarker.addEventListener('tap', (event: any) => {
+              const bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
+                content: event.target.getData(),
+              })
+              bubble.addClass('custom-bubble')
+              ui.addBubble(bubble)
+            })
             // Add the route polyline and the two markers to the map:
             hMap.addObjects([routeLine, routeArrows, startMarker, endMarker])
           })

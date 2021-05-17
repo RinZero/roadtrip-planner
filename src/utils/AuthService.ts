@@ -188,7 +188,28 @@ export const editUser = (data: FormData, token: string, id: string) => {
       return response.data
     })
     .catch((error) => {
-      return error
+      return {
+        status: error.response.status,
+        data: Object.entries(error.response.data),
+      }
+    })
+}
+
+export const editUserPassword = (data: FormData, token: string, id: string) => {
+  return fetch
+    .patch(`users/${id}`, data, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => {
+      return response.data
+    })
+    .catch((error) => {
+      return {
+        status: error.response.status,
+        data: Object.entries(error.response.data),
+      }
     })
 }
 

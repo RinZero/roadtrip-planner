@@ -1,4 +1,36 @@
-.custom-bubble {
+.H_ib_content {
+  min-width: 12em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.overflowBox {
+  max-width: 12em;
+}
+.categoriesBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: auto;
+  padding: 5px 2px;
+}
+
+.category {
+  font-size: 10px;
+  background-color: #e0e0e0;
+  border-radius: 15px;
+  padding: 2px 4px;
+  color: rgba(0, 0, 0, 0.87);
+  white-space: nowrap;
+  margin-right: 4px;
+}
+
+.primeCategory {
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.35);
+}
+
+/* Custom Styling without here_stylesheet WIP
+
+ .custom-bubble {
   background-color: white;
   width: 150px;
   height: 100px;
@@ -19,4 +51,4 @@
   max-width: 15px;
   align-self: flex-end;
   margin: 8px;
-}
+} */

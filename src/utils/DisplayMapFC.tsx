@@ -3,9 +3,9 @@ import { memo, FC, useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import flag from '../assets/flag.svg'
+import PopupContent from '../components/PopupContent'
 import { selectRoadtripInfos } from '../store/selectors'
 import './infoBubble.css'
-
 const windowH = window as any //window.H hat keinen passende type deklaration von Here
 
 const changeFeatureStyle = (map: any) => {
@@ -39,10 +39,31 @@ const changeFeatureStyle = (map: any) => {
 
   streetStyle.addEventListener('change', changeListener)
 }
-function addMarkerToGroup(group: any, marker: any, html: any) {
-  // add custom data to the marker
-  marker.setData(html)
-  group.addObject(marker)
+
+const formatBubbleTest = (info: {
+  address: string
+  categories: {
+    id: string
+    name: string
+    primary?: boolean | undefined
+  }
+  coordinates: number[]
+}) => {
+  let bubbleString =
+    '<p>' + info.address.slice(0, info.address.lastIndexOf(','))
+  bubbleString += '</p><div class="overflowBox"><div class="categoriesBox">'
+  ;(info.categories as any).forEach(
+    (e: { name: string; primary?: boolean }) => {
+      bubbleString +=
+        '<div class="category' +
+        (e.primary ? ' primeCategory' : '') +
+        '">' +
+        e.name +
+        '</div>'
+    }
+  )
+  bubbleString += `</div></div>`
+  return bubbleString
 }
 
 export type MapProps = {
@@ -131,8 +152,9 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
                 icon: flagIcon,
               }
             )
-
-            startMarker.setData(`<p>${roadtripInfos[i]?.address}</p>`)
+            // eslint-disable-next-line no-console
+            console.log(roadtripInfos[i].categories, roadtripInfos)
+            startMarker.setData(formatBubbleTest(roadtripInfos[i]))
             startMarker.addEventListener('tap', (event: any) => {
               const bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
                 content: event.target.getData(),
@@ -144,7 +166,7 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
             const endMarker = new H.map.Marker(section.arrival.place.location, {
               icon: flagIcon,
             })
-            endMarker.setData(`<p>${roadtripInfos[i + 1]?.address}</p>`)
+            endMarker.setData(formatBubbleTest(roadtripInfos[i + 1]))
             endMarker.addEventListener('tap', (event: any) => {
               const bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
                 content: event.target.getData(),

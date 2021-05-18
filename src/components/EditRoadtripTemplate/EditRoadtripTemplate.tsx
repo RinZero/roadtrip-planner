@@ -220,6 +220,24 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
                       ? 'dropArea'
                       : ''
                   }
+                  onClick={() => {
+                    const mapEvent: Event = new CustomEvent('customMapEvent', {
+                      detail: {
+                        lat: +mapRoute[index].slice(
+                          0,
+                          mapRoute[index].indexOf(',')
+                        ),
+                        lng: +mapRoute[index].slice(
+                          mapRoute[index].indexOf(',') + 1,
+                          mapRoute[index].length
+                        ),
+                      },
+                      bubbles: true,
+                      cancelable: true,
+                      composed: false,
+                    })
+                    window.dispatchEvent(mapEvent)
+                  }}
                 >
                   <Box
                     width="100%"

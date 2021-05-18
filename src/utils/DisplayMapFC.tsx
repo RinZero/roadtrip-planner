@@ -1,7 +1,10 @@
 import { memo, FC, useRef, useEffect } from 'react'
 
-import flag from '../assets/flag.svg'
+import { useSelector } from 'react-redux'
 
+import flag from '../assets/flag.svg'
+import { selectRoadtripInfos } from '../store/selectors'
+import './infoBubble.css'
 const windowH = window as any //window.H hat keinen passende type deklaration von Here
 
 const changeFeatureStyle = (map: any) => {
@@ -35,6 +38,34 @@ const changeFeatureStyle = (map: any) => {
 
   streetStyle.addEventListener('change', changeListener)
 }
+
+const formatBubbleTest = (info: {
+  address: string
+  categories: {
+    id: string
+    name: string
+    primary?: boolean | undefined
+  }
+  coordinates: number[]
+}) => {
+  let bubbleString =
+    '<p>' +
+    info.address.slice(0, info.address.lastIndexOf(',')) +
+    '</p><div class="overflowBox"><div class="categoriesBox">'
+  ;(info.categories as any).forEach(
+    (e: { name: string; primary?: boolean }) => {
+      bubbleString +=
+        '<div class="category' +
+        (e.primary ? ' primeCategory' : '') +
+        '">' +
+        e.name +
+        '</div>'
+    }
+  )
+  bubbleString += `</div></div>`
+  return bubbleString
+}
+
 export type MapProps = {
   allLocations: string[]
   isSmall: boolean
@@ -43,7 +74,7 @@ export type MapProps = {
 const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
   // Create a reference to the HTML element we want to put the map on
   const mapRef = useRef<HTMLDivElement>(null)
-
+  const roadtripInfos = useSelector(selectRoadtripInfos())
   /**
    * Create the map instance
    * While `useEffect` could also be used here, `useLayoutEffect` will render
@@ -63,7 +94,8 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
       zoom: 6.5,
       pixelRatio: window.devicePixelRatio || 1,
     })
-
+    // Create the default UI components to allow the user to interact with them
+    const ui = H.ui.UI.createDefault(hMap, defaultLayers)
     // Add all Markers to Map
     // Create an icon, an object holding the latitude and longitude, and a marker:
     // Location Object should look like this: { lat: 47.79941, lng: 13.04399 }
@@ -120,12 +152,29 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
                 icon: flagIcon,
               }
             )
-
+            startMarker.setData(formatBubbleTest(roadtripInfos[i]))
+            startMarker.addEventListener(
+              'tap',
+              (event: Record<string, any>) => {
+                const bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
+                  content: event.target.getData(),
+                })
+                bubble.addClass('custom-bubble')
+                ui.addBubble(bubble)
+              }
+            )
             // Create a marker for the end point:
             const endMarker = new H.map.Marker(section.arrival.place.location, {
               icon: flagIcon,
             })
-
+            endMarker.setData(formatBubbleTest(roadtripInfos[i + 1]))
+            endMarker.addEventListener('tap', (event: Record<string, any>) => {
+              const bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
+                content: event.target.getData(),
+              })
+              bubble.addClass('custom-bubble')
+              ui.addBubble(bubble)
+            })
             // Add the route polyline and the two markers to the map:
             hMap.addObjects([routeLine, routeArrows, startMarker, endMarker])
           })
@@ -151,13 +200,18 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
     windowH.addEventListener('resize', () => {
       hMap.getViewPort().resize()
     })
-
+    window.addEventListener('customMapEvent', (evt: Record<string, any>) => {
+      // dieser typ, da windwow den CustomEvent Type nicht mag
+      // set the map center to the coordinates
+      hMap.setCenter({ lat: evt.detail.lat, lng: evt.detail.lng })
+      // increase the zoom level by an amount which fits your needs
+      //"true" is to have a smooth transition
+      hMap.setZoom(15, true)
+    })
     // MapEvents enables the event system
     // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(hMap))
 
-    // Create the default UI components to allow the user to interact with them
-    const ui = H.ui.UI.createDefault(hMap, defaultLayers)
     // Now use the map as required...
     changeFeatureStyle(hMap)
 
@@ -166,7 +220,7 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
     return () => {
       hMap.dispose()
     }
-  }, [mapRef, allLocations]) // This will run this hook every time this ref is updated
+  }, [mapRef, allLocations, roadtripInfos]) // This will run this hook every time this ref is updated
 
   return (
     <div

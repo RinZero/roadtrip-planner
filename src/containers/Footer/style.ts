@@ -9,7 +9,7 @@ export const FooterLink = withTheme(styled(Link)`
 
 export const FooterNavigation = withTheme(styled(BottomNavigation)`
   height: ${(props) => props.theme.spacing(8)}px;
-  z-index: 1;
+  z-index: 5;
   color: #707070;
   width: 100%;
   position: fixed;

@@ -192,7 +192,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
   const selectedCategories = useSelector(selectUiSelectedCategories())
 
   const theme = useTheme()
-  const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'lg'))
+  const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'xl'))
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ContentBox>

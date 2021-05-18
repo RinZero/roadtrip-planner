@@ -39,7 +39,6 @@ export const getUsersByAdminSuccess = createAction(
 export const updateUser = createAction('user/UPDATE_USER')<{
   userName: string
   email: string
-  password: string
   picture: string | undefined
 }>()
 

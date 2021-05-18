@@ -64,6 +64,7 @@ test('login and check profile', async () => {
       isAdmin: true,
       picture: '',
       token: 'abcdef',
+      tutorial: [false, false, false],
     })
   )
 
@@ -89,7 +90,6 @@ test('change name, email and add picture', async () => {
     updateUser({
       userName: 'MyNewName',
       email: 'new@email.com',
-      password: 'password123',
       picture: 'https://img.jpg',
     })
   )
@@ -116,6 +116,7 @@ test('delete account', async () => {
       id: 'guest',
       picture: undefined,
       token: '',
+      tutorial: [false, false, false],
     })
   )
   render(<Header />)

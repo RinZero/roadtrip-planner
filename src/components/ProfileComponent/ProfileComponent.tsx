@@ -7,13 +7,10 @@ import {
   FormControl,
   InputLabel,
   Input,
-  IconButton,
-  InputAdornment,
   Divider,
   ClickAwayListener,
   Link,
 } from '@material-ui/core'
-import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,6 +29,7 @@ import {
 } from '../../store/selectors'
 import { deleteUser, editUser } from '../../utils/AuthService'
 import ImageDropzone from '../ImageDropzone'
+import ChangePasswordDialog from './ChangePasswordDialog'
 import {
   ProfileBox,
   PopperBox,
@@ -54,8 +52,6 @@ const ProfileComponent = () => {
   >(null)
   const [id, setId] = useState<string | undefined>(undefined)
   const [values, setValues] = useState({
-    showPassword: false,
-    showPassword2: false,
     open: false,
   })
 
@@ -71,27 +67,9 @@ const ProfileComponent = () => {
     setId(values.open ? 'simple-popper' : undefined)
   }
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
-  }
-
-  const handleMouseDownPassword = (event: MouseEvent) => {
-    event.preventDefault()
-  }
-
-  const handleClickShowPassword2 = () => {
-    setValues({ ...values, showPassword2: !values.showPassword2 })
-  }
-
-  const handleMouseDownPassword2 = (event: MouseEvent) => {
-    event.preventDefault()
-  }
-
   type IFormInput = {
     userName: string
     email: string
-    password: string
-    password_confirmation: string
     image: (File & {
       preview: string
     })[]
@@ -104,9 +82,7 @@ const ProfileComponent = () => {
   const onFormSubmit = async (data: IFormInput) => {
     const inputData = new FormData()
     inputData.append('[user]username', data.userName)
-    inputData.append('[user]password', data.password)
     inputData.append('[user]email', data.email)
-    inputData.append('[user]password_confirmation', data.password_confirmation)
     inputData.append('[user]image', image[0])
     inputData.append('[user]id', userId)
 
@@ -116,7 +92,6 @@ const ProfileComponent = () => {
         updateUser({
           userName: data.userName,
           email: data.email,
-          password: data.password,
           picture:
             response.data.data.attributes.image === null
               ? undefined
@@ -124,13 +99,15 @@ const ProfileComponent = () => {
         })
       )
       dispatch(setMessage({ message: 'Dein Profil wurde bearbeitet.' }))
-    } else {
-      // TODO JULIA: Fehlermeldungen aus dem Backend
-      dispatch(
-        setMessage({
-          message: 'Dein Profil konnte leider nicht bearbeitet werden.',
-        })
-      )
+    } else if (response.status === 422) {
+      const arr: Array<Record<string, any>> = []
+      response.data.forEach(function (item: Record<string, any>) {
+        if (item[1]) {
+          arr.push(item[1].pop())
+        }
+      })
+      const str = arr.join(' ')
+      dispatch(setMessage({ message: str }))
     }
     //close popup
     handleClickAway()
@@ -193,56 +170,6 @@ const ProfileComponent = () => {
                 />
               </FormControl>
               <Divider />
-              <FormControl>
-                <InputLabel>Passwort</InputLabel>
-                <Input
-                  name="password"
-                  inputRef={register}
-                  type={values.showPassword ? 'text' : 'password'}
-                  inputProps={{ minlength: 6, required: true }}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                      >
-                        {values.showPassword ? (
-                          <Visibility />
-                        ) : (
-                          <VisibilityOff />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              <Divider />
-              <FormControl>
-                <InputLabel>Passwort Bestätigung</InputLabel>
-                <Input
-                  name="password_confirmation"
-                  inputRef={register}
-                  type={values.showPassword2 ? 'text' : 'password'}
-                  inputProps={{ minlength: 6, required: true }}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword2}
-                        onMouseDown={handleMouseDownPassword2}
-                      >
-                        {values.showPassword2 ? (
-                          <Visibility />
-                        ) : (
-                          <VisibilityOff />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              <Divider />
               <Box
                 display="flex"
                 alignItems="flex-start"
@@ -265,6 +192,7 @@ const ProfileComponent = () => {
                     gemacht werden. Damit gehen auch deine erstellten Roadtrips
                     und Orte verloren."
                 />
+                <ChangePasswordDialog />
                 <StyledButton type="submit">Speichern</StyledButton>
               </IconBox>
             </PopperBox>

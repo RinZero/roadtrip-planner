@@ -222,6 +222,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
                   }
                 >
                   <Box
+                    width="100%"
                     display="flex"
                     flexDirection="column"
                     alignItems="center"
@@ -233,6 +234,8 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
                         onClick={(e: Record<string, any>) => {
                           moveMobile(e, 'up')
                         }}
+                        aria-label="Ort in Route 1 nach vorne verschieben"
+                        title="Ort in Route 1 nach vorne verschieben"
                       >
                         <ArrowUpwardIcon />
                       </ArrowButton>
@@ -246,6 +249,8 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
                           setList(list.filter((listitem) => listitem !== item))
                           onChange(list.filter((listitem) => listitem !== item))
                         }}
+                        aria-label="Ort aus Roadtrip löschen"
+                        title="Ort aus Roadtrip löschen"
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -258,6 +263,8 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
                         onClick={(e: Record<string, any>) => {
                           moveMobile(e, 'down')
                         }}
+                        aria-label="Ort in Route 1 nach hinten verschieben"
+                        title="Ort in Route 1 nach hinten verschieben"
                       >
                         <ArrowDownwardIcon />
                       </ArrowButton>

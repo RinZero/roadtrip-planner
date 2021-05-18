@@ -83,3 +83,8 @@ export const selectRoadtripStopNames = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.roadtripStopNames
   })
+
+export const selectIsGenerated = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.isGenerated
+  })

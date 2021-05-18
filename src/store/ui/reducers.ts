@@ -17,6 +17,8 @@ import {
   setMessage,
   setRoadtripStopNames,
   setPreviousStep,
+  setIsGenerated,
+  resetUI,
 } from './actions'
 import { UiState } from './types'
 
@@ -35,8 +37,9 @@ export const initialState: UiState = {
   editRoadtrip: { name: '', stops: [], id: -1, public: false },
   dropzoneFiles: [],
   isTest: false,
-  message: '',
+  message: { content: '', status: 'error' },
   roadtripStopNames: [],
+  isGenerated: false,
 }
 
 export const uiReducer = produce(
@@ -102,13 +105,23 @@ export const uiReducer = produce(
         return draft
       }
       case getType(setMessage): {
-        const { message } = action.payload
-        draft.message = message
+        const { message, status } = action.payload
+        draft.message = { content: message, status: status }
+
         return draft
       }
       case getType(setRoadtripStopNames): {
         const { roadtripStopNames } = action.payload
         draft.roadtripStopNames = roadtripStopNames
+        return draft
+      }
+      case getType(setIsGenerated): {
+        const { isGenerated } = action.payload
+        draft.isGenerated = isGenerated
+        return draft
+      }
+      case getType(resetUI): {
+        draft = initialState
         return draft
       }
       default:

@@ -69,7 +69,15 @@ const NewPlaceForm = (props: PropsForForm) => {
 
     // Get response
     if (typeof response.message === 'string') {
-      dispatch(setMessage({ message: response.message }))
+      dispatch(
+        setMessage({
+          message: response.message,
+          status:
+            response.status === 'ok' || response.status === 'created'
+              ? 'success'
+              : 'error',
+        })
+      )
     } else {
       const arr: Array<Record<string, any>> = []
       response.forEach(function (item: Record<string, any>) {
@@ -78,7 +86,15 @@ const NewPlaceForm = (props: PropsForForm) => {
         }
       })
       const str = arr.join(' ')
-      dispatch(setMessage({ message: str }))
+      dispatch(
+        setMessage({
+          message: str,
+          status:
+            response.status === 'ok' || response.status === 'created'
+              ? 'success'
+              : 'error',
+        })
+      )
     }
     if (
       response.status &&

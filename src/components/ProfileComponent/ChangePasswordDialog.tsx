@@ -69,6 +69,7 @@ const ChangePasswordDialog = () => {
       dispatch(
         setMessage({
           message: 'Dein Passwort wurde geändert.',
+          status: 'success',
         })
       )
     } else if (response.status === 422) {
@@ -79,7 +80,7 @@ const ChangePasswordDialog = () => {
         }
       })
       const str = arr.join(' ')
-      dispatch(setMessage({ message: str }))
+      dispatch(setMessage({ message: str, status: 'error' }))
     }
   }
   const passwordChanged = (event: ChangeEvent<HTMLInputElement>) => {

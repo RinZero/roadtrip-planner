@@ -1,11 +1,11 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { setMessage, setProgressStep } from '../../store/actions'
 import {
-  selectRoadtripInfos,
+  selectIsGenerated,
   selectRoadtripStops,
   selectUiSelectedCategories,
   selectUserToken,
@@ -30,7 +30,7 @@ const RoadtripForm = (props: PropsForForm) => {
   // get necessary stuff from store to check if progressStep is valid
   const dataStep1 = useSelector(selectRoadtripStops())
   const dataStep2 = useSelector(selectUiSelectedCategories())
-  const dataStep3 = useSelector(selectRoadtripInfos())
+  const dataStep3 = useSelector(selectIsGenerated())
   const token = useSelector(selectUserToken())
   const progressString = props.id ? props.id[1] : '1'
   if (progressString === '1') dispatch(setProgressStep({ progressStep: '1' }))
@@ -46,7 +46,7 @@ const RoadtripForm = (props: PropsForForm) => {
     progressString === '4' &&
     dataStep1.length > 0 &&
     dataStep2.length > 0 &&
-    dataStep3.length > 0 &&
+    dataStep3 &&
     token
   )
     dispatch(setProgressStep({ progressStep: '4' }))
@@ -55,6 +55,7 @@ const RoadtripForm = (props: PropsForForm) => {
     dispatch(
       setMessage({
         message: `Mach bitte zuerst die Schritte davor fertig.`,
+        status: 'error',
       })
     )
   }

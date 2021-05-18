@@ -43,7 +43,10 @@ export const DialogDelete = (props: DialogProps) => {
     const response = await onDelete(token, id)
     if (response.status && response.status === 204) {
       await dispatch(
-        setMessage({ message: `Dein ${objectType} wurde gelöscht` })
+        setMessage({
+          message: `Dein ${objectType} wurde gelöscht`,
+          status: 'success',
+        })
       )
       if (objectType === 'Profil') {
         dispatch(

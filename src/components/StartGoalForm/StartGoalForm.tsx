@@ -124,6 +124,12 @@ export const StartGoalForm = () => {
   }
   return (
     <Box my="auto">
+      <Box mb={2}>
+        <Typography align="center" variant="h6">
+          Gib zunächst deinen Start und Endpunkt an um deinen eigenen Roadtrip
+          erstellen. Optional können auch Zwischenstops hinzugefügt werden.
+        </Typography>
+      </Box>
       {tutorial[0] ? <Tutorial openBool={tutorial} /> : ''}
       <StyledForm>
         <FormBox id="start_stop">

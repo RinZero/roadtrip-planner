@@ -7,8 +7,10 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import { DialogDelete } from '../../components/DialogDelete'
 import { selectUserLocations, selectUserId } from '../../store/selectors'
+import { LocationState } from '../../store/user/types'
 import { deletePlace } from '../../utils/CreateNewPlace'
 import { LocationBox, LocationListItem } from './style'
+
 export const LocationList = () => {
   const locations = useSelector(selectUserLocations())
   const userID = (useSelector(selectUserId()) as unknown) as number
@@ -16,8 +18,8 @@ export const LocationList = () => {
   return (
     <LocationBox>
       <List>
-        {locations?.map((location) => {
-          if (location.user_id === userID)
+        {locations?.map((location: LocationState) => {
+          if (location.user_id == userID)
             return (
               <LocationListItem button key={location.id}>
                 <Box display="flex" justifyContent="space-between" width="100%">
@@ -29,6 +31,8 @@ export const LocationList = () => {
                     <IconButton
                       component={RouterLink}
                       to={`/neuer_ort/edit/:${location.id}`}
+                      aria-label="Ort bearbeiten"
+                      title="Hier deinen Ort bearbeiten"
                     >
                       <EditIcon />
                     </IconButton>

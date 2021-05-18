@@ -34,4 +34,5 @@ export type UiState = {
   dropzoneFiles: (File & { preview: string })[]
   isTest: boolean
   message: string
+  isGenerated: boolean
 }

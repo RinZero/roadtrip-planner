@@ -63,6 +63,8 @@ export const setRoadtripStopNames = createAction('ui/SET_ROADTRIP_STOP_NAMES')<{
   roadtripStopNames: string[]
 }>()
 
+export const setIsGenerated = createAction('ui/SET_IS_GENERATED')<{isGenerated: boolean}>()
+
 export const UiActions = {
   setIsTest,
   setProgressStep,
@@ -78,6 +80,7 @@ export const UiActions = {
   setDropzoneFiles,
   setMessage,
   setRoadtripStopNames,
+  setIsGenerated,
 }
 
 export type UiActionsType = ActionType<typeof UiActions>

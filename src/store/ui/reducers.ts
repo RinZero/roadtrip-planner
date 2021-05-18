@@ -17,6 +17,7 @@ import {
   setMessage,
   setRoadtripStopNames,
   setPreviousStep,
+  setIsGenerated,
 } from './actions'
 import { UiState } from './types'
 
@@ -37,6 +38,7 @@ export const initialState: UiState = {
   isTest: false,
   message: '',
   roadtripStopNames: [],
+  isGenerated: false,
 }
 
 export const uiReducer = produce(
@@ -109,6 +111,11 @@ export const uiReducer = produce(
       case getType(setRoadtripStopNames): {
         const { roadtripStopNames } = action.payload
         draft.roadtripStopNames = roadtripStopNames
+        return draft
+      }
+      case getType(setIsGenerated): {
+        const { isGenerated } = action.payload
+        draft.isGenerated = isGenerated
         return draft
       }
       default:

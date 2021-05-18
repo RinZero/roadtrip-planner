@@ -6,7 +6,12 @@ import { useHistory } from 'react-router-dom'
 
 import { LocationAutocomplete } from '../../components/LocationAutocomplete'
 import Tutorial from '../../components/Tutorial'
-import { setMapRoute, setMessage, setRoadtripInfos } from '../../store/actions'
+import {
+  setMapRoute,
+  setMessage,
+  setRoadtripInfos,
+  setIsGenerated,
+} from '../../store/actions'
 import {
   selectRoadtripInfos,
   selectUserToken,
@@ -65,6 +70,7 @@ const EditRoadtripCreation = () => {
     if (typeof result === 'string') {
       dispatch(setMessage({ message: result }))
     } else if (typeof result === 'object' && result.type) {
+      dispatch(setIsGenerated({ isGenerated: true }))
       history.push('/step/:4')
     }
   }, [name, isPublic, roadtripInfo, token, dispatch, history])

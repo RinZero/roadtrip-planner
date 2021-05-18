@@ -5,11 +5,11 @@ import {
   List,
   ListItemText,
   IconButton,
-  ListItemSecondaryAction,
   useTheme,
   useMediaQuery,
 } from '@material-ui/core'
-// Import BoardItem component
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -21,7 +21,13 @@ import {
 } from '../../store/selectors'
 import DisplayMapFC from '../../utils/DisplayMapFC'
 import { initUserData } from '../../utils/initUserData'
-import { StyledBox, DragListItem, ContentBox, CreateButton } from './style'
+import {
+  StyledBox,
+  DragListItem,
+  ContentBox,
+  CreateButton,
+  ArrowButton,
+} from './style'
 
 export type EditRoadtripComponentProps = {
   dndStateOrder: Array<Record<string, any>>
@@ -130,13 +136,63 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
     })
   }
 
+  const regex = new RegExp('([^-]+$)')
+  const getIndex = (dndID: string) => {
+    const dndNumberArr = dndID.match(regex)
+    const dndString = dndNumberArr ? dndNumberArr.pop() : ''
+    const dndNumber: number = dndString ? +dndString : -1
+    return dndNumber
+  }
+
+  const array_move = (
+    arr: Array<Record<string, any>>,
+    old_index: number,
+    new_index: number
+  ) => {
+    // eslint-disable-next-line prefer-const
+    let arrCopy = [...arr]
+    if (new_index >= arr.length) {
+      let k = new_index - arr.length + 1
+      while (k--) {
+        arrCopy.push([''])
+      }
+    }
+    arrCopy.splice(new_index, 0, arrCopy.splice(old_index, 1)[0])
+    return arrCopy
+  }
+
+  const moveMobile = (event: Record<string, any>, direction: string) => {
+    const id = event.target.parentElement.parentElement.id
+      ? event.target.parentElement.parentElement.id
+      : event.target.parentElement.id
+    const dndNumber = getIndex(id)
+    if (direction === 'up') moveUp(dndNumber)
+    else if (direction === 'down') moveDown(dndNumber)
+  }
+
+  const moveUp = (dndNumber: number) => {
+    if (dndNumber > 0) {
+      const newList = array_move(list, dndNumber, dndNumber - 1)
+      setList(newList)
+      onChange(newList)
+    }
+  }
+
+  const moveDown = (dndNumber: number) => {
+    if (dndNumber < list.length - 1 && dndNumber > -1) {
+      const newList = array_move(list, dndNumber, dndNumber + 1)
+      setList(newList)
+      onChange(newList)
+    }
+  }
+
   const mapRoute = useSelector(selectMapRoute())
 
   // für die Zusammenfassung welche Kategorien für den Roadtrip verwendet wurden
   const selectedCategories = useSelector(selectUiSelectedCategories())
 
   const theme = useTheme()
-  const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'lg'))
+  const isLaptop = useMediaQuery(theme.breakpoints.between('md', 'xl'))
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ContentBox>
@@ -165,17 +221,57 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
                       : ''
                   }
                 >
-                  <ListItemText primary={item.address || item.name} />
-                  <ListItemSecondaryAction>
-                    <IconButton
-                      onClick={() => {
-                        setList(list.filter((listitem) => listitem !== item))
-                        onChange(list.filter((listitem) => listitem !== item))
-                      }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
+                  <Box
+                    width="100%"
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                  >
+                    {!isLaptop ? (
+                      <ArrowButton
+                        id={`up-button-dnd-${index}`}
+                        color="primary"
+                        onClick={(e: Record<string, any>) => {
+                          moveMobile(e, 'up')
+                        }}
+                        aria-label="Ort in Route 1 nach vorne verschieben"
+                        title="Ort in Route 1 nach vorne verschieben"
+                      >
+                        <ArrowUpwardIcon />
+                      </ArrowButton>
+                    ) : (
+                      ''
+                    )}
+                    <Box display="flex" flexDirection="row" alignItems="center">
+                      <ListItemText primary={item.address || item.name} />
+                      <IconButton
+                        onClick={() => {
+                          setList(list.filter((listitem) => listitem !== item))
+                          onChange(list.filter((listitem) => listitem !== item))
+                        }}
+                        aria-label="Ort aus Roadtrip löschen"
+                        title="Ort aus Roadtrip löschen"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                    {!isLaptop ? (
+                      <ArrowButton
+                        button
+                        id={`down-button-dnd-${index}`}
+                        color="primary"
+                        onClick={(e: Record<string, any>) => {
+                          moveMobile(e, 'down')
+                        }}
+                        aria-label="Ort in Route 1 nach hinten verschieben"
+                        title="Ort in Route 1 nach hinten verschieben"
+                      >
+                        <ArrowDownwardIcon />
+                      </ArrowButton>
+                    ) : (
+                      ''
+                    )}
+                  </Box>
                 </DragListItem>
               )
             })}

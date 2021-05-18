@@ -1,4 +1,4 @@
-import { Box, Button, ListItem, withTheme } from '@material-ui/core'
+import { Box, Button, ListItem, IconButton, withTheme } from '@material-ui/core'
 import styled from 'styled-components'
 
 export const CreateButton = withTheme(styled(Button)`
@@ -48,4 +48,12 @@ export const ContentBox = withTheme(styled(Box)`
     flex-direction: row;
     justify-content: space-between;
   }
+`)
+
+export const ArrowButton = withTheme(styled(IconButton)`
+  padding: 0;
+  width: 50%;
+  border: 1px solid rgb(0 0 0 / 16%);
+  border-radius: 15px;
+  color: #707070;
 `)

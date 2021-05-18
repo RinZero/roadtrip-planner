@@ -153,19 +153,22 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
               }
             )
             startMarker.setData(formatBubbleTest(roadtripInfos[i]))
-            startMarker.addEventListener('tap', (event: any) => {
-              const bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
-                content: event.target.getData(),
-              })
-              bubble.addClass('custom-bubble')
-              ui.addBubble(bubble)
-            })
+            startMarker.addEventListener(
+              'tap',
+              (event: Record<string, any>) => {
+                const bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
+                  content: event.target.getData(),
+                })
+                bubble.addClass('custom-bubble')
+                ui.addBubble(bubble)
+              }
+            )
             // Create a marker for the end point:
             const endMarker = new H.map.Marker(section.arrival.place.location, {
               icon: flagIcon,
             })
             endMarker.setData(formatBubbleTest(roadtripInfos[i + 1]))
-            endMarker.addEventListener('tap', (event: any) => {
+            endMarker.addEventListener('tap', (event: Record<string, any>) => {
               const bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
                 content: event.target.getData(),
               })

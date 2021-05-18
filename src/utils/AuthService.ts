@@ -31,14 +31,15 @@ export const logIn = (logInData: logInType) => {
   return fetch
     .post('sessions', logInData)
     .then((response) => {
-      const { id, email, username, is_admin, picture } = response.data.user
+      const id = response.data.user.id
+      const { email, username, is_admin, image } = response.data.user.attributes
       const jwtToken = response.data.token
       return {
         userName: username,
         id: id,
         email: email,
         isAdmin: is_admin,
-        picture: picture,
+        picture: image?.url,
         token: jwtToken,
       }
     })

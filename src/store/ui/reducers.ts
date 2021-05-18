@@ -37,7 +37,7 @@ export const initialState: UiState = {
   editRoadtrip: { name: '', stops: [], id: -1, public: false },
   dropzoneFiles: [],
   isTest: false,
-  message: '',
+  message: { content: '', status: 'error' },
   roadtripStopNames: [],
   isGenerated: false,
 }
@@ -105,8 +105,9 @@ export const uiReducer = produce(
         return draft
       }
       case getType(setMessage): {
-        const { message } = action.payload
-        draft.message = message
+        const { message, status } = action.payload
+        draft.message = { content: message, status: status }
+
         return draft
       }
       case getType(setRoadtripStopNames): {

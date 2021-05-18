@@ -57,6 +57,7 @@ export const setIsTest = createAction('ui/SET_IS_TEST')()
 
 export const setMessage = createAction('ui/SET_MESSAGE')<{
   message: string
+  status?: string
 }>()
 
 export const setRoadtripStopNames = createAction('ui/SET_ROADTRIP_STOP_NAMES')<{

@@ -161,7 +161,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
     return arrCopy
   }
 
-  const moveMobile = (event: any, direction: string) => {
+  const moveMobile = (event: Record<string, any>, direction: string) => {
     const id = event.target.parentElement.parentElement.id
       ? event.target.parentElement.parentElement.id
       : event.target.parentElement.id
@@ -230,7 +230,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
                       <ArrowButton
                         id={`up-button-dnd-${index}`}
                         color="primary"
-                        onClick={(e: any) => {
+                        onClick={(e: Record<string, any>) => {
                           moveMobile(e, 'up')
                         }}
                       >
@@ -255,7 +255,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
                         button
                         id={`down-button-dnd-${index}`}
                         color="primary"
-                        onClick={(e: any) => {
+                        onClick={(e: Record<string, any>) => {
                           moveMobile(e, 'down')
                         }}
                       >

@@ -105,20 +105,22 @@ const Header = () => {
           </>
         )}
 
-        <AccountButton
-          id={'header_profil_button'}
-          aria-label="profile"
-          title="Hier geht es zum Profil"
-          onClick={() =>
-            history.push(userName === 'Guest' ? '/sign_up' : '/profile')
-          }
-        >
-          {userName ? (
-            <Avatar alt={userName + 's Profilbild'} src={profilePic} />
-          ) : (
-            <AccountCircleIcon />
-          )}
-        </AccountButton>
+        {userName !== 'Guest' && (
+          <AccountButton
+            id={'header_profil_button'}
+            aria-label="profile"
+            title="Hier geht es zum Profil"
+            onClick={() =>
+              history.push(userName === 'Guest' ? '/sign_up' : '/profile')
+            }
+          >
+            {userName ? (
+              <Avatar alt={userName + 's Profilbild'} src={profilePic} />
+            ) : (
+              <AccountCircleIcon />
+            )}
+          </AccountButton>
+        )}
         {userName === 'Guest' && (
           <>
             <PopupState variant="popover" popupId="login-popup-popover">

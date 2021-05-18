@@ -74,6 +74,8 @@ export const DialogDelete = (props: DialogProps) => {
           onClick={async () => {
             handleClickOpenDelete()
           }}
+          aria-label={`${objectType} löschen`}
+          title={`Hier deinen ${objectType} löschen`}
         >
           <DeleteIcon />
         </IconButton>

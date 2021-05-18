@@ -18,7 +18,7 @@ import { Link as RouterLink, useHistory } from 'react-router-dom'
 
 import logoMobile from '../../assets/roadabout_logo.svg'
 import logo from '../../assets/roadabout_textlogo.svg'
-import { logOutSuccess } from '../../store/actions'
+import { logOutSuccess, resetUI } from '../../store/actions'
 import { selectUserName, selectUserPicture } from '../../store/selectors'
 import {
   LogoutButton,
@@ -89,7 +89,12 @@ const Header = () => {
         </LogoBox>
         {!isMobile && (
           <>
-            <HeaderLink component={RouterLink} to={`/step/:1`} variant="h6">
+            <HeaderLink
+              component={RouterLink}
+              to={`/step/:1`}
+              variant="h6"
+              onClick={() => dispatch(resetUI())}
+            >
               Neuer Roadtrip
             </HeaderLink>
             {userName !== 'Guest' && (

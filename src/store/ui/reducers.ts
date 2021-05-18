@@ -18,6 +18,7 @@ import {
   setRoadtripStopNames,
   setPreviousStep,
   setIsGenerated,
+  resetUI,
 } from './actions'
 import { UiState } from './types'
 
@@ -116,6 +117,10 @@ export const uiReducer = produce(
       case getType(setIsGenerated): {
         const { isGenerated } = action.payload
         draft.isGenerated = isGenerated
+        return draft
+      }
+      case getType(resetUI): {
+        draft = initialState
         return draft
       }
       default:

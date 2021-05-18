@@ -128,7 +128,7 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
             const routeLine = new H.map.Polyline(linestring, {
               style: {
                 lineWidth: 3,
-                strokeColor: 'rgba(230, 0, 0, 1)',
+                strokeColor: 'rgb(211,211,211)',
                 lineTailCap: 'arrow-tail',
                 lineHeadCap: 'arrow-head',
               },
@@ -137,8 +137,7 @@ const DisplayMapFC: FC<MapProps> = ({ allLocations, isSmall }) => {
             const routeArrows = new H.map.Polyline(linestring, {
               style: {
                 lineWidth: 3,
-                fillColor: 'white',
-                strokeColor: 'rgba(255, 255, 255, 1)',
+                strokeColor: 'rgba(230, 0, 0, 1)',
                 lineDash: [0, 2],
                 lineTailCap: 'arrow-tail',
                 lineHeadCap: 'arrow-head',

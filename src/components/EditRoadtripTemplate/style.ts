@@ -49,3 +49,9 @@ export const ContentBox = withTheme(styled(Box)`
     justify-content: space-between;
   }
 `)
+
+export const ArrowButton = withTheme(styled(Button)`
+  padding: 0;
+  width: 50%;
+  border: 1px solid rgb(0 0 0 / 16%);
+`)

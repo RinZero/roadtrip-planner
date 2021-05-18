@@ -8,6 +8,7 @@ import {
   Radio,
   Box,
   Button,
+  Typography,
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useForm } from 'react-hook-form'
@@ -141,6 +142,12 @@ const NewPlaceForm = (props: PropsForForm) => {
   return (
     <>
       <Box>
+        <Box mb={2}>
+          <Typography align="center" variant="h6">
+            Erstelle einen eigenen Ort um ihn dann in deinen Roadtrips zu
+            verwenden oder für alle Nutzer zugänglich zu machen
+          </Typography>
+        </Box>
         <StyledForm onSubmit={handleSubmit(onFormSubmit)}>
           <TextField
             fullWidth
@@ -191,7 +198,7 @@ const NewPlaceForm = (props: PropsForForm) => {
               <FormControlLabel
                 value="öffentlich"
                 control={<Radio />}
-                label="Öffentlich"
+                label="Öffentlich (nach Admin-Check)"
               />
             </StyledRadioGroup>
           </FormControl>

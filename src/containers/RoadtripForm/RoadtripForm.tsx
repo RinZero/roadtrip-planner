@@ -55,6 +55,7 @@ const RoadtripForm = (props: PropsForForm) => {
     dispatch(
       setMessage({
         message: `Mach bitte zuerst die Schritte davor fertig.`,
+        status: 'error',
       })
     )
   }

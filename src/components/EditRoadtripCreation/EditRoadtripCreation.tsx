@@ -68,7 +68,7 @@ const EditRoadtripCreation = () => {
 
     const result = await createRoadtrip(roadtripData, token)
     if (typeof result === 'string') {
-      dispatch(setMessage({ message: result }))
+      dispatch(setMessage({ message: result, status: 'error' }))
     } else if (typeof result === 'object' && result.type) {
       dispatch(setIsGenerated({ isGenerated: true }))
       history.push('/step/:4')

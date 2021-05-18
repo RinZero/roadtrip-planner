@@ -26,7 +26,7 @@ const EditRoadtripPage = () => {
 
       const result = await updateRoadtrip(updatedRoadtrip, token)
       if (typeof result === 'string') {
-        dispatch(setMessage({ message: result }))
+        dispatch(setMessage({ message: result, status: 'error' }))
       } else if (result === 200) {
         history.push('/profile')
       }

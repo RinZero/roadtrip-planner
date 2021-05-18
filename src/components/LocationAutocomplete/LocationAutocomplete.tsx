@@ -78,6 +78,7 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
       dispatch(
         setMessage({
           message: 'Das ist leider kein gültiger Ort!',
+          status: 'error',
         })
       )
       return
@@ -129,6 +130,7 @@ export const LocationAutocomplete = (props: LocationAutocompleteProps) => {
     dispatch(
       setMessage({
         message: 'Der Ort wurde als letzter Stop zu dem Roadtrip hinzugefügt',
+        status: 'success',
       })
     )
     setInputValue('')

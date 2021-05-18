@@ -292,6 +292,7 @@ const SelectCategories = () => {
                             dispatch(
                               setMessage({
                                 message: `Vervollständige bitte zuerst den zweiten Schritt. Du brauchst min. eine Kategorie.`,
+                                status: 'error',
                               })
                             )
                         }

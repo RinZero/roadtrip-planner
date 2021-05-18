@@ -98,7 +98,12 @@ const ProfileComponent = () => {
               : response.data.data.attributes.image?.url,
         })
       )
-      dispatch(setMessage({ message: 'Dein Profil wurde bearbeitet.' }))
+      dispatch(
+        setMessage({
+          message: 'Dein Profil wurde bearbeitet.',
+          status: 'success',
+        })
+      )
     } else if (response.status === 422) {
       const arr: Array<Record<string, any>> = []
       response.data.forEach(function (item: Record<string, any>) {
@@ -107,7 +112,7 @@ const ProfileComponent = () => {
         }
       })
       const str = arr.join(' ')
-      dispatch(setMessage({ message: str }))
+      dispatch(setMessage({ message: str, status: 'error' }))
     }
     //close popup
     handleClickAway()

@@ -50,7 +50,12 @@ const SignUpForm = () => {
             })
           )
         )
-      dispatch(setMessage({ message: 'Dein Profil wurde erstellt.' }))
+      dispatch(
+        setMessage({
+          message: 'Dein Profil wurde erstellt.',
+          status: 'success',
+        })
+      )
       history.push('/')
     } else {
       const arr: Array<Record<string, any>> = []
@@ -60,7 +65,7 @@ const SignUpForm = () => {
         }
       })
       const str = arr.join(' ')
-      dispatch(setMessage({ message: str }))
+      dispatch(setMessage({ message: str, status: 'error' }))
     }
   }
   return (

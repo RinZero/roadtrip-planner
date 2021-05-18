@@ -103,6 +103,7 @@ export const StartGoalForm = () => {
       dispatch(
         setMessage({
           message: `Du brauchst mindestens 2 Stopps.`,
+          status: 'error',
         })
       )
     } else if (!stopArray[0] || stopArray[0][0] === -1) {
@@ -110,6 +111,7 @@ export const StartGoalForm = () => {
         setMessage({
           message: `Fehlerhafte Eingabe. 
           Die Orte müssen in Österreich sein.`,
+          status: 'error',
         })
       )
     } else {
@@ -272,6 +274,7 @@ export const StartGoalForm = () => {
                     dispatch(
                       setMessage({
                         message: 'Es sind nicht mehr als 10 Stopps möglich.',
+                        status: 'error',
                       })
                     )
                 }}

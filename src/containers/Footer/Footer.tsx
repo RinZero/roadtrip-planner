@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from 'react'
+import React, { memo } from 'react'
 
 import { useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'

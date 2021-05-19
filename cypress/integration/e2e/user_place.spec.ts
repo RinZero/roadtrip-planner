@@ -1,15 +1,16 @@
 describe('create, edit and delete own Places as User', () => {
   //   *********** Login, click on Link in Header and render New Place Page ***********
   it('Login and visit Neuer Ort Page', () => {
-    cy.visit('http://localhost:3000')
+    cy.visit('/')
 
     cy.findByText('LogIn').click()
     cy.findByRole('button').click()
 
-    cy.get('input[name="email"]').type('maria@maria.at')
-    cy.get('input[name="password"]').type('maria123')
+    cy.get('input[name="email"]').type('test1@user.at')
+    cy.get('input[name="password"]').type('test123')
 
     cy.findByRole('button', { name: 'LogIn' }).click()
+    cy.findByText('SignUp', { timeout: 10000000000 }).should('not.exist')
 
     cy.findByText('Ort hinzufügen').click()
 
@@ -20,45 +21,69 @@ describe('create, edit and delete own Places as User', () => {
   it('Fill in form', () => {
     cy.findByLabelText('Name').type('Lieblingsplatz')
     cy.findByLabelText('Beschreibung').type('ruhig und schöne Aussicht')
-    cy.findByLabelText('Breitengrad').type(47)
-    cy.findByLabelText('Längengrad').type(12)
-    cy.findByLabelText('Kategorien').type('Aussichtspunkt')
-    cy.findByText('Aussichtspunkt').click()
+    cy.findByLabelText('Kategorien').type('Aussichtsp')
+    cy.findByText('Aussichtspunkt', { timeout: 10000 }).click()
   })
 
   it('submit and check if it worked', () => {
     // Submit
-    cy.findByRole('button', { name: 'Neuen Ort erstellen' }).click()
-    cy.findByText('Deine neue Location wurde erstellt!').should('exist')
+    cy.findByRole('button', {
+      name: 'Neuen Ort erstellen',
+      timeout: 2500,
+    }).click()
+    cy.findByText('Dein neuer Ort wurde erstellt!', { timeout: 10000 }).should(
+      'exist'
+    )
   })
 
   it('check if new place is in profile', () => {
-    cy.get(`[aria-label="profile"]`).click()
-    cy.findByText('Lieblingsplatz').should('exist')
+    cy.wait(10000)
+    cy.location('pathname').should('eq', '/profile')
+    cy.get('.MuiListItem-root', { timeout: 10000 }).should('be.visible')
+    cy.get('.MuiListItem-root', { timeout: 10000 })
+      .last()
+      .findByText('Lieblingsplatz', { timeout: 10000 })
+      .should('exist')
   })
 
   // *********** Click edit button and edit Place, check in profile if it worked ***********
   it('Click edit button and redirect to New Place Page', () => {
     // find newest place and click edit button
-    cy.get('.MuiListItem-root').last().find('svg').eq(0).click()
+    cy.get('.MuiListItem-root', { timeout: 10000 })
+      .last()
+      .find('svg', { timeout: 10000 })
+      .eq(0)
+      .click()
 
-    cy.findByRole('button', { name: 'Neuen Ort erstellen' }).should('exist')
+    cy.findByRole('button', { name: 'Ort bearbeiten', timeout: 10000 }).should(
+      'exist'
+    )
   })
   it('Edit Place', () => {
     cy.findByLabelText('Name').clear().type('Mein Lieblingsplatz')
     // Submit
-    cy.findByRole('button', { name: 'Neuen Ort erstellen' }).click()
-    cy.findByText('Deine neue Location wurde bearbeitet!').should('exist')
+    cy.findByRole('button', { name: 'Ort bearbeiten', timeout: 10000 }).click()
+    cy.findByText('Dein Ort wurde bearbeitet!', { timeout: 10000 }).should(
+      'exist'
+    )
   })
-  it('Check in profile if it worked', () => {
-    cy.get(`[aria-label="profile"]`).click()
-    cy.findByText('Mein Lieblingsplatz').should('exist')
+  it('Check in profile if edit worked', () => {
+    // cy.get(`[aria-label="profile"]`).click()
+    cy.location('pathname').should('eq', '/profile', { timeout: 10000 })
+    cy.findByText('Mein Lieblingsplatz', { timeout: 10000 }).should('exist')
   })
 
   // *********** Click delete, check if it worked ***********
-  it('should not be able to login with empty data', () => {
+  it('Delete created place and check if it worked', () => {
     // find newest place and click delete button
-    cy.get('.MuiListItem-root').last().find('svg').eq(1).click()
+    cy.get('.MuiListItem-root', { timeout: 10000 }).should('be.visible')
+    cy.get('.MuiListItem-root', { timeout: 10000 })
+      .last()
+      .find('svg', { timeout: 10000 })
+      .eq(1)
+      .click()
+    cy.findByRole('button', { name: 'Löschen' }).click()
     cy.findByText('Mein Lieblingsplatz').should('not.exist')
+    cy.findByText('Dein Ort wurde gelöscht', { timeout: 10000 }).should('exist')
   })
 })

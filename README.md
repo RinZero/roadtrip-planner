@@ -23,6 +23,7 @@ You will also see any lint errors in the console.
 ### `npm run test`
 
 Frontend Tests (without Backend comunication only used react store)  
+These tests are no longer up to date because we have replaced them with end-to-end tests.  
 [Testing Libraray documentation](https://testing-library.com/)
 
 ### `npm run cypress`

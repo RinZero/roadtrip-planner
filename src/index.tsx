@@ -18,14 +18,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <MuiThemeProvider theme={theme}>
-        <PersistGate
-          loading={
-            <video autoPlay loop>
-              <source src={logo} type="video/mp4"></source>
-            </video>
-          }
-          persistor={persistor}
-        >
+        <PersistGate loading={<p>Loading...</p>} persistor={persistor}>
           <App />
         </PersistGate>
       </MuiThemeProvider>

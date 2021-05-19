@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react'
 
 import { Button, Box, Typography } from '@material-ui/core'
+import ReactPlayer from 'react-player'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
@@ -177,7 +178,10 @@ const SelectCategories = () => {
       <div>
         {loading ? (
           <ImgBox>
-            <img src={logo} alt="loading animation" height="100%" />
+            <ReactPlayer
+              loop={true}
+              url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
+            />
           </ImgBox>
         ) : (
           <div>

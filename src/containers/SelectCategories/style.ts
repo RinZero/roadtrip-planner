@@ -81,7 +81,6 @@ export const CategoriesFormControl = withTheme(styled(FormControl)`
 export const ImgBox = withTheme(styled(Box)`
   padding: ${(props) => props.theme.spacing(10)}px 0;
   margin: ${(props) => props.theme.spacing(5)}px auto;
-  background-color: #f6f6f6;
   width: 50vw;
   height: 50vh;
   display: flex;

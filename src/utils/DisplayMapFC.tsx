@@ -52,16 +52,18 @@ const formatBubbleTest = (info: {
     '<p>' +
     info.address.slice(0, info.address.lastIndexOf(',')) +
     '</p><div class="overflowBox"><div class="categoriesBox">'
-  ;(info.categories as any).forEach(
-    (e: { name: string; primary?: boolean }) => {
-      bubbleString +=
-        '<div class="category' +
-        (e.primary ? ' primeCategory' : '') +
-        '">' +
-        e.name +
-        '</div>'
-    }
-  )
+  if (info.categories) {
+    ;(info.categories as any).forEach(
+      (e: { name: string; primary?: boolean }) => {
+        bubbleString +=
+          '<div class="category' +
+          (e.primary ? ' primeCategory' : '') +
+          '">' +
+          e.name +
+          '</div>'
+      }
+    )
+  }
   bubbleString += `</div></div>`
   return bubbleString
 }

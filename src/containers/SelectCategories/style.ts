@@ -77,13 +77,3 @@ export const CategoriesFormControl = withTheme(styled(FormControl)`
   margin: ${(props) => props.theme.spacing(1.5)}px;
   min-width: ${(props) => props.theme.spacing(25)}px;
 `)
-
-export const ImgBox = withTheme(styled(Box)`
-  padding: ${(props) => props.theme.spacing(10)}px 0;
-  margin: ${(props) => props.theme.spacing(5)}px auto;
-  width: 50vw;
-  height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-item: center;
-`)

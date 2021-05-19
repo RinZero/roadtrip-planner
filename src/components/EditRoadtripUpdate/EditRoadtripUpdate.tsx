@@ -12,6 +12,7 @@ import { LocationState } from '../../store/user/types'
 import { updateRoadtrip } from '../../utils/AuthService'
 import { reverseLookupHereData } from '../../utils/reverseLookupHereData'
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
+import LoadingAnimation from '../LoadingAnimation'
 
 type EditRoadtripUpdateProps = {
   onUpdate?: () => void
@@ -92,7 +93,7 @@ const EditRoadtripUpdate = (props: EditRoadtripUpdateProps) => {
       usage={'update'}
     />
   ) : (
-    <h1>...loading</h1>
+    <LoadingAnimation />
   )
 }
 

@@ -202,7 +202,7 @@ const EditRoadtripTemplate: FC<EditRoadtripComponentProps> = ({
             isSmall={usage === 'create' && isLaptop}
           />
         )}
-        <StyledBox isLaptop={isLaptop} id="dnd_list">
+        <StyledBox isLaptop={usage === 'create' && isLaptop} id="dnd_list">
           <List component="nav" aria-label="contacts">
             {list.map((item, index) => {
               return (

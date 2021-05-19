@@ -1,10 +1,11 @@
-import React, { memo, Suspense, lazy } from 'react'
+import { memo, Suspense, lazy } from 'react'
 
-import { Box } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 
+import LoadingAnimation from '../../components/LoadingAnimation'
 import { NewPlaceStyles } from './style'
 
-const NewPlaceForm = React.lazy(() => import('../../components/NewPlaceForm'))
+const NewPlaceForm = lazy(() => import('../../components/NewPlaceForm'))
 
 type PropsForForm = {
   match: Record<string, any>
@@ -12,13 +13,19 @@ type PropsForForm = {
 
 const NewPlacePage = (props: PropsForForm) => {
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
-      <NewPlaceStyles>
-        <Suspense fallback={<div>Loading...</div>}>
+    <NewPlaceStyles>
+      <Box mb={2}>
+        <Typography align="center" variant="h6">
+          Erstelle einen eigenen Ort, um ihn dann in deinen Roadtrips zu
+          verwenden oder für alle Nutzer zugänglich zu machen
+        </Typography>
+      </Box>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Suspense fallback={<LoadingAnimation />}>
           <NewPlaceForm match={props.match} />
         </Suspense>
-      </NewPlaceStyles>
-    </Box>
+      </Box>
+    </NewPlaceStyles>
   )
 }
 

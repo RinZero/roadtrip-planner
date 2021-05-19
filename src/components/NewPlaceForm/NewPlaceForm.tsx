@@ -168,11 +168,7 @@ const NewPlaceForm = (props: PropsForForm) => {
             variant="outlined"
             inputProps={{ maxlength: 250 }}
           />
-          <PlaceMap
-            setMapCoor={setMapCoor}
-            coor={mapCoor}
-            zoom={!isAddMode ? 12 : 6.5}
-          />
+          <PlaceMap setMapCoor={setMapCoor} zoom={!isAddMode ? 12 : 6.5} />
           <Autocomplete
             multiple
             fullWidth={true}

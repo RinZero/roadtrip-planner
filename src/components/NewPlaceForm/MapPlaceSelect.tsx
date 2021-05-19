@@ -5,17 +5,15 @@ import { useSelector } from 'react-redux'
 
 import flag from '../../assets/flag.svg'
 import { selectCoorForMap } from '../../store/selectors'
-import { StyledNumberInput } from './style'
 
 type PlaceMapProps = {
   setMapCoor({}): void
-  coor: { lat: number; lng: number }
   zoom: number
 }
 const windowH = window as any
 
 const PlaceMap = (props: PlaceMapProps) => {
-  const { setMapCoor, coor, zoom } = props
+  const { setMapCoor, zoom } = props
   const coorForMap = useSelector(selectCoorForMap())
   // Create a reference to the HTML element we want to put the map on
   const mapRef = useRef<HTMLDivElement>(null)
@@ -83,27 +81,6 @@ const PlaceMap = (props: PlaceMapProps) => {
             minWidth: '270px',
           }}
         />
-        <Box
-          display="flex"
-          flexDirection="column"
-          flexWrap="wrap"
-          justifyContent="center"
-        >
-          <StyledNumberInput
-            id="latitude"
-            name="latitude"
-            label="Breitengrad"
-            value={coor.lat}
-            inputProps={{ step: '0.000000000000001', max: 180, min: -180 }}
-          />
-          <StyledNumberInput
-            id="longitude"
-            name="longitude"
-            label="Längengrad"
-            value={coor.lng}
-            inputProps={{ step: '0.000000000000001', max: 90, min: -90 }}
-          />
-        </Box>
       </Box>
     </>
   )

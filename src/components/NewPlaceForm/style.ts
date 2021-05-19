@@ -14,6 +14,3 @@ export const StyledRadioGroup = withTheme(styled(RadioGroup)`
   justify-content: space-between;
   flex-direction: row;
 `)
-export const StyledNumberInput = withTheme(styled(TextField)`
-  display: none;
-`)

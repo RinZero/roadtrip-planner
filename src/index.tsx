@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './App'
-import logo from './assets/roadabout_transparent.gif'
+import logo from './assets/animation/roadabout.webm'
 import reportWebVitals from './reportWebVitals'
 import store, { history, persistor } from './store'
 import { createTheme } from './theme'
@@ -19,7 +19,11 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <MuiThemeProvider theme={theme}>
         <PersistGate
-          loading={<img src={logo} alt="loading animation" height="100%" />}
+          loading={
+            <video autoPlay loop>
+              <source src={logo} type="video/webm"></source>
+            </video>
+          }
           persistor={persistor}
         >
           <App />

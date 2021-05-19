@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 
 import logoMobile from '../../assets/roadabout_logo.svg'
-import logo from '../../assets/roadabout_textlogo.svg'
+import logo from '../../assets/roadabout_text.jpeg'
 import { logOutSuccess, resetUI } from '../../store/actions'
 import { selectUserName, selectUserPicture } from '../../store/selectors'
 import {

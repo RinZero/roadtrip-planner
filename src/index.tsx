@@ -8,7 +8,6 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './App'
-import logo from './assets/roadabout_transparent.gif'
 import reportWebVitals from './reportWebVitals'
 import store, { history, persistor } from './store'
 import { createTheme } from './theme'
@@ -18,10 +17,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <MuiThemeProvider theme={theme}>
-        <PersistGate
-          loading={<img src={logo} alt="loading animation" height="100%" />}
-          persistor={persistor}
-        >
+        <PersistGate loading={<p>Loading...</p>} persistor={persistor}>
           <App />
         </PersistGate>
       </MuiThemeProvider>

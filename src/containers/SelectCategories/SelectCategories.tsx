@@ -1,10 +1,10 @@
 import React, { memo, useState } from 'react'
 
-import { Button, Box, Typography } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import logo from '../../assets/roadabout_transparent.gif'
+import logo from '../../assets/animation/roadabout.webm'
 import CategoryDropdown from '../../components/CategoryDropdown'
 import { roadtripGenerate } from '../../components/StartGoalForm/raoadtripGenerate'
 import Tutorial from '../../components/Tutorial'
@@ -177,7 +177,9 @@ const SelectCategories = () => {
       <div>
         {loading ? (
           <ImgBox>
-            <img src={logo} alt="loading animation" height="100%" />
+            <video autoPlay loop>
+              <source src={logo} type="video/webm"></source>
+            </video>
           </ImgBox>
         ) : (
           <div>

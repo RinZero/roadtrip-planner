@@ -142,12 +142,14 @@ const NewPlaceForm = (props: PropsForForm) => {
   return (
     <>
       <Box>
-        <Box mb={2}>
-          <Typography align="center" variant="h6">
-            Erstelle einen eigenen Ort um ihn dann in deinen Roadtrips zu
-            verwenden oder für alle Nutzer zugänglich zu machen
-          </Typography>
-        </Box>
+        {isAddMode && (
+          <Box mb={2}>
+            <Typography align="center" variant="h6">
+              Erstelle einen eigenen Ort, um ihn dann in deinen Roadtrips zu
+              verwenden oder für alle Nutzer zugänglich zu machen
+            </Typography>
+          </Box>
+        )}
         <StyledForm onSubmit={handleSubmit(onFormSubmit)}>
           <TextField
             fullWidth

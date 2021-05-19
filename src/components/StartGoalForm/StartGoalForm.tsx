@@ -126,7 +126,7 @@ export const StartGoalForm = () => {
     <Box my="auto">
       <Box mb={2}>
         <Typography align="center" variant="h6">
-          Gib zunächst deinen Start und Endpunkt an um deinen eigenen Roadtrip
+          Gib zunächst deinen Start und Endpunkt an, um deinen eigenen Roadtrip
           erstellen. Optional können auch Zwischenstops hinzugefügt werden.
         </Typography>
       </Box>
@@ -300,7 +300,7 @@ export const StartGoalForm = () => {
       </StyledForm>
       {userName === 'Guest' && (
         <Box mt={1}>
-          <Typography align="center" variant="h6" color="secondary">
+          <Typography align="center" variant="body2">
             Um deinen erstellten Roadtrip speichern zu können, musst du
             angemeldet sein.
           </Typography>

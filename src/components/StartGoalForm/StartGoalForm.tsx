@@ -22,6 +22,7 @@ import {
   selectUserLocations,
   selectRoadtripStopNames,
   selectUserHasTutorial,
+  selectUserName,
 } from '../../store/selectors'
 import { fetchUserEntries } from '../../utils/AuthService'
 import { autocomplete, iterateStops } from '../../utils/autocomplete'
@@ -69,6 +70,7 @@ export const StartGoalForm = () => {
   }
 
   const roadtripStopNames = useSelector(selectRoadtripStopNames())
+  const userName = useSelector(selectUserName())
   const [namedStops, setNamedStops] = useState(
     roadtripStopNames.length > 0 ? roadtripStopNames : ['', '', '']
   )
@@ -122,6 +124,12 @@ export const StartGoalForm = () => {
   }
   return (
     <Box my="auto">
+      <Box mb={2}>
+        <Typography align="center" variant="h6">
+          Gib zunächst deinen Start und Endpunkt an, um deinen eigenen Roadtrip
+          erstellen. Optional können auch Zwischenstops hinzugefügt werden.
+        </Typography>
+      </Box>
       {tutorial[0] ? <Tutorial openBool={tutorial} /> : ''}
       <StyledForm>
         <FormBox id="start_stop">
@@ -290,6 +298,14 @@ export const StartGoalForm = () => {
           </Grid>
         </Grid>
       </StyledForm>
+      {userName === 'Guest' && (
+        <Box mt={1}>
+          <Typography align="center" variant="body2">
+            Um deinen erstellten Roadtrip speichern zu können, musst du
+            angemeldet sein.
+          </Typography>
+        </Box>
+      )}
     </Box>
   )
 }

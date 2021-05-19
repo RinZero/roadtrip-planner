@@ -8,7 +8,6 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './App'
-import logo from './assets/animation/roadabout.webm'
 import reportWebVitals from './reportWebVitals'
 import store, { history, persistor } from './store'
 import { createTheme } from './theme'

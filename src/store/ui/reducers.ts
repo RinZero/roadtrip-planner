@@ -18,6 +18,7 @@ import {
   setRoadtripStopNames,
   setPreviousStep,
   setIsGenerated,
+  setCoorForMap,
   resetUI,
 } from './actions'
 import { UiState } from './types'
@@ -40,6 +41,7 @@ export const initialState: UiState = {
   message: { content: '', status: 'error' },
   roadtripStopNames: [],
   isGenerated: false,
+  coorForMap: { lat: 47.5, lng: 13.5 },
 }
 
 export const uiReducer = produce(
@@ -118,6 +120,11 @@ export const uiReducer = produce(
       case getType(setIsGenerated): {
         const { isGenerated } = action.payload
         draft.isGenerated = isGenerated
+        return draft
+      }
+      case getType(setCoorForMap): {
+        const { lat, lng } = action.payload
+        draft.coorForMap = { lat: lat, lng: lng }
         return draft
       }
       case getType(resetUI): {

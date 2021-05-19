@@ -64,7 +64,13 @@ export const setRoadtripStopNames = createAction('ui/SET_ROADTRIP_STOP_NAMES')<{
   roadtripStopNames: string[]
 }>()
 
-export const setIsGenerated = createAction('ui/SET_IS_GENERATED')<{isGenerated: boolean}>()
+export const setIsGenerated = createAction('ui/SET_IS_GENERATED')<{
+  isGenerated: boolean
+}>()
+export const setCoorForMap = createAction('ui/SET_COOR_FOR_MAP')<{
+  lat: number
+  lng: number
+}>()
 
 export const resetUI = createAction('ui/RESET_UI')()
 export const UiActions = {
@@ -83,6 +89,7 @@ export const UiActions = {
   setMessage,
   setRoadtripStopNames,
   setIsGenerated,
+  setCoorForMap,
   resetUI,
 }
 

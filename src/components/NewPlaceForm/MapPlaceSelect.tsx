@@ -1,29 +1,26 @@
 import { useRef, useEffect, memo } from 'react'
 
 import { Box, Typography } from '@material-ui/core'
+import { useSelector } from 'react-redux'
 
 import flag from '../../assets/flag.svg'
+import { selectCoorForMap } from '../../store/selectors'
 import { StyledNumberInput } from './style'
 
 type PlaceMapProps = {
-  register: Record<string, any>
-  setValue(name: string, value: number | string): void
+  setMapCoor({}): void
   coor: { lat: number; lng: number }
   zoom: number
 }
 const windowH = window as any
 
 const PlaceMap = (props: PlaceMapProps) => {
-  const { register, setValue, zoom } = props
-
+  const { setMapCoor, coor, zoom } = props
+  const coorForMap = useSelector(selectCoorForMap())
   // Create a reference to the HTML element we want to put the map on
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const { coor } = props
-    setValue('latitude', coor.lat)
-    setValue('longitude', coor.lng)
-
     if (mapRef.current === null || mapRef === null) return
     const H = windowH.H
     const platform = new H.service.Platform({
@@ -33,7 +30,7 @@ const PlaceMap = (props: PlaceMapProps) => {
 
     // map
     const hMap = new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
-      center: { lat: coor.lat, lng: coor.lng },
+      center: { lat: coorForMap.lat, lng: coorForMap.lng },
       zoom: zoom,
       pixelRatio: window.devicePixelRatio || 1,
     })
@@ -41,7 +38,7 @@ const PlaceMap = (props: PlaceMapProps) => {
     // Create an icon, an object holding the latitude and longitude, and a marker:
     const flagIcon = new H.map.Icon(flag)
     const centerMarker = new H.map.Marker(
-      { lat: coor.lat, lng: coor.lng },
+      { lat: coorForMap.lat, lng: coorForMap.lng },
       {
         icon: flagIcon,
       }
@@ -51,8 +48,7 @@ const PlaceMap = (props: PlaceMapProps) => {
       const center = hMap.getCenter()
       centerMarker.setGeometry(center)
       hMap.addObjects([centerMarker])
-      setValue('latitude', center.lat)
-      setValue('longitude', center.lng)
+      setMapCoor({ lat: center.lat, lng: center.lng })
     })
 
     // resize map when window size change - responsive
@@ -72,7 +68,7 @@ const PlaceMap = (props: PlaceMapProps) => {
     return () => {
       hMap.dispose()
     }
-  }, [mapRef, props]) // This will run this hook every time this ref is updated
+  }, [mapRef, coorForMap]) // This will run this hook every time this ref is updated
 
   return (
     <>
@@ -97,14 +93,14 @@ const PlaceMap = (props: PlaceMapProps) => {
             id="latitude"
             name="latitude"
             label="Breitengrad"
-            inputRef={register}
+            value={coor.lat}
             inputProps={{ step: '0.000000000000001', max: 180, min: -180 }}
           />
           <StyledNumberInput
             id="longitude"
             name="longitude"
             label="Längengrad"
-            inputRef={register}
+            value={coor.lng}
             inputProps={{ step: '0.000000000000001', max: 90, min: -90 }}
           />
         </Box>

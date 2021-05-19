@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import { setMessage } from '../../store/actions'
+import { setMessage, setCoorForMap } from '../../store/actions'
 import { selectUserLocations, selectUserToken } from '../../store/selectors'
 import { FormInputUserEntry } from '../../utils/additionalTypes'
 import { createPlace, editPlace, placeType } from '../../utils/CreateNewPlace'
@@ -48,14 +48,15 @@ const NewPlaceForm = (props: PropsForForm) => {
 
   const onFormSubmit = async (data: FormInputUserEntry) => {
     const categoryData = getAllSelectedCategories(currentCategories)
+
     const place: placeType = {
       type: 'user_entry',
       attributes: {
         public: currentRadio === 'privat' ? false : true,
         name: data.name,
         description: data.description,
-        latitude: data.latitude,
-        longitude: data.longitude,
+        latitude: mapCoor.lat,
+        longitude: mapCoor.lng,
         category: categoryData.length === 0 ? '' : JSON.stringify(categoryData),
       },
     }
@@ -118,8 +119,10 @@ const NewPlaceForm = (props: PropsForForm) => {
         setValue('description', place.description)
         setValue('latitude', place.latitude)
         setValue('longitude', place.longitude)
-        if (place.latitude && place.longitude)
+        if (place.latitude && place.longitude) {
           setMapCoor({ lat: place.latitude, lng: place.longitude })
+          dispatch(setCoorForMap({ lat: place.latitude, lng: place.longitude }))
+        }
         const radioValue = place.public ? 'öffentlich' : 'privat'
         setCurrentRadio(radioValue)
         const selectedCategoriesJSON = place.category
@@ -135,6 +138,8 @@ const NewPlaceForm = (props: PropsForForm) => {
         )
         setCurrentCategories(names)
       }
+    } else {
+      dispatch(setCoorForMap({ lat: 47.5, lng: 13.5 }))
     }
   }, [])
 
@@ -164,14 +169,24 @@ const NewPlaceForm = (props: PropsForForm) => {
             inputProps={{ maxlength: 250 }}
           />
           <PlaceMap
-            register={register}
-            setValue={setValue}
-            coor={
-              !isAddMode
-                ? { lat: mapCoor.lat, lng: mapCoor.lng }
-                : { lat: 47.5, lng: 13.5 }
-            }
+            setMapCoor={setMapCoor}
+            coor={mapCoor}
             zoom={!isAddMode ? 12 : 6.5}
+          />
+          <Autocomplete
+            multiple
+            fullWidth={true}
+            id="categories"
+            options={allCategories}
+            getOptionLabel={(option) => option.name}
+            filterSelectedOptions
+            onChange={(e: ChangeEvent<Record<string, any>>, value) => {
+              setCurrentCategories(value)
+            }}
+            value={currentCategories}
+            renderInput={(params) => (
+              <TextField {...params} variant="outlined" label="Kategorien" />
+            )}
           />
           <FormControl component="fieldset">
             <FormLabel component="legend">Sichtbarkeit</FormLabel>
@@ -195,21 +210,6 @@ const NewPlaceForm = (props: PropsForForm) => {
               />
             </StyledRadioGroup>
           </FormControl>
-          <Autocomplete
-            multiple
-            fullWidth={true}
-            id="categories"
-            options={allCategories}
-            getOptionLabel={(option) => option.name}
-            filterSelectedOptions
-            onChange={(e: ChangeEvent<Record<string, any>>, value) => {
-              setCurrentCategories(value)
-            }}
-            value={currentCategories}
-            renderInput={(params) => (
-              <TextField {...params} variant="outlined" label="Kategorien" />
-            )}
-          />
           <Button type="submit">
             {!isAddMode ? 'Ort bearbeiten' : 'Neuen Ort erstellen'}
           </Button>

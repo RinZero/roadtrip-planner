@@ -88,3 +88,8 @@ export const selectIsGenerated = () =>
   createSelector(selectUi, (ui: UiState) => {
     return ui.isGenerated
   })
+
+export const selectCoorForMap = () =>
+  createSelector(selectUi, (ui: UiState) => {
+    return ui.coorForMap
+  })

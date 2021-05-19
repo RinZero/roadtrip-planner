@@ -35,4 +35,5 @@ export type UiState = {
   isTest: boolean
   message: { content: string; status?: string }
   isGenerated: boolean
+  coorForMap: { lat: number; lng: number }
 }

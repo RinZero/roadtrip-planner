@@ -81,6 +81,8 @@ const Header = () => {
         <LogoBox>
           <HeaderLink component={RouterLink} to={`/`}>
             <img
+              width={isTablet ? '40px' : '240px'}
+              height={isTablet ? '52px' : '36px'}
               aria-label="Roadabout"
               src={isTablet ? logoMobile : logo}
               alt="Roadabout Logo"

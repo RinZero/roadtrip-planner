@@ -177,7 +177,7 @@ const SelectCategories = () => {
       <div>
         {loading ? (
           <ImgBox>
-            <video autoPlay loop>
+            <video preload="none" autoPlay loop>
               <source src={logo} type="video/mp4"></source>
             </video>
           </ImgBox>

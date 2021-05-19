@@ -28,7 +28,8 @@ These tests are no longer up to date because we have replaced them with end-to-e
 
 ### `npm run cypress`
 
-End-to-end Test with cypress.  
+End-to-end Test with cypress.
+Make sure your backend runs on localhost:3000 and is seeded correctly.
 [Cypress documentation](https://www.cypress.io/)
 
 ### `npm run build`

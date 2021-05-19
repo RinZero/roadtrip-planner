@@ -21,7 +21,7 @@ describe('Manage Roadtrips E2E', () => {
     cy.findByRole('button').click()
 
     cy.findByText('SignUp', { timeout: 10000000000 }).should('not.exist')
-    cy.findByText('Hallo', { exact: false }).should('exist')
+    cy.findByRole('link', { name: 'Ort hinzufügen' }).should('exist')
   })
   it('profile has the right data', () => {
     cy.get(`[aria-label="profile"]`).click()
@@ -40,7 +40,9 @@ describe('Manage Roadtrips E2E', () => {
     cy.findByText('10 Stops').should('not.exist')
   })
   it('switch to Edit Roadtrip works', () => {
-    cy.findAllByRole('button', { name: 'Route' }).eq(0).click()
+    cy.findAllByRole('button', {
+      name: 'Roadtrip Bild testingtrip 3 Stops',
+    }).click()
     cy.findAllByText('Roadtrip-Name').eq(0).should('exist')
     cy.findByRole('textbox').should('have.value', 'testingtrip')
     cy.findByText('stop1').should('exist')
@@ -52,7 +54,7 @@ describe('Manage Roadtrips E2E', () => {
     cy.findByText('stop3').should('exist')
 
     cy.findByRole('textbox').clear().type('Changed^^^^')
-    cy.findByRole('button', { name: 'Erstellen' }).click()
+    cy.findByRole('button', { name: 'Roadtrip bearbeiten' }).click()
 
     cy.findByText('Meine Roadtrips', { exact: false }).should('exist')
     cy.findByText('Changed^^^^').should('exist')
@@ -61,7 +63,8 @@ describe('Manage Roadtrips E2E', () => {
   })
 
   it('delete Roadtrip works', () => {
-    cy.findAllByRole('button').eq(16).click()
+    cy.findAllByRole('button', { name: 'Roadtrip löschen' }).click()
+    cy.findAllByRole('button', { name: 'Löschen' }).click()
     cy.findByText('Changed^^^^').should('not.exist')
   })
 })

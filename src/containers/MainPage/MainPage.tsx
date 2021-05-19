@@ -1,7 +1,8 @@
-import React, { memo, Suspense } from 'react'
+import { memo, Suspense } from 'react'
 
 import { Box } from '@material-ui/core'
 
+import LoadingAnimation from '../../components/LoadingAnimation'
 import TitleSection from '../../components/TitleSection'
 import RoadtripForm from '../RoadtripForm'
 import { MainPageStyles } from './style'
@@ -14,7 +15,7 @@ const MainPage = (props: PropsForForm) => {
     <Box display="flex" justifyContent="center" alignItems="center">
       <MainPageStyles>
         <TitleSection />
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingAnimation />}>
           <RoadtripForm id={props.match.params.id} />
         </Suspense>
       </MainPageStyles>

@@ -7,6 +7,7 @@ export const NewPlaceStyles = withTheme(styled.div`
     ${(props) => props.theme.spacing(10)}px 0;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
   justify-content: space-around;
   ${(props) => props.theme.breakpoints.up('sm')} {
     height: calc(100vh - 40px);

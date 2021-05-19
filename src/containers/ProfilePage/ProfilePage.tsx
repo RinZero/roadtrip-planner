@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from 'react'
+import { memo, Suspense, lazy } from 'react'
 
 import {
   Box,
@@ -26,7 +26,7 @@ import {
   RoadtripsCarousel,
 } from './style'
 
-const LocationList = React.lazy(() => import('../../components/LocationList'))
+const LocationList = lazy(() => import('../../components/LocationList'))
 
 type RoadtripSlideProps = {
   roadtrips: RoadtripState[]

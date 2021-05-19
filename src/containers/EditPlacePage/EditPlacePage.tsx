@@ -1,10 +1,11 @@
-import React, { memo, Suspense, lazy } from 'react'
+import { memo, Suspense, lazy } from 'react'
 
 import { Box } from '@material-ui/core'
 
+import LoadingAnimation from '../../components/LoadingAnimation'
 import { NewPlaceStyles } from '../NewPlacePage/style'
 
-const NewPlaceForm = React.lazy(() => import('../../components/NewPlaceForm'))
+const NewPlaceForm = lazy(() => import('../../components/NewPlaceForm'))
 
 type PropsForForm = {
   match: Record<string, any>
@@ -14,7 +15,7 @@ const EditPlacePage = (props: PropsForForm) => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <NewPlaceStyles>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingAnimation />}>
           <NewPlaceForm match={props.match} />
         </Suspense>
       </NewPlaceStyles>

@@ -4,8 +4,8 @@ import { Box, Typography } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import logo from '../../assets/animation/roadabout.webm'
 import CategoryDropdown from '../../components/CategoryDropdown'
+import LoadingAnimation from '../../components/LoadingAnimation'
 import { roadtripGenerate } from '../../components/StartGoalForm/raoadtripGenerate'
 import Tutorial from '../../components/Tutorial'
 import {
@@ -39,7 +39,6 @@ import {
   AddSection,
   AddText,
   CategoriesFormControl,
-  ImgBox,
 } from './style'
 
 const SelectCategories = () => {
@@ -176,11 +175,7 @@ const SelectCategories = () => {
       {tutorial[1] ? <Tutorial openBool={tutorial} /> : ''}
       <div>
         {loading ? (
-          <ImgBox>
-            <video autoPlay loop>
-              <source src={logo} type="video/webm"></source>
-            </video>
-          </ImgBox>
+          <LoadingAnimation />
         ) : (
           <div>
             <Box textAlign="center" id="category_observe">

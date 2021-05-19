@@ -3,8 +3,9 @@ import React, { memo, Suspense } from 'react'
 import { Box } from '@material-ui/core'
 
 import TitleSection from '../../components/TitleSection'
-import RoadtripForm from '../RoadtripForm'
 import { MainPageStyles } from './style'
+
+const RoadtripForm = React.lazy(() => import('../RoadtripForm'))
 type PropsForForm = {
   match: Record<string, any>
 }

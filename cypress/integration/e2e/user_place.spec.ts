@@ -29,7 +29,7 @@ describe('create, edit and delete own Places as User', () => {
     // Submit
     cy.findByRole('button', {
       name: 'Neuen Ort erstellen',
-      timeout: 2500,
+      timeout: 10000,
     }).click()
     cy.findByText('Dein neuer Ort wurde erstellt!', { timeout: 10000 }).should(
       'exist'

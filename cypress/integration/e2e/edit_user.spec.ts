@@ -1,6 +1,6 @@
 describe('Edit User Test', () => {
   it('login', () => {
-    cy.visit('http://localhost:3001') //wenn Backend läuft 3001
+    cy.visit('/') //wenn Backend läuft 3001
     cy.findByText('LogIn').click()
 
     cy.get('input[name="email"]').type('edit@old.at')
@@ -28,9 +28,9 @@ describe('Edit User Test', () => {
   })
 
   it('deletes user', () => {
-    cy.findByText('edit@old.at').should('exist')
+    cy.findByText('new_edit@email.at').should('exist')
 
-    cy.get(`[aria-label="Profil bearbeiten"]`).click()
+    cy.get(`[aria-label="Profil bearbeiten"]`, { timeout: 15000 }).click()
     cy.findByText('Profil löschen').click()
     cy.findByText('Löschen').click()
 

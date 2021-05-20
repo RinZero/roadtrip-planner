@@ -10,7 +10,6 @@ export const NewPlaceStyles = withTheme(styled.div`
   margin: 0 auto;
   justify-content: space-around;
   ${(props) => props.theme.breakpoints.up('sm')} {
-    height: calc(100vh - 40px);
     padding-bottom: ${(props) => props.theme.spacing(6)}px;
   }
 `)

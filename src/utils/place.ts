@@ -13,6 +13,15 @@ export type placeType = {
   }
 }
 
+export type FormInputUserEntry = {
+  name: string
+  description: string
+  latitude: number | null
+  longitude: number | null
+  category?: string
+  public?: boolean
+}
+
 const fetch = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
 })

@@ -27,7 +27,7 @@ import {
   getFirstCategories,
   getSecondCategories,
   getThirdCategories,
-} from '../../utils/getCategoriesArray'
+} from '../../utils/getCategories'
 import {
   AddButton,
   StartButton,

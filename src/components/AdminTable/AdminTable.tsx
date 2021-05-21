@@ -16,9 +16,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectUserToken } from '../../store/selectors'
 import { LocationState, UserState } from '../../store/user/types'
 import { adminEditPlace, adminEditUser } from '../../utils/admin'
-import { deleteUser } from '../../utils/AuthService'
-import { deletePlace } from '../../utils/CreateNewPlace'
 import { initUserData } from '../../utils/initUserData'
+import { deletePlace } from '../../utils/place'
+import { deleteUser } from '../../utils/user'
 import {
   StyledTableContainer,
   StyledTableCell,

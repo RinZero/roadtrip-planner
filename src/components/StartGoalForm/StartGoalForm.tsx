@@ -24,8 +24,8 @@ import {
   selectUserHasTutorial,
   selectUserName,
 } from '../../store/selectors'
-import { fetchUserEntries } from '../../utils/AuthService'
 import { autocomplete, iterateStops } from '../../utils/autocomplete'
+import { fetchUserEntries } from '../../utils/place'
 import {
   StyledButton,
   StyledForm,

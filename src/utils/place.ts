@@ -17,6 +17,18 @@ const fetch = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
 })
 
+export const fetchUserEntries = (token: string) => {
+  return fetch
+    .get('user_entries', {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => {
+      return response.data
+    })
+}
+
 export const createPlace = (data: placeType, token: string) => {
   return fetch
     .post(

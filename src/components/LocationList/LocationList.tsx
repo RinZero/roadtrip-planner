@@ -8,7 +8,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { DialogDelete } from '../../components/DialogDelete'
 import { selectUserLocations, selectUserId } from '../../store/selectors'
 import { LocationState } from '../../store/user/types'
-import { deletePlace } from '../../utils/CreateNewPlace'
+import { deletePlace } from '../../utils/place'
 import { LocationBox, LocationListItem } from './style'
 
 export const LocationList = () => {

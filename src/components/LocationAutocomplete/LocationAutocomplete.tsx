@@ -18,8 +18,8 @@ import {
   selectMapRoute,
 } from '../../store/selectors'
 import { LocationState } from '../../store/user/types'
-import { fetchUserEntries } from '../../utils/AuthService'
 import { autocomplete, iterateStops } from '../../utils/autocomplete'
+import { fetchUserEntries } from '../../utils/place'
 import { reverseGeocodeHereData } from '../../utils/reverseGeocodeHereData'
 import {
   StyledNewStoppTextField,

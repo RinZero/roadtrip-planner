@@ -17,7 +17,7 @@ import {
   selectUserToken,
   selectUserHasTutorial,
 } from '../../store/selectors'
-import { createRoadtrip, createRoadtripType } from '../../utils/AuthService'
+import { createRoadtrip, createRoadtripType } from '../../utils/roadtrip'
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
 import { CreateRoadtripPageStyles, StyledOptionContainer } from './style'
 

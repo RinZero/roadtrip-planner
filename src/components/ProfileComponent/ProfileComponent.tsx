@@ -27,7 +27,7 @@ import {
   selectUserIsAdmin,
   selectDropzoneFiles,
 } from '../../store/selectors'
-import { deleteUser, editUser } from '../../utils/AuthService'
+import { deleteUser, editUser } from '../../utils/user'
 import ImageDropzone from '../ImageDropzone'
 import ChangePasswordDialog from './ChangePasswordDialog'
 import {

@@ -9,7 +9,7 @@ import EditRoadtripUpdate from '../../components/EditRoadtripUpdate'
 import { LocationAutocomplete } from '../../components/LocationAutocomplete'
 import { setMessage } from '../../store/actions'
 import { selectEditRoadtrip, selectUserToken } from '../../store/selectors'
-import { updateRoadtrip } from '../../utils/AuthService'
+import { updateRoadtrip } from '../../utils/roadtrip'
 import { EditRoadtripPageStyles } from './style'
 
 const EditRoadtripPage = () => {

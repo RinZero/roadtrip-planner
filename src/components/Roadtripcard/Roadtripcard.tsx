@@ -7,8 +7,8 @@ import { useHistory } from 'react-router-dom'
 import { DialogDelete } from '../../components/DialogDelete'
 import { setEditRoadtrip } from '../../store/actions'
 import { RoadtripState } from '../../store/user/types'
-import { deleteRoadtrip } from '../../utils/AuthService'
 import { reverseLookupHereData } from '../../utils/reverseLookupHereData'
+import { deleteRoadtrip } from '../../utils/roadtrip'
 import { getRoadtripImageLink, getImageByKey } from './getRoadtripImageLink'
 import {
   MyRoadtripCard,

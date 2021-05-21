@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 
 import { logInSuccess } from '../../store/actions'
-import { logIn } from '../../utils/AuthService'
+import { logIn } from '../../utils/authenticationService'
 import { initUserData } from '../../utils/initUserData'
 import { StyledTextfield, StyledForm } from './style'
 

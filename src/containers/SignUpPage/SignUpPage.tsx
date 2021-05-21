@@ -21,12 +21,12 @@ const SignUpPage = () => {
             </Typography>
           }
           title={'Entdecke Österreich'}
-          isLeft={false}
+          isLeft={true}
           size={20}
           image={bus}
           color={'darkseagreen'}
         />
-        <SignUpCard
+        {/* <SignUpCard
           text={
             <>
               <Typography variant="body1">
@@ -47,16 +47,15 @@ const SignUpPage = () => {
           size={30}
           image={frauenInAuto}
           color={'lightblue'}
-        />
+        /> */}
         <SignUpCard
           text={
             <Typography variant="body1">
-              Steig jetzt ein um uns auf dem Weg vom Projekt zur fertigen
-              Webseite zu begleiten. Melde dich jetzt{' '}
+              Melde dich jetzt{' '}
               <b>
                 <u>kostenlos</u>
               </b>{' '}
-              an.
+              an und sichere dir deinen Usernamen.
             </Typography>
           }
           title={'Jetzt ganz NEU'}

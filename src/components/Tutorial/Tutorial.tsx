@@ -24,6 +24,11 @@ const Tutorial = (props: TutorialProps) => {
             <p>
               <strong> Willkommen bei ROADABOUT! </strong>
               <br />
+              Diese Website befindet sich noch in der Beta-Version. Wenn dir
+              noch Verbessungsmöglichkeiten auffallen, schreib uns bitte
+              (roadtripplaner@gmail.com). Wir freuen uns auf deine Ideen.
+              <br />
+              <br />
               Hier ein kleines Tutorial.
               <br />
               Keine Lust darauf? Dann kannst du es auch einfach überspringen.

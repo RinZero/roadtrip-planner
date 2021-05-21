@@ -127,9 +127,7 @@ const SignUpForm = () => {
               Felder mit * sind Pflichtfelder
             </Typography>
           </Box>
-          <LoginButton type="submit" color="primary">
-            Registrieren
-          </LoginButton>
+          <LoginButton type="submit">Registrieren</LoginButton>
         </Box>
       </form>
     </SignupCard>

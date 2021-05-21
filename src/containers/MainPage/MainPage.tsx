@@ -1,27 +1,23 @@
-import React, { memo } from 'react'
+import { memo, Suspense } from 'react'
 
-import { Box, withTheme } from '@material-ui/core'
-import styled from 'styled-components'
+import { Box } from '@material-ui/core'
 
+import LoadingAnimation from '../../components/LoadingAnimation'
 import TitleSection from '../../components/TitleSection'
-import Header from '../Header'
 import RoadtripForm from '../RoadtripForm'
+import { MainPageStyles } from './style'
+type PropsForForm = {
+  match: Record<string, any>
+}
 
-const MainPageStyles = withTheme(styled.div`
-  max-width: 70%;
-  padding: ${(props) => props.theme.spacing(10)}px 0;
-  display: flex;
-  flex-direction: column;
-  height: 93vh;
-  justify-content: space-around;
-`)
-
-const MainPage = () => {
+const MainPage = (props: PropsForForm) => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <MainPageStyles>
         <TitleSection />
-        <RoadtripForm />
+        <Suspense fallback={<LoadingAnimation />}>
+          <RoadtripForm id={props.match.params.id} />
+        </Suspense>
       </MainPageStyles>
     </Box>
   )

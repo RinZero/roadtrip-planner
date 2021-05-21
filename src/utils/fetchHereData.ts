@@ -39,14 +39,15 @@ export const fetchHereData = async (props: HereApiParams) => {
     limit.toString() +
     '&lang=' +
     language +
-    '&apiKey=E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE' +
+    '&apiKey=' +
+    process.env.REACT_APP_HERE_API_KEY +
     '&route=' +
     polyline +
     ';w=' +
     route?.width +
     '&categories=' +
     object.query
-  //'https://discover.search.hereapi.com/v1/discover?at=52.8173086,12.2368342&limit=5&lang=en&q=Obi+Hamburg&apiKey=E2lDYLhdeOT8rv2atmJ78m7_jafCkXg3NmgSAwjpcdE'
+  //'https://discover.search.hereapi.com/v1/discover?at=52.8173086,12.2368342&limit=5&lang=en&q=Obi+Hamburg&apiKey={process.env.REACT_APP_HERE_API_KEY}'
   // https://browse.search.hereapi.com/v1/browse
   return axios.get(url).then((response) => {
     return response.data

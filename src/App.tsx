@@ -1,9 +1,10 @@
 import React from 'react'
 
-import './App.css'
+// import './App.css'
 
 import { CssBaseline } from '@material-ui/core'
 
+import Footer from './containers/Footer'
 import Header from './containers/Header'
 import Router from './containers/Router'
 import { createTheme } from './theme'
@@ -15,6 +16,7 @@ function App() {
       <CssBaseline />
       <Header />
       <Router />
+      <Footer />
     </div>
   )
 }

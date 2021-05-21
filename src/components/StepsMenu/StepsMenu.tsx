@@ -1,41 +1,55 @@
-/* eslint-disable no-console */
-import React, { memo } from 'react'
+import { memo } from 'react'
 
-import { Box, Fab, Typography } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
-import styled from 'styled-components'
+import { Box, useTheme, useMediaQuery } from '@material-ui/core'
+import { useSelector } from 'react-redux'
 
-import { setProgressStep } from '../../store/actions'
-
-const StyledFab = styled(Fab)`
-  background-color: #fff;
-  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
-`
+import { selectPreviousStep, selectProgessStep } from '../../store/selectors'
+import { StepIndicator } from './StepIndicator'
 
 const StepsMenu = () => {
-  const dispatch = useDispatch()
+  const progressStep = useSelector(selectProgessStep())
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const prevStep = useSelector(selectPreviousStep())
+
   return (
-    <Box display="flex" m={2} width="100%" justifyContent="space-evenly">
-      <StyledFab
-        onClick={() => dispatch(setProgressStep({ progressStep: '1' }))}
-      >
-        <Typography variant="h5">1</Typography>
-      </StyledFab>
-      <StyledFab
-        onClick={() => dispatch(setProgressStep({ progressStep: '2' }))}
-      >
-        <Typography variant="h5">2</Typography>
-      </StyledFab>
-      <StyledFab
-        onClick={() => dispatch(setProgressStep({ progressStep: '3' }))}
-      >
-        <Typography variant="h5">3</Typography>
-      </StyledFab>
-      <StyledFab
-        onClick={() => dispatch(setProgressStep({ progressStep: '4' }))}
-      >
-        <Typography variant="h5">4</Typography>
-      </StyledFab>
+    <Box
+      id="step_menu"
+      display="flex"
+      mt={2}
+      mx={0}
+      width="100%"
+      justifyContent="space-evenly"
+      minWidth="70vw"
+    >
+      <StepIndicator
+        number={1}
+        isMobile={isMobile}
+        isActive={progressStep.toString() === '1'}
+        text="Stopps"
+        isGoingBack={+prevStep > 1}
+      />
+      <StepIndicator
+        number={2}
+        isMobile={isMobile}
+        isActive={progressStep.toString() === '2'}
+        text="Kategorien"
+        isGoingBack={+prevStep > 2}
+      />
+      <StepIndicator
+        number={3}
+        isMobile={isMobile}
+        isActive={progressStep.toString() === '3'}
+        text="Route"
+        isGoingBack={+prevStep > 3}
+      />
+      <StepIndicator
+        number={4}
+        isMobile={isMobile}
+        isActive={progressStep.toString() === '4'}
+        text="Roadtrip"
+        isGoingBack={+prevStep > 4}
+      />
     </Box>
   )
 }

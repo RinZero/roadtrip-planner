@@ -1,68 +1,58 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 
-import { Button, Input, Typography, withTheme } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { logInSuccess } from '../../store/actions'
 import { logIn } from '../../utils/AuthService'
+import { initUserData } from '../../utils/initUserData'
+import { StyledTextfield, StyledForm } from './style'
 
 type IFormInput = {
-  username: string
+  email: string
   password: string
 }
 
-const StyledButton = styled(Button)`
-  color: #ffffff;
-`
-const StyledForm = styled.form`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`
-
-const StyledInput = withTheme(styled(Input)`
-  margin-bottom: ${(props) => props.theme.spacing(2)}px;
-`)
-
 const LogInForm = () => {
   const dispatch = useDispatch()
-  const history = useHistory()
   const { register, handleSubmit } = useForm()
+  const [error, setError] = useState('')
+
   const onFormSubmit = async (data: IFormInput) => {
     const user = await logIn({
-      email: data.username,
+      email: data.email,
       password: data.password,
       password_confirmation: data.password,
     })
-    if (user) {
+    if (typeof user === 'string') {
+      setError(user)
+    } else if (typeof user === 'object' && user.email) {
+      setError('')
+      user.tutorial = [false, false, false]
       dispatch(logInSuccess(user))
-      history.push('/')
+      initUserData(user.token, dispatch)
     }
-
-    // CreateUser()
   }
   return (
     <StyledForm onSubmit={handleSubmit(onFormSubmit)}>
       <Typography variant="h5">LogIn</Typography>
-      <StyledInput
+      {error !== '' ? <Typography color="error">{error}</Typography> : ' '}
+      <StyledTextfield
+        label="Email"
         type="text"
-        name="username"
+        name="email"
         inputRef={register}
-        placeholder="Username"
-        variant="outlined"
+        inputProps={{ type: 'email', required: true }}
       />
-      <StyledInput
+      <StyledTextfield
+        label="Password"
         type="password"
         name="password"
         inputRef={register}
-        placeholder="Password"
-        variant="outlined"
+        inputProps={{ type: 'password', required: true }}
       />
-      <StyledButton type="submit">LogIn</StyledButton>
+      <Button type="submit">LogIn</Button>
     </StyledForm>
   )
 }

@@ -5,7 +5,7 @@
       "type": "category",
       "attributes": {
         "id": "100",
-        "name": "Eat and Drink"
+        "name": "Essen und Trinken"
       }
     },
     {
@@ -13,7 +13,7 @@
       "type": "category",
       "attributes": {
         "id": "200",
-        "name": "Going Out-Entertainment"
+        "name": "Ausgeh-Unterhaltung"
       }
     },
     {
@@ -21,7 +21,7 @@
       "type": "category",
       "attributes": {
         "id": "300",
-        "name": "Sights and Museums"
+        "name": "Sehenswürdigkeiten und Museen"
       }
     },
     {
@@ -29,7 +29,7 @@
       "type": "category",
       "attributes": {
         "id": "350",
-        "name": "Natural and Geographical"
+        "name": "Natürliches und Geographisches"
       }
     },
     {
@@ -45,7 +45,7 @@
       "type": "category",
       "attributes": {
         "id": "500",
-        "name": "Accomodations"
+        "name": "Unterkünfte"
       }
     },
     {
@@ -53,7 +53,7 @@
       "type": "category",
       "attributes": {
         "id": "550",
-        "name": "Leisure and Outdoor"
+        "name": "Freizeit und Outdoor"
       }
     },
     {
@@ -69,7 +69,7 @@
       "type": "category",
       "attributes": {
         "id": "700",
-        "name": "Business and Services"
+        "name": "Geschäfte und Dienstleistungen"
       }
     },
     {
@@ -77,7 +77,7 @@
       "type": "category",
       "attributes": {
         "id": "800",
-        "name": "Facilities"
+        "name": "Einrichtungen"
       }
     },
     {
@@ -85,7 +85,7 @@
       "type": "category",
       "attributes": {
         "id": "900",
-        "name": "Areas and Buildings"
+        "name": "Areale und Gebäude"
       }
     },
     {
@@ -109,7 +109,7 @@
       "type": "category",
       "attributes": {
         "id": "100-1000-0001",
-        "name": "Casual Dining"
+        "name": "Legeres Essen"
       }
     },
     {
@@ -117,7 +117,7 @@
       "type": "category",
       "attributes": {
         "id": "100-1000-0002",
-        "name": "Fine Dining"
+        "name": "Feines Essen"
       }
     },
     {
@@ -125,7 +125,7 @@
       "type": "category",
       "attributes": {
         "id": "100-1000-0003",
-        "name": "Take Out and Delivery Only"
+        "name": "Nur zum Mitnehmen und Liefern"
       }
     },
     {
@@ -133,7 +133,7 @@
       "type": "category",
       "attributes": {
         "id": "100-1000-0004",
-        "name": "Food Market-Stall"
+        "name": "Essens-Marktstand"
       }
     },
     {
@@ -141,7 +141,7 @@
       "type": "category",
       "attributes": {
         "id": "100-1000-0007",
-        "name": "Cafeteria"
+        "name": "Kantine"
       }
     },
     {
@@ -165,7 +165,7 @@
       "type": "category",
       "attributes": {
         "id": "1100",
-        "name": "Coffee-Tea"
+        "name": "Kaffee-Tee"
       }
     },
     {
@@ -173,7 +173,7 @@
       "type": "category",
       "attributes": {
         "id": "100-1100-0000",
-        "name": "Coffee-Tea"
+        "name": "Kaffee-Tee"
       }
     },
     {
@@ -181,7 +181,7 @@
       "type": "category",
       "attributes": {
         "id": "100-1100-0010",
-        "name": "Coffee Shop"
+        "name": "Kaffeehaus"
       }
     },
     {
@@ -189,7 +189,7 @@
       "type": "category",
       "attributes": {
         "id": "100-1100-0331",
-        "name": "Tea House"
+        "name": "Teehaus"
       }
     },
     {
@@ -197,7 +197,7 @@
       "type": "category",
       "attributes": {
         "id": "2000",
-        "name": "Nightlife-Entertainment"
+        "name": "Nachtleben-Unterhaltung"
       }
     },
     {
@@ -205,7 +205,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2000-0000",
-        "name": "Nightlife-Entertainment"
+        "name": "Nachtleben-Unterhaltung"
       }
     },
     {
@@ -213,7 +213,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2000-0011",
-        "name": "Bar or Pub"
+        "name": "Bar oder Pub"
       }
     },
     {
@@ -221,7 +221,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2000-0012",
-        "name": "Night Club"
+        "name": "Nachtclub"
       }
     },
     {
@@ -229,7 +229,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2000-0013",
-        "name": "Dancing"
+        "name": "Tanzen"
       }
     },
     {
@@ -245,7 +245,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2000-0015",
-        "name": "Live Entertainment-Music"
+        "name": "Live-Unterhaltung-Musik"
       }
     },
     {
@@ -253,7 +253,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2000-0016",
-        "name": "Billiards-Pool Hall"
+        "name": "Billard-Pool-Halle"
       }
     },
     {
@@ -261,7 +261,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2000-0017",
-        "name": "Video Arcade-Game Room"
+        "name": "Video-Arkade-Spielhalle"
       }
     },
     {
@@ -277,7 +277,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2000-0019",
-        "name": "Beer Garden"
+        "name": "Biergarten"
       }
     },
     {
@@ -285,7 +285,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2000-0306",
-        "name": "Adult Entertainment"
+        "name": "Unterhaltung für Erwachsene"
       }
     },
     {
@@ -293,7 +293,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2000-0368",
-        "name": "Cocktail Lounge"
+        "name": "Cocktail-Lounge"
       }
     },
     {
@@ -301,7 +301,7 @@
       "type": "category",
       "attributes": {
         "id": "2100",
-        "name": "Cinema"
+        "name": "Kino"
       }
     },
     {
@@ -309,7 +309,7 @@
       "type": "category",
       "attributes": {
         "id": "2200",
-        "name": "Theatre, Music and Culture"
+        "name": "Theater, Musik und Kultur"
       }
     },
     {
@@ -317,7 +317,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2200-0000",
-        "name": "Theatre, Music and Culture"
+        "name": "Theater, Musik und Kultur"
       }
     },
     {
@@ -325,7 +325,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2200-0020",
-        "name": "Performing Arts"
+        "name": "Darstellende Kunst"
       }
     },
     {
@@ -333,7 +333,7 @@
       "type": "category",
       "attributes": {
         "id": "2300",
-        "name": "Gambling-Lottery-Betting"
+        "name": "Glücksspiel-Lotterie-Wetten"
       }
     },
     {
@@ -341,7 +341,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2300-0000",
-        "name": "Gambling-Lottery-Betting"
+        "name": "Glücksspiel-Lotterie-Wetten"
       }
     },
     {
@@ -349,7 +349,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2300-0021",
-        "name": "Casino"
+        "name": "Kasino"
       }
     },
     {
@@ -357,15 +357,7 @@
       "type": "category",
       "attributes": {
         "id": "200-2300-0022",
-        "name": "Lottery Booth"
-      }
-    },
-    {
-      "id": "46",
-      "type": "category",
-      "attributes": {
-        "id": "300",
-        "name": "Sights and Museums"
+        "name": "Lotterie-Bude"
       }
     },
     {
@@ -373,7 +365,7 @@
       "type": "category",
       "attributes": {
         "id": "3000",
-        "name": "Landmark-Attraction"
+        "name": "Wahrzeichen-Attraktionen"
       }
     },
     {
@@ -381,7 +373,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3000-0000",
-        "name": "Landmark-Attraction"
+        "name": "Wahrzeichen-Attraktionen"
       }
     },
     {
@@ -389,7 +381,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3000-0023",
-        "name": "Tourist Attraction"
+        "name": "Touristenattraktionen"
       }
     },
     {
@@ -397,7 +389,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3000-0024",
-        "name": "Gallery"
+        "name": "Gallerie"
       }
     },
     {
@@ -405,7 +397,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3000-0025",
-        "name": "Historical Monument"
+        "name": "Historische Monumente"
       }
     },
     {
@@ -413,7 +405,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3000-0065",
-        "name": "Winery"
+        "name": "Weingut"
       }
     },
     {
@@ -421,7 +413,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3000-0350",
-        "name": "Brewery"
+        "name": "Brauerei"
       }
     },
     {
@@ -445,7 +437,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3100-0026",
-        "name": "Science Museum"
+        "name": "Wissenschaftsmuseum"
       }
     },
     {
@@ -453,7 +445,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3100-0027",
-        "name": "Children's Museum"
+        "name": "Kindermuseum"
       }
     },
     {
@@ -461,7 +453,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3100-0028",
-        "name": "History Museum"
+        "name": "Historisches Museum"
       }
     },
     {
@@ -469,7 +461,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3100-0029",
-        "name": "Art Museum"
+        "name": "Kunstmuseum"
       }
     },
     {
@@ -477,7 +469,7 @@
       "type": "category",
       "attributes": {
         "id": "3200",
-        "name": "Religious Place"
+        "name": "Religiöser Ort"
       }
     },
     {
@@ -485,7 +477,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3200-0000",
-        "name": "Religious Place"
+        "name": "Religiöser Ort"
       }
     },
     {
@@ -493,7 +485,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3200-0030",
-        "name": "Church"
+        "name": "Kirche"
       }
     },
     {
@@ -501,7 +493,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3200-0031",
-        "name": "Temple"
+        "name": "Tempel"
       }
     },
     {
@@ -509,7 +501,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3200-0032",
-        "name": "Synagogue"
+        "name": "Synagoge"
       }
     },
     {
@@ -525,7 +517,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3200-0034",
-        "name": "Mosque"
+        "name": "Moschee"
       }
     },
     {
@@ -533,7 +525,7 @@
       "type": "category",
       "attributes": {
         "id": "300-3200-0309",
-        "name": "Other Place of Worship"
+        "name": "Andere Anbetungsstätte"
       }
     },
     {
@@ -549,7 +541,7 @@
       "type": "category",
       "attributes": {
         "id": "3500",
-        "name": "Body of Water"
+        "name": "Gewässer"
       }
     },
     {
@@ -557,7 +549,7 @@
       "type": "category",
       "attributes": {
         "id": "350-3500-0233",
-        "name": "Body of Water"
+        "name": "Gewässer"
       }
     },
     {
@@ -573,7 +565,7 @@
       "type": "category",
       "attributes": {
         "id": "350-3500-0235",
-        "name": "Waterfall"
+        "name": "Wasserfall"
       }
     },
     {
@@ -581,7 +573,7 @@
       "type": "category",
       "attributes": {
         "id": "350-3500-0300",
-        "name": "Bay-Harbor"
+        "name": "Bucht-Hafen"
       }
     },
     {
@@ -589,7 +581,7 @@
       "type": "category",
       "attributes": {
         "id": "350-3500-0302",
-        "name": "River"
+        "name": "Fluss"
       }
     },
     {
@@ -597,7 +589,7 @@
       "type": "category",
       "attributes": {
         "id": "350-3500-0303",
-        "name": "Canal"
+        "name": "Kanal"
       }
     },
     {
@@ -605,7 +597,7 @@
       "type": "category",
       "attributes": {
         "id": "350-3500-0304",
-        "name": "Lake"
+        "name": "See"
       }
     },
     {
@@ -613,7 +605,7 @@
       "type": "category",
       "attributes": {
         "id": "3510",
-        "name": "Mountain or Hill"
+        "name": "Berge"
       }
     },
     {
@@ -621,7 +613,7 @@
       "type": "category",
       "attributes": {
         "id": "350-3510-0236",
-        "name": "Mountain or Hill"
+        "name": "Berge"
       }
     },
     {
@@ -629,7 +621,7 @@
       "type": "category",
       "attributes": {
         "id": "350-3510-0237",
-        "name": "Mountain Passes"
+        "name": "Bergpässe"
       }
     },
     {
@@ -637,15 +629,7 @@
       "type": "category",
       "attributes": {
         "id": "350-3510-0238",
-        "name": "Mountain Peaks"
-      }
-    },
-    {
-      "id": "81",
-      "type": "category",
-      "attributes": {
-        "id": "3520",
-        "name": "Undersea Feature"
+        "name": "Bergspitzen"
       }
     },
     {
@@ -653,7 +637,7 @@
       "type": "category",
       "attributes": {
         "id": "3522",
-        "name": "Forest, Heath or Other Vegetation"
+        "name": "Wald, Heide oder andere Vegetation"
       }
     },
     {
@@ -661,7 +645,7 @@
       "type": "category",
       "attributes": {
         "id": "3550",
-        "name": "Natural and Geographical"
+        "name": "Natürliches und Geografisches"
       }
     },
     {
@@ -669,7 +653,7 @@
       "type": "category",
       "attributes": {
         "id": "4000",
-        "name": "Airport"
+        "name": "Flughafen"
       }
     },
     {
@@ -677,7 +661,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4000-4580",
-        "name": "Public Sports Airport"
+        "name": "Öffentlicher Sportflughafen"
       }
     },
     {
@@ -685,7 +669,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4000-4581",
-        "name": "Airport"
+        "name": "Flughafen"
       }
     },
     {
@@ -693,7 +677,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4000-4582",
-        "name": "Airport Terminal"
+        "name": "Flughafen-Terminal"
       }
     },
     {
@@ -701,7 +685,7 @@
       "type": "category",
       "attributes": {
         "id": "4100",
-        "name": "Public Transport"
+        "name": "Öffentliche Verkehrsmittel"
       }
     },
     {
@@ -709,7 +693,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0035",
-        "name": "Train Station"
+        "name": "Bahnhof"
       }
     },
     {
@@ -717,7 +701,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0036",
-        "name": "Bus Station"
+        "name": "Busbahnhof"
       }
     },
     {
@@ -725,7 +709,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0037",
-        "name": "Underground Train-Subway"
+        "name": "Untergrundbahn-U-Bahn"
       }
     },
     {
@@ -733,7 +717,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0038",
-        "name": "Commuter Rail Station"
+        "name": "Pendler-Bahnhof"
       }
     },
     {
@@ -741,7 +725,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0039",
-        "name": "Commuter Train"
+        "name": "Pendlerzug"
       }
     },
     {
@@ -749,7 +733,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0040",
-        "name": "Public Transit Access"
+        "name": "Zugang zu öffentlichen Verkehrsmitteln"
       }
     },
     {
@@ -757,7 +741,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0041",
-        "name": "Transportation Service"
+        "name": "Transport-Dienstleistungen"
       }
     },
     {
@@ -765,7 +749,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0042",
-        "name": "Bus Stop"
+        "name": "Bushaltestelle"
       }
     },
     {
@@ -773,7 +757,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0043",
-        "name": "Local Transit"
+        "name": "Lokaler Transit"
       }
     },
     {
@@ -781,7 +765,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0044",
-        "name": "Ferry Terminal"
+        "name": "Fährhafen"
       }
     },
     {
@@ -789,7 +773,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0045",
-        "name": "Boat Ferry"
+        "name": "Boot-Fähre"
       }
     },
     {
@@ -797,7 +781,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0046",
-        "name": "Rail Ferry"
+        "name": "Eisenbahnfähre"
       }
     },
     {
@@ -805,7 +789,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0047",
-        "name": "Taxi Stand"
+        "name": "Taxistand"
       }
     },
     {
@@ -813,7 +797,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0226",
-        "name": "Highway Exit"
+        "name": "Autobahnausfahrt"
       }
     },
     {
@@ -821,7 +805,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0326",
-        "name": "Tollbooth"
+        "name": "Mautstelle"
       }
     },
     {
@@ -829,7 +813,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0337",
-        "name": "Lightrail"
+        "name": "Stadtbahn"
       }
     },
     {
@@ -837,7 +821,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0338",
-        "name": "Water Transit"
+        "name": "Wassertransit"
       }
     },
     {
@@ -845,7 +829,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0339",
-        "name": "Monorail"
+        "name": "Einschienenbahn"
       }
     },
     {
@@ -853,7 +837,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0340",
-        "name": "Aerial Tramway"
+        "name": "Luftseilbahn"
       }
     },
     {
@@ -869,7 +853,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0342",
-        "name": "Inclined Rail"
+        "name": "Standseilbahn"
       }
     },
     {
@@ -877,7 +861,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0347",
-        "name": "Bicycle Sharing Location"
+        "name": "Standort für Fahhrad-Sharing"
       }
     },
     {
@@ -885,79 +869,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4100-0348",
-        "name": "Bicycle Parking"
-      }
-    },
-    {
-      "id": "112",
-      "type": "category",
-      "attributes": {
-        "id": "4200",
-        "name": "Cargo Transportation"
-      }
-    },
-    {
-      "id": "113",
-      "type": "category",
-      "attributes": {
-        "id": "400-4200-0048",
-        "name": "Weigh Station"
-      }
-    },
-    {
-      "id": "114",
-      "type": "category",
-      "attributes": {
-        "id": "400-4200-0049",
-        "name": "Cargo Center"
-      }
-    },
-    {
-      "id": "115",
-      "type": "category",
-      "attributes": {
-        "id": "400-4200-0050",
-        "name": "Rail Yard"
-      }
-    },
-    {
-      "id": "116",
-      "type": "category",
-      "attributes": {
-        "id": "400-4200-0051",
-        "name": "Seaport-Harbour"
-      }
-    },
-    {
-      "id": "117",
-      "type": "category",
-      "attributes": {
-        "id": "400-4200-0052",
-        "name": "Airport Cargo"
-      }
-    },
-    {
-      "id": "118",
-      "type": "category",
-      "attributes": {
-        "id": "400-4200-0240",
-        "name": "Couriers"
-      }
-    },
-    {
-      "id": "119",
-      "type": "category",
-      "attributes": {
-        "id": "400-4200-0311",
-        "name": "Delivery Entrance"
-      }
-    },
-    {
-      "id": "120",
-      "type": "category",
-      "attributes": {
-        "id": "400-4200-0313",
-        "name": "Loading Zone"
+        "name": "Fahrradabstellplätze"
       }
     },
     {
@@ -965,7 +877,7 @@
       "type": "category",
       "attributes": {
         "id": "4300",
-        "name": "Rest Area"
+        "name": "Rastplatz"
       }
     },
     {
@@ -973,7 +885,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4300-0000",
-        "name": "Rest Area"
+        "name": "Raststätte"
       }
     },
     {
@@ -981,7 +893,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4300-0199",
-        "name": "Complete Rest Area"
+        "name": "Vollständige Raststätte"
       }
     },
     {
@@ -989,7 +901,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4300-0200",
-        "name": "Parking and Restroom Only Rest Area"
+        "name": "Nur Parkplatz und Toiletten Raststätte"
       }
     },
     {
@@ -997,7 +909,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4300-0201",
-        "name": "Parking Only Rest Area"
+        "name": "Nur Parkplatz Raststätte"
       }
     },
     {
@@ -1005,7 +917,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4300-0202",
-        "name": "Motorway Service Rest Area"
+        "name": "Autobahn-Raststätte"
       }
     },
     {
@@ -1013,7 +925,7 @@
       "type": "category",
       "attributes": {
         "id": "400-4300-0308",
-        "name": "Scenic Overlook Rest Area"
+        "name": "Aussichts-Raststätte"
       }
     },
     {
@@ -1029,7 +941,7 @@
       "type": "category",
       "attributes": {
         "id": "500-5000-0000",
-        "name": "Hotel or Motel"
+        "name": "Hotel oder Motel"
       }
     },
     {
@@ -1053,7 +965,7 @@
       "type": "category",
       "attributes": {
         "id": "5100",
-        "name": "Lodging"
+        "name": "Unterkunft"
       }
     },
     {
@@ -1061,7 +973,7 @@
       "type": "category",
       "attributes": {
         "id": "500-5100-0000",
-        "name": "Lodging"
+        "name": "Unterkunft"
       }
     },
     {
@@ -1069,7 +981,7 @@
       "type": "category",
       "attributes": {
         "id": "500-5100-0055",
-        "name": "Hostel"
+        "name": "Herberge"
       }
     },
     {
@@ -1077,7 +989,7 @@
       "type": "category",
       "attributes": {
         "id": "500-5100-0056",
-        "name": "Campground"
+        "name": "Campingplatz"
       }
     },
     {
@@ -1085,7 +997,7 @@
       "type": "category",
       "attributes": {
         "id": "500-5100-0057",
-        "name": "Guest House"
+        "name": "Gästehaus"
       }
     },
     {
@@ -1093,7 +1005,7 @@
       "type": "category",
       "attributes": {
         "id": "500-5100-0058",
-        "name": "Bed and Breakfast"
+        "name": "Übernachtung und Frühstück"
       }
     },
     {
@@ -1101,7 +1013,7 @@
       "type": "category",
       "attributes": {
         "id": "500-5100-0059",
-        "name": "Holiday Park"
+        "name": "Ferienpark"
       }
     },
     {
@@ -1109,7 +1021,7 @@
       "type": "category",
       "attributes": {
         "id": "500-5100-0060",
-        "name": "Short-Time Motel"
+        "name": "Kurzzeit-Motel"
       }
     },
     {
@@ -1117,7 +1029,7 @@
       "type": "category",
       "attributes": {
         "id": "5510",
-        "name": "Outdoor-Recreation"
+        "name": "Outdoor-Freizeitgestaltung"
       }
     },
     {
@@ -1125,7 +1037,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0000",
-        "name": "Outdoor-Recreation"
+        "name": "Outdoor-Freizeitgestaltung"
       }
     },
     {
@@ -1133,7 +1045,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0202",
-        "name": "Park-Recreation Area"
+        "name": "Park-Erholungsgebiet"
       }
     },
     {
@@ -1141,7 +1053,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0203",
-        "name": "Sports Field"
+        "name": "Sportplatz"
       }
     },
     {
@@ -1149,7 +1061,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0204",
-        "name": "Garden"
+        "name": "Gärten"
       }
     },
     {
@@ -1157,7 +1069,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0205",
-        "name": "Beach"
+        "name": "Strand"
       }
     },
     {
@@ -1165,7 +1077,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0206",
-        "name": "Recreation Center"
+        "name": "Erholungszentrum"
       }
     },
     {
@@ -1173,7 +1085,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0227",
-        "name": "Ski Lift"
+        "name": "Skilift"
       }
     },
     {
@@ -1181,7 +1093,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0242",
-        "name": "Scenic Point"
+        "name": "Aussichtspunkt"
       }
     },
     {
@@ -1189,7 +1101,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0358",
-        "name": "Off Road Trailhead"
+        "name": "Off Road Wanderwegweiser"
       }
     },
     {
@@ -1197,7 +1109,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0359",
-        "name": "Trailhead"
+        "name": "Wanderwegweiser"
       }
     },
     {
@@ -1205,7 +1117,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0374",
-        "name": "Off-Road Vehicle Area"
+        "name": "Bereich für Geländewagen"
       }
     },
     {
@@ -1213,7 +1125,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0378",
-        "name": "Campsite"
+        "name": "Zeltplatz"
       }
     },
     {
@@ -1221,7 +1133,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0379",
-        "name": "Outdoor Service"
+        "name": "Outdoor-Service"
       }
     },
     {
@@ -1229,7 +1141,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0380",
-        "name": "Ranger Station"
+        "name": "Ranger-Station"
       }
     },
     {
@@ -1237,7 +1149,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5510-0387",
-        "name": "Bicycle Service"
+        "name": "Fahrrad-Service"
       }
     },
     {
@@ -1245,7 +1157,7 @@
       "type": "category",
       "attributes": {
         "id": "5520",
-        "name": "Leisure"
+        "name": "Freizeit"
       }
     },
     {
@@ -1253,7 +1165,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5520-0000",
-        "name": "Leisure"
+        "name": "Freizeit"
       }
     },
     {
@@ -1261,7 +1173,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5520-0207",
-        "name": "Amusement Park"
+        "name": "Vergnügungspark"
       }
     },
     {
@@ -1277,7 +1189,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5520-0209",
-        "name": "Wild Animal Park"
+        "name": "Wildtierpark"
       }
     },
     {
@@ -1285,7 +1197,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5520-0210",
-        "name": "Wildlife Refuge"
+        "name": "Wildtier-Reservat"
       }
     },
     {
@@ -1301,7 +1213,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5520-0212",
-        "name": "Ski Resort"
+        "name": "Skigebiet"
       }
     },
     {
@@ -1309,7 +1221,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5520-0228",
-        "name": "Animal Park"
+        "name": "Tierpark"
       }
     },
     {
@@ -1317,7 +1229,7 @@
       "type": "category",
       "attributes": {
         "id": "550-5520-0357",
-        "name": "Water Park"
+        "name": "Wasserpark"
       }
     },
     {
@@ -1325,7 +1237,7 @@
       "type": "category",
       "attributes": {
         "id": "6000",
-        "name": "Convenience Store"
+        "name": "Gemischtwarenladen"
       }
     },
     {
@@ -1333,7 +1245,7 @@
       "type": "category",
       "attributes": {
         "id": "6100",
-        "name": "Mall-Shopping Complex"
+        "name": "Mall-Einkaufszentrum"
       }
     },
     {
@@ -1341,7 +1253,7 @@
       "type": "category",
       "attributes": {
         "id": "6200",
-        "name": "Department Store"
+        "name": "Kaufhaus"
       }
     },
     {
@@ -1349,15 +1261,7 @@
       "type": "category",
       "attributes": {
         "id": "6300",
-        "name": "Food and Drink"
-      }
-    },
-    {
-      "id": "170",
-      "type": "category",
-      "attributes": {
-        "id": "600-6300-0064",
-        "name": "Food-Beverage Specialty Store"
+        "name": "Essen und Trinken"
       }
     },
     {
@@ -1365,7 +1269,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6300-0066",
-        "name": "Grocery"
+        "name": "Lebensmittelgeschäft"
       }
     },
     {
@@ -1373,7 +1277,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6300-0067",
-        "name": "Speciality Food Store"
+        "name": "Spezialitätengeschäft"
       }
     },
     {
@@ -1381,7 +1285,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6300-0068",
-        "name": "Wine and Liquor"
+        "name": "Wein und Spirituosen"
       }
     },
     {
@@ -1389,7 +1293,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6300-0244",
-        "name": "Bakery and Baked Goods Store"
+        "name": "Bäckerei und Backwarengeschäft"
       }
     },
     {
@@ -1397,7 +1301,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6300-0245",
-        "name": "Sweet Shop"
+        "name": "Süßwarenladen"
       }
     },
     {
@@ -1405,7 +1309,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6300-0363",
-        "name": "Butcher"
+        "name": "Metzger"
       }
     },
     {
@@ -1413,7 +1317,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6300-0364",
-        "name": "Dairy Goods"
+        "name": "Molkereiprodukte"
       }
     },
     {
@@ -1421,7 +1325,7 @@
       "type": "category",
       "attributes": {
         "id": "6400",
-        "name": "Drugstore or Pharmacy"
+        "name": "Drogerie oder Apotheke"
       }
     },
     {
@@ -1429,7 +1333,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6400-0000",
-        "name": "Drugstore or Pharmacy"
+        "name": "Drogerie oder Apotheke"
       }
     },
     {
@@ -1437,7 +1341,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6400-0069",
-        "name": "Drugstore"
+        "name": "Drogerie"
       }
     },
     {
@@ -1445,7 +1349,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6400-0070",
-        "name": "Pharmacy"
+        "name": "Apotheke"
       }
     },
     {
@@ -1453,7 +1357,7 @@
       "type": "category",
       "attributes": {
         "id": "6500",
-        "name": "Electronics"
+        "name": "Elektronik"
       }
     },
     {
@@ -1461,7 +1365,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6500-0072",
-        "name": "Consumer Electronics Store"
+        "name": "Unterhaltungselektronik-Laden"
       }
     },
     {
@@ -1469,7 +1373,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6500-0073",
-        "name": "Mobile Retailer"
+        "name": "Mobile Einzelhandel"
       }
     },
     {
@@ -1477,7 +1381,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6500-0074",
-        "name": "Mobile Service Center"
+        "name": "Mobile Servicezentrum"
       }
     },
     {
@@ -1485,7 +1389,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6500-0075",
-        "name": "Computer and Software"
+        "name": "Computer und Software"
       }
     },
     {
@@ -1493,7 +1397,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6500-0076",
-        "name": "Entertainment Electronics"
+        "name": "Unterhaltungselektronik"
       }
     },
     {
@@ -1501,7 +1405,7 @@
       "type": "category",
       "attributes": {
         "id": "6600",
-        "name": "Hardware, House and Garden"
+        "name": "Haus und Garten"
       }
     },
     {
@@ -1509,7 +1413,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0000",
-        "name": "Hardware, House and Garden"
+        "name": "Haus und Garten"
       }
     },
     {
@@ -1517,7 +1421,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0077",
-        "name": "Home Improvement-Hardware Store"
+        "name": "Heimwerker-Hardware-Geschäft"
       }
     },
     {
@@ -1525,7 +1429,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0078",
-        "name": "Home Specialty Store"
+        "name": "Heim-Fachgeschäft"
       }
     },
     {
@@ -1533,7 +1437,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0079",
-        "name": "Floor and Carpet"
+        "name": "Boden und Teppichboden"
       }
     },
     {
@@ -1541,7 +1445,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0080",
-        "name": "Furniture Store"
+        "name": "Möbelhaus"
       }
     },
     {
@@ -1549,7 +1453,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0082",
-        "name": "Garden Center"
+        "name": "Gartencenter"
       }
     },
     {
@@ -1557,7 +1461,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0083",
-        "name": "Glass and Window"
+        "name": "Glas und Fenster"
       }
     },
     {
@@ -1565,7 +1469,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0084",
-        "name": "Lumber"
+        "name": "Holz"
       }
     },
     {
@@ -1573,7 +1477,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0085",
-        "name": "Major Appliance"
+        "name": "Großgeräte"
       }
     },
     {
@@ -1581,7 +1485,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0310",
-        "name": "Power Equipment Dealer"
+        "name": "Händler für Elektrogeräte"
       }
     },
     {
@@ -1589,7 +1493,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6600-0319",
-        "name": "Paint Store"
+        "name": "Farbenladen"
       }
     },
     {
@@ -1597,15 +1501,7 @@
       "type": "category",
       "attributes": {
         "id": "6700",
-        "name": "Bookstore"
-      }
-    },
-    {
-      "id": "201",
-      "type": "category",
-      "attributes": {
-        "id": "600-6700-0000",
-        "name": "Other Bookshop"
+        "name": "Buchhandlung"
       }
     },
     {
@@ -1613,7 +1509,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6700-0087",
-        "name": "Bookstore"
+        "name": "Buchhandlung"
       }
     },
     {
@@ -1621,7 +1517,7 @@
       "type": "category",
       "attributes": {
         "id": "6800",
-        "name": "Clothing and Accessories"
+        "name": "Kleidung und Accessoires"
       }
     },
     {
@@ -1629,7 +1525,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6800-0000",
-        "name": "Clothing and Accessories"
+        "name": "Kleidung und Accessoires"
       }
     },
     {
@@ -1637,7 +1533,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6800-0089",
-        "name": "Men's Apparel"
+        "name": "Männer-Bekleidung"
       }
     },
     {
@@ -1645,7 +1541,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6800-0090",
-        "name": "Women's Apparel"
+        "name": "Frauen-Bekleidung"
       }
     },
     {
@@ -1653,7 +1549,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6800-0091",
-        "name": "Children's Apparel"
+        "name": "Kinder-Bekleidung"
       }
     },
     {
@@ -1661,7 +1557,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6800-0092",
-        "name": "Shoes-Footwear"
+        "name": "Schuhe-Fußbekleidung"
       }
     },
     {
@@ -1669,7 +1565,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6800-0093",
-        "name": "Speciality Clothing Store"
+        "name": "Fachgeschäft für Bekleidung"
       }
     },
     {
@@ -1677,7 +1573,7 @@
       "type": "category",
       "attributes": {
         "id": "6900",
-        "name": "Consumer Goods"
+        "name": "Konsumgüter"
       }
     },
     {
@@ -1685,7 +1581,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0000",
-        "name": "Consumer Goods"
+        "name": "Konsumgüter"
       }
     },
     {
@@ -1693,7 +1589,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0094",
-        "name": "Sporting Goods Store"
+        "name": "Sportartikelgeschäft"
       }
     },
     {
@@ -1701,7 +1597,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0095",
-        "name": "Office Supply and Services Store"
+        "name": "Geschäft für Bürobedarf"
       }
     },
     {
@@ -1709,7 +1605,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0096",
-        "name": "Specialty Store"
+        "name": "Fachgeschäft"
       }
     },
     {
@@ -1717,7 +1613,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0097",
-        "name": "Pet Supply"
+        "name": "Heimtierbedarf"
       }
     },
     {
@@ -1725,7 +1621,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0098",
-        "name": "Warehouse-Wholesale Store"
+        "name": "Lager-Großhandelsgeschäft"
       }
     },
     {
@@ -1733,7 +1629,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0099",
-        "name": "General Merchandise"
+        "name": "Allgemeine Handelswaren"
       }
     },
     {
@@ -1741,7 +1637,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0100",
-        "name": "Discount Store"
+        "name": "Discounter"
       }
     },
     {
@@ -1749,7 +1645,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0101",
-        "name": "Flowers and Jewelry"
+        "name": "Blumen und Schmuck"
       }
     },
     {
@@ -1757,7 +1653,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0102",
-        "name": "Variety Store"
+        "name": "Sonderpostenmarkt"
       }
     },
     {
@@ -1765,7 +1661,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0103",
-        "name": "Gift, Antique and Art"
+        "name": "Geschenke, Antiquitäten und Kunst"
       }
     },
     {
@@ -1773,7 +1669,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0105",
-        "name": "Record, CD and Video"
+        "name": "Schallplatten, CDs und Videos"
       }
     },
     {
@@ -1781,7 +1677,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0106",
-        "name": "Video and Game Rental"
+        "name": "Video- und Spielverleih"
       }
     },
     {
@@ -1789,7 +1685,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0246",
-        "name": "Bicycle and Bicycle Accessories Shop"
+        "name": "Geschäft für Fahrräder und Fahrradzubehör"
       }
     },
     {
@@ -1797,32 +1693,15 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0247",
-        "name": "Market"
+        "name": "Markt"
       }
     },
-
     {
       "id": "226",
       "type": "category",
       "attributes": {
         "id": "600-6900-0248",
-        "name": "Motorcycle Accessories"
-      }
-    },
-    {
-      "id": "227",
-      "type": "category",
-      "attributes": {
-        "id": "600-6900-0249",
-        "name": "Non-Store Retailers"
-      }
-    },
-    {
-      "id": "228",
-      "type": "category",
-      "attributes": {
-        "id": "600-6900-0250",
-        "name": "Pawnshop"
+        "name": "Motorrad-Zubehör"
       }
     },
     {
@@ -1830,7 +1709,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0251",
-        "name": "Used-Second Hand Merchandise Stores"
+        "name": "Gebrauchtwarenläden"
       }
     },
     {
@@ -1838,7 +1717,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0305",
-        "name": "Adult Shop"
+        "name": "Erwachsenenladen"
       }
     },
     {
@@ -1846,7 +1725,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0307",
-        "name": "Arts and Crafts Supplies"
+        "name": "Kunst- und Bastelbedarf"
       }
     },
     {
@@ -1862,7 +1741,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0356",
-        "name": "Jeweler"
+        "name": "Juwelier"
       }
     },
     {
@@ -1870,7 +1749,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0358",
-        "name": "Toy Store"
+        "name": "Spielzeugladen"
       }
     },
     {
@@ -1878,7 +1757,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0388",
-        "name": "Hunting-Fishing Shop"
+        "name": "Jagd-Angelgeschäft"
       }
     },
     {
@@ -1886,7 +1765,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0389",
-        "name": "Running-Walking Shop"
+        "name": "Laufsportgeschäft"
       }
     },
     {
@@ -1894,7 +1773,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0390",
-        "name": "Skate Shop"
+        "name": "Skaterladen"
       }
     },
     {
@@ -1902,7 +1781,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0391",
-        "name": "Ski Shop"
+        "name": "Skigeschäft"
       }
     },
     {
@@ -1910,7 +1789,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0392",
-        "name": "Snowboard Shop"
+        "name": "Snowboardgeschäft"
       }
     },
     {
@@ -1918,7 +1797,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0393",
-        "name": "Surf Shop"
+        "name": "Surfshop"
       }
     },
     {
@@ -1934,7 +1813,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0395",
-        "name": "Camping-Hiking Shop"
+        "name": "Camping-Wander-Shop"
       }
     },
     {
@@ -1942,7 +1821,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0396",
-        "name": "Canoe-Kayak Shop"
+        "name": "Kanu-Kajak-Shop"
       }
     },
     {
@@ -1950,7 +1829,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0397",
-        "name": "Cross Country Ski Shop"
+        "name": "Skilanglauf-Shop"
       }
     },
     {
@@ -1958,7 +1837,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6900-0398",
-        "name": "Tack Shop"
+        "name": "Reiterladen"
       }
     },
     {
@@ -1966,7 +1845,7 @@
       "type": "category",
       "attributes": {
         "id": "6950",
-        "name": "Hair and Beauty"
+        "name": "Haare und Kosmetik"
       }
     },
     {
@@ -1974,7 +1853,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6950-0000",
-        "name": "Hair and Beauty"
+        "name": "Haare und Kosmetik"
       }
     },
     {
@@ -1982,7 +1861,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6950-0400",
-        "name": "Barber"
+        "name": "Barbier"
       }
     },
     {
@@ -1990,7 +1869,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6950-0400",
-        "name": "Nail Salon"
+        "name": "Nagelstudio"
       }
     },
     {
@@ -1998,7 +1877,7 @@
       "type": "category",
       "attributes": {
         "id": "600-6950-0401",
-        "name": "Hair Salon"
+        "name": "Friseursalon"
       }
     },
     {
@@ -2018,403 +1897,11 @@
       }
     },
     {
-      "id": "253",
-      "type": "category",
-      "attributes": {
-        "id": "7050",
-        "name": "Money-Cash Services"
-      }
-    },
-    {
-      "id": "255",
-      "type": "category",
-      "attributes": {
-        "id": "700-7050-0109",
-        "name": "Money Transferring Service"
-      }
-    },
-    {
-      "id": "256",
-      "type": "category",
-      "attributes": {
-        "id": "700-7050-0110",
-        "name": "Check Cashing Service-Currency Exchange"
-      }
-    },
-    {
-      "id": "257",
-      "type": "category",
-      "attributes": {
-        "id": "7100",
-        "name": "Communication-Media"
-      }
-    },
-    {
-      "id": "258",
-      "type": "category",
-      "attributes": {
-        "id": "700-7100-0000",
-        "name": "Communication-Media"
-      }
-    },
-    {
-      "id": "259",
-      "type": "category",
-      "attributes": {
-        "id": "700-7100-0134",
-        "name": "Telephone Service"
-      }
-    },
-    {
-      "id": "260",
-      "type": "category",
-      "attributes": {
-        "id": "7200",
-        "name": "Commercial Services"
-      }
-    },
-    {
-      "id": "261",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0000",
-        "name": "Commercial Services"
-      }
-    },
-    {
-      "id": "262",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0252",
-        "name": "Advertising-Marketing, PR and Market Research"
-      }
-    },
-    {
-      "id": "263",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0253",
-        "name": "Catering and Other Food Services"
-      }
-    },
-    {
-      "id": "264",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0254",
-        "name": "Construction"
-      }
-    },
-    {
-      "id": "265",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0255",
-        "name": "Customer Care-Service Center"
-      }
-    },
-    {
-      "id": "266",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0256",
-        "name": "Engineering and Scientific Services"
-      }
-    },
-    {
-      "id": "267",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0257",
-        "name": "Farming"
-      }
-    },
-    {
-      "id": "268",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0258",
-        "name": "Food Production"
-      }
-    },
-    {
-      "id": "269",
-      "type": "category",
-      "attributes": {
-        "id": "Human Resources and Recruiting Services",
-        "name": "700-7200-0259"
-      }
-    },
-    {
-      "id": "270",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0260",
-        "name": "Investigation Services"
-      }
-    },
-    {
-      "id": "271",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0261",
-        "name": "IT and Office Equipment Services"
-      }
-    },
-    {
-      "id": "272",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0262",
-        "name": "Landscaping Services"
-      }
-    },
-    {
-      "id": "273",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0263",
-        "name": "Locksmiths and Security Systems Services"
-      }
-    },
-    {
-      "id": "274",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0264",
-        "name": "Management and Consulting Services"
-      }
-    },
-    {
-      "id": "275",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0265",
-        "name": "Manufacturing"
-      }
-    },
-    {
-      "id": "276",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0266",
-        "name": "Mining"
-      }
-    },
-    {
-      "id": "277",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0267",
-        "name": "Modeling Agencies"
-      }
-    },
-    {
-      "id": "278",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0268",
-        "name": "Motorcycle Service and Maintenance"
-      }
-    },
-    {
-      "id": "279",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0269",
-        "name": "Organizations and Societies"
-      }
-    },
-    {
-      "id": "280",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0270",
-        "name": "Entertainment and Recreation"
-      }
-    },
-    {
-      "id": "281",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0271",
-        "name": "Finance and Insurance"
-      }
-    },
-    {
-      "id": "282",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0272",
-        "name": "Healthcare and Healthcare Support Services"
-      }
-    },
-    {
-      "id": "283",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0274",
-        "name": "Rental and Leasing"
-      }
-    },
-    {
-      "id": "284",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0275",
-        "name": "Repair and Maintenance Services"
-      }
-    },
-    {
-      "id": "285",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0276",
-        "name": "Printing and Publishing"
-      }
-    },
-    {
-      "id": "286",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0277",
-        "name": "Specialty Trade Contractors"
-      }
-    },
-    {
-      "id": "287",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0278",
-        "name": "Towing Service"
-      }
-    },
-    {
-      "id": "288",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0279",
-        "name": "Translation and Interpretation Services"
-      }
-    },
-    {
-      "id": "289",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0324",
-        "name": "Apartment Rental-Flat Rental"
-      }
-    },
-    {
-      "id": "290",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0328",
-        "name": "B2B Sales and Services"
-      }
-    },
-    {
-      "id": "291",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0329",
-        "name": "B2B Restaurant Services"
-      }
-    },
-    {
-      "id": "292",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0330",
-        "name": "Aviation"
-      }
-    },
-    {
-      "id": "293",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0342",
-        "name": "Interior and Exterior Design"
-      }
-    },
-    {
-      "id": "294",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0344",
-        "name": "Property Management"
-      }
-    },
-    {
-      "id": "295",
-      "type": "category",
-      "attributes": {
-        "id": "700-7200-0345",
-        "name": "Financial Investment Firm"
-      }
-    },
-    {
-      "id": "296",
-      "type": "category",
-      "attributes": {
-        "id": "7250",
-        "name": "Business-Industry"
-      }
-    },
-    {
-      "id": "297",
-      "type": "category",
-      "attributes": {
-        "id": "700-7250-0136",
-        "name": "Business Facility"
-      }
-    },
-    {
-      "id": "298",
-      "type": "category",
-      "attributes": {
-        "id": "7300",
-        "name": "Police-Fire-Emergency"
-      }
-    },
-    {
-      "id": "299",
-      "type": "category",
-      "attributes": {
-        "id": "700-7300-0111",
-        "name": "Police Station"
-      }
-    },
-    {
-      "id": "300",
-      "type": "category",
-      "attributes": {
-        "id": "700-7300-0112",
-        "name": "Police Services-Security"
-      }
-    },
-    {
-      "id": "301",
-      "type": "category",
-      "attributes": {
-        "id": "700-7300-0113",
-        "name": "Fire Department"
-      }
-    },
-    {
-      "id": "302",
-      "type": "category",
-      "attributes": {
-        "id": "700-7300-0280",
-        "name": "Ambulance Services"
-      }
-    },
-    {
       "id": "303",
       "type": "category",
       "attributes": {
         "id": "7400",
-        "name": "Consumer Services"
+        "name": "Dienstleistungen"
       }
     },
     {
@@ -2422,15 +1909,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7400-0000",
-        "name": "Consumer Services"
-      }
-    },
-    {
-      "id": "305",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0133",
-        "name": "Travel Agent-Ticketing"
+        "name": "Dienstleistungen"
       }
     },
     {
@@ -2438,63 +1917,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7400-0137",
-        "name": "Dry Cleaning and Laundry"
-      }
-    },
-    {
-      "id": "307",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0138",
-        "name": "Attorney"
-      }
-    },
-    {
-      "id": "308",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0140",
-        "name": "Boating"
-      }
-    },
-    {
-      "id": "309",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0141",
-        "name": "Business Service"
-      }
-    },
-    {
-      "id": "310",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0142",
-        "name": "Funeral Director"
-      }
-    },
-    {
-      "id": "311",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0143",
-        "name": "Mover"
-      }
-    },
-    {
-      "id": "312",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0144",
-        "name": "Photography"
-      }
-    },
-    {
-      "id": "313",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0145",
-        "name": "Real Estate Services"
+        "name": "Chemische Reinigung und Wäscherei"
       }
     },
     {
@@ -2502,15 +1925,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7400-0146",
-        "name": "Repair Service"
-      }
-    },
-    {
-      "id": "315",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0147",
-        "name": "Social Service"
+        "name": "Reparaturservice"
       }
     },
     {
@@ -2518,7 +1933,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7400-0148",
-        "name": "Storage"
+        "name": "Lagerung"
       }
     },
     {
@@ -2526,31 +1941,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7400-0149",
-        "name": "Tailor and Alteration"
-      }
-    },
-    {
-      "id": "318",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0150",
-        "name": "Tax Service"
-      }
-    },
-    {
-      "id": "319",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0151",
-        "name": "Utilities"
-      }
-    },
-    {
-      "id": "320",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0152",
-        "name": "Waste and Sanitary"
+        "name": "Schneider und Änderungsschneiderei"
       }
     },
     {
@@ -2558,15 +1949,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7400-0281",
-        "name": "Bicycle Service and Maintenance"
-      }
-    },
-    {
-      "id": "322",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0282",
-        "name": "Bill Payment Service"
+        "name": "Fahrradservice und -wartung"
       }
     },
     {
@@ -2574,15 +1957,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7400-0283",
-        "name": "Body Piercing and Tattoos"
-      }
-    },
-    {
-      "id": "324",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0284",
-        "name": "Wedding Services and Bridal Studio"
+        "name": "Körperpiercing und Tattoos"
       }
     },
     {
@@ -2594,35 +1969,11 @@
       }
     },
     {
-      "id": "326",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0286",
-        "name": "Kindergarten and Childcare"
-      }
-    },
-    {
-      "id": "327",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0287",
-        "name": "Maid Services"
-      }
-    },
-    {
-      "id": "328",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0288",
-        "name": "Marriage and Match Making Services"
-      }
-    },
-    {
       "id": "329",
       "type": "category",
       "attributes": {
         "id": "700-7400-0289",
-        "name": "Public Administration"
+        "name": "Öffentliche Verwaltung"
       }
     },
     {
@@ -2630,7 +1981,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7400-0292",
-        "name": "Wellness Center and Services"
+        "name": "Wellness-Center"
       }
     },
     {
@@ -2638,7 +1989,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7400-0293",
-        "name": "Pet Care"
+        "name": "Haustierpflege"
       }
     },
     {
@@ -2646,31 +1997,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7400-0343",
-        "name": "Tanning Salon"
-      }
-    },
-    {
-      "id": "333",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0352",
-        "name": "Recycling Center"
-      }
-    },
-    {
-      "id": "334",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0365",
-        "name": "Electrical"
-      }
-    },
-    {
-      "id": "335",
-      "type": "category",
-      "attributes": {
-        "id": "700-7400-0366",
-        "name": "Plumbing"
+        "name": "Bräunungsstudio"
       }
     },
     {
@@ -2678,7 +2005,7 @@
       "type": "category",
       "attributes": {
         "id": "7450",
-        "name": "Post Office"
+        "name": "Postamt"
       }
     },
     {
@@ -2686,7 +2013,7 @@
       "type": "category",
       "attributes": {
         "id": "7460",
-        "name": "Tourist Information"
+        "name": "Tourist-Information"
       }
     },
     {
@@ -2694,7 +2021,7 @@
       "type": "category",
       "attributes": {
         "id": "7600",
-        "name": "Fueling Station"
+        "name": "Tankstelle"
       }
     },
     {
@@ -2702,7 +2029,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7600-0000",
-        "name": "Fueling Station"
+        "name": "Tankstelle"
       }
     },
     {
@@ -2710,7 +2037,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7600-0116",
-        "name": "Petrol-Gasoline Station"
+        "name": "Benzin-Tankstelle"
       }
     },
     {
@@ -2718,39 +2045,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7600-0322",
-        "name": "EV Charging Station"
-      }
-    },
-    {
-      "id": "342",
-      "type": "category",
-      "attributes": {
-        "id": "7800",
-        "name": "Car Dealer-Sales"
-      }
-    },
-    {
-      "id": "343",
-      "type": "category",
-      "attributes": {
-        "id": "700-7800-0118",
-        "name": "Automobile Dealership-New Cars"
-      }
-    },
-    {
-      "id": "344",
-      "type": "category",
-      "attributes": {
-        "id": "700-7800-0119",
-        "name": "Automobile Dealership-Used Cars"
-      }
-    },
-    {
-      "id": "345",
-      "type": "category",
-      "attributes": {
-        "id": "700-7800-0120",
-        "name": "Motorcycle Dealership"
+        "name": "EV-Ladestation"
       }
     },
     {
@@ -2758,7 +2053,7 @@
       "type": "category",
       "attributes": {
         "id": "7850",
-        "name": "Car Repair-Service"
+        "name": "Auto-Reparatur-Service"
       }
     },
     {
@@ -2766,7 +2061,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7850-0000",
-        "name": "Car Repair-Service"
+        "name": "Auto-Reparatur-Service"
       }
     },
     {
@@ -2774,7 +2069,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7850-0121",
-        "name": "Car Wash-Detailing"
+        "name": "Autowäsche"
       }
     },
     {
@@ -2782,7 +2077,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7850-0122",
-        "name": "Car Repair"
+        "name": "Autoreparatur"
       }
     },
     {
@@ -2790,7 +2085,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7850-0123",
-        "name": "Auto Parts"
+        "name": "Autoteile"
       }
     },
     {
@@ -2798,7 +2093,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7850-0124",
-        "name": "Emission Testing"
+        "name": "Emissionsprüfung"
       }
     },
     {
@@ -2806,7 +2101,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7850-0125",
-        "name": "Tire Repair"
+        "name": "Reifenreparatur"
       }
     },
     {
@@ -2814,7 +2109,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7850-0126",
-        "name": "Truck Repair"
+        "name": "Lkw-Reparatur"
       }
     },
     {
@@ -2822,7 +2117,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7850-0127",
-        "name": "Van Repair"
+        "name": "Transporter-Reparatur"
       }
     },
     {
@@ -2830,15 +2125,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7850-0128",
-        "name": "Road Assistance"
-      }
-    },
-    {
-      "id": "356",
-      "type": "category",
-      "attributes": {
-        "id": "700-7850-0129",
-        "name": "Automobile Club"
+        "name": "Pannenhilfe"
       }
     },
     {
@@ -2846,7 +2133,7 @@
       "type": "category",
       "attributes": {
         "id": "7851",
-        "name": "Car Rental"
+        "name": "Autovermietung"
       }
     },
     {
@@ -2854,7 +2141,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7851-0117",
-        "name": "Rental Car Agency"
+        "name": "Mietwagenagentur"
       }
     },
     {
@@ -2862,23 +2149,7 @@
       "type": "category",
       "attributes": {
         "id": "7900",
-        "name": "Truck-Semi Dealer-Services"
-      }
-    },
-    {
-      "id": "360",
-      "type": "category",
-      "attributes": {
-        "id": "700-7900-0000",
-        "name": "Truck-Semi Dealer-Services"
-      }
-    },
-    {
-      "id": "361",
-      "type": "category",
-      "attributes": {
-        "id": "700-7900-0130",
-        "name": "Truck Dealership"
+        "name": "Truck Services"
       }
     },
     {
@@ -2886,7 +2157,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7900-0131",
-        "name": "Truck Parking"
+        "name": "Lkw-Parken"
       }
     },
     {
@@ -2894,7 +2165,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7900-0132",
-        "name": "Truck Stop-Plaza"
+        "name": "Lwk-Raststätte"
       }
     },
     {
@@ -2902,7 +2173,7 @@
       "type": "category",
       "attributes": {
         "id": "700-7900-0133",
-        "name": "Truck Wash"
+        "name": "Lkw-Wäsche"
       }
     },
     {
@@ -2910,7 +2181,7 @@
       "type": "category",
       "attributes": {
         "id": "8000",
-        "name": "Hostpital or Health Care Facility"
+        "name": "Krankenhaus oder Einrichtung des Gesundheitswesens"
       }
     },
     {
@@ -2918,7 +2189,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8000-0000",
-        "name": "Hostpital or Health Care Facility"
+        "name": "Krankenhaus oder Einrichtung des Gesundheitswesens"
       }
     },
     {
@@ -2926,7 +2197,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8000-0154",
-        "name": "Dentist-Dental Office"
+        "name": "Zahnarztpraxis"
       }
     },
     {
@@ -2934,31 +2205,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8000-0155",
-        "name": "Family-General Practice Physicians"
-      }
-    },
-    {
-      "id": "369",
-      "type": "category",
-      "attributes": {
-        "id": "800-8000-0156",
-        "name": "Psychiatric Institute"
-      }
-    },
-    {
-      "id": "370",
-      "type": "category",
-      "attributes": {
-        "id": "800-8000-0157",
-        "name": "Nursing Home"
-      }
-    },
-    {
-      "id": "371",
-      "type": "category",
-      "attributes": {
-        "id": "800-8000-0158",
-        "name": "Medical Services-Clinics"
+        "name": "Allgemeinmediziner"
       }
     },
     {
@@ -2966,7 +2213,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8000-0159",
-        "name": "Hospital"
+        "name": "Krankenhaus"
       }
     },
     {
@@ -2974,7 +2221,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8000-0161",
-        "name": "Optical"
+        "name": "Optiker"
       }
     },
     {
@@ -2982,7 +2229,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8000-0162",
-        "name": "Veterinarian"
+        "name": "Tierarzt"
       }
     },
     {
@@ -2990,15 +2237,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8000-0325",
-        "name": "Hospital Emergency Room"
-      }
-    },
-    {
-      "id": "376",
-      "type": "category",
-      "attributes": {
-        "id": "800-8000-0340",
-        "name": "Therapist"
+        "name": "Krankenhaus Notaufnahme"
       }
     },
     {
@@ -3006,7 +2245,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8000-0341",
-        "name": "Chiropractor"
+        "name": "Chiropraktiker"
       }
     },
     {
@@ -3014,7 +2253,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8000-0367",
-        "name": "Blood Bank"
+        "name": "Blutbank"
       }
     },
     {
@@ -3022,7 +2261,7 @@
       "type": "category",
       "attributes": {
         "id": "8100",
-        "name": "Government or Community Facility"
+        "name": "Staatliche Einrichtung"
       }
     },
     {
@@ -3030,7 +2269,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8100-0000",
-        "name": "Government or Community Facility"
+        "name": "Staatliche Einrichtung"
       }
     },
     {
@@ -3038,7 +2277,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8100-0163",
-        "name": "City Hall"
+        "name": "Rathaus"
       }
     },
     {
@@ -3046,7 +2285,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8100-0164",
-        "name": "Embassy"
+        "name": "Botschaft"
       }
     },
     {
@@ -3054,15 +2293,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8100-0165",
-        "name": "Military Base"
-      }
-    },
-    {
-      "id": "384",
-      "type": "category",
-      "attributes": {
-        "id": "800-8100-0168",
-        "name": "County Council"
+        "name": "Militärbasis"
       }
     },
     {
@@ -3070,7 +2301,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8100-0169",
-        "name": "Civic-Community Center"
+        "name": "Bürger-Gemeinschaftszentrum"
       }
     },
     {
@@ -3078,7 +2309,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8100-0170",
-        "name": "Court House"
+        "name": "Gerichtsgebäude"
       }
     },
     {
@@ -3086,7 +2317,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8100-0171",
-        "name": "Government Office"
+        "name": "Regierungsamt"
       }
     },
     {
@@ -3094,71 +2325,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8100-0172",
-        "name": "Border Crossing"
-      }
-    },
-    {
-      "id": "389",
-      "type": "category",
-      "attributes": {
-        "id": "8200",
-        "name": "Education Facility"
-      }
-    },
-    {
-      "id": "390",
-      "type": "category",
-      "attributes": {
-        "id": "800-8200-0000",
-        "name": "Education Education"
-      }
-    },
-    {
-      "id": "391",
-      "type": "category",
-      "attributes": {
-        "id": "800-8200-0173",
-        "name": "Higher Education"
-      }
-    },
-    {
-      "id": "392",
-      "type": "category",
-      "attributes": {
-        "id": "800-8200-0174",
-        "name": "School"
-      }
-    },
-    {
-      "id": "393",
-      "type": "category",
-      "attributes": {
-        "id": "800-8200-0295",
-        "name": "Training and Development"
-      }
-    },
-    {
-      "id": "394",
-      "type": "category",
-      "attributes": {
-        "id": "800-8200-0360",
-        "name": "Coaching Institute"
-      }
-    },
-    {
-      "id": "395",
-      "type": "category",
-      "attributes": {
-        "id": "800-8200-0361",
-        "name": "Fine Arts"
-      }
-    },
-    {
-      "id": "396",
-      "type": "category",
-      "attributes": {
-        "id": "800-8200-0362",
-        "name": "Language Studies"
+        "name": "Grenzübergang"
       }
     },
     {
@@ -3166,15 +2333,7 @@
       "type": "category",
       "attributes": {
         "id": "8300",
-        "name": "Library"
-      }
-    },
-    {
-      "id": "398",
-      "type": "category",
-      "attributes": {
-        "id": "800-8300-0000",
-        "name": "Other Library"
+        "name": "Bibliothek"
       }
     },
     {
@@ -3182,7 +2341,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8300-0175",
-        "name": "Library"
+        "name": "Bibliothek"
       }
     },
     {
@@ -3190,7 +2349,7 @@
       "type": "category",
       "attributes": {
         "id": "8400",
-        "name": "Event Spaces"
+        "name": "Veranstaltungsorte"
       }
     },
     {
@@ -3198,7 +2357,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8400-0000",
-        "name": "Event Spaces"
+        "name": "Veranstaltungsorte"
       }
     },
     {
@@ -3206,7 +2365,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8400-0139",
-        "name": "Banquet Hall"
+        "name": "Bankettsaal"
       }
     },
     {
@@ -3214,7 +2373,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8400-0176",
-        "name": "Convention-Exhibition Center"
+        "name": "Kongress-Ausstellungszentrum"
       }
     },
     {
@@ -3222,7 +2381,7 @@
       "type": "category",
       "attributes": {
         "id": "8500",
-        "name": "Parking"
+        "name": "Parken"
       }
     },
     {
@@ -3230,7 +2389,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8500-0000",
-        "name": "Parking"
+        "name": "Parken"
       }
     },
     {
@@ -3238,7 +2397,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8500-0177",
-        "name": "Parking Garage-Parking House"
+        "name": "Parkgarage oder Parkhaus"
       }
     },
     {
@@ -3246,7 +2405,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8500-0178",
-        "name": "Parking Lot"
+        "name": "Parkplatz"
       }
     },
     {
@@ -3262,7 +2421,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8500-0315",
-        "name": "Cellphone Parking Lot"
+        "name": "Handy-Parkplatz"
       }
     },
     {
@@ -3270,7 +2429,7 @@
       "type": "category",
       "attributes": {
         "id": "8600",
-        "name": "Sports Facility-Venue"
+        "name": "Sportanlagen"
       }
     },
     {
@@ -3278,7 +2437,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0000",
-        "name": "Sports Facility-Venue"
+        "name": "Sportanlagen"
       }
     },
     {
@@ -3286,7 +2445,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0180",
-        "name": "Sports Complex-Stadium"
+        "name": "Sportkomplex-Stadion"
       }
     },
     {
@@ -3294,7 +2453,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0181",
-        "name": "Ice Skating Rink"
+        "name": "Eislaufbahn"
       }
     },
     {
@@ -3302,7 +2461,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0182",
-        "name": "Swimming Pool"
+        "name": "Schwimmbad"
       }
     },
     {
@@ -3310,7 +2469,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0183",
-        "name": "Tennis Court"
+        "name": "Tennisplatz"
       }
     },
     {
@@ -3318,7 +2477,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0184",
-        "name": "Bowling Center"
+        "name": "Bowling-Zentrum"
       }
     },
     {
@@ -3326,7 +2485,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0185",
-        "name": "Indoor Ski"
+        "name": "Skihalle"
       }
     },
     {
@@ -3342,7 +2501,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0187",
-        "name": "Racquetball Court"
+        "name": "Racquetball-Platz"
       }
     },
     {
@@ -3350,7 +2509,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0188",
-        "name": "Shooting Range"
+        "name": "Schießstand"
       }
     },
     {
@@ -3358,7 +2517,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0189",
-        "name": "Soccer Club"
+        "name": "Fußball-Club"
       }
     },
     {
@@ -3366,7 +2525,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0190",
-        "name": "Squash Court"
+        "name": "Squash-Platz"
       }
     },
     {
@@ -3374,7 +2533,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0191",
-        "name": "Fitness-Health Club"
+        "name": "Fitness-Gesundheitsclub"
       }
     },
     {
@@ -3382,7 +2541,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0192",
-        "name": "Indoor Sports"
+        "name": "Indoor-Sportarten"
       }
     },
     {
@@ -3390,7 +2549,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0193",
-        "name": "Golf Course"
+        "name": "Golfplatz"
       }
     },
     {
@@ -3398,7 +2557,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0194",
-        "name": "Golf Practice Range"
+        "name": "Golf-Übungsplatz"
       }
     },
     {
@@ -3406,7 +2565,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0195",
-        "name": "Race Track"
+        "name": "Rennstrecke"
       }
     },
     {
@@ -3414,15 +2573,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0196",
-        "name": "Sport Instruction and Camps"
-      }
-    },
-    {
-      "id": "429",
-      "type": "category",
-      "attributes": {
-        "id": "800-8600-0197",
-        "name": "Sports Activities"
+        "name": "Sport Camps"
       }
     },
     {
@@ -3454,7 +2605,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0316",
-        "name": "Diving Center"
+        "name": "Tauchzentrum"
       }
     },
     {
@@ -3462,7 +2613,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0376",
-        "name": "Bike Park"
+        "name": "Fahrrad-Park"
       }
     },
     {
@@ -3478,7 +2629,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8600-0381",
-        "name": "Running Track"
+        "name": "Laufbahn"
       }
     },
     {
@@ -3486,7 +2637,7 @@
       "type": "category",
       "attributes": {
         "id": "8700",
-        "name": "Facilities"
+        "name": "Anlagen"
       }
     },
     {
@@ -3494,7 +2645,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8700-0000",
-        "name": "Facilities"
+        "name": "Anlagen"
       }
     },
     {
@@ -3502,15 +2653,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8700-0166",
-        "name": "Cemetery"
-      }
-    },
-    {
-      "id": "440",
-      "type": "category",
-      "attributes": {
-        "id": "800-8700-0167",
-        "name": "Crematorium"
+        "name": "Friedhof"
       }
     },
     {
@@ -3518,7 +2661,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8700-0198",
-        "name": "Public Restroom-Toilets"
+        "name": "Öffentliche Toiletten"
       }
     },
     {
@@ -3526,55 +2669,7 @@
       "type": "category",
       "attributes": {
         "id": "800-8700-0296",
-        "name": "Clubhouse"
-      }
-    },
-    {
-      "id": "443",
-      "type": "category",
-      "attributes": {
-        "id": "800-8700-0298",
-        "name": "Registration Office"
-      }
-    },
-    {
-      "id": "444",
-      "type": "category",
-      "attributes": {
-        "id": "9100",
-        "name": "City, Town or Village"
-      }
-    },
-    {
-      "id": "445",
-      "type": "category",
-      "attributes": {
-        "id": "900-9100-0000",
-        "name": "City, Town or Village"
-      }
-    },
-    {
-      "id": "446",
-      "type": "category",
-      "attributes": {
-        "id": "900-9100-0214",
-        "name": "Hamlet"
-      }
-    },
-    {
-      "id": "447",
-      "type": "category",
-      "attributes": {
-        "id": "900-9100-0215",
-        "name": "Named Place"
-      }
-    },
-    {
-      "id": "448",
-      "type": "category",
-      "attributes": {
-        "id": "900-9100-0216",
-        "name": "Neighborhood"
+        "name": "Vereinshaus"
       }
     },
     {
@@ -3582,7 +2677,7 @@
       "type": "category",
       "attributes": {
         "id": "9200",
-        "name": "Outdoor Area-Complex"
+        "name": "Außenanlagen-Komplex"
       }
     },
     {
@@ -3590,7 +2685,7 @@
       "type": "category",
       "attributes": {
         "id": "900-9200-0000",
-        "name": "Outdoor Area-Complex"
+        "name": "Außenanlagen-Komplex"
       }
     },
     {
@@ -3598,7 +2693,7 @@
       "type": "category",
       "attributes": {
         "id": "900-9200-0218",
-        "name": "Industrial Zone"
+        "name": "Industriezone"
       }
     },
     {
@@ -3606,7 +2701,7 @@
       "type": "category",
       "attributes": {
         "id": "900-9200-0219",
-        "name": "Marina"
+        "name": "Yachthafen"
       }
     },
     {
@@ -3614,7 +2709,7 @@
       "type": "category",
       "attributes": {
         "id": "900-9200-0220",
-        "name": "RV Parks"
+        "name": "Wohnmobil-Parks"
       }
     },
     {
@@ -3622,7 +2717,7 @@
       "type": "category",
       "attributes": {
         "id": "900-9200-0299",
-        "name": "Collective Community"
+        "name": "Kollektiv-Gemeinschaft"
       }
     },
     {
@@ -3630,7 +2725,7 @@
       "type": "category",
       "attributes": {
         "id": "00-9200-0301",
-        "name": "Island"
+        "name": "Insel"
       }
     },
     {
@@ -3638,79 +2733,7 @@
       "type": "category",
       "attributes": {
         "id": "900-9200-0386",
-        "name": "Meeting Point"
-      }
-    },
-    {
-      "id": "457",
-      "type": "category",
-      "attributes": {
-        "id": "9300",
-        "name": "Building"
-      }
-    },
-    {
-      "id": "458",
-      "type": "category",
-      "attributes": {
-        "id": "900-9300-0000",
-        "name": "Building"
-      }
-    },
-    {
-      "id": "459",
-      "type": "category",
-      "attributes": {
-        "id": "900-9300-0221",
-        "name": "Residential Area-Building"
-      }
-    },
-    {
-      "id": "460",
-      "type": "category",
-      "attributes": {
-        "id": "9400",
-        "name": "Administrative Region-Streets"
-      }
-    },
-    {
-      "id": "461",
-      "type": "category",
-      "attributes": {
-        "id": "900-9400-0000",
-        "name": "Administrative Region-Streets"
-      }
-    },
-    {
-      "id": "462",
-      "type": "category",
-      "attributes": {
-        "id": "900-9400-0399",
-        "name": "Administrative Region"
-      }
-    },
-    {
-      "id": "463",
-      "type": "category",
-      "attributes": {
-        "id": "900-9400-0400",
-        "name": "Postal Area"
-      }
-    },
-    {
-      "id": "464",
-      "type": "category",
-      "attributes": {
-        "id": "900-9400-0401",
-        "name": "Street or Square"
-      }
-    },
-    {
-      "id": "465",
-      "type": "category",
-      "attributes": {
-        "id": "900-9400-0402",
-        "name": "Intersection"
+        "name": "Treffpunkt"
       }
     }
   ]

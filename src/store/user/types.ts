@@ -3,29 +3,37 @@ export type UserState = {
   userName: string
   email: string
   password: string
-  image: string
   isAdmin: boolean
+  tutorial: boolean[]
   picture?: string
-  roadtrips?: {
-    [key: string]: RoadtripState
-  }[]
+  roadtrips?: RoadtripState[]
   locations?: LocationState[]
+  token: string
+  created_at?: string
+  updated_at?: string
+  users?: UserState[]
 }
 
 export type RoadtripState = {
   name: string
   stops: LocationState[]
-  distance: number
+  distance?: number
+  id: number
+  public: boolean
 }
 
 export type LocationState = {
   id: string
-  name: string
-  longitude: number
-  latitude: number
-  categories?: string[]
+  name?: string
+  longitude?: number
+  latitude?: number
+  category?: string
   description?: string
-  date?: string
-  isReturning?: 'daily' | 'weekly' | 'monthly' | 'yearly' | undefined
-  fotos?: string[]
+  user_id?: number
+  public?: boolean
+  is_allowed?: boolean
+  api_entry_key?: string
+  created_at?: string
+  updated_at?: string
+  order: number
 }

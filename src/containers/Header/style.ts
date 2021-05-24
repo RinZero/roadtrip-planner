@@ -46,6 +46,7 @@ export const HeaderAppBar = withTheme(styled(AppBar)`
   MuiPopover-paper {
     top: 0;
   }
+  min-height: ${(props) => props.theme.spacing(10)}px;
 `)
 
 export const ToolbarContainer = withTheme(styled(Toolbar)`

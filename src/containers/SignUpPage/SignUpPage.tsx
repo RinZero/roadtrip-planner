@@ -1,19 +1,25 @@
 import React, { memo } from 'react'
 
-import { Typography } from '@material-ui/core'
+import { Typography, IconButton } from '@material-ui/core'
+import { ArrowDownwardRounded } from '@material-ui/icons'
 
 import bild from '../../assets/bild-small.jpg'
 import bus from '../../assets/bus-small.jpg'
 import frauenInAuto from '../../assets/frauenInAuto-small.jpg'
 import SignUpCard from '../../components/SignUpCard/SignUpCard'
 import SignUpForm from './SignUpForm'
-import { SignUpPageContainer, SignUpBox } from './style'
+import {
+  SignUpPageContainer,
+  SignUpBox,
+  TitleTypography,
+  DownscrollIconButton,
+} from './style'
 
 const SignUpPage = () => {
   return (
     <SignUpPageContainer>
       <SignUpBox>
-        <SignUpCard
+        {/* <SignUpCard
           text={
             <Typography variant="body1">
               <u>Schnell</u> und <u>einfach</u> deinen <b>einzigartigen</b>{' '}
@@ -47,7 +53,7 @@ const SignUpPage = () => {
           size={30}
           image={frauenInAuto}
           color={'lightblue'}
-        /> */}
+        /> 
         <SignUpCard
           text={
             <Typography variant="body1">
@@ -63,7 +69,25 @@ const SignUpPage = () => {
           size={25}
           image={bild}
           color={'orange'}
-        />
+        /> */}
+        <TitleTypography variant="h1">
+          "Schnell und einfach deinen einzigartigen Roadtrip durch Österreich
+          planen."
+        </TitleTypography>
+        <TitleTypography variant="h3">
+          Melde dich jetzt <u>kostenlos</u> an und sichere dir deinen Usernamen.
+        </TitleTypography>
+        <DownscrollIconButton
+          onClick={() =>
+            window.scrollTo({
+              top: document.body.scrollHeight,
+              left: 0,
+              behavior: 'smooth',
+            })
+          }
+        >
+          <ArrowDownwardRounded />
+        </DownscrollIconButton>
       </SignUpBox>
       <SignUpForm />
     </SignUpPageContainer>

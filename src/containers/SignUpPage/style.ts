@@ -9,7 +9,8 @@ import {
 } from '@material-ui/core'
 import styled from 'styled-components'
 
-import background from '../../assets/bild-small.jpg'
+import background from '../../assets/manAtLake.jpg'
+import backgroundMobile from '../../assets/roadAbove.jpg'
 //SignUpForm Styles
 
 export const StyledInput = withTheme(styled(TextField)`
@@ -48,6 +49,10 @@ export const SignUpPageContainer = withTheme(styled.div`
   background-image: url(${background});
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center bottom;
+  ${(props) => props.theme.breakpoints.down(1100)} {
+    background-image: url(${backgroundMobile});
+  }
 `)
 
 export const SignUpBox = withTheme(styled(Box)`
@@ -70,7 +75,7 @@ export const TitleTypography = withTheme(styled(Typography)`
   color: white;
   font-weight: bold;
   text-align: center;
-  text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.36);
+  text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.75);
 `)
 
 export const DownscrollIconButton = withTheme(styled(IconButton)`

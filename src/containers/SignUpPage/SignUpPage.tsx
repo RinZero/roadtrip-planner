@@ -75,7 +75,18 @@ const SignUpPage = () => {
           planen."
         </TitleTypography>
         <TitleTypography variant="h3">
-          Melde dich jetzt <u>kostenlos</u> an und sichere dir deinen Usernamen.
+          <div
+            onClick={() =>
+              window.scrollTo({
+                top: document.body.scrollHeight,
+                left: 0,
+                behavior: 'smooth',
+              })
+            }
+          >
+            Melde dich jetzt <u>kostenlos</u> an und sichere dir deinen
+            Usernamen.
+          </div>
         </TitleTypography>
         <DownscrollIconButton
           onClick={() =>

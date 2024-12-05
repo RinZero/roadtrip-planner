@@ -7,8 +7,9 @@ import {
 } from '../store/actions'
 import { LocationState, UserState } from '../store/user/types'
 import { fetchUser } from './admin'
-import { fetchRoadtrips, fetchUserEntries } from './AuthService'
 import { convertToRoadtrip } from './convertToRoadtrip'
+import { fetchUserEntries } from './place'
+import { fetchRoadtrips } from './roadtrip'
 
 export const initUserData = async (token: string, dispatch: Dispatch<any>) => {
   const roadtripsRaw = await fetchRoadtrips(token)

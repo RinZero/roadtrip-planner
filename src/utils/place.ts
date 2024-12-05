@@ -13,9 +13,30 @@ export type placeType = {
   }
 }
 
+export type FormInputUserEntry = {
+  name: string
+  description: string
+  latitude: number | null
+  longitude: number | null
+  category?: string
+  public?: boolean
+}
+
 const fetch = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
 })
+
+export const fetchUserEntries = (token: string) => {
+  return fetch
+    .get('user_entries', {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => {
+      return response.data
+    })
+}
 
 export const createPlace = (data: placeType, token: string) => {
   return fetch

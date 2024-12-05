@@ -9,8 +9,8 @@ import {
 } from '../../store/actions'
 import { selectEditRoadtrip, selectUserToken } from '../../store/selectors'
 import { LocationState } from '../../store/user/types'
-import { updateRoadtrip } from '../../utils/AuthService'
 import { reverseLookupHereData } from '../../utils/reverseLookupHereData'
+import { updateRoadtrip } from '../../utils/roadtrip'
 import EditRoadtripTemplate from '../EditRoadtripTemplate'
 import LoadingAnimation from '../LoadingAnimation'
 

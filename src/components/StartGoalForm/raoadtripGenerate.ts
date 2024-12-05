@@ -1,6 +1,6 @@
 import { userEntry } from '../../store/ui/types'
-import { fetchUserEntries } from '../../utils/AuthService'
 import { fetchHereData } from '../../utils/fetchHereData'
+import { fetchUserEntries } from '../../utils/place'
 import { reverseGeocodeHereData } from '../../utils/reverseGeocodeHereData'
 
 type info = {

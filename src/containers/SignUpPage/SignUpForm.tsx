@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom'
 import ImageDropzone from '../../components/ImageDropzone'
 import { logInSuccess, setMessage } from '../../store/actions'
 import { selectDropzoneFiles } from '../../store/selectors'
-import { logIn, signUp } from '../../utils/AuthService'
+import { logIn, signUp } from '../../utils/authenticationService'
 import { StyledInput, LoginButton, SignupCard } from './style'
 
 type IFormInput = {

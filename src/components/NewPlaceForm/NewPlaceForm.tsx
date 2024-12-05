@@ -16,13 +16,17 @@ import { useHistory } from 'react-router-dom'
 
 import { setMessage, setCoorForMap } from '../../store/actions'
 import { selectUserLocations, selectUserToken } from '../../store/selectors'
-import { FormInputUserEntry } from '../../utils/additionalTypes'
-import { createPlace, editPlace, placeType } from '../../utils/CreateNewPlace'
 import {
   getAllCategories,
   getAllSelectedCategories,
-} from '../../utils/getCategoriesArray'
+} from '../../utils/getCategories'
 import { initUserData } from '../../utils/initUserData'
+import {
+  FormInputUserEntry,
+  createPlace,
+  editPlace,
+  placeType,
+} from '../../utils/place'
 import PlaceMap from './MapPlaceSelect'
 import { StyledRadioGroup, StyledForm } from './style'
 

@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { setMessage } from '../../store/actions'
 import { selectUserToken, selectUserId } from '../../store/selectors'
-import { editUserPassword } from '../../utils/AuthService'
+import { editUserPassword } from '../../utils/user'
 import { InfoButton } from '../DialogDelete/style'
 import { StyledButton } from './style'
 

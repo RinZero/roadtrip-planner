@@ -14,6 +14,7 @@ export default () => {
     // hier überschreiben was wir überschreiben wollen - Sachen die wir global brauchen :)
     // buttons, border radius, etc.
     typography: {
+      fontFamily: `"Montserrat", sans-serif`,
       h1: {
         fontSize: '40px',
         color: '#707070',
@@ -36,11 +37,38 @@ export default () => {
     },
     overrides: {
       MuiButton: {
+        textPrimary: {
+          color: '#707070',
+          backgroundColor: '#fff',
+        },
+        textSecondary: {
+          color: '#fff',
+          backgroundColor: '#e67676',
+          '&:hover': {
+            backgroundColor: '#da3535',
+          },
+          '&:active': {
+            backgroundColor: '#da3535',
+          },
+        },
         root: {
+          color: '#fff',
           borderRadius: '15px',
           backgroundColor: '#71B255',
           boxShadow: '0px 3px 6px 1px rgba(0, 0, 0, 0.16)',
-          padding: '10px 15px',
+          padding: '16px',
+          '&:hover': {
+            backgroundColor: '#355727',
+          },
+          '&:active': {
+            backgroundColor: '#355727',
+          },
+        },
+      },
+      MuiListItemSecondaryAction: {
+        root: {
+          top: '24px',
+          right: '8px',
         },
       },
       MuiAppBar: {
@@ -57,7 +85,10 @@ export default () => {
       MuiInput: {
         underline: {
           '&::before': {
-            borderBottom: 0,
+            content: 'none',
+          },
+          '&::after': {
+            content: 'none',
           },
         },
       },

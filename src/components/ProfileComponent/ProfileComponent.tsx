@@ -1,181 +1,207 @@
 import React, { MouseEvent, useState, memo } from 'react'
 
 import {
-  Button,
-  Avatar,
   Box,
   Popper,
-  withTheme,
   Typography,
   FormControl,
   InputLabel,
   Input,
-  IconButton,
-  InputAdornment,
   Divider,
+  ClickAwayListener,
+  Link,
 } from '@material-ui/core'
-import { Visibility, VisibilityOff } from '@material-ui/icons'
 import EditIcon from '@material-ui/icons/Edit'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link as RouterLink } from 'react-router-dom'
 
-import { updateUser } from '../../store/actions'
-
-//Art 2
-const ProfileBox = withTheme(styled(Box)`
-  margin-top: ${(props) => props.theme.spacing(40)}px;
-  margin-bottom: ${(props) => props.theme.spacing(7)}px;
-`)
-
-const PopperBox = withTheme(styled.form`
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  padding: ${(props) => props.theme.spacing(2)}px;
-  background-color: white;
-  border-radius: 15px;
-`)
-
-const IconBox = withTheme(styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  margin: ${(props) => props.theme.spacing(2.5)}px
-    ${(props) => props.theme.spacing(1)}px
-    ${(props) => props.theme.spacing(1)}px;
-`)
-
-const ProfileAvatar = withTheme(styled(Avatar)`
-  width: ${(props) => props.theme.spacing(36)}px;
-  height: ${(props) => props.theme.spacing(36)}px;
-  display: block;
-  margin: 0 auto;
-`)
-
-const InfoButton = withTheme(styled(Button)`
-  background-color: white;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  height: ${(props) => props.theme.spacing(5)}px;
-  width: ${(props) => props.theme.spacing(10)}px;
-  margin-right: ${(props) => props.theme.spacing(0.5)}px;
-`)
-
-const EditButton = withTheme(styled(Button)`
-  background-color: #71b255;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  color: white;
-  height: ${(props) => props.theme.spacing(5)}px;
-  min-width: ${(props) => props.theme.spacing(5)}px;
-`)
-
-const ConfirmButton = withTheme(styled(Button)`
-  background-color: #71b255;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  color: white;
-  height: ${(props) => props.theme.spacing(5)}px;
-  min-width: ${(props) => props.theme.spacing(5)}px;
-`)
+import { DialogDelete } from '../../components/DialogDelete'
+import { updateUser, setMessage } from '../../store/actions'
+import {
+  selectUserPicture,
+  selectUserEmail,
+  selectUserName,
+  selectUserToken,
+  selectUserId,
+  selectUserIsAdmin,
+  selectDropzoneFiles,
+} from '../../store/selectors'
+import { deleteUser, editUser } from '../../utils/AuthService'
+import ImageDropzone from '../ImageDropzone'
+import ChangePasswordDialog from './ChangePasswordDialog'
+import {
+  ProfileBox,
+  PopperBox,
+  IconBox,
+  ProfileAvatar,
+  TypographyMarginSmall,
+  StyledButton,
+} from './style'
 
 const ProfileComponent = () => {
+  const token = useSelector(selectUserToken())
+  const userId = useSelector(selectUserId())
+  const name = useSelector(selectUserName())
+  const email = useSelector(selectUserEmail())
+  const profilePic = useSelector(selectUserPicture())
+  const isAdmin = useSelector(selectUserIsAdmin())
+
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null)
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget)
-  }
-
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popper' : undefined
-  const [values, setValues] = React.useState({
-    showPassword: false,
+  const [id, setId] = useState<string | undefined>(undefined)
+  const [values, setValues] = useState({
+    open: false,
   })
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget)
+    setValues({ ...values, open: !values.open })
+    setId(values.open ? 'simple-popper' : undefined)
   }
 
-  const handleMouseDownPassword = (event: MouseEvent) => {
-    event.preventDefault()
+  const handleClickAway = () => {
+    setValues({ ...values, open: false })
+    setAnchorEl(null)
+    setId(values.open ? 'simple-popper' : undefined)
   }
 
   type IFormInput = {
     userName: string
     email: string
-    password: string
-    image: string
+    image: (File & {
+      preview: string
+    })[]
   }
 
   const dispatch = useDispatch()
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      userName: '',
-      email: '',
-      password: '',
-      image: '',
-    },
-  })
-  const onFormSubmit = (data: IFormInput) => {
-    dispatch(
-      updateUser({
-        userName: data.userName,
-        email: data.email,
-        password: data.password,
-        image: data.image,
+  const image = useSelector(selectDropzoneFiles())
+
+  const { register, handleSubmit } = useForm()
+  const onFormSubmit = async (data: IFormInput) => {
+    const inputData = new FormData()
+    inputData.append('[user]username', data.userName)
+    inputData.append('[user]email', data.email)
+    inputData.append('[user]image', image[0])
+    inputData.append('[user]id', userId)
+
+    const response = await editUser(inputData, token, userId)
+    if (response.status === 200) {
+      dispatch(
+        updateUser({
+          userName: data.userName,
+          email: data.email,
+          picture:
+            response.data.data.attributes.image === null
+              ? undefined
+              : response.data.data.attributes.image?.url,
+        })
+      )
+      dispatch(
+        setMessage({
+          message: 'Dein Profil wurde bearbeitet.',
+          status: 'success',
+        })
+      )
+    } else if (response.status === 422) {
+      const arr: Array<Record<string, any>> = []
+      response.data.forEach(function (item: Record<string, any>) {
+        if (item[1]) {
+          arr.push(item[1].pop())
+        }
       })
-    )
+      const str = arr.join(' ')
+      dispatch(setMessage({ message: str, status: 'error' }))
+    }
+    //close popup
+    handleClickAway()
   }
+
   return (
     <>
       <ProfileBox>
         <ProfileAvatar
-          alt="profile picture"
-          src="https://image.freepik.com/free-photo/mand-holding-cup_1258-340.jpg"
+          aria-label="Profilbild"
+          alt="Profilbild"
+          src={profilePic}
         />
-        <Typography variant="h3">Name</Typography>
-        <Typography variant="h3">Email</Typography>
-        <EditButton aria-describedby={id} type="button" onClick={handleClick}>
+        <Typography variant="h3">{name}</Typography>
+        <TypographyMarginSmall variant="h3">{email}</TypographyMarginSmall>
+        <StyledButton
+          aria-describedby={id}
+          aria-label="Profil bearbeiten"
+          title="Hier das Profil bearbeiten"
+          type="button"
+          onClick={handleClick}
+        >
           <EditIcon />
-        </EditButton>
-        <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom">
-          <PopperBox>
-            <Typography variant="h3">Bearbeiten:</Typography>
-            <FormControl>
-              <InputLabel>Name</InputLabel>
-              <Input name="userName" ref={register} />
-            </FormControl>
-            <Divider />
-            <FormControl>
-              <InputLabel>Email</InputLabel>
-              <Input name="email" ref={register} />
-            </FormControl>
-            <Divider />
-            <FormControl>
-              <InputLabel>Password</InputLabel>
-              <Input
-                name="password"
-                ref={register}
-                type={values.showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-            <IconBox>
-              <InfoButton>Profilbild</InfoButton>
-              <ConfirmButton
-                type="submit"
-                onSubmit={handleSubmit(onFormSubmit)}
+        </StyledButton>
+        {isAdmin ? (
+          <>
+            <Link component={RouterLink} to={`/admin`} variant="h6">
+              Admin
+            </Link>
+          </>
+        ) : (
+          ''
+        )}
+        <Popper
+          id={id}
+          open={values.open}
+          anchorEl={anchorEl}
+          placement="bottom"
+        >
+          <ClickAwayListener onClickAway={handleClickAway}>
+            <PopperBox onSubmit={handleSubmit(onFormSubmit)}>
+              <Typography variant="h3">Bearbeiten:</Typography>
+              <FormControl>
+                <InputLabel>Name</InputLabel>
+                <Input
+                  name="userName"
+                  inputRef={register}
+                  defaultValue={name}
+                  inputProps={{ minlength: 3, maxlength: 50, required: true }}
+                />
+              </FormControl>
+              <Divider />
+              <FormControl>
+                <InputLabel>E-Mail</InputLabel>
+                <Input
+                  name="email"
+                  inputRef={register}
+                  defaultValue={email}
+                  inputProps={{ type: 'email', required: true }}
+                />
+              </FormControl>
+              <Divider />
+              <Box
+                display="flex"
+                alignItems="flex-start"
+                flexDirection="column"
               >
-                Speichern
-              </ConfirmButton>
-            </IconBox>
-          </PopperBox>
+                <Box mb={1}>
+                  <Typography variant="h6">Profilbild:</Typography>
+                </Box>
+                <ImageDropzone />
+              </Box>
+
+              <Divider />
+
+              <IconBox>
+                <DialogDelete
+                  objectType="Profil"
+                  id={userId}
+                  onDelete={deleteUser}
+                  text="Bist du dir wirklich sicher? Das Löschen deines Profils kann nicht mehr rückgängig
+                    gemacht werden. Damit gehen auch deine erstellten Roadtrips
+                    und Orte verloren."
+                />
+                <ChangePasswordDialog />
+                <StyledButton type="submit">Speichern</StyledButton>
+              </IconBox>
+            </PopperBox>
+          </ClickAwayListener>
         </Popper>
       </ProfileBox>
     </>

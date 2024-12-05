@@ -1,25 +1,72 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 
-import { Typography } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
-import CustomCategorySelect from '../../components/CustomCategorySelect'
-import EditRoadtripComponent from '../../components/EditRoadtripComponent'
-import StartGoalForm from '../../components/StartGoalForm'
-import StepsMenu from '../../components/StepsMenu'
-import { selectProgessStep } from '../../store/selectors'
+import { setMessage, setProgressStep } from '../../store/actions'
+import {
+  selectIsGenerated,
+  selectRoadtripStops,
+  selectUiSelectedCategories,
+  selectUserToken,
+} from '../../store/selectors'
+const EditRoadtripCreation = React.lazy(
+  () => import('../../components/EditRoadtripCreation')
+)
+const ShareRoadtrip = React.lazy(() => import('../../containers/ShareRoadtrip'))
+const StepsMenu = React.lazy(() => import('../../components/StepsMenu'))
+const StartGoalForm = React.lazy(() => import('../../components/StartGoalForm'))
+const SelectCategories = React.lazy(
+  () => import('../../containers/SelectCategories')
+)
 
-const RoadtripForm = () => {
-  const progressStep = useSelector(selectProgessStep())
+type PropsForForm = {
+  id: string
+}
+
+const RoadtripForm = (props: PropsForForm) => {
+  const dispatch = useDispatch()
+  const history = useHistory()
+  // get necessary stuff from store to check if progressStep is valid
+  const dataStep1 = useSelector(selectRoadtripStops())
+  const dataStep2 = useSelector(selectUiSelectedCategories())
+  const dataStep3 = useSelector(selectIsGenerated())
+  const token = useSelector(selectUserToken())
+  const progressString = props.id ? props.id[1] : '1'
+  if (progressString === '1') dispatch(setProgressStep({ progressStep: '1' }))
+  else if (progressString === '2' && dataStep1.length > 1)
+    dispatch(setProgressStep({ progressStep: '2' }))
+  else if (
+    progressString === '3' &&
+    dataStep1.length > 1 &&
+    dataStep2.length > 0
+  )
+    dispatch(setProgressStep({ progressStep: '3' }))
+  else if (
+    progressString === '4' &&
+    dataStep1.length > 0 &&
+    dataStep2.length > 0 &&
+    dataStep3 &&
+    token
+  )
+    dispatch(setProgressStep({ progressStep: '4' }))
+  else {
+    history.goBack()
+    dispatch(
+      setMessage({
+        message: `Mach bitte zuerst die Schritte davor fertig.`,
+        status: 'error',
+      })
+    )
+  }
+
   return (
     <>
       <StepsMenu />
-      {progressStep.toString() === '1' && <StartGoalForm />}
-      {progressStep.toString() === '2' && <CustomCategorySelect />}
-      {progressStep.toString() === '3' && <EditRoadtripComponent />}
-      {progressStep.toString() === '4' && (
-        <Typography variant="h3">Danke fürs User Testen xD</Typography>
-      )}
+      {progressString === '1' && <StartGoalForm />}
+      {progressString === '2' && <SelectCategories />}
+      {progressString === '3' && <EditRoadtripCreation />}
+      {progressString === '4' && <ShareRoadtrip />}
     </>
   )
 }

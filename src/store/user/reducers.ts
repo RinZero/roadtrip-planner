@@ -6,6 +6,10 @@ import {
   logOutSuccess,
   updateUser,
   UserActionsType,
+  getRoadtripsByUserSuccess,
+  getLocationsByUserSuccess,
+  getUsersByAdminSuccess,
+  updateTutorial,
 } from './actions'
 import { UserState } from './types'
 
@@ -14,11 +18,15 @@ export const initialState: UserState = {
   email: '',
   isAdmin: false,
   password: '',
-  image: '',
   roadtrips: [],
   locations: [],
   id: 'guest',
   picture: undefined,
+  token: '',
+  created_at: '',
+  updated_at: '',
+  users: [],
+  tutorial: [false, false, false],
 }
 
 export const userReducer = produce(
@@ -33,22 +41,52 @@ export const userReducer = produce(
           id,
           roadtrips,
           locations,
+          token,
+          image,
+          created_at,
+          updated_at,
+          users,
+          tutorial,
         } = action.payload
         draft.id = id
         draft.userName = userName
         draft.email = email
         draft.isAdmin = isAdmin
-        draft.picture = picture
+        draft.picture = image || picture
         draft.roadtrips = roadtrips
+        draft.locations = locations
+        draft.users = users
+        draft.token = token
+        draft.created_at = created_at
+        draft.updated_at = updated_at
+        draft.tutorial = tutorial
+        return draft
+      }
+      case getType(getRoadtripsByUserSuccess): {
+        const { roadtrips } = action.payload
+        draft.roadtrips = roadtrips
+        return draft
+      }
+      case getType(getLocationsByUserSuccess): {
+        const { locations } = action.payload
         draft.locations = locations
         return draft
       }
+      case getType(getUsersByAdminSuccess): {
+        const { users } = action.payload
+        draft.users = users
+        return draft
+      }
       case getType(updateUser): {
-        const { userName, email, password, image } = action.payload
+        const { userName, email, picture } = action.payload
         draft.userName = userName
         draft.email = email
-        draft.password = password
-        draft.image = image
+        draft.picture = picture
+        return draft
+      }
+      case getType(updateTutorial): {
+        const { tutorial } = action.payload
+        draft.tutorial = tutorial
         return draft
       }
       case getType(logOutSuccess): {

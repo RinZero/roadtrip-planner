@@ -1,123 +1,312 @@
-/* eslint-disable no-console */
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 
+import { Box, Typography } from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+
+import CategoryDropdown from '../../components/CategoryDropdown'
+import LoadingAnimation from '../../components/LoadingAnimation'
+import { roadtripGenerate } from '../../components/StartGoalForm/raoadtripGenerate'
+import Tutorial from '../../components/Tutorial'
 import {
-  Button,
-  withTheme,
-  Box,
-  Chip,
-  FormControl,
-  Typography,
-} from '@material-ui/core'
-import styled from 'styled-components'
-
-import CustomCategorySelect from '../../components/CustomCategorySelect'
-
-// Art 2
-const TagBox = withTheme(styled(Box)`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  flex: 0 0 100%;
-  gap: ${(props) => props.theme.spacing(2)}px;
-  list-style: none;
-  padding: ${(props) => props.theme.spacing(2)}px;
-  margin-top: ${(props) => props.theme.spacing(3)}px;
-`)
-
-const TagChip = withTheme(styled(Chip)`
-  padding: ${(props) => props.theme.spacing(2.5)}px
-    ${(props) => props.theme.spacing(0.5)}px;
-  border-radius: 15px;
-  font-size: ${(props) => props.theme.spacing(2)}px;
-`)
-
-const StartButton = withTheme(styled(Button)`
-  background-color: #71b255;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  color: white;
-  height: ${(props) => props.theme.spacing(5)}px;
-  width: ${(props) => props.theme.spacing(44.25)}px;
-  margin-top: ${(props) => props.theme.spacing(3)}px;
-  content: 'Start';
-  &:hover,
-  &:active {
-    background-color: #355727;
-  }
-`)
-const CategoriesFormControl = withTheme(styled(FormControl)`
-  margin: ${(props) => props.theme.spacing(3)}px;
-  min-width: ${(props) => props.theme.spacing(30)}px;
-`)
-const CancelButton = withTheme(styled(Button)`
-  background-color: #e67676;
-  box-shadow: 0px 3px 6px 0px #b1b1b1;
-  color: white;
-  height: ${(props) => props.theme.spacing(5)}px;
-  width: ${(props) => props.theme.spacing(44.25)}px;
-  margin-top: ${(props) => props.theme.spacing(3)}px;
-  content: 'Start';
-  &:hover,
-  &:active {
-    background-color: #da3535;
-  }
-`)
+  setMapRoute,
+  setMaxRoadtripStops,
+  setMessage,
+  setRoadtripInfos,
+  setUiSelectedCategories,
+} from '../../store/actions'
+import {
+  selectMaxRoadtripStops,
+  selectRoadtripStops,
+  selectUiSelectedCategories,
+  selectUserLocations,
+  selectUserHasTutorial,
+} from '../../store/selectors'
+import { userEntry } from '../../store/ui/types'
+import {
+  getFirstCategories,
+  getSecondCategories,
+  getThirdCategories,
+} from '../../utils/getCategoriesArray'
+import {
+  AddButton,
+  StartButton,
+  TagBox,
+  TagChip,
+  CategoryInputLabel,
+  AllDropdowns,
+  Dropdownbox,
+  AddSection,
+  AddText,
+  CategoriesFormControl,
+} from './style'
 
 const SelectCategories = () => {
-  const [chipData, setChipData] = React.useState([
-    { key: 0, label: 'Tag 1' },
-    { key: 1, label: 'Tag 2' },
-    { key: 2, label: 'Tag 3' },
-    { key: 3, label: 'Tag 4' },
-  ])
-  const [showCategories, setShowCategories] = React.useState(false)
-  const onClick = () => {
-    showCategories ? setShowCategories(false) : setShowCategories(true)
+  const history = useHistory()
+  //Loading Animation
+  const [loading, setLoading] = useState(false)
+
+  // vars to generate Roadtrip
+  const dispatch = useDispatch()
+  dispatch(setMaxRoadtripStops({ maxRoadtripStops: 10 }))
+  const maxStops = useSelector(selectMaxRoadtripStops())
+  const stops = useSelector(selectRoadtripStops())
+  const tutorial = useSelector(selectUserHasTutorial())
+
+  const [numberCategory, setNumberCategory] = useState(0)
+  const [categories, setCategories] = useState(['', '', ''])
+  //Get Data from ChipMap: ids=Array.from(chips.keys()) text=Array.from(chips.values())
+  const selectedCategories = useSelector(selectUiSelectedCategories())
+  const [chips, setChips] = useState(selectedCategories)
+  const [currentChip, setCurrentChip] = useState({ number: '', name: '' })
+
+  const [first, setFirst] = useState('')
+  const firstArray = getFirstCategories()
+  // Get names of the categories later (depends on the category choosen before)
+  const [secondArray, setSecondArray] = useState([{ number: '', name: '' }])
+  const [thirdArray, setThirdArray] = useState([{ number: '', name: '' }])
+
+  type infoType = {
+    address: string
+    categories: { id: string; name: string; primary?: boolean }[]
+    coordinates: number[]
+    api_key: string
+    entry?: userEntry
   }
+  //get Location of User
+  const userLocations = useSelector(selectUserLocations())
+
+  const getUserLocations = () => {
+    const arr = new Array<infoType>()
+    if (userLocations) {
+      userLocations.forEach(function (place: Record<string, any>) {
+        if (place.category) {
+          const categoryObj = JSON.parse(place.category)
+          const allCategories = new Array<{ id: string; name: string }>()
+          categoryObj.forEach((item: { number: string; name: string }) => {
+            allCategories.push({ id: item.number, name: item.name })
+          })
+
+          const userEntry = {
+            public: place.public,
+            name: place.name,
+            description: place.description,
+            latitude: place.latitude,
+            longitude: place.longitude,
+            category: place.category,
+            user_id: place.user_id,
+            is_allowed: place.is_allowed,
+          }
+
+          arr.push({
+            address: place.name || '',
+            categories: allCategories,
+            coordinates: [place.latitude || 0, place.longitude || 0],
+            api_key: place.api_entry_key || '',
+            entry: userEntry,
+          })
+        }
+      })
+      return arr
+    }
+    return undefined
+  }
+
+  const formChanged = (event: any) => {
+    setNumberCategory(event.target.id)
+    setCurrentChip({
+      number: event.target.value,
+      name: event.target.selectedOptions[0].label,
+    })
+
+    const index = event.target.id - 1
+    if (index === 0) {
+      setFirst(event.target.value)
+      const second = getSecondCategories(event.target.value)
+      setSecondArray(second)
+      categories[1] = ''
+      categories[2] = ''
+    }
+    if (index === 1) {
+      const third = getThirdCategories(first, event.target.value)
+      setThirdArray(third)
+      categories[2] = ''
+    }
+    const hideLastDropdown: number = +event.target.id - 1
+    if (event.target.value === '') {
+      setNumberCategory(hideLastDropdown)
+      if (categories[hideLastDropdown - 1]) {
+        const keyValue = categories[hideLastDropdown - 1].split(/(?<=^\S+)\s/)
+        setCurrentChip({ number: keyValue[0], name: keyValue[1] })
+      }
+    }
+
+    categories[index] =
+      event.target.value + ' ' + event.target.selectedOptions[0].label
+  }
+
   const addChip = () => {
-    showCategories ? setShowCategories(false) : setShowCategories(true)
+    if (currentChip.name !== '') {
+      const newChips = chips.concat({
+        id: currentChip.number,
+        text: currentChip.name,
+      })
+      setChips(newChips)
+      dispatch(setUiSelectedCategories({ selectedCategories: newChips }))
+      setFirst('')
+      setFirst('null')
+      setCategories(['', '', ''])
+      setNumberCategory(0)
+      setCurrentChip({ number: '', name: '' })
+    }
   }
 
   const handleDelete = (chipToDelete: any) => () => {
-    setChipData((chips) =>
-      chips.filter((chip) => chip.key !== chipToDelete.key)
-    )
+    const deletionIndex = chips.indexOf(chipToDelete)
+    const newChips = chips
+      .slice(0, deletionIndex)
+      .concat(chips.slice(deletionIndex + 1, chips.length))
+    setChips(newChips)
+    dispatch(setUiSelectedCategories({ selectedCategories: newChips }))
   }
-  return (
-    <>
-      <Box display="block" width="100%" justifyContent="center">
-        {showCategories ? (
-          <Box>
-            <Typography variant="h6">Kategorie auswählen:</Typography>
-            <CategoriesFormControl>
-              <CustomCategorySelect />
-              <StartButton onClick={addChip}>Auswählen</StartButton>
-              <CancelButton onClick={onClick}>Abbrechen</CancelButton>
-            </CategoriesFormControl>
-          </Box>
-        ) : (
-          <StartButton onClick={onClick}>Hinzufügen</StartButton>
-        )}
-        <TagBox component="ul">
-          {chipData.map((data) => {
-            let icon
 
-            return (
-              <li key={data.key}>
-                <TagChip
-                  icon={icon}
-                  label={data.label}
-                  onDelete={handleDelete(data)}
-                />
-              </li>
-            )
-          })}
-        </TagBox>
-        {showCategories ? undefined : (
-          <StartButton onClick={onClick}>Weiter</StartButton>
+  return (
+    <Box my="auto">
+      {tutorial[1] ? <Tutorial openBool={tutorial} /> : ''}
+      <div>
+        {loading ? (
+          <LoadingAnimation />
+        ) : (
+          <div>
+            <Box textAlign="center" id="category_observe">
+              <TagBox component="ul">
+                {chips.map((data) => {
+                  let icon
+
+                  return (
+                    <li>
+                      <TagChip
+                        icon={icon}
+                        value={data.id}
+                        label={data.text}
+                        onDelete={handleDelete(data)}
+                      />
+                    </li>
+                  )
+                })}
+              </TagBox>
+              <Dropdownbox>
+                <Typography variant="h6">
+                  Füge hier beliebig viele Über- und Unterkategorien hinzu :)
+                </Typography>
+                <AllDropdowns
+                  onChange={(e: any) => {
+                    formChanged(e)
+                  }}
+                >
+                  <CategoriesFormControl>
+                    <CategoryInputLabel id="Kategorie1">
+                      Überkategorie
+                    </CategoryInputLabel>
+                    <CategoryDropdown
+                      label="Kategorie1"
+                      id={1}
+                      options={firstArray}
+                      name="category1"
+                      selectedValue={first}
+                    />
+                  </CategoriesFormControl>
+                  {numberCategory >= 1 && (
+                    <CategoriesFormControl>
+                      <CategoryInputLabel id="Kategorie2">
+                        1. Unterkategorie
+                      </CategoryInputLabel>
+                      <CategoryDropdown
+                        label="Kategorie2"
+                        id={2}
+                        options={secondArray}
+                        name="category2"
+                      />
+                    </CategoriesFormControl>
+                  )}
+                  {numberCategory > 1 && thirdArray[1] && (
+                    <CategoriesFormControl>
+                      <CategoryInputLabel id="Kategorie3">
+                        2. Unterkategorie
+                      </CategoryInputLabel>
+                      <CategoryDropdown
+                        label="Kategorie3"
+                        id={3}
+                        options={thirdArray}
+                        name="category3"
+                      />
+                    </CategoriesFormControl>
+                  )}
+                  <br></br>
+                </AllDropdowns>
+                {currentChip.name ? (
+                  <AddSection id="category_add">
+                    <AddText>{currentChip.name}</AddText>
+                    <AddButton onClick={addChip}>Hinzufügen</AddButton>
+                  </AddSection>
+                ) : (
+                  ' '
+                )}
+                {Array.from(chips.keys()).length > 0 ? (
+                  <div>
+                    <br></br>
+                    <Typography variant="h6">
+                      Fertig ausgewählt? Generiere jetzt deinen Roadtrip!
+                    </Typography>
+                    <StartButton
+                      onClick={async () => {
+                        setLoading(true)
+                        dispatch(
+                          setUiSelectedCategories({
+                            selectedCategories: chips,
+                          })
+                        )
+
+                        const userLocationData = getUserLocations()
+
+                        const dataArray: string[] = []
+                        chips.map((chip) => dataArray.push(chip.id))
+                        const response = await roadtripGenerate(
+                          stops,
+                          maxStops,
+                          dataArray,
+                          userLocationData
+                        )
+                        if (response) {
+                          dispatch(setMapRoute({ mapRoute: response.coorArr }))
+                          dispatch(
+                            setRoadtripInfos({
+                              roadtripInfos: response.infoArr,
+                            })
+                          )
+                          if (dataArray.length > 0) history.push('/step/:3')
+                          else
+                            dispatch(
+                              setMessage({
+                                message: `Vervollständige bitte zuerst den zweiten Schritt. Du brauchst min. eine Kategorie.`,
+                                status: 'error',
+                              })
+                            )
+                        }
+                      }}
+                    >
+                      Generiere
+                    </StartButton>
+                  </div>
+                ) : (
+                  ''
+                )}
+              </Dropdownbox>
+            </Box>
+          </div>
         )}
-      </Box>
-    </>
+      </div>
+    </Box>
   )
 }
 
